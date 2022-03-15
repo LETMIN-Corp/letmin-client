@@ -1,9 +1,12 @@
+import { Routes, Route } from 'react-router-dom';
+import Home from './views/Home';
+
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold text-sky-800">
-      Hello Vite!
-      </h1>
+    <div className='w-screen min-h-screen'>
+      <Routes>
+        <Route path='/' element={<Home />} />
+      </Routes>
     </div>
   )
 }
