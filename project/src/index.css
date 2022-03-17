@@ -6,3 +6,8 @@
 * {
     font-family: 'Libre Franklin', sans-serif;
 }
+
+
+body {
+    overflow-x: hidden;
+}
