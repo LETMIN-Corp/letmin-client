@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import logoImage from '../public/images/logo.svg'
-import { useLocation } from "react-router-dom"
-import { useState } from 'react';
+import { Link } from "react-router-dom";
+import logoImage from "../public/images/logo.svg"
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 interface ButtonsInterface {
     text: string,
@@ -18,35 +18,35 @@ function Header() {
     const [menuIsOpen, setMenuIsOpen] = useState(false);
 
     let pageButtons : PageButtonsInterface = {
-        '/' : [
+        "/" : [
             {
-                text: 'Diferencial',
-                path: '#differential',
+                text: "Diferencial",
+                path: "#differential",
             },
             {
-                text: 'Sobre',
-                path: '#about',
+                text: "Sobre",
+                path: "#about",
             },
             {
-                text: 'Quem somos',
-                path: '#who-we-are',
+                text: "Quem somos",
+                path: "#who-we-are",
             },
         ],
     };
 
     return (
-        <header className='fixed z-50 w-full flex justify-between items-center px-4 md:px-10 py-2 bg-white drop-shadow-lg'>
+        <header className="fixed z-50 w-full flex justify-between items-center px-4 md:px-10 py-2 bg-white drop-shadow-lg">
             <div>
-                <img src={ logoImage } className='w-12 md:w-16' />
+                <img src={ logoImage } className="w-12 md:w-16" />
             </div>
             <div>
                 <i onClick={ () => setMenuIsOpen(true) } className="fa-solid fa-bars text-2xl block md:hidden cursor-pointer"></i>
             </div>
 
-            <div className={`${[menuIsOpen ? 'block' : 'hidden']} md:block`}>
+            <div className={`${[menuIsOpen ? "block" : "hidden"]} md:block`}>
                 {
-                    <div className='w-screen min-h-screen bg-white fixed top-0 left-0 md:w-full md:min-h-0 md:sticky'>
-                        <div className='w-full flex items-center justify-between px-4 py-2 md:hidden'>
+                    <div className="w-screen min-h-screen bg-white fixed top-0 left-0 md:w-full md:min-h-0 md:sticky">
+                        <div className="w-full flex items-center justify-between px-4 py-2 md:hidden">
                             <div></div>
                             <i 
                                 onClick={ () => setMenuIsOpen(false) } 
@@ -54,7 +54,7 @@ function Header() {
                             </i>
                         </div>
 
-                        <div className='text-center mt-20 md:mt-0 md:flex md:p-1'>
+                        <div className="text-center mt-20 md:mt-0 md:flex md:p-1">
                             {
                                 pageButtons[pagePath].map((button : ButtonsInterface , key : number) => {
                                     return (
@@ -69,7 +69,7 @@ function Header() {
                                 })
                             }
 
-                            <Link to='/register' className='rounded-full text-xl text-white font-bold py-2 px-4 bg-primary drop-shadow-lg border-2 border-primary md:text-lg hover:bg-white hover:text-primary ease-out duration-200'>Cadastre-se</Link>
+                            <Link to="/register" className="rounded-full text-xl text-white font-bold py-2 px-4 bg-primary drop-shadow-lg border-2 border-primary md:text-lg hover:bg-white hover:text-primary ease-out duration-200">Cadastre-se</Link>
                         </div>
                     </div>
                 }
