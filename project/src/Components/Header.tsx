@@ -36,9 +36,9 @@ function Header() {
 
     return (
         <header className="fixed z-50 w-full flex justify-between items-center px-4 md:px-10 py-2 bg-white drop-shadow-lg">
-            <div>
+            <a href="#main">
                 <img src={ logoImage } className="w-12 md:w-16" />
-            </div>
+            </a>
             <div>
                 <i onClick={ () => setMenuIsOpen(true) } className="fa-solid fa-bars text-2xl block md:hidden cursor-pointer"></i>
             </div>
@@ -46,7 +46,7 @@ function Header() {
             <div className={`${[menuIsOpen ? "block" : "hidden"]} md:block`}>
                 {
                     <div className="w-screen min-h-screen bg-white fixed top-0 left-0 md:w-full md:min-h-0 md:sticky">
-                        <div className="w-full flex items-center justify-between px-4 py-2 md:hidden">
+                        <div className="w-full flex items-center justify-between px-4 py-4 md:hidden">
                             <div></div>
                             <i 
                                 onClick={ () => setMenuIsOpen(false) } 
