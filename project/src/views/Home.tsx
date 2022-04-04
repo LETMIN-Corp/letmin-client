@@ -1,7 +1,6 @@
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
-import Card from '../components/Card';
-import partnerImage from '../public/images/partner-image-1.png';
+import Card from '../components/Card'
 import PartnerPhoto from '../components/PartnerPhoto';
 import Footer from '../components/Footer';
 
@@ -9,15 +8,15 @@ function Home () {
     return (
         <>
             <Header />
-            <main className='min-h-screen flex flex-col md:flex-row justify-center items-center bg-primary'>
+            <main className='min-h-screen flex flex-col md:flex-row justify-center items-center bg-primary relative'>
                 <div className="w-8/12 md:w-6/12 text-center md:text-left mb-8"> 
-                    <h1 className="text-6xl md:text-8xl lg:text-9xl text-black font-black md:10/12 lg:w-8/12 md:flex drop-shadow-lg">LET ME IN</h1>
+                    <h1 className="text-6xl md:text-8xl lg:text-9xl text-black font-black md:w-10/12 lg:w-8/12 md:flex drop-shadow-lg">LET ME IN</h1>
                 </div>
                 <div className="w-10/12 md:w-4/12 text-center md:text-left">
-                    <p className="text-white text-2xl mb-5">Uma forma rápida e fácil de gerenciar seu recrutamento</p>
+                    <p className="text-white text-xl my-5">Uma forma rápida e fácil de gerenciar seu recrutamento</p>
                     
                     <Link
-                        to="/"
+                        to="/register"
                         className="rounded-full text-xl text-white font-bold py-2 px-4 text-md bg-dark-purple drop-shadow-lg border-2 border-dark-purple hover:border-white hover:bg-lively-purple ease-out duration-200"
                     >
                         Cadastre-se
@@ -54,15 +53,18 @@ function Home () {
                 </p>
             </section>
             <section className='flex flex-col md:flex-row items-center bg-primary py-10 md:py-3 px-4 md:px-20'>
-                <span className='text-2xl md:text-4xl text-white md:mr-10'>Parceiros</span>
+                <span className='text-2xl md:text-4xl text-white md:mr-10 flex'>
+                    Parceiros 
+                    <span className='hidden md:flex mx-2'>|</span>
+                </span>
                 <span className='grid grid-cols-3 md:grid-cols-4 xl:grid-cols-10 gap-4 my-6 w-full md:w-12/12'>
-                    {
+                    {/* {
                         [
                             partnerImage,
                             partnerImage,
                             partnerImage,
                         ].map((url, key) => <PartnerPhoto key={ key } url={ url } />)
-                    }
+                    } */}
                 </span>
             </section>
             <section id='who-we-are' className='min-h-screen flex flex-col justify-center items-center py-10 md:py-20'>
