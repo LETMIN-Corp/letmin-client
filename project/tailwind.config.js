@@ -10,8 +10,9 @@ module.exports = {
       'light-purple': '#BE7EEE',
       'bold-purple': '#55396B',
       'bright-purple': '#7A2AB8',
-      'white': '#FFFFFF',
-      'black': '#000000'
+      'lively-purple': '#8800EA',
+      'white': '#FFFEFF',
+      'black': '#000002'
     },
   },
   plugins: [],
