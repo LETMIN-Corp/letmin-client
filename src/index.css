@@ -11,3 +11,7 @@
 body {
     overflow-x: hidden;
 }
+
+p {
+  line-height: 35px !important;
+}

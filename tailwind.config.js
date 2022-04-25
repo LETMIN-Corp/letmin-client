@@ -12,6 +12,7 @@ module.exports = {
       'bright-purple': '#7A2AB8',
       'lively-purple': '#8800EA',
       'white': '#FFFEFF',
+      'gray': '#E6DCC7',
       'black': '#000002'
     },
   },
