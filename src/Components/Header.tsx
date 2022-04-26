@@ -6,6 +6,7 @@ import { useState } from "react";
 interface ButtonsInterface {
     text: string,
     path: string,
+    isLink: boolean,
 }
 
 interface PageButtonsInterface {
@@ -22,17 +23,31 @@ function Header() {
             {
                 text: "Diferencial",
                 path: "#differential",
+                isLink: false,
             },
             {
                 text: "Sobre",
                 path: "#about",
+                isLink: false,
             },
             {
                 text: "Quem somos",
                 path: "#who-we-are",
+                isLink: false,
+            },
+            {
+                text: "Cadastre-se",
+                path: "/register",
+                isLink: true,
             },
         ],
-        "/login" : [],
+        "/register" : [
+            {
+                text: "Home",
+                path: "/",
+                isLink: true,
+            },
+        ],
     };
 
     return (
@@ -58,6 +73,12 @@ function Header() {
                         <div className="text-center mt-20 md:mt-0 md:flex md:p-1">
                             {
                                 pageButtons[pagePath].map((button : ButtonsInterface , key : number) => {
+                                    if(button.isLink) {
+                                        return (
+                                            <Link to={ button.path } className="rounded-full text-xl text-white font-bold py-2 px-4 bg-primary drop-shadow-lg border-2 border-primary md:text-lg hover:bg-white hover:text-primary ease-out duration-200">{ button.text }</Link>
+                                        );
+                                    }
+                                    
                                     return (
                                         <a
                                             key={ key }
@@ -69,8 +90,6 @@ function Header() {
                                     );
                                 })
                             }
-
-                            <Link to="/register" className="rounded-full text-xl text-white font-bold py-2 px-4 bg-primary drop-shadow-lg border-2 border-primary md:text-lg hover:bg-white hover:text-primary ease-out duration-200">Cadastre-se</Link>
                         </div>
                     </div>
                 }
