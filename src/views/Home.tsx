@@ -47,15 +47,15 @@ function Home () {
                         [
                             {
                                 title: 'Indicadores',
-                                text: 'Além de elaborarmos uma combinação perfeita pra você, a LETMIN desenvolve e disponibiliza gráficos que proporcionam uma consulta dinâmica e a facilitação da visualização da compatibilidade entre empresa e funcionário.',
+                                text: 'Gráficos que proporcionam uma consulta dinâmica e a facilitação da visualização da compatibilidade entre empresa e funcionário.',
                             },
                             {
                                 title: 'Combinações',
-                                text: 'Com nossa funcionalidade de combinação, é possível formular uma avaliação e seleção ccompleta da compatibilidade da procura do empregador com os interesses e especialidades do empregado, filtrando as melhores escolhas.',
+                                text: 'Sistema de avaliação e seleção completo que combina empresa e candidato com interesses e requisitos semelhantes.',
                             },
                             {
                                 title: 'Bancos de Talentos',
-                                text: 'Essa funcionalidade é outra exclusividade LETMIN, onde sua empresa poderá marcar possíveis funcionários para uma revisão posterior, seja por motivos de interesse ou prioridade, categorizando-os e deixando-os previamente selecionados.',
+                                text: 'Sua empresa poderá favoritar candidatos para serem, no futuro, contratados em uma vaga mais adequada.',
                             },
                         ].map((card, key) => <Card key={ key } card={ card } />)
                     }
