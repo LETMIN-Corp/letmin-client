@@ -32,6 +32,7 @@ function Header() {
                 path: "#who-we-are",
             },
         ],
+        "/login" : [],
     };
 
     return (
