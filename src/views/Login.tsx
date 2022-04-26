@@ -7,24 +7,22 @@ function Login () {
     return (
         <>
             <Header />
-            <main id="main" className="h-64 flex flex-col md:flex-row justify-center items-center bg-primary">
+            <main id="main" className="h-56 flex flex-col md:flex-row justify-center items-center bg-primary">
                 <div className="text-center mt-20"> 
-                    <h1 className="text-white text-6xl md:text-8xl md:w-10/12 lg:w-8/12 font-black ">Login</h1>
+                    <h1 className="text-white md:text-7xl md:w-10/12 lg:w-8/12 font-black ">Login</h1>
                 </div>
             </main>
-            <section className="min-h-80 flex flex-col justify-center items-center py-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-10/12 lg:w-8/12  my-6 md:my-10">
+            <section className="min-h-80 flex flex-col justify-center items-center py-5">
+                <div className="grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-2 gap-4 w-10/12 lg:w-8/12  my-6 md:my-10">
                     {
                         [
                             {
-                                image: 'logoImage',
+                                image: 'clientImage',
                                 title: 'Sou um candidato',
-                                text: 'Além d da visualização da compatibilidade entre empresa e funcionário.',
                             },
                             {
-                                image: '',
+                                image: 'companyImage',
                                 title: 'Sou uma empresa',   
-                                text: 'Além de elaborarmosação da compatibilidade entre empresa e funcionário.',
                             },
                         ].map((card, key) => <Card key={ key } card={ card } />)
                     }
