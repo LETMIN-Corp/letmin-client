@@ -4,7 +4,7 @@ import CardRegister from '../Components/CardRegister';
 import clientImage from "../public/images/circle-user.png"
 import companyImage from "../public/images/circle-company.png"
 
-function Register () {
+const Register : React.FC = () => {
     return (
         <>
             <Header />
@@ -23,9 +23,9 @@ function Register () {
                             {
                                 image: companyImage,
                                 title: 'Sou uma empresa',
-                                text: 'Acessar',
+                                text: 'Cadastrar',
                             },
-                        ].map((card, key) => <CardRegister key={ key } card={ card } />)
+                        ].map((card) => <CardRegister key={ card.text } card={ card } />)
                     }
                 </div>
             </section>

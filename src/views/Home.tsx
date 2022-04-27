@@ -4,7 +4,7 @@ import Footer from '../Components/Footer';
 import Card from '../Components/Card';
 
 
-function Home () {
+const Home : React.FC = () => {
     return (
         <>
             <Header />

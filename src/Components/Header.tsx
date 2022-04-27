@@ -14,11 +14,11 @@ interface PageButtonsInterface {
 }
 
 
-function Header() {
+const Header : React.FC = () => {
     const pagePath : string  = useLocation().pathname;
     const [menuIsOpen, setMenuIsOpen] = useState(false);
 
-    let pageButtons : PageButtonsInterface = {
+    const pageButtons : PageButtonsInterface = {
         "/" : [
             {
                 text: "Diferencial",
@@ -72,16 +72,22 @@ function Header() {
 
                         <div className="text-center mt-20 md:mt-0 md:flex md:p-1">
                             {
-                                pageButtons[pagePath].map((button : ButtonsInterface , key : number) => {
+                                pageButtons[pagePath].map((button : ButtonsInterface) => {
                                     if(button.isLink) {
                                         return (
-                                            <Link to={ button.path } className="rounded-full text-xl text-white font-bold py-2 px-4 bg-primary drop-shadow-lg border-2 border-primary md:text-lg hover:bg-white hover:text-primary ease-out duration-200">{ button.text }</Link>
+                                            <Link 
+                                                key={ button.path } 
+                                                className="rounded-full text-xl text-white font-bold py-2 px-4 bg-primary drop-shadow-lg border-2 border-primary md:text-lg hover:bg-white hover:text-primary ease-out duration-200"
+                                                to={ button.path }        
+                                            >
+                                                { button.text }
+                                            </Link>
                                         );
                                     }
                                     
                                     return (
                                         <a
-                                            key={ key }
+                                            key={ button.path }
                                             className="block text-xl mb-12 md:mb-0 md:flex items-center text-black md:text-lg md:mr-5 hover:text-primary ease-out duration-200"
                                             href={ button.path }
                                         >
