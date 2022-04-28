@@ -64,10 +64,11 @@ const Home : React.FC = () => {
             <section id="about" className="min-h-screen flex flex-col justify-center items-center py-10">
                 <h2 className="text-4xl text-center text-dark-purple font-bold px-6 mb-4">Sobre</h2>
                 <p className="text-lg md:text-xl text-justify w-10/12 lg:w-8/12 my-6">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus optio dolorem doloribus esse iste consectetur quaerat magni laudantium quibusdam? Esse incidunt natus voluptatibus earum vitae quod eos iure, rerum ut!
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus optio dolorem doloribus esse iste consectetur quaerat magni laudantium quibusdam? Esse incidunt natus voluptatibus earum vitae quod eos iure, rerum ut!
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus optio dolorem doloribus esse iste consectetur quaerat magni laudantium quibusdam? Esse incidunt natus voluptatibus earum vitae quod eos iure, rerum ut!
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus optio dolorem doloribus esse iste consectetur quaerat magni laudantium quibusdam? Esse incidunt natus voluptatibus earum vitae quod eos iure, rerum ut!
+                    A  <b className='text-primary'>LETMIN</b> é um serviço que veio  <b className='text-primary'>revolucionar</b> o processo de recrutamento, seleção e gerenciamento de funcionários.
+                    Para isso, oferecemos uma plataforma  <b className='text-primary'>acessível</b> que conecta os candidatos com as empresas oferecendo suporte em quase todo o processo
+                    de seleção. Somos um projeto que nasceu de conversas entre programadores e organizações consolidadas no ramo da tecnologia, visando
+                    <b className='text-primary'> modernizar e agilizar</b> a área de recursos humanos a partir das verdadeiras necessidades dos usuários.
+                    A partir de ferramentas eficientes e uma interface  <b className='text-primary'>intuitiva</b>, buscamos transformar a experiência dos empregados e empregadores durante o recrutamento.
                 </p>
             </section>
             <section className="flex flex-col md:flex-row items-center bg-primary py-10 md:py-3 px-4 md:px-20">

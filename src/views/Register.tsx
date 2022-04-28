@@ -11,7 +11,7 @@ const Register : React.FC = () => {
             <div className="flex justify-center py-10 bg-primary">
                 <h1 className="text-white text-4xl md:text-6xl font-black mt-20">Cadastro</h1>
             </div>
-            <section className="min-h-screen flex flex-col justify-center items-center py-5">
+            <section className="flex flex-col justify-center items-center lg:py-16">
                 <div className="grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-2 gap-20 w-10/12 lg:w-8/12  my-6 md:my-10">
                     {
                         [

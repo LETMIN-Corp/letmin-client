@@ -4,7 +4,7 @@ import Register from "./views/Register";
 import CompanyRegister from './views/CompanyRegister'
 function App() {
   return (
-    <div className="w-screen min-h-screen">
+    <div className="w-screen min-h-screen relative">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
