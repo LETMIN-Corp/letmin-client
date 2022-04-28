@@ -48,6 +48,13 @@ const Header : React.FC = () => {
                 isLink: true,
             },
         ],
+        "/register/company" : [
+            {
+                text: "Voltar para o cadastro",
+                path: "/register",
+                isLink: true,
+            }
+        ],
     };
 
     return (
