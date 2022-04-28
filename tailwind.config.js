@@ -11,10 +11,11 @@ module.exports = {
       'bold-purple': '#55396B',
       'bright-purple': '#7A2AB8',
       'lively-purple': '#8800EA',
+      'lilac': '#F4E6FF',
       'white': '#FFFEFF',
       'gray': '#E6DCC7',
       'black': '#000002'
     },
   },
   plugins: [],
-}
+} 
