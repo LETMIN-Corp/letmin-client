@@ -8,7 +8,7 @@ const Register : React.FC = () => {
     return (
         <>
             <Header />
-            <div id="main" className="flex justify-center py-10 bg-primary">
+            <div className="flex justify-center py-10 bg-primary">
                 <h1 className="text-white text-4xl md:text-6xl font-black mt-20">Cadastro</h1>
             </div>
             <section className="min-h-screen flex flex-col justify-center items-center py-5">
@@ -19,11 +19,13 @@ const Register : React.FC = () => {
                                 image: clientImage,
                                 title: 'Sou um candidato',
                                 text: 'Linkedin',
+                                to: '',
                             },
                             {
                                 image: companyImage,
                                 title: 'Sou uma empresa',
                                 text: 'Cadastrar',
+                                to: '/register/company',
                             },
                         ].map((card) => <CardRegister key={ card.text } card={ card } />)
                     }
