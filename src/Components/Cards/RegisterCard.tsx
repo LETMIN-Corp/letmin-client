@@ -15,7 +15,7 @@ const RegisterCard: React.FC<ComponentInterface> = ({ card }) => {
             <div className=' w-48 h-48 border-4 rounded-full flex items-center justify-center'>
                 <i className={`${ card.icon } text-9xl`}></i>
             </div>
-            <div className='text-dark-purple text-center mb-4 font-bold text-lg lg:text-xl mt-8 mb-8'>{ card.title }</div>
+            <div className='text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8'>{ card.title }</div>
             
             <SecondaryLink text={ card.text } path={ card.path } />
         </div>

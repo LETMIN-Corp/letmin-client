@@ -3,12 +3,13 @@ import Footer from '../Components/Layouts/Footer';
 import Card from '../Components/Cards/HomeCard';
 import SecondaryLink from '../Components/Links/SecondaryLink';
 import HighLight from '../Components/Items/HighLight';
+import HomeSection from '../Components/Layouts/HomeSections';
 
 const Home : React.FC = () => {
     return (
         <>
             <Header />
-            <main id='main' className='min-h-screen flex flex-col md:flex-row justify-center items-center bg-primary'>
+            <main id='main' className='min-h-90 flex flex-col md:flex-row justify-center items-center bg-primary'>
                 <div className='w-8/12 md:w-6/12 text-center md:text-left mb-8'> 
                     <h1 className='text-white text-6xl md:text-8xl lg:text-9xl font-black md:w-10/12 lg:w-8/12 md:flex drop-shadow-lg'>LET ME IN</h1>
                 </div>
@@ -18,7 +19,7 @@ const Home : React.FC = () => {
                     <SecondaryLink text='Cadastre-se' path='/register' />
                 </div>
             </main>
-            <section id='differential' className='min-h-screen flex flex-col justify-center items-center py-10'>
+            <HomeSection id='differential'>
                 <h2 className='text-4xl text-center text-dark-purple font-bold px-6 mb-4'>Nada parecido no mercado</h2>
                 <div className='px-5 md:w-10/12 lg:w-8/12 my-6 md:my-10'>
                     <p className='w-12/12 md:w-6/12 text-lg md:text-xl text-justify'>
@@ -31,8 +32,8 @@ const Home : React.FC = () => {
                         através do currículo e perfil cadastrado na aplicação.
                     </p>
                 </div>
-            </section>
-            <section className='min-h-80 flex flex-col justify-center items-center bg-bright-purple py-10'>
+            </HomeSection>
+            <section className='flex flex-col justify-center items-center bg-bright-purple py-10'>
                 <h2 className='text-4xl text-white text-center font-bold px-6'>
                     Contrate com <br />
                     mais eficiência
@@ -56,7 +57,7 @@ const Home : React.FC = () => {
                     }
                 </div>
             </section>
-            <section id='about' className='min-h-screen flex flex-col justify-center items-center py-10'>
+            <HomeSection id='about'>
                 <h2 className='text-4xl text-center text-dark-purple font-bold px-6 mb-4'>Sobre</h2>
                 <p className='text-lg md:text-xl text-justify w-10/12 lg:w-8/12 my-6'>
                     A  <HighLight>LETMIN</HighLight> é um serviço que veio  <HighLight>revolucionar</HighLight> o processo de recrutamento, seleção e gerenciamento de funcionários.
@@ -65,7 +66,7 @@ const Home : React.FC = () => {
                     <HighLight> modernizar e agilizar</HighLight> a área de recursos humanos a partir das verdadeiras necessidades dos usuários.
                     A partir de ferramentas eficientes e uma interface  <HighLight>intuitiva</HighLight>, buscamos transformar a experiência dos empregados e empregadores durante o recrutamento.
                 </p>
-            </section>
+            </HomeSection>
             <section className='flex flex-col md:flex-row items-center bg-primary py-10 md:py-3 px-4 md:px-20'>
                 <span className='text-2xl md:text-3xl text-white md:mr-10 flex'>
                     Parceiros 
@@ -77,7 +78,7 @@ const Home : React.FC = () => {
                     }
                 </span>
             </section>
-            <section id='who-we-are' className='min-h-screen flex flex-col justify-center items-center py-10 md:py-20'>
+            <HomeSection id='who-we-are'>
                 <h2 className='text-4xl text-center text-dark-purple font-bold px-6'>Quem somos</h2>
                 <div className='flex flex-col md:flex-row px-6 md:pt-6 max-w-4xl'>
                     <p className='text-lg md:text-xl text-justify mt-8 md:mt-0 md:w-6/12'>
@@ -97,7 +98,7 @@ const Home : React.FC = () => {
                         a fim de <HighLight>potencializar seu impacto</HighLight> nas atividades relacionadas ao lado mais pessoal das empresas.
                     </p>
                 </div>
-            </section>
+            </HomeSection>
             <div className='block text-center'>
                 <a href='#main'>
                     <i className='fa-solid fa-circle-arrow-up text-2xl mb-5 mx-auto text-primary'></i>

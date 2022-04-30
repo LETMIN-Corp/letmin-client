@@ -5,7 +5,7 @@ interface ItemInterface {
 
 const PageItem : React.FC <ItemInterface> = ({ isActivated, handleClick }) => {
     return (
-        <span onClick={ handleClick } className={`bg-primary block rounded-full w-4 h-4 mx-1 cursor-pointer ${[isActivated ? 'bg-dark-purple' : '']}`}></span>
+        <span onClick={ handleClick } className={`bg-primary drop-shadow-md block rounded-full w-4 h-4 mx-1 cursor-pointer ${[isActivated ? 'bg-dark-purple' : '']}`}></span>
     );
 }
 

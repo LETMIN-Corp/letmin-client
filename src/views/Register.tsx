@@ -8,7 +8,7 @@ const Register : React.FC = () => {
         <>
             <Header />
             <StripTitle text='Cadastro' />
-            <section className='flex flex-col justify-center items-center md:py-16'>
+            <section className='flex flex-col justify-center items-center md:py-10'>
                 <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-2 gap-10 w-10/12 lg:w-8/12  my-6 md:my-10'>
                     {
                         [

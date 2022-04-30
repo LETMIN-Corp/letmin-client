@@ -16,6 +16,12 @@ module.exports = {
       'gray': '#E6DCC7',
       'black': '#000002',
     },
+    minHeight: {
+      '0': '0',
+      '80': '80vh',
+      '90': '90vh',
+      'screen': '100vh',
+     },
   },
   plugins: [],
 } 
