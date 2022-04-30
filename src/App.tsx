@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./views/Home";
-import Register from "./views/Register";
-import CompanyRegister from './views/CompanyRegister'
+import Home from "./Views/Home";
+import Register from "./Views/Register";
+import CompanyRegister from './Views/CompanyRegister'
 function App() {
   return (
     <div className="w-screen min-h-screen relative">

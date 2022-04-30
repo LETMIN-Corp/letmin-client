@@ -1,4 +1,4 @@
-interface FormInputInterface {
+interface ComponentInterface {
     label?: string;
     type: string,
     consultPackage: {
@@ -9,9 +9,9 @@ interface FormInputInterface {
     id: string,
 };
 
-const FormInput : React.FC<FormInputInterface> = ({ label, type, consultPackage, name, id }) => {
+const FormInput : React.FC<ComponentInterface> = ({ label, type, consultPackage, name, id }) => {
     return (
-        <div className="md:flex items-center">
+        <div className="items-center">
             {
                 label && (
                     <label htmlFor={ id } className='mr-3 w-52'>{ label }</label>
@@ -23,7 +23,7 @@ const FormInput : React.FC<FormInputInterface> = ({ label, type, consultPackage,
                 onChange={ consultPackage.setValue }
                 name={ name }
                 id={ id }
-                className='w-full mt-2 mb-5 md:my-4 py-1 px-5 border-2 border-dark-purple rounded-full'
+                className='w-full mt-2 mb-5 md:mt-2 py-1 px-5 border-2 border-dark-purple rounded-lg'
             />
         </div>
     );

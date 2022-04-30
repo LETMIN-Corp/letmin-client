@@ -14,7 +14,7 @@ module.exports = {
       'lilac': '#F4E6FF',
       'white': '#FFFEFF',
       'gray': '#E6DCC7',
-      'black': '#000002'
+      'black': '#000002',
     },
   },
   plugins: [],

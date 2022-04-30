@@ -1,11 +1,11 @@
-interface CardInterface {
+interface ComponentInterface {
     card : {
         title: string,
         text: string,
     },
 }
 
-const Card: React.FC<CardInterface> = ({ card }) => {
+const HomeCard: React.FC<ComponentInterface> = ({ card }) => {
     return (
         <div className="bg-white rounded-md mx-auto text-justify p-5 max-w-sm drop-shadow-lg lg:text-lg">
             <div className="text-primary text-center mb-2 font-bold text-lg lg:text-xl">{ card.title }</div>
@@ -14,4 +14,4 @@ const Card: React.FC<CardInterface> = ({ card }) => {
     );
 }
 
-export default Card;
+export default HomeCard;

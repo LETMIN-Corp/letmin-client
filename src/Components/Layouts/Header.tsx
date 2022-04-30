@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import logoImage from "../public/images/logo.svg"
+import LogoImage from "../../Assets/logo.svg";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import PrimaryLink from "../Links/PrimaryLink";
 
 interface ButtonsInterface {
     text: string,
@@ -60,7 +60,7 @@ const Header : React.FC = () => {
     return (
         <header className="fixed z-50 w-full flex justify-between items-center px-4 md:px-10 py-2 bg-white drop-shadow-lg">
             <a href="#main">
-                <img src={ logoImage } className="w-12 md:w-16" />
+                <img src={ LogoImage } className="w-12 md:w-16" />
             </a>
             <div>
                 <i onClick={ () => setMenuIsOpen(true) } className="fa-solid fa-bars text-2xl block md:hidden cursor-pointer"></i>
@@ -82,21 +82,21 @@ const Header : React.FC = () => {
                                 pageButtons[pagePath].map((button : ButtonsInterface) => {
                                     if(button.isLink) {
                                         return (
-                                            <Link 
-                                                key={ button.path } 
-                                                className="rounded-full text-xl text-white font-bold py-2 px-4 bg-primary drop-shadow-lg border-2 border-primary md:text-lg hover:bg-white hover:text-primary ease-out duration-200"
-                                                to={ button.path }        
+                                            <PrimaryLink
+                                                text={ button.text }
+                                                path={ button.path }
+                                                key={ button.path }
                                             >
                                                 { button.text }
-                                            </Link>
+                                            </PrimaryLink>
                                         );
                                     }
                                     
                                     return (
                                         <a
-                                            key={ button.path }
                                             className="block text-xl mb-12 md:mb-0 md:flex items-center text-black md:text-lg md:mr-5 hover:text-primary ease-out duration-200"
                                             href={ button.path }
+                                            key={ button.path }
                                         >
                                             { button.text }
                                         </a>

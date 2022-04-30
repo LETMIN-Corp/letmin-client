@@ -1,8 +1,8 @@
-interface PartnerPhotoInterface {
+interface ComponentInterface {
     url: string, 
 }
 
-const PartnerPhoto: React.FC<PartnerPhotoInterface> = ({ url }) => {
+const PartnerImage: React.FC<ComponentInterface> = ({ url }) => {
     return (
         <img src={ url } className="rounded-full m-auto" style={{
             width: "80px",
@@ -11,4 +11,4 @@ const PartnerPhoto: React.FC<PartnerPhotoInterface> = ({ url }) => {
     );
 }
 
-export default PartnerPhoto;
+export default PartnerImage;
