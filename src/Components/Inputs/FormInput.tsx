@@ -11,7 +11,7 @@ interface ComponentInterface {
 
 const FormInput : React.FC<ComponentInterface> = ({ label, type, consultPackage, name, id }) => {
     return (
-        <div className="items-center">
+        <div className='items-center'>
             {
                 label && (
                     <label htmlFor={ id } className='mr-3 w-52'>{ label }</label>
