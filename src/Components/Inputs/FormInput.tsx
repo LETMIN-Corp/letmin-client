@@ -1,3 +1,6 @@
+import { useState } from "react";
+import InputTypesEnum from "../../Utils/InputTypesEnum";
+
 interface ComponentInterface {
     type: string,
     placeholder?: string
@@ -11,6 +14,8 @@ interface ComponentInterface {
 };
 
 const FormInput : React.FC<ComponentInterface> = ({ type, placeholder, size, consultPackage, name, id }) => {
+    const [showPassword, setShowPassword] = useState(false);
+
     const getInputSize = () => {
         switch(size) {
             case 'small':
@@ -22,16 +27,39 @@ const FormInput : React.FC<ComponentInterface> = ({ type, placeholder, size, con
         }
     }
 
+    const inputValue = consultPackage.getValue(name);
+
+    const isPassword = type === InputTypesEnum.password;
+    if(isPassword && showPassword) {
+        type = InputTypesEnum.text;
+    }
+
     return (
-        <input
-            type={ type }
-            placeholder={ placeholder }
-            value={ consultPackage.getValue(name) }
-            onChange={ consultPackage.setValue }
-            name={ name }
-            id={ id }
-            className={`${ getInputSize() } w-full md:text-lg mt-2 mb-5 md:mt-2 py-3 px-5 border-2 border-dark-purple rounded-lg`}
-        />
+        <div className={`${ getInputSize() } relative`}>
+            <input
+                type={ type }
+                placeholder={ placeholder }
+                value={ inputValue }
+                onChange={ consultPackage.setValue }
+                name={ name }
+                id={ id }
+                className='w-full md:text-lg mt-2 mb-5 md:mt-2 py-3 px-5 border-2 border-dark-purple rounded-lg'
+            />
+            {
+                isPassword && (
+                    <div className='absolute top-5 right-5'>
+                        {
+                            <i onClick={ () => setShowPassword(!showPassword) } className={`${ showPassword ? 'fa-eye' : 'fa-eye-slash' } cursor-pointer fa-solid  text-xl text-dark-purple`}></i>
+                        }
+                    </div>
+                )
+            }
+            {
+                inputValue && (
+                    <div className='input-up-animation z-50 bg-white font-medium px-1 text-dark-purple'>{ placeholder }</div>
+                )
+            }
+        </div>
     );
 }
 
