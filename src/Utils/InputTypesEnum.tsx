@@ -1,4 +1,4 @@
-enum InputTypes {
+enum InputTypesEnum {
     text = 'text',
     password = 'password',
     email = 'email',
@@ -7,4 +7,4 @@ enum InputTypes {
     tel = 'tel',
 }
 
-export default InputTypes;
+export default InputTypesEnum;

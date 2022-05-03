@@ -6,6 +6,7 @@ import StripTitle from '../Components/Titles/StripTitle';
 import SecondaryButton from '../Components/Buttons/SecondaryButton';
 import Pagination from '../Components/Items/Pagination';
 import InputTypesEnum from '../Utils/InputTypesEnum';
+import MaskTypesEnum from '../Utils/MaskTypesEnum';
 
 const CorpRegister : React.FC = () => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -76,11 +77,11 @@ const CorpRegister : React.FC = () => {
                             <form className='mb-10 lg:w-8/12 lg:mx-auto'>
                                 <div className='md:flex justify-between w-full'>
                                     <FormInput placeholder='Nome da Empresa' size='large' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-name' id='company-name' />
-                                    <FormInput placeholder='CNPJ' size='medium' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' id='company-cnpj' />
+                                    <FormInput placeholder='CNPJ' size='medium' useMask={ MaskTypesEnum.cnpj } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' id='company-cnpj' />
                                 </div>
                                 <div className='md:flex justify-between w-full'>
                                     <FormInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' id='company-email' />
-                                    <FormInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='company-phone' id='company-phone' />
+                                    <FormInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='company-phone' id='company-phone' />
                                 </div>
                                 <FormInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' id='company-address' />
                             </form>
@@ -89,12 +90,12 @@ const CorpRegister : React.FC = () => {
 
                             <form className='lg:w-8/12 lg:mx-auto'>
                                 <div className='md:flex justify-between w-full'>
-                                    <FormInput placeholder='Nome do Titular' size='large' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='holder-name' id='holder-name' />
-                                    <FormInput placeholder='CPF' type={ InputTypesEnum.text } size='medium' consultPackage={ consultPackage } name='holder-cpf' id='holder-cpf' />
+                                    <FormInput placeholder='Nome do Titular' size='large' useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='holder-name' id='holder-name' />
+                                    <FormInput placeholder='CPF' type={ InputTypesEnum.text } size='medium' useMask={ MaskTypesEnum.cpf } consultPackage={ consultPackage } name='holder-cpf' id='holder-cpf' />
                                 </div>
                                 <div className='md:flex justify-between w-full'>
                                     <FormInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='holder-email' id='holder-email' />
-                                    <FormInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='holder-phone' id='holder-phone' />
+                                    <FormInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='holder-phone' id='holder-phone' />
                                 </div>
                                 <FormInput placeholder='Senha' type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-password' id='holder-password' />
                                 <FormInput placeholder='Confirmar senha' type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-confirm-password' id='holder-confirm-password' />
@@ -115,13 +116,13 @@ const CorpRegister : React.FC = () => {
                             <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Informações do Cartão</h2>
 
                             <form className='mb-10 lg:w-8/12 lg:mx-auto'>
-                                <FormInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-number' id='card-number' />
-                                <FormInput placeholder='Nome do Titular' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-owner' id='card-number' />
+                                <FormInput placeholder='Nome do Titular' useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-owner' id='card-number' />
+                                <FormInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ consultPackage } useMask={ MaskTypesEnum.cardNumber } name='card-number' id='card-number' />
                                 
                                 <div className='md:flex justify-between w-full'>
-                                    <FormInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.date } consultPackage={ consultPackage } name='card-due' id='card-due' />
+                                    <FormInput placeholder='Data de Vencimento' size='medium' useMask={ MaskTypesEnum.date } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-due' id='card-due' />
+                                    <FormInput placeholder='CVV' size='small' useMask={ MaskTypesEnum.cvv }  type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-code' id='card-code' />
                                     <FormInput placeholder='Tipo' size='small' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-type' id='card-type' />
-                                    <FormInput placeholder='CVV' size='small'  type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-code' id='card-code' />
                                 </div>
                             </form>
                         </>
