@@ -16,7 +16,7 @@ interface ComponentInterface {
     id: string,
 };
 
-const FormInput : React.FC<ComponentInterface> = ({ type, placeholder, size, useMask, consultPackage, name, id }) => {
+const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, useMask, consultPackage, name, id }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const getInputSize = () => {
@@ -93,4 +93,4 @@ const FormInput : React.FC<ComponentInterface> = ({ type, placeholder, size, use
     );
 }
 
-export default FormInput;
+export default TextInput;
