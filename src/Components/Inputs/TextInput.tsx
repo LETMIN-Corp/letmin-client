@@ -55,7 +55,9 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, use
     function setValue (e: React.ChangeEvent<HTMLInputElement>) {
         e.target.value = selectMask(e.target.value);
 
-        consultPackage.setValue(e);
+        if (e.target.value.length <= limit) {
+            consultPackage.setValue(e);        
+        }
     }
 
     const inputValue = consultPackage.getValue(name);

@@ -88,29 +88,29 @@ const CorpRegister : React.FC = () => {
 
                             <form className='mb-10 lg:w-8/12 lg:mx-auto'>
                                 <div className='md:flex justify-between w-full'>
-                                    <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-name' id='company-name' />
+                                    <TextInput placeholder='Razão Social' size='large' limit={ 64 } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-name' id='company-name' />
                                     <TextInput placeholder='CNPJ' size='medium' useMask={ MaskTypesEnum.cnpj } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' id='company-cnpj' />
                                 </div>
                                 <div className='md:flex justify-between w-full'>
-                                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' id='company-email' />
+                                    <TextInput placeholder='Email' size='large' limit={ 64 } type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' id='company-email' />
                                     <TextInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='company-phone' id='company-phone' />
                                 </div>
-                                <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' id='company-address' />
+                                <TextInput placeholder='Endereço' limit={ 128 } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' id='company-address' />
                             </form>
 
                             <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Informações do Titular</h2>
 
                             <form className='lg:w-8/12 lg:mx-auto'>
                                 <div className='md:flex justify-between w-full'>
-                                    <TextInput placeholder='Nome do Titular' size='large' useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='holder-name' id='holder-name' />
+                                    <TextInput placeholder='Nome do Titular' size='large' limit={ 64 } useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='holder-name' id='holder-name' />
                                     <TextInput placeholder='CPF' type={ InputTypesEnum.text } size='medium' useMask={ MaskTypesEnum.cpf } consultPackage={ consultPackage } name='holder-cpf' id='holder-cpf' />
                                 </div>
                                 <div className='md:flex justify-between w-full'>
-                                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='holder-email' id='holder-email' />
+                                    <TextInput placeholder='Email' size='large' limit={ 64 } type={ InputTypesEnum.email } consultPackage={ consultPackage } name='holder-email' id='holder-email' />
                                     <TextInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='holder-phone' id='holder-phone' />
                                 </div>
-                                <TextInput placeholder='Senha' type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-password' id='holder-password' />
-                                <TextInput placeholder='Confirmar Senha' type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-confirmPassword' id='holder-confirmPassword' />
+                                <TextInput placeholder='Senha' limit={ 128 } type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-password' id='holder-password' />
+                                <TextInput placeholder='Confirmar Senha' limit={ 128 } type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-confirmPassword' id='holder-confirmPassword' />
                             </form>
                         </>
                     )
@@ -128,7 +128,7 @@ const CorpRegister : React.FC = () => {
                             <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Informações do Cartão</h2>
 
                             <form className='mb-10 lg:w-8/12 lg:mx-auto'>
-                                <TextInput placeholder='Nome do Titular' useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-owner' id='card-number' />
+                                <TextInput placeholder='Nome do Titular' limit={ 64 } useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-owner' id='card-number' />
                                 <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ consultPackage } useMask={ MaskTypesEnum.cardNumber } name='card-number' id='card-number' />
                                 
                                 <div className='md:flex justify-between w-full'>
