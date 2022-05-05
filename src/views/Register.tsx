@@ -2,8 +2,13 @@ import Header from '../Components/Layouts/Header';
 import Footer from '../Components/Layouts/Footer';
 import RegisterCard from '../Components/Cards/RegisterCard';
 import StripTitle from '../Components/Titles/StripTitle';
+import { useEffect } from 'react';
 
 const Register : React.FC = () => {
+    useEffect((): void => {
+        window.document.title = 'Cadastro';
+    });
+
     return (
         <>
             <Header />

@@ -8,6 +8,7 @@ interface ComponentInterface {
     placeholder?: string
     size?: 'small' | 'medium' | 'large',
     useMask?: string,
+    limit?: number,
     consultPackage: {
         getValue: (name: string) => string;
         setValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -16,7 +17,7 @@ interface ComponentInterface {
     id: string,
 };
 
-const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, useMask, consultPackage, name, id }) => {
+const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, useMask, limit = 512, consultPackage, name, id }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const getInputSize = () => {

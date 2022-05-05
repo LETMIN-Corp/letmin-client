@@ -2,6 +2,7 @@ import LogoImage from '../../Assets/logo.svg';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import PrimaryLink from '../Links/PrimaryLink';
+import { Link } from 'react-router-dom';
 
 interface ButtonsInterface {
     text: string,
@@ -59,9 +60,9 @@ const Header : React.FC = () => {
 
     return (
         <header className='fixed z-50 w-full flex justify-between items-center px-4 md:px-10 py-2 bg-white drop-shadow-lg'>
-            <a href='#main'>
+            <Link to='/'>
                 <img src={ LogoImage } className='w-12 md:w-16' />
-            </a>
+            </Link>
 
             {
                 (ExistJustOneButton) && (

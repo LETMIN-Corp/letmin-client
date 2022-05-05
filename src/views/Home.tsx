@@ -4,8 +4,13 @@ import Card from '../Components/Cards/HomeCard';
 import SecondaryLink from '../Components/Links/SecondaryLink';
 import HighLight from '../Components/Items/HighLight';
 import HomeSection from '../Components/Layouts/HomeSections';
+import { useEffect } from 'react';
 
 const Home : React.FC = () => {
+    useEffect((): void => {
+        window.document.title = 'Home';
+    });
+
     return (
         <>
             <Header />

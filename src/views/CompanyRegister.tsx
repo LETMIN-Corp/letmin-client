@@ -1,7 +1,7 @@
 import Footer from '../Components/Layouts/Footer';
 import Header from '../Components/Layouts/Header';
 import TextInput from '../Components/Inputs/TextInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import StripTitle from '../Components/Titles/StripTitle';
 import SecondaryButton from '../Components/Buttons/SecondaryButton';
 import Pagination from '../Components/Items/Pagination';
@@ -10,6 +10,10 @@ import MaskTypesEnum from '../Utils/MaskTypesEnum';
 import SelectInput from '../Components/Inputs/SelectInput';
 
 const CorpRegister : React.FC = () => {
+    useEffect((): void => {
+        window.document.title = 'Cadastro';
+    });
+
     const [currentPage, setCurrentPage] = useState(0);
     const [registerData, setRegisterData] = useState({
         company: {
@@ -106,7 +110,7 @@ const CorpRegister : React.FC = () => {
                                     <TextInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='holder-phone' id='holder-phone' />
                                 </div>
                                 <TextInput placeholder='Senha' type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-password' id='holder-password' />
-                                <TextInput placeholder='Confirmar Senha' type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-confirm-password' id='holder-confirm-password' />
+                                <TextInput placeholder='Confirmar Senha' type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-confirmPassword' id='holder-confirmPassword' />
                             </form>
                         </>
                     )
