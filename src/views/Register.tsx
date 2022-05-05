@@ -15,7 +15,7 @@ const Register : React.FC = () => {
                             {
                                 icon: 'fa-solid fa-user',
                                 title: 'Sou um candidato',
-                                text: 'Linkedin',
+                                text: 'Cadastrar',
                                 path: '',
                             },
                             {

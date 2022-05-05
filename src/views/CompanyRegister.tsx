@@ -42,7 +42,7 @@ const CorpRegister : React.FC = () => {
         return registerData[type][data];
     }
 
-    function setValue(e: React.ChangeEvent<HTMLInputElement>) {
+    function setValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
 
@@ -130,7 +130,7 @@ const CorpRegister : React.FC = () => {
                                 <div className='md:flex justify-between w-full'>
                                     <TextInput placeholder='Data de Vencimento' size='medium' useMask={ MaskTypesEnum.date } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-due' id='card-due' />
                                     <TextInput placeholder='CVV' size='small' useMask={ MaskTypesEnum.cvv }  type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-code' id='card-code' />
-                                    <SelectInput placeholder='Tipo' options={ cardTypes } size='small' consultPackage={ consultPackage } name='card-type' id='card-type' />
+                                    <SelectInput placeholder='Bandeira' options={ cardTypes } size='small' consultPackage={ consultPackage } name='card-type' id='card-type' />
                                 </div>
                             </form>
                         </>
