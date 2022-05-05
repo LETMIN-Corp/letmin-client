@@ -7,6 +7,9 @@
     font-family: 'Libre Franklin', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 body {
     overflow-x: hidden;
@@ -14,4 +17,21 @@ body {
 
 p {
   line-height: 35px !important;
+}
+
+@keyframes up {
+  from { 
+    top: 25px;
+  }
+  to {
+    top: 0;
+  }
+}
+
+.input-up-animation {
+  animation-name: up;
+  animation-duration: .3s;
+  position: absolute;
+  top: 0px;
+  left: 10px;
 }
