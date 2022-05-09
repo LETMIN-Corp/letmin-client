@@ -7,8 +7,8 @@ interface ComponentInterface {
         setValue: (e : React.ChangeEvent<HTMLSelectElement>) => void;
     },
     name: string,
-    id: string,
-    disabled: boolean
+    id?: string,
+    disabled?: boolean
 };
 
 const SelectInput : React.FC<ComponentInterface> = ({ placeholder = '', options, size, consultPackage, name, id, disabled }) => {

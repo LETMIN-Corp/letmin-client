@@ -14,7 +14,7 @@ interface ComponentInterface {
         setValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
     },
     name: string,
-    id: string,
+    id?: string,
     disabled?: boolean,
 };
 
