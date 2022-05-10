@@ -7,8 +7,8 @@ import Pagination from '../Components/Items/Pagination';
 import InputTypesEnum from '../Utils/InputTypesEnum';
 import MaskTypesEnum from '../Utils/MaskTypesEnum';
 import SelectInput from '../Components/Inputs/SelectInput';
-import FormLink from '../Components/Links/formLink';
-import FormButton from '../Components/Buttons/formButton';
+import FormLink from '../Components/Links/FormLink';
+import FormButton from '../Components/Buttons/FormButton';
 
 const CorpRegister : React.FC = () => {
     useEffect((): void => {
@@ -16,7 +16,7 @@ const CorpRegister : React.FC = () => {
     });
 
     const [currentPage, setCurrentPage] = useState(0);
-    const [registerData, setRegisterData] = useState({
+    const [registerData, setRegisterData] = useState<IRegisterData>({
         company: {
             name: '',
             cnpj: '',
@@ -41,13 +41,19 @@ const CorpRegister : React.FC = () => {
         }
     });
 
-    function getValue(name: string) {
+    interface IRegisterData {
+        [key: string]: {
+            [key: string]: string;
+        };
+    }
+
+    function getValue(name: string): string {
         const [type, data] = name.split('-');
 
         return registerData[type][data];
     }
 
-    function setValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    function setValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
 
@@ -134,13 +140,13 @@ const CorpRegister : React.FC = () => {
                             <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Informações do Cartão</h2>
 
                             <form className='mb-10 lg:w-8/12 lg:mx-auto'>
-                                <TextInput placeholder='Nome do Titular' limit={ 64 } useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-owner' id='card-number' />
+                                <TextInput placeholder='Nome do Titular' limit={ 64 } useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-owner' id='card-owner' />
                                 <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ consultPackage } useMask={ MaskTypesEnum.cardNumber } name='card-number' id='card-number' />
                                 
                                 <div className='md:flex justify-between w-full'>
                                     <TextInput placeholder='Data de Vencimento' size='medium' useMask={ MaskTypesEnum.date } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-due' id='card-due' />
                                     <TextInput placeholder='CVV' size='small' useMask={ MaskTypesEnum.cvv }  type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-code' id='card-code' />
-                                    <SelectInput placeholder='Bandeira' options={ cardTypes } size='small' consultPackage={ consultPackage } name='card-type' id='card-type' />
+                                    <SelectInput placeholder='Bandeira' options={cardTypes} size='small' consultPackage={consultPackage} name='card-type' id='card-type' disabled={false} />
                                 </div>
                             </form>
                         </>
