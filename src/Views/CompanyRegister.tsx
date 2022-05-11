@@ -3,11 +3,12 @@ import Header from '../Components/Layouts/Header';
 import TextInput from '../Components/Inputs/TextInput';
 import { useEffect, useState } from 'react';
 import StripTitle from '../Components/Titles/StripTitle';
-import SecondaryButton from '../Components/Buttons/SecondaryButton';
 import Pagination from '../Components/Items/Pagination';
 import InputTypesEnum from '../Utils/InputTypesEnum';
 import MaskTypesEnum from '../Utils/MaskTypesEnum';
 import SelectInput from '../Components/Inputs/SelectInput';
+import FormLink from '../Components/Links/FormLink';
+import FormButton from '../Components/Buttons/FormButton';
 
 const CorpRegister : React.FC = () => {
     useEffect((): void => {
@@ -15,7 +16,7 @@ const CorpRegister : React.FC = () => {
     });
 
     const [currentPage, setCurrentPage] = useState(0);
-    const [registerData, setRegisterData] = useState({
+    const [registerData, setRegisterData] = useState<IRegisterData>({
         company: {
             name: '',
             cnpj: '',
@@ -40,13 +41,19 @@ const CorpRegister : React.FC = () => {
         }
     });
 
-    function getValue(name: string) {
+    interface IRegisterData {
+        [key: string]: {
+            [key: string]: string;
+        };
+    }
+
+    function getValue(name: string): string {
         const [type, data] = name.split('-');
 
         return registerData[type][data];
     }
 
-    function setValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    function setValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
 
@@ -62,9 +69,14 @@ const CorpRegister : React.FC = () => {
         setValue: setValue, 
     }
 
+    const viewConsultPackage = {
+        getValue: getValue,
+        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
+    }
+
     const pageConstraints = {
         min: 0,
-        max: 2,
+        max: 3,
     }
 
     const cardTypes = [
@@ -77,7 +89,7 @@ const CorpRegister : React.FC = () => {
     return (
         <>
             <Header />
-            <StripTitle text='Cadastro de Empresa' />
+            <StripTitle text='Cadastro de Empresa' />            
             <div className='w-screen min-h-screen p-5 md:px-20 md:py-10'>
                 <Pagination max={ pageConstraints.max } current={ currentPage } handleClick={ setCurrentPage } />
 
@@ -118,7 +130,7 @@ const CorpRegister : React.FC = () => {
 
                 {
                     (currentPage === 1) && (
-                        <div className='text-center'>...</div>
+                        <div className='text-center'>...</div>                        
                     )
                 }
 
@@ -128,13 +140,61 @@ const CorpRegister : React.FC = () => {
                             <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Informações do Cartão</h2>
 
                             <form className='mb-10 lg:w-8/12 lg:mx-auto'>
-                                <TextInput placeholder='Nome do Titular' limit={ 64 } useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-owner' id='card-number' />
+                                <TextInput placeholder='Nome do Titular' limit={ 64 } useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-owner' id='card-owner' />
                                 <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ consultPackage } useMask={ MaskTypesEnum.cardNumber } name='card-number' id='card-number' />
                                 
                                 <div className='md:flex justify-between w-full'>
                                     <TextInput placeholder='Data de Vencimento' size='medium' useMask={ MaskTypesEnum.date } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-due' id='card-due' />
                                     <TextInput placeholder='CVV' size='small' useMask={ MaskTypesEnum.cvv }  type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-code' id='card-code' />
-                                    <SelectInput placeholder='Bandeira' options={ cardTypes } size='small' consultPackage={ consultPackage } name='card-type' id='card-type' />
+                                    <SelectInput placeholder='Bandeira' options={cardTypes} size='small' consultPackage={consultPackage} name='card-type' id='card-type' disabled={false} />
+                                </div>
+                            </form>
+                        </>
+                    )
+                }
+                {
+                    (currentPage === 3) && (
+                        <>
+                        <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Confirmação de Dados</h2>
+
+                        <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações da Empresa</h3>
+
+                        <form className='mb-10 lg:w-8/12 lg:mx-auto'>
+                            <div className='md:flex justify-between w-full'>
+                                <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-name' disabled={ true }/>
+                                <TextInput placeholder='CNPJ' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-cnpj' disabled={ true } />
+                            </div>
+                            <div className='md:flex justify-between w-full'>
+                                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='company-email' disabled={ true }/>
+                                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='company-phone' disabled={ true }/>
+                            </div>
+                            <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-address' disabled={ true }/>
+                        </form>
+
+                        <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações do Titular</h3>
+
+                        <form className='lg:w-8/12 lg:mx-auto'>
+                            <div className='md:flex justify-between w-full'>
+                                <TextInput placeholder='Nome do Titular' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='holder-name' disabled={ true }/>
+                                <TextInput placeholder='CPF' type={ InputTypesEnum.text } size='medium' consultPackage={ viewConsultPackage } name='holder-cpf' disabled={ true }/>
+                            </div>
+                            <div className='md:flex justify-between w-full'>
+                                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='holder-email' disabled={ true }/>
+                                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='holder-phone' disabled={ true }/>
+                            </div>
+                            <TextInput placeholder='Senha' type={ InputTypesEnum.password } consultPackage={ viewConsultPackage } name='holder-password' disabled={ true }/>
+                            <TextInput placeholder='Confirmar Senha' type={ InputTypesEnum.password } consultPackage={ viewConsultPackage } name='holder-confirmPassword' disabled={ true }/>
+                        </form>
+                            <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações do Cartão</h3>
+
+                            <form className='mb-10 lg:w-8/12 lg:mx-auto'>
+                                <TextInput placeholder='Nome do Titular' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-owner' disabled={ true }/>
+                                <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-number' disabled={ true }/>
+                                
+                                <div className='md:flex justify-between w-full'>
+                                    <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-due' disabled={ true }/>
+                                    <TextInput placeholder='CVV' size='small' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-code' disabled={ true }/>
+                                    <SelectInput placeholder='Bandeira' options={ cardTypes } size='small' consultPackage={ viewConsultPackage } name='card-type' disabled={ true }/>
                                 </div>
                             </form>
                         </>
@@ -144,7 +204,7 @@ const CorpRegister : React.FC = () => {
                 <div className='flex justify-between w-full my-10 lg:w-8/12 lg:mx-auto'>                    
                     {
                         (currentPage > pageConstraints.min) && (
-                            <SecondaryButton text='Voltar' handleClick={ () => setCurrentPage(currentPage - 1) } /> 
+                            <FormButton text='Voltar' handleClick={ () => setCurrentPage(currentPage - 1) } /> 
                         )
                     }
 
@@ -152,7 +212,13 @@ const CorpRegister : React.FC = () => {
 
                     {
                         (currentPage < pageConstraints.max) && (
-                            <SecondaryButton text='Próximo' handleClick={ () => setCurrentPage(currentPage + 1) } />
+                            <FormButton text='Próximo' handleClick={ () => setCurrentPage(currentPage + 1) } />
+                        )
+                    }
+
+                    {
+                        (currentPage === pageConstraints.max) && (
+                            <FormLink path='/' text='Confirmar' />
                         )
                     }
                 </div>

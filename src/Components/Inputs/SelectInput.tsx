@@ -7,10 +7,11 @@ interface ComponentInterface {
         setValue: (e : React.ChangeEvent<HTMLSelectElement>) => void;
     },
     name: string,
-    id: string,
+    id?: string,
+    disabled?: boolean
 };
 
-const SelectInput : React.FC<ComponentInterface> = ({ placeholder = '', options, size, consultPackage, name, id }) => {
+const SelectInput : React.FC<ComponentInterface> = ({ placeholder = '', options, size, consultPackage, name, id, disabled }) => {
     const getInputSize = () => {
         switch(size) {
             case 'small':
@@ -35,6 +36,7 @@ const SelectInput : React.FC<ComponentInterface> = ({ placeholder = '', options,
                 name={ name }
                 id={ id }
                 defaultValue={ inputValue }
+                disabled = { disabled }
                 className='w-full md:text-lg mt-2 mb-5 md:mt-2 py-3 px-5 border-2 border-dark-purple rounded-lg'
             >
                 <option value=''>{ placeholder }</option>
