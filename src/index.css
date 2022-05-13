@@ -35,3 +35,19 @@ p {
   top: 0px;
   left: 10px;
 }
+
+@keyframes growth {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+.growth-animation {
+  animation-name: growth;
+  animation-duration: .4s;
+  transform: scale(1.05);
+  box-shadow: #48196b44 0px 3px 8px;
+}
