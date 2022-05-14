@@ -9,6 +9,8 @@ import MaskTypesEnum from '../Utils/MaskTypesEnum';
 import SelectInput from '../Components/Inputs/SelectInput';
 import FormLink from '../Components/Links/FormLink';
 import FormButton from '../Components/Buttons/FormButton';
+import PlanCard from '../Components/Cards/PlanCard';
+import PlanTypesEnum from '../Utils/PlanTypesEnum';
 
 const CorpRegister : React.FC = () => {
     useEffect((): void => {
@@ -32,6 +34,9 @@ const CorpRegister : React.FC = () => {
             password: '',
             confirmPassword: '',
         },
+        plan: {
+            selected: '',
+        },
         card: {
             type: '',
             number: '',
@@ -47,13 +52,13 @@ const CorpRegister : React.FC = () => {
         };
     }
 
-    function getValue(name: string): string {
+    function getInputValue (name: string): string {
         const [type, data] = name.split('-');
 
         return registerData[type][data];
     }
 
-    function setValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
+    function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
 
@@ -64,13 +69,26 @@ const CorpRegister : React.FC = () => {
         });
     }
 
+    function setSelectedPlan (selectedPlan : string) : void {
+        setRegisterData({
+            ...registerData,
+            plan: {
+                selected: selectedPlan
+            }
+        });
+    }
+
+    function getSelectedPlan () : string {
+        return registerData.plan.selected;
+    }
+
     const consultPackage = {
-        getValue: getValue,
-        setValue: setValue, 
+        getValue: getInputValue,
+        setValue: setInputValue, 
     }
 
     const viewConsultPackage = {
-        getValue: getValue,
+        getValue: getInputValue,
         setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
     }
 
@@ -130,7 +148,44 @@ const CorpRegister : React.FC = () => {
 
                 {
                     (currentPage === 1) && (
-                        <div className='text-center'>...</div>                        
+                        <>
+                            <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Seleção de Assinatura</h2>
+
+                            <div className='lg:mx-auto  lg:flex justify-center md:my-10 px-2'>
+                                {
+                                    [
+                                        {
+                                            title: 'Plano semestral',
+                                            description: 'bbb',
+                                            price: 'R$ 100,00 / Mês',
+                                            text: 'ddd',
+                                            features: [
+                                                'Banco de talentos',
+                                                'Lançamento de demandas',
+                                                'Avaliação de perfil de candidato',
+                                                'Envio de emails automatizados',
+                                            ],
+                                            type: PlanTypesEnum.semiannual,
+                                            handleClick: () => setSelectedPlan(PlanTypesEnum.semiannual),
+                                        },
+                                        {
+                                            title: 'Plano anual',
+                                            description: 'fff',
+                                            price: 'R$ 2000,00 / Ano',
+                                            text: 'hhh',
+                                            features: [
+                                                'Banco de talentos',
+                                                'Lançamento de demandas',
+                                                'Avaliação de perfil de candidato',
+                                                'Envio de emails automatizados',
+                                            ],
+                                            type: PlanTypesEnum.annual,
+                                            handleClick: () => setSelectedPlan(PlanTypesEnum.annual),
+                                        },
+                                    ].map((card, key) => <PlanCard key={ key } card={ card } selected={ card.type === getSelectedPlan() } />)
+                                }
+                            </div>    
+                        </>                        
                     )
                 }
 
@@ -155,48 +210,53 @@ const CorpRegister : React.FC = () => {
                 {
                     (currentPage === 3) && (
                         <>
-                        <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Confirmação de Dados</h2>
+                            <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Confirmação de Dados</h2>
 
-                        <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações da Empresa</h3>
+                            <div>
+                                <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações da Empresa</h3>
+                                <form className='mb-10 lg:w-8/12 lg:mx-auto'>
+                                    <div className='md:flex justify-between w-full'>
+                                        <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-name' disabled={ true }/>
+                                        <TextInput placeholder='CNPJ' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-cnpj' disabled={ true } />
+                                    </div>
+                                    <div className='md:flex justify-between w-full'>
+                                        <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='company-email' disabled={ true }/>
+                                        <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='company-phone' disabled={ true }/>
+                                    </div>
+                                    <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-address' disabled={ true }/>
+                                </form>
 
-                        <form className='mb-10 lg:w-8/12 lg:mx-auto'>
-                            <div className='md:flex justify-between w-full'>
-                                <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-name' disabled={ true }/>
-                                <TextInput placeholder='CNPJ' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-cnpj' disabled={ true } />
-                            </div>
-                            <div className='md:flex justify-between w-full'>
-                                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='company-email' disabled={ true }/>
-                                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='company-phone' disabled={ true }/>
-                            </div>
-                            <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-address' disabled={ true }/>
-                        </form>
+                                <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações do Titular</h3>
+                                <form className='lg:w-8/12 lg:mx-auto'>
+                                    <div className='md:flex justify-between w-full'>
+                                        <TextInput placeholder='Nome do Titular' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='holder-name' disabled={ true }/>
+                                        <TextInput placeholder='CPF' type={ InputTypesEnum.text } size='medium' consultPackage={ viewConsultPackage } name='holder-cpf' disabled={ true }/>
+                                    </div>
+                                    <div className='md:flex justify-between w-full'>
+                                        <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='holder-email' disabled={ true }/>
+                                        <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='holder-phone' disabled={ true }/>
+                                    </div>
+                                    <TextInput placeholder='Senha' type={ InputTypesEnum.password } consultPackage={ viewConsultPackage } name='holder-password' disabled={ true }/>
+                                    <TextInput placeholder='Confirmar Senha' type={ InputTypesEnum.password } consultPackage={ viewConsultPackage } name='holder-confirmPassword' disabled={ true }/>
+                                </form>
 
-                        <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações do Titular</h3>
-
-                        <form className='lg:w-8/12 lg:mx-auto'>
-                            <div className='md:flex justify-between w-full'>
-                                <TextInput placeholder='Nome do Titular' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='holder-name' disabled={ true }/>
-                                <TextInput placeholder='CPF' type={ InputTypesEnum.text } size='medium' consultPackage={ viewConsultPackage } name='holder-cpf' disabled={ true }/>
-                            </div>
-                            <div className='md:flex justify-between w-full'>
-                                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='holder-email' disabled={ true }/>
-                                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='holder-phone' disabled={ true }/>
-                            </div>
-                            <TextInput placeholder='Senha' type={ InputTypesEnum.password } consultPackage={ viewConsultPackage } name='holder-password' disabled={ true }/>
-                            <TextInput placeholder='Confirmar Senha' type={ InputTypesEnum.password } consultPackage={ viewConsultPackage } name='holder-confirmPassword' disabled={ true }/>
-                        </form>
-                            <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações do Cartão</h3>
-
-                            <form className='mb-10 lg:w-8/12 lg:mx-auto'>
-                                <TextInput placeholder='Nome do Titular' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-owner' disabled={ true }/>
-                                <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-number' disabled={ true }/>
-                                
-                                <div className='md:flex justify-between w-full'>
-                                    <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-due' disabled={ true }/>
-                                    <TextInput placeholder='CVV' size='small' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-code' disabled={ true }/>
-                                    <SelectInput placeholder='Bandeira' options={ cardTypes } size='small' consultPackage={ viewConsultPackage } name='card-type' disabled={ true }/>
+                                <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações de Assinatura</h3>
+                                <div className='lg:w-8/12 lg:mx-auto text-xl'>
+                                    <TextInput placeholder='Plano Selecionado' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='plan-selected' disabled={ true }/>
                                 </div>
-                            </form>
+
+                                <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações do Cartão</h3>
+                                <form className='mb-10 lg:w-8/12 lg:mx-auto'>
+                                    <TextInput placeholder='Nome do Titular' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-owner' disabled={ true }/>
+                                    <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-number' disabled={ true }/>
+                                    
+                                    <div className='md:flex justify-between w-full'>
+                                        <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-due' disabled={ true }/>
+                                        <TextInput placeholder='CVV' size='small' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-code' disabled={ true }/>
+                                        <SelectInput placeholder='Bandeira' options={ cardTypes } size='small' consultPackage={ viewConsultPackage } name='card-type' disabled={ true }/>
+                                    </div>
+                                </form>
+                            </div>
                         </>
                     )
                 }
