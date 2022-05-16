@@ -236,8 +236,6 @@ const CorpRegister : React.FC = () => {
                                         <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='holder-email' disabled={ true }/>
                                         <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='holder-phone' disabled={ true }/>
                                     </div>
-                                    <TextInput placeholder='Senha' type={ InputTypesEnum.password } consultPackage={ viewConsultPackage } name='holder-password' disabled={ true }/>
-                                    <TextInput placeholder='Confirmar Senha' type={ InputTypesEnum.password } consultPackage={ viewConsultPackage } name='holder-confirmPassword' disabled={ true }/>
                                 </form>
 
                                 <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações de Assinatura</h3>
