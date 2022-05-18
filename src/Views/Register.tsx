@@ -1,4 +1,4 @@
-import Header from '../Components/Layouts/Header';
+import Header from '../Components/Layouts/Menu';
 import Footer from '../Components/Layouts/Footer';
 import RegisterCard from '../Components/Cards/RegisterCard';
 import StripTitle from '../Components/Titles/StripTitle';

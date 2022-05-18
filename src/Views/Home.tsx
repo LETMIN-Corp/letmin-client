@@ -1,4 +1,4 @@
-import Header from '../Components/Layouts/Header';
+import Header from '../Components/Layouts/Menu';
 import Footer from '../Components/Layouts/Footer';
 import Card from '../Components/Cards/HomeCard';
 import SecondaryLink from '../Components/Links/SecondaryLink';

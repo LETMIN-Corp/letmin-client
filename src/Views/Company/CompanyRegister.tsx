@@ -1,16 +1,16 @@
-import Footer from '../Components/Layouts/Footer';
-import Header from '../Components/Layouts/Header';
-import TextInput from '../Components/Inputs/TextInput';
+import Footer from '../../Components/Layouts/Footer';
+import Header from '../../Components/Layouts/Menu';
+import TextInput from '../../Components/Inputs/TextInput';
 import { useEffect, useState } from 'react';
-import StripTitle from '../Components/Titles/StripTitle';
-import Pagination from '../Components/Items/Pagination';
-import InputTypesEnum from '../Utils/InputTypesEnum';
-import MaskTypesEnum from '../Utils/MaskTypesEnum';
-import SelectInput from '../Components/Inputs/SelectInput';
-import FormLink from '../Components/Links/FormLink';
-import FormButton from '../Components/Buttons/FormButton';
-import PlanCard from '../Components/Cards/PlanCard';
-import PlanTypesEnum from '../Utils/PlanTypesEnum';
+import StripTitle from '../../Components/Titles/StripTitle';
+import Pagination from '../../Components/Items/Pagination';
+import InputTypesEnum from '../../Utils/InputTypesEnum';
+import MaskTypesEnum from '../../Utils/MaskTypesEnum';
+import SelectInput from '../../Components/Inputs/SelectInput';
+import FormLink from '../../Components/Links/FormLink';
+import FormButton from '../../Components/Buttons/FormButton';
+import PlanCard from '../../Components/Cards/PlanCard';
+import PlanTypesEnum from '../../Utils/PlanTypesEnum';
 
 const CorpRegister : React.FC = () => {
     useEffect((): void => {
@@ -50,6 +50,12 @@ const CorpRegister : React.FC = () => {
         [key: string]: {
             [key: string]: string;
         };
+    }
+
+    function handleRegister() {
+        // Lógica de cadastro e validação de dados
+
+        window.location.href = '/company/';
     }
 
     function getInputValue (name: string): string {
@@ -276,7 +282,7 @@ const CorpRegister : React.FC = () => {
 
                     {
                         (currentPage === pageConstraints.max) && (
-                            <FormLink path='/' text='Confirmar' />
+                            <FormButton handleClick={ () => handleRegister() } text='Confirmar' />
                         )
                     }
                 </div>
