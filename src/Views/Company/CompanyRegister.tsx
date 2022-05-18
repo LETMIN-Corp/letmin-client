@@ -1,5 +1,5 @@
 import Footer from '../../Components/Layouts/Footer';
-import Header from '../../Components/Layouts/Menu';
+import Menu from '../../Components/Layouts/Menu';
 import TextInput from '../../Components/Inputs/TextInput';
 import { useEffect, useState } from 'react';
 import StripTitle from '../../Components/Titles/StripTitle';
@@ -7,7 +7,6 @@ import Pagination from '../../Components/Items/Pagination';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
 import MaskTypesEnum from '../../Utils/MaskTypesEnum';
 import SelectInput from '../../Components/Inputs/SelectInput';
-import FormLink from '../../Components/Links/FormLink';
 import FormButton from '../../Components/Buttons/FormButton';
 import PlanCard from '../../Components/Cards/PlanCard';
 import PlanTypesEnum from '../../Utils/PlanTypesEnum';
@@ -16,6 +15,14 @@ const CorpRegister : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Cadastro';
     });
+
+    const pageButtons = [
+        {
+            text: 'Voltar para o cadastro',
+            path: '/register',
+            isLink: true,
+        }
+    ];
 
     const [currentPage, setCurrentPage] = useState(0);
     const [registerData, setRegisterData] = useState<IRegisterData>({
@@ -112,7 +119,7 @@ const CorpRegister : React.FC = () => {
 
     return (
         <>
-            <Header />
+            <Menu menuButtons={ pageButtons } />
             <StripTitle text='Cadastro de Empresa' />            
             <div className='w-screen min-h-screen p-5 md:px-20 md:py-10'>
                 <Pagination max={ pageConstraints.max } current={ currentPage } handleClick={ setCurrentPage } />

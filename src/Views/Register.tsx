@@ -1,4 +1,4 @@
-import Header from '../Components/Layouts/Menu';
+import Menu from '../Components/Layouts/Menu';
 import Footer from '../Components/Layouts/Footer';
 import RegisterCard from '../Components/Cards/RegisterCard';
 import StripTitle from '../Components/Titles/StripTitle';
@@ -9,9 +9,17 @@ const Register : React.FC = () => {
         window.document.title = 'Cadastro';
     });
 
+    const menuButtons = [
+        {
+            text: 'Home',
+            path: '/',
+            isLink: true,
+        },
+    ];
+
     return (
         <>
-            <Header />
+            <Menu menuButtons={ menuButtons } />
             <StripTitle text='Cadastro' />
             <section className='flex flex-col justify-center items-center md:py-10'>
                 <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-2 gap-10 w-10/12 lg:w-8/12  my-6 md:my-10'>
