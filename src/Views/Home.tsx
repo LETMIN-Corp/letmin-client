@@ -15,17 +15,14 @@ const Home : React.FC = () => {
         {
             text: 'Diferencial',
             path: '#differential',
-            isLink: false,
         },
         {
             text: 'Sobre',
             path: '#about',
-            isLink: false,
         },
         {
             text: 'Quem somos',
             path: '#who-we-are',
-            isLink: false,
         },
         {
             text: 'Cadastre-se',

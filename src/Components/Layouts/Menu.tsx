@@ -7,7 +7,9 @@ import MenuLink from '../Links/MenuLink';
 interface ButtonsInterface {
     text: string,
     path: string,
-    isLink: boolean,
+    isLink?: boolean,
+    hasFunction?: boolean,
+    handleClick?: () => void
 }
 interface ComponentInterface {
     menuButtons: Array<ButtonsInterface>
@@ -19,27 +21,14 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
 
     return (
         <>
-            <header className='fixed z-50 w-full flex justify-between items-center px-4 md:px-10 py-2 bg-white drop-shadow-lg'>
+            <header className='fixed z-40 w-full flex justify-between items-center px-4 md:px-10 py-2 bg-white drop-shadow-lg'>
                 <Link to='/'>
                     <img src={ LogoImage } className='w-12 md:w-16' />
                 </Link>
 
                 <div className={`${[showMenu ? 'md:hidden' : '']} block`}>
                     {
-                        (menuButtons && (menuButtons.length === 1)) && (
-                            <div>
-                                {
-                                    <PrimaryLink
-                                        text={ menuButtons[0].text }
-                                        path={ menuButtons[0].path }
-                                    />
-                                }
-                            </div>
-                        )
-                    }
-
-                    {
-                        (menuButtons && !(menuButtons.length === 1)) && (
+                        (menuButtons) && (
                             <>
                                 <div>
                                     <i onClick={ () => setMenuIsOpen(true) } className='fa-solid fa-bars text-2xl block md:hidden cursor-pointer'></i>
@@ -59,6 +48,30 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                                             <div className='px-14 text-center mt-20 md:mt-0 md:flex md:p-1'>
                                                 {
                                                     menuButtons.map((button : ButtonsInterface) => {
+                                                        if(button.hasFunction) {
+                                                            if(button.isLink) {
+                                                                return (
+                                                                    <button
+                                                                        className='block mx-auto rounded-full bg-white text-primary font-bold py-2 px-4 drop-shadow-lg border-2 border-primary md:text-lg hover:text-white hover:bg-primary ease-out duration-200'
+                                                                        key={ button.path }
+                                                                        onClick={ button.handleClick }
+                                                                    >
+                                                                        { button.text }
+                                                                    </button>
+                                                                )
+                                                            }
+
+                                                            return (
+                                                                <button
+                                                                    className='block mb-10 md:mb-0 md:flex items-center text-black md:mr-5 hover:text-primary ease-out duration-200'
+                                                                    key={ button.path }
+                                                                    onClick={ button.handleClick }
+                                                                >
+                                                                    { button.text }
+                                                                </button>
+                                                            )
+                                                        }
+
                                                         if(button.isLink) {
                                                             if(showMenu) {
                                                                 return (
@@ -113,7 +126,7 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                                             return (
                                                 <MenuLink
                                                     text={ button.text }
-                                                    path={ button.path + '/' + key }
+                                                    path={ button.path }
                                                     key={ button.path }
                                                 />
                                             );
