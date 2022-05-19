@@ -15,7 +15,8 @@ module.exports = {
       'white': '#FFFEFF',
       'gray': '#E6DCC7',
       'black': '#000002',
-      'green': '#00C853', 
+      'green': '#00C853',
+      'red': '#E83736'
     },
     minHeight: {
       '0': '0',
