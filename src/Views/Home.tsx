@@ -1,4 +1,4 @@
-import Header from '../Components/Layouts/Header';
+import Menu from '../Components/Layouts/Menu';
 import Footer from '../Components/Layouts/Footer';
 import Card from '../Components/Cards/HomeCard';
 import SecondaryLink from '../Components/Links/SecondaryLink';
@@ -11,9 +11,32 @@ const Home : React.FC = () => {
         window.document.title = 'Home';
     });
 
+    const menuButtons = [
+        {
+            text: 'Diferencial',
+            path: '#differential',
+            isLink: false,
+        },
+        {
+            text: 'Sobre',
+            path: '#about',
+            isLink: false,
+        },
+        {
+            text: 'Quem somos',
+            path: '#who-we-are',
+            isLink: false,
+        },
+        {
+            text: 'Cadastre-se',
+            path: '/register',
+            isLink: true,
+        },
+    ];
+
     return (
         <>
-            <Header />
+            <Menu menuButtons={ menuButtons } />
             <main id='main' className='min-h-90 flex flex-col md:flex-row justify-center items-center bg-primary'>
                 <div className='w-8/12 md:w-6/12 text-center md:text-left mb-8'> 
                     <h1 className='text-white text-6xl md:text-8xl lg:text-9xl font-black md:w-10/12 lg:w-8/12 md:flex drop-shadow-lg'>LET ME IN</h1>
