@@ -118,7 +118,7 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
             {
                 showMenu && (
                     <>
-                        <div className='hidden md:block h-screen bg-dark-purple pl-5 mt-20 drop-shadow-lg'>
+                        <div className='hidden md:block h-screen bg-dark-purple pl-5 mt-20 drop-shadow-lg fixed'>
                             {
                                 (menuButtons) && (
                                     menuButtons.map((button : ButtonsInterface, key) => {
