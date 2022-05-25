@@ -1,9 +1,9 @@
 import Menu from '../../Components/Layouts/Menu';
 import { useEffect } from 'react';
 
-const CompanyPage : React.FC = () => {
+const CompanyIndicators = () => {
     useEffect((): void => {
-        window.document.title = 'Menu';
+        window.document.title = 'Indicadores';
     });
 
     const menuButtons = [
@@ -46,4 +46,4 @@ const CompanyPage : React.FC = () => {
     );
 }
 
-export default CompanyPage;
+export default CompanyIndicators;

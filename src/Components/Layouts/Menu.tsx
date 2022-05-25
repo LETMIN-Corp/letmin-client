@@ -118,10 +118,13 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
             {
                 showMenu && (
                     <>
+                        <div className='pl-5'>
+                            <div className='w-full md:w-52'></div>
+                        </div>
                         <div className='hidden md:block h-screen bg-dark-purple pl-5 mt-20 drop-shadow-lg fixed'>
                             {
                                 (menuButtons) && (
-                                    menuButtons.map((button : ButtonsInterface, key) => {
+                                    menuButtons.map((button : ButtonsInterface) => {
                                         if(button.isLink) {
                                             return (
                                                 <MenuLink
