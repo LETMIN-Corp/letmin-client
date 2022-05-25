@@ -38,8 +38,17 @@ const CompanyIndicators = () => {
         <>
             <div className='flex'>
                 <Menu menuButtons={ menuButtons } showMenu={ true } />
-                <div className='w-full mt-20'>
-
+                <div className='w-full mt-20 p-5'>
+                    <h1 className='text-2xl'>Indicadores</h1>
+                    <div className='mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                        <div className='bg-primary w-full h-52'></div>
+                        <div className='bg-primary w-full h-52'></div>
+                        <div className='bg-primary w-full h-52'></div>
+                        <div className='bg-primary w-full h-52'></div>
+                        <div className='bg-primary w-full h-52'></div>
+                        <div className='bg-primary w-full h-52'></div>
+                        <div className='bg-primary w-full h-52'></div>
+                    </div>
                 </div>
             </div>
         </>
