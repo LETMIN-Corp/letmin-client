@@ -1,5 +1,6 @@
 import Menu from '../../Components/Layouts/Menu';
 import { useEffect } from 'react';
+import Statistic from './CompanyStatistics';
 
 const CompanyPage : React.FC = () => {
     useEffect((): void => {
@@ -24,7 +25,7 @@ const CompanyPage : React.FC = () => {
         },
         {
             text: 'Buscar Talentos',
-            path: '/company/4',
+            path: '/company/statistics',
             isLink: true,
         },
         {
@@ -39,7 +40,7 @@ const CompanyPage : React.FC = () => {
             <div className='flex'>
                 <Menu menuButtons={ menuButtons } showMenu={ true } />
                 <div className='w-full mt-20'>
-
+                    <Statistic />
                 </div>
             </div>
         </>

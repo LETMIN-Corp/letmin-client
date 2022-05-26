@@ -24,7 +24,7 @@ const CompanyIndicators = () => {
         },
         {
             text: 'Buscar Talentos',
-            path: '/company/4',
+            path: '/company/statistics',
             isLink: true,
         },
         {
