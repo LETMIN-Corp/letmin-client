@@ -14,7 +14,7 @@ const CompanyPage : React.FC = () => {
         },
         {
             text: 'Banco de Talentos',
-            path: '/company/2',
+            path: '/company/bank',
             isLink: true,
         },
         {
