@@ -1,5 +1,5 @@
+import CompanyDefault from './CompanyDefault';
 import { useEffect } from 'react';
-import CompanyMenu from '../../Components/Layouts/CompanyMenu';
 
 const CompanyPage : React.FC = () => {
     useEffect((): void => {
@@ -7,14 +7,9 @@ const CompanyPage : React.FC = () => {
     });
 
     return (
-        <>
-            <div className='flex'>
-                <CompanyMenu />
-                <div className='w-full mt-20'>
-
-                </div>
-            </div>
-        </>
+        <CompanyDefault>
+            
+        </CompanyDefault>
     );
 }
 

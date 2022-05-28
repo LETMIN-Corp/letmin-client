@@ -16,7 +16,7 @@ function App() {
         <Route path='/register/company' element={ <CompanyRegister /> } />
         <Route path='/company/*' element={ <CompanyPage /> } />
         <Route path='/company/indicators' element={ <CompanyIndicators /> } />
-        <Route path='/company/bank' element={ <CompanyTalentBank /> } />
+        <Route path='/company/talents' element={ <CompanyTalentBank /> } />
         <Route path='/company/profile' element={ <CompanyProfile /> } />
       </Routes>
     </div>

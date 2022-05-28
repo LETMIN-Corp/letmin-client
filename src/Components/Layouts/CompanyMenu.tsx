@@ -9,7 +9,7 @@ const CompanyMenu : React.FC = () => {
         },
         {
             text: 'Banco de Talentos',
-            path: '/company/bank',
+            path: '/company/talents',
             isLink: true,
         },
         {

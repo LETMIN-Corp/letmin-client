@@ -73,7 +73,7 @@ const CorpRegister : React.FC = () => {
     function handleRegister() {
         // Lógica de cadastro e validação de dados
 
-        navigate('/company');
+        navigate('/company/indicators');
     }
 
     function getInputValue (name: string): string {
