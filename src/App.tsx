@@ -5,6 +5,7 @@ import CompanyRegister from './Views/Company/CompanyRegister'
 import CompanyPage from './Views/Company/CompanyPage';
 import CompanyIndicators from './Views/Company/CompanyIndicators';
 import CompanyTalentBank from './Views/Company/CompanyTalentBank';
+import CompanyProfile from './Views/Company/CompanyProfile';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/company/*' element={ <CompanyPage /> } />
         <Route path='/company/indicators' element={ <CompanyIndicators /> } />
         <Route path='/company/bank' element={ <CompanyTalentBank /> } />
+        <Route path='/company/profile' element={ <CompanyProfile /> } />
       </Routes>
     </div>
   )

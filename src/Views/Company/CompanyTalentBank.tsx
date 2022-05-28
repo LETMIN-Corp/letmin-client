@@ -1,44 +1,16 @@
-import Menu from '../../Components/Layouts/Menu';
 import { useEffect } from 'react';
 import TalentBankCard from '../../Components/Cards/TalentBankCard';
+import CompanyMenu from '../../Components/Layouts/CompanyMenu';
 
 const CompanyTalentBank = () => {
     useEffect((): void => {
         window.document.title = 'Banco de Talentos';
     });
 
-    const menuButtons = [
-        {
-            text: 'Indicadores',
-            path: '/company/indicators',
-            isLink: true,
-        },
-        {
-            text: 'Banco de Talentos',
-            path: '/company/bank',
-            isLink: true,
-        },
-        {
-            text: 'Combinações',
-            path: '/company/3',
-            isLink: true,
-        },
-        {
-            text: 'Buscar Talentos',
-            path: '/company/4',
-            isLink: true,
-        },
-        {
-            text: 'Meus Dados',
-            path: '/company/5',
-            isLink: true,
-        },
-    ];
-
     return (
         <>
             <div className='flex'>
-                <Menu menuButtons={ menuButtons } showMenu={ true } />
+                <CompanyMenu />
                 <div className='w-full mt-20 p-5'>
                     <h1 className='text-2xl'>Banco de Talentos</h1>
                     <div className='w-full flex items-center justify-between mt-5'>
