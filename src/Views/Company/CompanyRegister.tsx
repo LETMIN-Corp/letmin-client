@@ -139,7 +139,7 @@ const CorpRegister : React.FC = () => {
                 {
                     (currentPage === 0) && (
                         <>
-                            <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Informações da Empresa</h2>
+                            <h2 className='text-xl font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações da Empresa</h2>
 
                             <form className='mb-10 lg:w-8/12 lg:mx-auto'>
                                 <div className='md:flex justify-between w-full'>
@@ -153,7 +153,7 @@ const CorpRegister : React.FC = () => {
                                 <TextInput placeholder='Endereço' limit={ 128 } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' id='company-address' />
                             </form>
 
-                            <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Informações do Titular</h2>
+                            <h2 className='text-xl font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações do Titular</h2>
 
                             <form className='lg:w-8/12 lg:mx-auto'>
                                 <div className='md:flex justify-between w-full'>
@@ -174,7 +174,7 @@ const CorpRegister : React.FC = () => {
                 {
                     (currentPage === 1) && (
                         <>
-                            <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Seleção de Assinatura</h2>
+                            <h2 className='text-xl font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Seleção de Assinatura</h2>
 
                             <div className='lg:mx-auto  lg:flex justify-center md:my-10 px-2'>
                                 {
@@ -217,7 +217,7 @@ const CorpRegister : React.FC = () => {
                 {
                     (currentPage === 2) && (
                         <>
-                            <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Informações do Cartão</h2>
+                            <h2 className='text-xl font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações do Cartão</h2>
 
                             <form className='mb-10 lg:w-8/12 lg:mx-auto'>
                                 <TextInput placeholder='Nome do Titular' limit={ 64 } useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-owner' id='card-owner' />
@@ -235,7 +235,7 @@ const CorpRegister : React.FC = () => {
                 {
                     (currentPage === 3) && (
                         <>
-                            <h2 className='text-xl font-bold my-5 md:text-3xl lg:w-8/12 lg:mx-auto'>Confirmação de Dados</h2>
+                            <h2 className='text-xl font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Confirmação de Dados</h2>
 
                             <div>
                                 <h3 className='text-lg font-bold my-5 md:text-2xl lg:w-8/12 lg:mx-auto'>Informações da Empresa</h3>
