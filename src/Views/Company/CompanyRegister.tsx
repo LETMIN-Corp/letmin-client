@@ -285,7 +285,7 @@ const CorpRegister : React.FC = () => {
                                     <input onClick={ () => setTermIsAccepted(!termIsAccepted) } type="checkbox" className='mr-3 h-5 w-5 cursor-pointer' name="accept" id="accept" />
                                     <label htmlFor='accept'>
                                         <span>Aceitar os </span>
-                                        <a className='text-primary'target='_blank' href='../../../resources/term-of-commitment.pdf'>termos de compromisso</a>
+                                        <a className='text-bright-purple'target='_blank' href='../../../resources/term-of-commitment.pdf'>termos de compromisso</a>
                                     </label>
                                 </div>
                             </div>
