@@ -118,10 +118,7 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
             {
                 showMenu && (
                     <>
-                        <div className='md:pl-5'>
-                            <div className='w-full md:w-52'></div>
-                        </div>
-                        <div className='hidden md:block h-screen bg-dark-purple pl-5 mt-20 drop-shadow-lg fixed'>
+                        <div className='hidden md:block h-screen bg-dark-purple pl-5 mt-20 drop-shadow-lg'>
                             {
                                 (menuButtons) && (
                                     menuButtons.map((button : ButtonsInterface) => {
