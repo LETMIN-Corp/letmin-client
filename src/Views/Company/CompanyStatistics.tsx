@@ -44,11 +44,14 @@ const CompanyStatistics : React.FC = () => {
         <>
             <div className='flex'>
                 <Menu menuButtons={ menuButtons } showMenu={ true } />
-                <div className='w-full mt-20 p-5'>
+                <div className='w-full mt-20'>
                     <StripTitle text='Empresa - Estatisticas' />
                     <section className='flex flex-col justify-center items-center md:py-10'>
-                    <SecondaryLink text='Anterior' path='/register' />
-                    <SecondaryLink text='Próximo' path='/register' />
+                        <section className='flex flex-row justify-between w-9/12 items-center md:py-10'>    {/* distribuir os links */}
+                            <SecondaryLink text='Anterior' path='/register' />
+                            <SecondaryLink text='Próximo' path='/register' />                            
+                        </section>
+                        
                         <div className='flex flex-col justify-center items-center md:grid-cols-2 lg:w-8/12'>
                             {
                                 [
@@ -111,11 +114,11 @@ const CompanyStatistics : React.FC = () => {
                             commodo consequat
                         </p>
                     </HomeSection>
-                    <section className='flex flex-col justify-center items-center bg-bright-purple py-10'>
-                        <h2 className='text-4xl text-black text-center px-6'>
+                    <section className='flex flex-col justify-center items-center bg-bright-purple pb-10'>
+                        <h2 className='text-4xl text-black text-center pt-9 font-bold'>
                             Entre em contato com o candidato
                         </h2>
-                        <div className='grid grid-cols-1 md:grid-cols-3 gap-1 w-10/12 lg:w-8/12 my-6 md:my-10'>
+                        <div className='grid grid-cols-1 md:grid-cols-3 gap-1 w-10/12 lg:w-8/12 mt-6 md:mt-10'>
                             {
                                 [
                                     {
@@ -123,26 +126,35 @@ const CompanyStatistics : React.FC = () => {
                                         text: '',
                                     },
                                     {
-                                        title: 'Aprovado',
+                                        title: 'Aprovar',
                                         text: '',
                                     },
                                     {
-                                        title: 'Reprovado',
+                                        title: 'Reprovar',
                                         text: '',
                                     },
                                 ].map((card, key) => <Card card={ card } key={ key } />)
                             }
                         </div>
                         <HomeSection id='about'>
-                        <h2 className='text-4xl text-left text-dark-purple font-bold px-6 mb-4'>Email</h2>
-                        <p className='text-lg md:text-xl text-justify w-10/12 lg:w-8/12 p-6 pb-12 my-6 bg-white'>
-                            Lorem ipsum dolor sit amet, consectetur
-                            adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut
-                            enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea
-                            commodo consequat
-                        </p>
+                        <div className='flex flex-row mr-auto justify-start'>
+                            {
+                                [
+                                    {
+                                        title: 'Email',
+                                        text: '',
+                                    }
+                                ].map((card, key) => <Card card={ card } key={ key } />)
+                            }
+                        </div>
+                        <div className='text-lg md:text-xl text-justify w-12/12 lg:w-12/12 p-6 bg-white'>
+                            <textarea rows={5} cols={40} className='text-lg md:text-xl text-justify w-12/12 lg:w-12/12 pb-12 bg-white' name="" id="" placeholder="Digite aqui seu email"></textarea> <br />
+                            <SecondaryLink text='Enviar' path='/register' />
+                        </div>
+                        
+
+                        
+                        {/* <p className='text-lg md:text-xl text-justify w-10/12 lg:w-8/12 p-6 pb-12 my-6 bg-white'></p> */}
                     </HomeSection>
                     </section>
                 </div>
