@@ -37,7 +37,7 @@ const SelectInput : React.FC<ComponentInterface> = ({ placeholder = '', options,
                 id={ id }
                 defaultValue={ inputValue }
                 disabled = { disabled }
-                className='w-full md:text-lg mt-2 mb-5 md:mt-2 py-3 px-5 border-2 border-dark-purple rounded-lg'
+                className='w-full mt-2 mb-5 md:mt-2 py-3 px-5 border-2 border-dark-purple rounded-lg'
             >
                 <option value=''>{ placeholder }</option>
 

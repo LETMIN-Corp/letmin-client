@@ -1,12 +1,6 @@
 import Menu from '../../Components/Layouts/Menu';
-import { useEffect } from 'react';
-import Statistic from './CompanyStatistics';
 
-const CompanyPage : React.FC = () => {
-    useEffect((): void => {
-        window.document.title = 'Menu';
-    });
-
+const CompanyMenu : React.FC = () => {
     const menuButtons = [
         {
             text: 'Indicadores',
@@ -15,7 +9,7 @@ const CompanyPage : React.FC = () => {
         },
         {
             text: 'Banco de Talentos',
-            path: '/company/bank',
+            path: '/company/talents',
             isLink: true,
         },
         {
@@ -30,21 +24,14 @@ const CompanyPage : React.FC = () => {
         },
         {
             text: 'Meus Dados',
-            path: '/company/5',
+            path: '/company/profile',
             isLink: true,
         },
     ];
 
     return (
-        <>
-            <div className='flex'>
-                <Menu menuButtons={ menuButtons } showMenu={ true } />
-                <div className='w-full mt-20'>
-                    <Statistic />
-                </div>
-            </div>
-        </>
+        <Menu menuButtons={ menuButtons } showMenu={ true } />
     );
 }
 
-export default CompanyPage;
+export default CompanyMenu;
