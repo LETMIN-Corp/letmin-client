@@ -4,7 +4,7 @@ const CompanyDefault : React.FC = ({ children }) => {
     return (
         <div className='flex'>
             <CompanyMenu />
-            <div className='w-full mt-20 p-5'>
+            <div className='w-full mt-16'>
                 { children }
             </div>
         </div>

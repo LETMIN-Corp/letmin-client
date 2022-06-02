@@ -4,9 +4,9 @@ import Register from './Views/Register';
 import CompanyRegister from './Views/Company/CompanyRegister'
 import CompanyError from './Views/Company/CompanyError';
 import CompanyIndicators from './Views/Company/CompanyIndicators';
-import CompanyStatistics from './Views/Company/CompanyStatistics';
 import CompanyTalentBank from './Views/Company/CompanyTalentBank';
 import CompanyProfile from './Views/Company/CompanyProfile';
+import CompanyCombinations from './Views/Company/CompanyCombinations';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <Route path='/company/indicators' element={ <CompanyIndicators /> } />
         <Route path='/company/talents' element={ <CompanyTalentBank /> } />
         <Route path='/company/profile' element={ <CompanyProfile /> } />
-        <Route path='/company/statistics' element={ <CompanyStatistics /> } />
+        <Route path='/company/combinations' element={ <CompanyCombinations /> } />
       </Routes>
     </div>
   )

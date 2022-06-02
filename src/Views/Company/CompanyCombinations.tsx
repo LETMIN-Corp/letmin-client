@@ -1,0 +1,113 @@
+import HighLight from '../../Components/Items/HighLight';
+import { useEffect } from 'react';
+import CompanyDefault from './CompanyDefault';
+import FormButton from '../../Components/Buttons/FormButton';
+
+const CompanyCombinations : React.FC = () => {
+    useEffect((): void => {
+        window.document.title = 'Estatísticas';
+    });
+
+    return (
+        <CompanyDefault>
+            <div className='flex justify-center items-center py-5 lg:py-10 bg-primary'>
+                <h1 className='text-white text-4xl lg:text-5xl font-black mt-4'>Combinações</h1>
+            </div>
+            <div className='p-5'>
+                <section className='flex flex-col justify-center items-center md:py-10'>
+                    <section className='flex flex-row justify-between w-full lg:w-8/12 items-center md:py-10'>
+                        <FormButton text='Anterior'  handleClick={ () => {} }/>
+                        <FormButton text='Próximo'  handleClick={ () => {} }/>
+                    </section>
+                    <div className='mt-5 text-left w-full lg:w-8/12'>
+                        <i className="fa-solid fa-heart border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl"></i>
+                    </div>
+                </section>
+                <section className='flex w-full lg:w-8/12 mx-auto flex-wrap text-center md:text-left'>
+                    <h2 className='w-full text-dark-purple font-bold text-3xl mb-5'>Candidato X</h2>
+                    <div className='md:w-6/12 mx-auto'>
+                        <div className='p-2'>
+                            <h4 className='text-xl font-bold'>Habilidades extras:</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit.
+                            </p>
+                        </div>
+                        <div className='p-2'>
+                            <h4 className='text-xl font-bold'>Observações:</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit.
+                            </p>
+                        </div>
+                    </div>
+                    <div className='md:w-6/12 mx-auto'>
+                        <div className='p-2'>
+                            <h4 className='text-xl font-bold'>Pontos de atenção:</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet,
+                                consectetur adipiscing elit.
+                            </p>
+                        </div>
+                        <div className='p-2'>
+                        <h4 className='text-xl font-bold'>Média empregado:</h4>
+                        <p>
+                            Há mais de <HighLight>2 anos</HighLight>
+                        </p>
+                        </div>
+                    </div>
+                </section>
+                <section className='w-full lg:w-8/12 mx-auto py-10'>
+                        <h2 className='text-3xl text-dark-purple text-center md:text-left font-bold mb-4'>Portfólio</h2>
+                        <p className='text-lg md:text-xl text-justify md:w-10/12 lg:w-8/12 my-6'>
+                            Lorem ipsum dolor sit amet, consectetur
+                            adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua. Ut
+                            enim ad minim veniam, quis nostrud
+                            exercitation ullamco laboris nisi ut aliquip ex ea
+                            commodo consequat
+                        </p>
+                </section>
+            </div>
+            <section className='flex flex-col justify-center items-center bg-primary p-5'>
+                <h2 className='text-2xl lg:text-4xl text-white text-center pt-9 font-bold'>
+                    Entre em contato com o candidato
+                </h2>
+                <div className='mt-10 flex flex-wrap justify-around'>
+                    {
+                        [
+                            {
+                                text: 'Entrevista',
+                            },
+                            {
+                                text: 'Aprovar',
+                            },
+                            {
+                                text: 'Reprovar',
+                            },
+                        ].map((button, key) => {
+                            return (
+                                <div className='m-4 '>
+                                    <FormButton text={ button.text } handleClick={ () => {} } key={ key } />
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className='flex flex-col justify-center items-center py-10'>
+                    <div className='flex mr-auto bg-white rounded-t-md px-10 py-1 text-primary font-bold'>
+                        Email
+                    </div>
+                    <div className='text-lg md:text-xl text-justify p-6 bg-white rounded-b-md rounded-tr-md'>
+                        <textarea rows={ 5 } cols={ 60 } className='w-full resize-none p-2 outline-none text-lg md:text-xl text-justify pb-10' name="comment" id="comment" placeholder="Digite aqui seu email"></textarea>
+                        <div className='flex justify-end mt-2'>
+                            <FormButton text='Enviar'  handleClick={ () => {} }/>
+                        </div>
+                    </div>    
+                </div>
+            </section>
+        </CompanyDefault> 
+    );
+}
+
+export default CompanyCombinations;

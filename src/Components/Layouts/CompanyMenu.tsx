@@ -14,12 +14,12 @@ const CompanyMenu : React.FC = () => {
         },
         {
             text: 'Combinações',
-            path: '/company/3',
+            path: '/company/combinations',
             isLink: true,
         },
         {
             text: 'Buscar Talentos',
-            path: '/company/statistics',
+            path: '/company/anything',
             isLink: true,
         },
         {
