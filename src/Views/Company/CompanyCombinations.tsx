@@ -1,7 +1,7 @@
 import HighLight from '../../Components/Items/HighLight';
 import { useEffect } from 'react';
 import CompanyDefault from './CompanyDefault';
-import FormButton from '../../Components/Buttons/FormButton';
+import { Link } from 'react-router-dom';
 
 const CompanyCombinations : React.FC = () => {
     useEffect((): void => {
@@ -14,43 +14,54 @@ const CompanyCombinations : React.FC = () => {
                 <h1 className='text-white text-4xl lg:text-5xl font-black mt-4'>Combinações</h1>
             </div>
             <div className='p-5'>
-                <section className='flex flex-col justify-center items-center md:py-10'>
-                    <section className='flex flex-row justify-between w-full lg:w-8/12 items-center md:py-10'>
-                        <FormButton text='Anterior'  handleClick={ () => {} }/>
-                        <FormButton text='Próximo'  handleClick={ () => {} }/>
+                <section className='flex flex-col justify-center items-center py-10'>
+                    <section className='flex flex-row justify-between w-full lg:w-8/12 items-center pb-10 md:py-10'>
+                        <Link to='/company/combinations/'>
+                            <span className='flex items-center text-dark-purple cursor-pointer'>
+                                <span className='rounded-full w-1 h-6 bg-dark-purple mr-1'></span>
+                                <i className="fa-solid fa-left-long text-dark-purple text-4xl"></i>
+                            </span>
+                        </Link>
+                        <i className="fa-solid fa-right-long text-dark-purple text-4xl cursor-pointer"></i>
                     </section>
-                    <div className='mt-5 text-left w-full lg:w-8/12'>
-                        <i className="fa-solid fa-heart border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl"></i>
+                    <div className='w-full flex items-center justify-between lg:w-8/12'>
+                        <div>
+                            <img src="https://via.placeholder.com/150" className='rounded-md' />
+                        </div>
+                        <div>
+                            <i className="fa-solid fa-briefcase border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl"></i>
+                            <i className="fa-solid fa-heart ml-3 border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl"></i>
+                        </div>
                     </div>
                 </section>
-                <section className='flex w-full lg:w-8/12 mx-auto flex-wrap text-center md:text-left'>
+                <section className='flex w-full lg:w-8/12 mx-auto flex-wrap md:text-left'>
                     <h2 className='w-full text-dark-purple font-bold text-3xl mb-5'>Candidato X</h2>
-                    <div className='md:w-6/12 mx-auto'>
-                        <div className='p-2'>
-                            <h4 className='text-xl font-bold'>Habilidades extras:</h4>
+                    <div className='md:w-6/12'>
+                        <div className='md:pr-4'>
+                            <h4 className='text-xl font-bold text-dark-purple'>Habilidades extras:</h4>
                             <p>
                                 Lorem ipsum dolor sit amet,
                                 consectetur adipiscing elit.
                             </p>
                         </div>
-                        <div className='p-2'>
-                            <h4 className='text-xl font-bold'>Observações:</h4>
+                        <div className='md:pr-4'>
+                            <h4 className='text-xl font-bold text-dark-purple'>Observações:</h4>
                             <p>
                                 Lorem ipsum dolor sit amet,
                                 consectetur adipiscing elit.
                             </p>
                         </div>
                     </div>
-                    <div className='md:w-6/12 mx-auto'>
-                        <div className='p-2'>
-                            <h4 className='text-xl font-bold'>Pontos de atenção:</h4>
+                    <div className='md:w-6/12'>
+                        <div className='md:pr-4'>
+                            <h4 className='text-xl font-bold text-dark-purple'>Pontos de atenção:</h4>
                             <p>
                                 Lorem ipsum dolor sit amet,
                                 consectetur adipiscing elit.
                             </p>
                         </div>
-                        <div className='p-2'>
-                        <h4 className='text-xl font-bold'>Média empregado:</h4>
+                        <div className='md:pr-4'>
+                        <h4 className='text-xl font-bold text-dark-purple'>Média empregado:</h4>
                         <p>
                             Há mais de <HighLight>2 anos</HighLight>
                         </p>
@@ -58,7 +69,7 @@ const CompanyCombinations : React.FC = () => {
                     </div>
                 </section>
                 <section className='w-full lg:w-8/12 mx-auto py-10'>
-                        <h2 className='text-3xl text-dark-purple text-center md:text-left font-bold mb-4'>Portfólio</h2>
+                        <h2 className='text-3xl text-dark-purple md:text-left font-bold mb-4'>Portfólio</h2>
                         <p className='text-lg md:text-xl text-justify md:w-10/12 lg:w-8/12 my-6'>
                             Lorem ipsum dolor sit amet, consectetur
                             adipiscing elit, sed do eiusmod tempor
@@ -69,7 +80,7 @@ const CompanyCombinations : React.FC = () => {
                         </p>
                 </section>
             </div>
-            <section className='flex flex-col justify-center items-center bg-primary p-5'>
+            {/* <section className='flex flex-col justify-center items-center bg-primary p-5'>
                 <h2 className='text-2xl lg:text-4xl text-white text-center pt-9 font-bold'>
                     Entre em contato com o candidato
                 </h2>
@@ -105,7 +116,7 @@ const CompanyCombinations : React.FC = () => {
                         </div>
                     </div>    
                 </div>
-            </section>
+            </section> */}
         </CompanyDefault> 
     );
 }

@@ -19,7 +19,7 @@ function App() {
         <Route path='/company/indicators' element={ <CompanyIndicators /> } />
         <Route path='/company/talents' element={ <CompanyTalentBank /> } />
         <Route path='/company/profile' element={ <CompanyProfile /> } />
-        <Route path='/company/combinations' element={ <CompanyCombinations /> } />
+        <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
       </Routes>
     </div>
   )
