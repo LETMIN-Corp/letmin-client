@@ -23,7 +23,10 @@ module.exports = {
       '80': '80vh',
       '90': '90vh',
       'screen': '100vh',
-     },
+    },
+    minWidth: {
+      'sm': '115px',
+    }
   },
   plugins: [],
 } 
