@@ -45,7 +45,7 @@ const CompanyTalentBank = () => {
         [Symbol.iterator] : () => IterableIterator<{
             title: string;
         }>;
-        
+
         filter(arg0: (folder: { title: string; }) => boolean): import("react").SetStateAction<FoldersInterface>;
     }
 
@@ -68,7 +68,6 @@ const CompanyTalentBank = () => {
     const filterFolders = (value : string) => {
         if(value.length === 0) {
             setFolders(allFolders);
-            console.log('aa')
             return;
         }
 
