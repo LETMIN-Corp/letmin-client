@@ -63,6 +63,11 @@ const CompanyTalentBank = () => {
         setFolderName('');
     }
 
+    const handleCloseModal = () => {
+        setModalIsOpen(false);
+        setFolderName('');
+    }
+
     const [searchFolders, setSearchFolders] = useState('');
 
     const filterFolders = (value : string) => {
@@ -103,7 +108,7 @@ const CompanyTalentBank = () => {
 
             {
                 modalIsOpen && (
-                    <FormModal handleClose={ () => setModalIsOpen(false) } handleConfirm={ handleConfirm } title='Nova Pasta'>
+                    <FormModal handleClose={ handleCloseModal } handleConfirm={ handleConfirm } title='Nova Pasta'>
                         <div className='my-2'>
                             <TextInput type={ InputTypesEnum.text } placeholder='Nome da Pasta' name='folder-name' id='folder-name' consultPackage={ consultPackage } />
                         </div>
