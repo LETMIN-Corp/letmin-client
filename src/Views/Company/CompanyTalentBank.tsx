@@ -58,8 +58,11 @@ const CompanyTalentBank = () => {
     };
 
     const handleConfirm = () => {
-        setAllFolders([...allFolders, { title: folderName }]);
         setModalIsOpen(false);
+        if(folderName.length === 0) {
+            return;
+        }
+        setAllFolders([...allFolders, { title: folderName }]);
         setFolderName('');
     }
 
@@ -108,9 +111,9 @@ const CompanyTalentBank = () => {
 
             {
                 modalIsOpen && (
-                    <FormModal handleClose={ handleCloseModal } handleConfirm={ handleConfirm } title='Nova Pasta'>
+                    <FormModal handleClose={ handleCloseModal } handleConfirm={ handleConfirm } title='Adicionar Pasta'>
                         <div className='my-2'>
-                            <TextInput type={ InputTypesEnum.text } placeholder='Nome da Pasta' name='folder-name' id='folder-name' consultPackage={ consultPackage } />
+                            <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='folder-name' id='folder-name' consultPackage={ consultPackage } />
                         </div>
                     </FormModal>
                 )
