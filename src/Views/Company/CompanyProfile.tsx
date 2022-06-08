@@ -92,7 +92,10 @@ const CompanyProfile = () => {
     return (
         <CompanyDefault>
             <div className='p-5'>
-                <h1 className='text-2xl'>Meus Dados</h1>
+                <h1 className='text-2xl'>
+                    <i className="fa-solid fa-address-card mr-2"></i>
+                    <span>Meus Dados</span>
+                </h1>
                 <div>
                     <CompanyEditCard>
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>

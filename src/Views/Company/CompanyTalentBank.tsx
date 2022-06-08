@@ -91,7 +91,10 @@ const CompanyTalentBank = () => {
     return (
         <CompanyDefault>
             <div className='p-5'>
-                <h1 className='text-2xl'>Banco de Talentos</h1>
+                <h1 className='text-2xl'>
+                    <i className="fa-solid fa-folder-open mr-2"></i>
+                    <span>Banco de Talentos</span>
+                </h1>
                 <div className='w-full flex items-center justify-between mt-5'>
                     <input onChange={ (e) => setSearchFolders(e.target.value) } type='text' placeholder='Buscar' className='max-w-sm w-full mr-3 px-2 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
                     <button onClick={ () => setModalIsOpen(true) } className='bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
