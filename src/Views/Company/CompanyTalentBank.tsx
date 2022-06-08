@@ -46,6 +46,8 @@ const CompanyTalentBank = () => {
             title: string;
         }>;
 
+        length: number;
+
         filter(arg0: (folder: { title: string; }) => boolean): import("react").SetStateAction<FoldersInterface>;
     }
 
@@ -96,6 +98,11 @@ const CompanyTalentBank = () => {
                         <i className='fa-solid fa-plus'></i>
                     </button>
                 </div>
+                {
+                    folders.length === 0 && (
+                        <div className='mt-5 text-center md:text-left text-dark-purple text-lg'>Nenhuma pasta encontrada</div>
+                    )
+                }
                 <div className='mt-5 grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
                     {
                         [
