@@ -19,18 +19,18 @@ const CompanyCombinations : React.FC = () => {
                         <Link to='/company/combinations/'>
                             <span className='flex items-center text-dark-purple cursor-pointer'>
                                 <span className='rounded-full w-1 h-6 bg-dark-purple mr-1'></span>
-                                <i className="fa-solid fa-left-long text-dark-purple text-4xl"></i>
+                                <i className='fa-solid fa-left-long text-dark-purple text-4xl'></i>
                             </span>
                         </Link>
-                        <i className="fa-solid fa-right-long text-dark-purple text-4xl cursor-pointer"></i>
+                        <i className='fa-solid fa-right-long text-dark-purple text-4xl cursor-pointer'></i>
                     </section>
                     <div className='w-full flex items-center justify-between lg:w-8/12'>
                         <div>
-                            <img src="https://via.placeholder.com/150" className='rounded-md' />
+                            <img src='https://via.placeholder.com/150' className='rounded-md' />
                         </div>
                         <div>
-                            <i className="fa-solid fa-briefcase border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl"></i>
-                            <i className="fa-solid fa-heart ml-3 border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl"></i>
+                            <i className='fa-solid fa-briefcase border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl'></i>
+                            <i className='fa-solid fa-heart ml-3 border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl'></i>
                         </div>
                     </div>
                 </section>
@@ -110,7 +110,7 @@ const CompanyCombinations : React.FC = () => {
                         Email
                     </div>
                     <div className='text-lg md:text-xl text-justify p-6 bg-white rounded-b-md rounded-tr-md'>
-                        <textarea rows={ 5 } cols={ 60 } className='w-full resize-none p-2 outline-none text-lg md:text-xl text-justify pb-10' name="comment" id="comment" placeholder="Digite aqui seu email"></textarea>
+                        <textarea rows={ 5 } cols={ 60 } className='w-full resize-none p-2 outline-none text-lg md:text-xl text-justify pb-10' name='comment' id='comment' placeholder='Digite aqui seu email'></textarea>
                         <div className='flex justify-end mt-2'>
                             <FormButton text='Enviar'  handleClick={ () => {} }/>
                         </div>
