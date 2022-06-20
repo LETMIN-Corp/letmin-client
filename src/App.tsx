@@ -9,6 +9,7 @@ import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
 import UserProfile from './Views/User/UserProfle';
 import UserError from './Views/User/UserError';
+import CompanyMatch from './Views/Company/CompanyMatch';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/company/talents' element={ <CompanyTalentBank /> } />
         <Route path='/company/profile' element={ <CompanyProfile /> } />
         <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
+        <Route path='/company/combinations' element={ <CompanyMatch />} />
 
         <Route path='/user/*' element={ <UserError /> } />
         <Route path='/user/profile' element={ <UserProfile /> } />
