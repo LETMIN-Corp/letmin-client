@@ -1,4 +1,5 @@
-import Menu from '../../Components/Layouts/Menu';
+
+import Menu from './Menu';
 
 const CompanyMenu : React.FC = () => {
     const menuButtons = [

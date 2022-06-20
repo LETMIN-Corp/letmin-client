@@ -7,6 +7,8 @@ import CompanyIndicators from './Views/Company/CompanyIndicators';
 import CompanyTalentBank from './Views/Company/CompanyTalentBank';
 import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
+import UserProfile from './Views/User/UserProfle';
+import UserError from './Views/User/UserError';
 
 function App() {
   return (
@@ -15,11 +17,15 @@ function App() {
         <Route path='/' element={ <Home /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
+
         <Route path='/company/*' element={ <CompanyError /> } />
         <Route path='/company/indicators' element={ <CompanyIndicators /> } />
         <Route path='/company/talents' element={ <CompanyTalentBank /> } />
         <Route path='/company/profile' element={ <CompanyProfile /> } />
         <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
+
+        <Route path='/user/*' element={ <UserError /> } />
+        <Route path='/user/profile' element={ <UserProfile /> } />
       </Routes>
     </div>
   )
