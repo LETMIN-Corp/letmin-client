@@ -1,17 +1,26 @@
+import { useState } from 'react';
 import UserProfileCard from '../../Components/Cards/UserProfileCard';
+import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
 
 const UserProfile = () => {
+    const [openModal, setOpenModal] = useState(false);
+
     return (
         <UserDefault>
             <main>
                 <div className='h-32 bg-lively-purple'></div>
                 <div className='relative flex w-full md:justify-end mx-5'>
                     <img src='https://via.placeholder.com/150' className='rounded-full border-4 border-lively-purple absolute left-0 -top-20' />
-                    <a href='#' className='font-medium text-dark-purple hover:text-lively-purple mt-24 md:mr-14 md:mt-5 text-lg'>
-                        <i className='fa-solid fa-link mr-2'></i>
-                        <span>Link Externo</span>
-                    </a>
+                    <div className='mt-24 md:mr-14 md:mt-5 text-lg md:justify-end flex justify-between items-center w-full mr-14'>
+                        <a href='#' className='font-medium text-dark-purple hover:text-lively-purple'>
+                            <i className='fa-solid fa-link mr-2'></i>
+                            <span>Link Externo</span>
+                        </a>
+                        <button onClick={ () => setOpenModal(true) } className='text-white bg-dark-purple w-8 h-8 rounded-full ml-2'>
+                            <i className="fa-solid fa-info"></i>
+                        </button>
+                    </div>
                 </div>
                 <div className='mt-5 md:mt-10 mx-5'>
                     <div className='font-medium text-xl text-dark-purple'>Nome do Usuário</div>
@@ -68,6 +77,15 @@ const UserProfile = () => {
                     }
                 </div>
             </section>
+            {
+                openModal && (
+                    <InfoModal title='Informações' handleClose={ () => setOpenModal(false) } >
+                        <span className='text-justify'>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos nemo nulla soluta rem maxime perferendis laborum quia fugiat, inventore minus nisi incidunt doloremque id impedit necessitatibus hic voluptas expedita. Nemo!
+                        </span>
+                    </InfoModal>
+                )
+            }
         </UserDefault>
     );
 }
