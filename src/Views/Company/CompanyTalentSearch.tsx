@@ -58,11 +58,11 @@ const CompanyTalentSearch = () => {
                 <div className='flex justify-between w-full mt-5 items-center '>
                 {/* <input onChange={ (e) => setSearchFolders(e.target.value) } type='text' placeholder='Buscar' className='max-w-sm w-full mr-3 px-2 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' /> */}
                     <input type='text' placeholder='Buscar' className='max-w-sm w-full px-2 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
-                    <Link to='/company/favorite'><i className="fa-regular fa-heart fa-2x mr-5"></i></Link>
+                    <Link to='/company/favorite'><i className="fa-regular fa-heart fa-2x md:mr-5 ml-5"></i></Link>
                 </div>          
                 
                 <div className='mt-7'>
-                    <p className='text-bright-gray font-bold text-lg'>Aproximadamente 12.300 resultados</p>
+                    <p className='text-bright-gray font-bold md:text-lg text-md mb-2'>Aproximadamente 12.300 resultados</p>
                 </div>
 
                 <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-1 gap-7 w-full md:mb-5'>
@@ -115,18 +115,18 @@ const CompanyTalentSearch = () => {
                 <div className='flex justify-center w-full my-10 mr-40'>                    
                     {
                         (currentPage > pageConstraints.min) && (
-                            <button className='bg-bright-purple text-white text-center w-32 py-2 mx-5 rounded-full drop-shadow-lg md:text-lg hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>Voltar</button> 
+                            <button className='bg-bright-purple text-white text-center w-32 py-2 md:mx-5 mx-2 rounded-full drop-shadow-lg lg:text-lg text-sm hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>Voltar</button> 
                         ) 
                     }
  
-                    <button className='bg-bright-purple text-white text-center w-16 py-2 mx-3 drop-shadow-lg md:text-lg hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>1</button> 
-                    <button className='bg-bright-purple text-white text-center w-16 py-2 mx-3 drop-shadow-lg md:text-lg hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>2</button> 
-                    <button className='bg-bright-purple text-white text-center w-11 py-2 mx-3 drop-shadow-lg rounded-full md:text-lg hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>...</button> 
-                    <button className='bg-bright-purple text-white text-center w-16 py-2 mx-3 drop-shadow-lg md:text-lg hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>10</button> 
+                    <button className='bg-bright-purple text-white text-center w-16 py-2 md:mx-3 mx-1 drop-shadow-lg lg:text-lg text-sm hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>1</button> 
+                    <button className='bg-bright-purple text-white text-center w-16 py-2 md:mx-3 mx-1 drop-shadow-lg lg:text-lg text-sm hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>2</button> 
+                    <button className='bg-bright-purple text-white text-center w-11 py-2 md:mx-3 mx-1 drop-shadow-lg rounded-full lg:text-lg text-sm hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>...</button> 
+                    <button className='bg-bright-purple text-white text-center w-16 py-2 md:mx-3 mx-1 drop-shadow-lg lg:text-lg text-sm hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage - 1) }>10</button> 
                            
                     {
                         (currentPage < pageConstraints.max) && (
-                            <button className='bg-bright-purple text-white text-center w-32 py-2 mx-5 rounded-full drop-shadow-lg md:text-lg hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage + 1) }>Próximo</button> 
+                            <button className='bg-bright-purple text-white text-center w-32 py-2 md:mx-5 mx-2 rounded-full drop-shadow-lg lg:text-lg text-sm hover:bg-bold-purple' onClick={ () => setCurrentPage(currentPage + 1) }>Próximo</button> 
                         )
                     }
                 </div>
