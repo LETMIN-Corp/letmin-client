@@ -9,12 +9,14 @@ import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
 import UserProfile from './Views/User/UserProfle';
 import UserError from './Views/User/UserError';
+import AdminLogin from './Views/Admin/AdminLogin';
 
 function App() {
   return (
     <div className='w-screen min-h-screen relative'>
       <Routes>
         <Route path='/' element={ <Home /> } />
+
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
 
@@ -26,6 +28,8 @@ function App() {
 
         <Route path='/user/*' element={ <UserError /> } />
         <Route path='/user/profile' element={ <UserProfile /> } />
+
+        <Route path='/admin/login' element={ <AdminLogin /> } />
       </Routes>
     </div>
   )
