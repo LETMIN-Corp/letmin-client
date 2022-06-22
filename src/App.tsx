@@ -10,6 +10,8 @@ import CompanyCombinations from './Views/Company/CompanyCombinations';
 import UserProfile from './Views/User/UserProfle';
 import UserError from './Views/User/UserError';
 import AdminLogin from './Views/Admin/AdminLogin';
+import AdminCompany from './Views/Admin/AdminCompany';
+import AdminError from './Views/Admin/AdminError';
 
 function App() {
   return (
@@ -29,7 +31,9 @@ function App() {
         <Route path='/user/*' element={ <UserError /> } />
         <Route path='/user/profile' element={ <UserProfile /> } />
 
+        <Route path='/admin/*' element={ <AdminError /> } />
         <Route path='/admin/login' element={ <AdminLogin /> } />
+        <Route path='/admin/company' element={ <AdminCompany/> } />
       </Routes>
     </div>
   )
