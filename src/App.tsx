@@ -19,7 +19,7 @@ function App() {
         <Route path='/company/*' element={ <CompanyError /> } />
         <Route path='/company/indicators' element={ <CompanyIndicators /> } />
         <Route path='/company/talents' element={ <CompanyTalentBank /> } />
-        <Route path='/company/talentsearch' element={ <CompanyTalentSearch /> } />
+        <Route path='/company/talent/search' element={ <CompanyTalentSearch /> } />
         <Route path='/company/profile' element={ <CompanyProfile /> } />
         <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
       </Routes>
