@@ -10,6 +10,7 @@ import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
 import UserProfile from './Views/User/UserProfle';
 import UserError from './Views/User/UserError';
+import UserVacancySearch from './Views/User/UserVacancySearch';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
 
         <Route path='/user/*' element={ <UserError /> } />
         <Route path='/user/profile' element={ <UserProfile /> } />
+        <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
       </Routes>
     </div>
   )
