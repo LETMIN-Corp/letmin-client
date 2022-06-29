@@ -14,7 +14,7 @@ const UserMenu : React.FC = () => {
         },
         {
             text: 'Buscar Vagas',
-            path: '/user/anything',
+            path: '/user/vacancy/search',
             isLink: true,
         },
     ];
