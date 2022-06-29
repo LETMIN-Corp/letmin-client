@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 
-
 interface ComponentInterface {
     card : {
         icon: string,
@@ -15,7 +14,7 @@ interface ComponentInterface {
 
 const UserVacancySearchCard: React.FC<ComponentInterface> = ({ card }) => {
     return (
-        <div className='bg-lilac rounded-md mx-auto text-justify text-8x1 drop-shadow-lg px-5 pt-5 md:pt-0 md:mr-5 flex flex-col md:flex-row items-center justify-between'>
+        <div className='w-full bg-lilac rounded-md mx-auto text-justify text-8x1 drop-shadow-lg px-5 pt-5 md:pt-0 md:mr-5 flex flex-col md:flex-row items-center justify-between'>
             <div className='flex xl:w-32 xl:h-32 lg:w-28 lg:h-28 w-24 h-24 border-4 rounded-full items-center justify-center'>
                 <i className={`${ card.icon } xl:text-7x1 lg:text-6x1 text-5xl`}></i>
             </div>
