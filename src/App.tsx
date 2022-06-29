@@ -12,6 +12,7 @@ import UserError from './Views/User/UserError';
 import AdminLogin from './Views/Admin/AdminLogin';
 import AdminCompany from './Views/Admin/AdminCompany';
 import AdminError from './Views/Admin/AdminError';
+import AdminCollaborator from './Views/Admin/AdminCollaborator';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path='/admin/*' element={ <AdminError /> } />
         <Route path='/admin/login' element={ <AdminLogin /> } />
         <Route path='/admin/company' element={ <AdminCompany/> } />
+        <Route path='/admin/collaborator' element={ <AdminCollaborator/> } />
       </Routes>
     </div>
   )
