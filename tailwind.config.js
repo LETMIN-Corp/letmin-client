@@ -27,7 +27,7 @@ module.exports = {
     },
     minWidth: {
       'sm': '115px',
-    }
+    },
   },
   plugins: [],
 } 
