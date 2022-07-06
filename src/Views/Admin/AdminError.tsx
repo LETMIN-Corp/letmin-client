@@ -4,7 +4,7 @@ import AdminDefault from './AdminDefault';
 
 const AdminError : React.FC = () => {
     useEffect((): void => {
-        window.document.title = 'Letmin';
+        window.document.title = 'Letmin - 404';
     });
 
     return (

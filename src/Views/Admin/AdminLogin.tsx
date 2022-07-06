@@ -1,4 +1,10 @@
-const AdminLogin: React.FC = () => {
+import { useEffect } from "react";
+
+const AdminLogin : React.FC = () => {
+    useEffect((): void => {
+        window.document.title = 'Letmin - Login';
+    });
+
     return (
         <div className='w-screen min-h-screen flex items-center justify-center bg-primary'>
             <div className='p-8 rounded-md flex items-center h-screen w-screen sm:h-auto sm:max-w-sm bg-white drop-shadow-xl'>

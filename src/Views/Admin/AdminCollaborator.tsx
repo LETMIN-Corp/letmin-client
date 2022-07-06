@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
 import AdminDefault from './AdminDefault';
 
-const AdminCollaborator = () => {
+const AdminCollaborator : React.FC = () => {
+    useEffect((): void => {
+        window.document.title = 'Letmin - Colaboradores';
+    });
+
     const [openModal, setOpenModal] = useState(false);
 
     return (

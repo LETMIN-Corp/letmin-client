@@ -6,74 +6,9 @@ import InputTypesEnum from '../../Utils/InputTypesEnum';
 import SelectInput from '../../Components/Inputs/SelectInput';
 import FormModal from '../../Components/Modals/FormModal';
 
-interface FormInterface {
-    isDisabled: boolean,
-}
-
-const CompanyForm:React.FC<FormInterface> = ({ isDisabled }) => {
-    const viewConsultPackage = {
-        getValue: () : string => { return '' },
-        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
-    }
-
-    return (
-        <form className='mt-2'>
-            <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-name' disabled={ isDisabled }/>
-                <TextInput placeholder='CNPJ' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-cnpj' disabled={ isDisabled } />
-            </div>
-            <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='company-email' disabled={ isDisabled }/>
-                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='company-phone' disabled={ isDisabled }/>
-            </div>
-            <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-address' disabled={ isDisabled }/>
-        </form>
-    );
-}
-
-const HolderForm:React.FC<FormInterface> = ({ isDisabled }) => {
-    const viewConsultPackage = {
-        getValue: () : string => { return '' },
-        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
-    }
-
-    return (
-        <form className='mt-2'>
-            <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Nome do Titular' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='holder-name' disabled={ isDisabled }/>
-                <TextInput placeholder='CPF' type={ InputTypesEnum.text } size='medium' consultPackage={ viewConsultPackage } name='holder-cpf' disabled={ isDisabled }/>
-            </div>
-            <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='holder-email' disabled={ isDisabled }/>
-                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='holder-phone' disabled={ isDisabled }/>
-            </div>
-        </form>
-    );
-}
-
-const CardForm:React.FC<FormInterface> = ({ isDisabled }) => {
-    const viewConsultPackage = {
-        getValue: () : string => { return '' },
-        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
-    }
-
-    return (
-        <form className='mt-2'>
-            <TextInput placeholder='Nome do Titular' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-owner' disabled={ isDisabled }/>
-            <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-number' disabled={ isDisabled }/>
-            
-            <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-due' disabled={ isDisabled }/>
-                <TextInput placeholder='CVV' size='small' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-code' disabled={ isDisabled }/>
-                <SelectInput placeholder='Bandeira' options={ [] } size='small' consultPackage={ viewConsultPackage } name='card-type' disabled={ isDisabled }/>
-            </div>
-        </form>
-    );
-}
-
 const CompanyProfile = () => {
     useEffect((): void => {
-        window.document.title = 'Meus Dados';
+        window.document.title = 'Letmin - Meus Dados';
     });
 
     interface FormModalInterface {
@@ -172,6 +107,71 @@ const CompanyProfile = () => {
                 )
             }
         </CompanyDefault>
+    );
+}
+
+interface FormInterface {
+    isDisabled: boolean,
+}
+
+const CompanyForm:React.FC<FormInterface> = ({ isDisabled }) => {
+    const viewConsultPackage = {
+        getValue: () : string => { return '' },
+        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
+    }
+
+    return (
+        <form className='mt-2'>
+            <div className='md:flex justify-between w-full'>
+                <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-name' disabled={ isDisabled }/>
+                <TextInput placeholder='CNPJ' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-cnpj' disabled={ isDisabled } />
+            </div>
+            <div className='md:flex justify-between w-full'>
+                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='company-email' disabled={ isDisabled }/>
+                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='company-phone' disabled={ isDisabled }/>
+            </div>
+            <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-address' disabled={ isDisabled }/>
+        </form>
+    );
+}
+
+const HolderForm:React.FC<FormInterface> = ({ isDisabled }) => {
+    const viewConsultPackage = {
+        getValue: () : string => { return '' },
+        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
+    }
+
+    return (
+        <form className='mt-2'>
+            <div className='md:flex justify-between w-full'>
+                <TextInput placeholder='Nome do Titular' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='holder-name' disabled={ isDisabled }/>
+                <TextInput placeholder='CPF' type={ InputTypesEnum.text } size='medium' consultPackage={ viewConsultPackage } name='holder-cpf' disabled={ isDisabled }/>
+            </div>
+            <div className='md:flex justify-between w-full'>
+                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='holder-email' disabled={ isDisabled }/>
+                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='holder-phone' disabled={ isDisabled }/>
+            </div>
+        </form>
+    );
+}
+
+const CardForm:React.FC<FormInterface> = ({ isDisabled }) => {
+    const viewConsultPackage = {
+        getValue: () : string => { return '' },
+        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
+    }
+
+    return (
+        <form className='mt-2'>
+            <TextInput placeholder='Nome do Titular' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-owner' disabled={ isDisabled }/>
+            <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-number' disabled={ isDisabled }/>
+            
+            <div className='md:flex justify-between w-full'>
+                <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-due' disabled={ isDisabled }/>
+                <TextInput placeholder='CVV' size='small' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-code' disabled={ isDisabled }/>
+                <SelectInput placeholder='Bandeira' options={ [] } size='small' consultPackage={ viewConsultPackage } name='card-type' disabled={ isDisabled }/>
+            </div>
+        </form>
     );
 }
 

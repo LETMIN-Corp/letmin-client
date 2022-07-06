@@ -4,7 +4,7 @@ import CompanyTalentSearchCard from '../../Components/Cards/CompanySearchCard';
 
 const CompanyTalentSearch = () => {
     useEffect((): void => {
-        window.document.title = 'Busca de Talentos';
+        window.document.title = 'Letmin - Buscar Talentos';
     });
 
     return (

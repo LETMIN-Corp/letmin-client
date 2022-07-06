@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
 import AdminDefault from './AdminDefault';
 
-const AdminCompany = () => {
+const AdminCompany : React.FC = () => {
+    useEffect((): void => {
+        window.document.title = 'Letmin - Empresas';
+    });
+
     const [openModal, setOpenModal] = useState(false);
 
     return (

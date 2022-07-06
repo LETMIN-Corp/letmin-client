@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 const Register : React.FC = () => {
     useEffect((): void => {
-        window.document.title = 'Cadastro';
+        window.document.title = 'Letmin - Cadastro';
     });
 
     const menuButtons = [

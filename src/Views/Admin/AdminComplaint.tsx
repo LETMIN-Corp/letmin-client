@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminDefault from './AdminDefault';
 
-const AdminComplaint = () => {
+const AdminComplaint : React.FC = () => {
+    useEffect((): void => {
+        window.document.title = 'Letmin- Denúncias';
+    });
+
     const [openModal, setOpenModal] = useState(false);
 
     return (

@@ -4,7 +4,7 @@ import UserDefault from './UserDefault';
 
 const UserError : React.FC = () => {
     useEffect((): void => {
-        window.document.title = 'Letmin';
+        window.document.title = 'Letmin - 404';
     });
 
     return (
