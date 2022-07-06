@@ -92,18 +92,21 @@ const CompanyTalentBank = () => {
         <CompanyDefault>
             <div className='p-5'>
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-folder-open mr-2"></i>
+                    <i className='fa-solid fa-folder-open mr-2'></i>
                     <span>Banco de Talentos</span>
                 </h1>
                 <div className='w-full flex items-center justify-between mt-5'>
-                    <input onChange={ (e) => setSearchFolders(e.target.value) } type='text' placeholder='Buscar' className='max-w-sm w-full mr-3 px-2 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                    <div className='max-w-sm w-full relative mr-2'>
+                        <input onChange={ (e) => setSearchFolders(e.target.value) } type='text' placeholder='Buscar' className='w-full mr-3 pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                        <i className='fa-solid fa-magnifying-glass absolute right-2 top-1 text-xl text-dark-purple'></i>
+                    </div>
                     <button onClick={ () => setModalIsOpen(true) } className='bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                         <i className='fa-solid fa-plus'></i>
                     </button>
                 </div>
                 {
                     folders.length === 0 && (
-                        <div className='mt-5 text-center md:text-left text-dark-purple text-lg'>Nenhuma pasta encontrada</div>
+                        <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhuma pasta encontrada</div>
                     )
                 }
                 <div className='mt-5 grid md:grid-cols-2 lg:grid-cols-4 gap-4'>

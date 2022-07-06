@@ -11,12 +11,15 @@ const CompanyTalentSearch = () => {
         <CompanyDefault>
             <div className='p-5'>
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-magnifying-glass"></i>
+                    <i className='fa-solid fa-lightbulb mr-2'></i>
                     <span> Buscar Talentos</span>
                 </h1>
 
                 <div className='mt-5'>
-                    <input type='text' placeholder='Buscar' className='max-w-sm w-full px-2 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                    <div className='max-w-sm w-full relative'>
+                        <input type='text' placeholder='Buscar' className='w-full mr-3 pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                        <i className='fa-solid fa-magnifying-glass absolute right-2 top-1 text-xl text-dark-purple'></i>
+                    </div>
                 </div>          
 
                 <div className='mt-7'>

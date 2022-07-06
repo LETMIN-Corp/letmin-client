@@ -12,19 +12,23 @@ const CompanyTalentSearch = () => {
         <UserDefault>
             <div className='p-5'>
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-magnifying-glass"></i>
+                    <i className="fa-solid fa-bullhorn mr-2"></i>
                     <span> Buscar Vagas</span>
                 </h1>
 
                 <div className='mt-5 flex flex-wrap'>
-                    <input type='text' placeholder='Buscar' className='max-w-sm w-full px-2 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
-                    <div className='md:w-auto w-full flex mt-2 lg:mt-0 lg:ml-5'>
-                        <select name='' id='' className='px-2 py-1.5 border-2 border-dark-purple rounded-md'>
+                    <div className='max-w-sm w-full relative'>
+                        <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                        <i className='fa-solid fa-magnifying-glass absolute right-2 top-1 text-xl text-dark-purple'></i>
+                    </div>
+                    {/* <input type='text' placeholder='Buscar' className='max-w-sm w-full px-2 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' /> */}
+                    <div className='w-full md:w-auto flex mt-2 lg:mt-0 lg:ml-5'>
+                        <select name='' id='' className='w-full px-2 py-1.5 border-2 border-dark-purple rounded-md'>
                             <option value='opcao1'>Opção 1</option>
                             <option value='opcao2'>Opção 2</option>
                             <option value='opcao3'>Opção 3</option>
                         </select>
-                        <select name='' id='' className='px-2 py-1.5 ml-5 border-2 border-dark-purple rounded-md'>
+                        <select name='' id='' className='w-full px-2 py-1.5 ml-5 border-2 border-dark-purple rounded-md'>
                             <option value='opcao1'>Opção 1</option>
                             <option value='opcao2'>Opção 2</option>
                             <option value='opcao3'>Opção 3</option>
