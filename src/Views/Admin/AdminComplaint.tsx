@@ -10,7 +10,7 @@ const AdminComplaint : React.FC = () => {
         <AdminDefault>
             <div className='p-5'>
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-users mr-2"></i>
+                    <i className="fa-solid fa-triangle-exclamation mr-2"></i>
                     Denúncias
                 </h1>
                 <div className='w-full flex items-center justify-between mt-5'>
