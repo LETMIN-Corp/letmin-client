@@ -3,10 +3,8 @@ import AdminDefault from './AdminDefault';
 
 const AdminComplaint : React.FC = () => {
     useEffect((): void => {
-        window.document.title = 'Letmin- Denúncias';
+        window.document.title = 'Letmin - Denúncias';
     });
-
-    const [openModal, setOpenModal] = useState(false);
 
     return (
         <AdminDefault>
