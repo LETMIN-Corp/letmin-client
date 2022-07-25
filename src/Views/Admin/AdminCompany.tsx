@@ -23,7 +23,7 @@ const AdminCompany : React.FC = () => {
                 </div>
                 <div className='mt-5 break-all'>
                     <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
-                        <span className='w-5/12 md:w-7/12 pr-1'>Razão social</span>
+                        <span className='w-5/12 md:w-7/12 pr-1'>Razão Social</span>
                         <span className='w-4/12 pr-1'>Status</span>
                         <span className='w-3/12 md:w-24 pr-1'>Ações</span>
                     </div>
