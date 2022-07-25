@@ -16,32 +16,55 @@ import AdminCompany from './Views/Admin/AdminCompany';
 import AdminError from './Views/Admin/AdminError';
 import AdminCollaborator from './Views/Admin/AdminCollaborator';
 import AdminComplaint from './Views/Admin/AdminComplaint';
+import { AuthContext } from './Providers/Auth';
+import React from 'react';
+import RoleEnum from './Utils/RoleEnum';
 
 function App() {
+  const user = React.useContext(AuthContext);
+
+  // @ts-ignore:next-line
+  const userRole = user.getRole();
+
   return (
     <div className='w-screen min-h-screen relative'>
       <Routes>
+        <Route path='*' element={ <Home /> } />
         <Route path='/' element={ <Home /> } />
-
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
-
-        <Route path='/company/*' element={ <CompanyError /> } />
-        <Route path='/company/indicators' element={ <CompanyIndicators /> } />
-        <Route path='/company/talents' element={ <CompanyTalentBank /> } />
-        <Route path='/company/talent/search' element={ <CompanyTalentSearch /> } />
-        <Route path='/company/profile' element={ <CompanyProfile /> } />
-        <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
-
-        <Route path='/user/*' element={ <UserError /> } />
-        <Route path='/user/profile' element={ <UserProfile /> } />
-        <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
-
-        <Route path='/admin/*' element={ <AdminError /> } />
-        <Route path='/admin/login' element={ <AdminLogin /> } />
-        <Route path='/admin/company' element={ <AdminCompany/> } />
-        <Route path='/admin/collaborator' element={ <AdminCollaborator/> } />
-        <Route path='/admin/complaint' element={ <AdminComplaint/> } />
+        {
+          userRole === RoleEnum.company && (
+            <>
+              <Route path='/company/*' element={ <CompanyError /> } />
+              <Route path='/company/indicators' element={ <CompanyIndicators /> } />
+              <Route path='/company/talents' element={ <CompanyTalentBank /> } />
+              <Route path='/company/talent/search' element={ <CompanyTalentSearch /> } />
+              <Route path='/company/profile' element={ <CompanyProfile /> } />
+              <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
+            </>
+          )
+        }
+        {
+          userRole === RoleEnum.user && (
+            <>
+              <Route path='/user/*' element={ <UserError /> } />
+              <Route path='/user/profile' element={ <UserProfile /> } />
+              <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
+            </>
+          )
+        }
+        {
+          userRole === RoleEnum.admin && (
+            <>
+              <Route path='/admin/*' element={ <AdminError /> } />
+              <Route path='/admin/login' element={ <AdminLogin /> } />
+              <Route path='/admin/company' element={ <AdminCompany/> } />
+              <Route path='/admin/collaborator' element={ <AdminCollaborator/> } />
+              <Route path='/admin/complaint' element={ <AdminComplaint/> } />
+            </>
+          )
+        }
       </Routes>
     </div>
   )
