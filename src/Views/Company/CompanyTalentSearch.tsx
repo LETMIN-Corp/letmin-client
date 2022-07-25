@@ -54,14 +54,14 @@ const CompanyTalentSearch = () => {
                         <input type='text' placeholder='Buscar' className='w-full mr-3 pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
                         <i className='fa-solid fa-magnifying-glass absolute right-2 top-1 text-xl text-dark-purple'></i>
                     </div>
-                </div>          
+                </div>
 
                 <div className='mt-7'>
-                    <p className='text-bright-gray font-bold text-sm md:text-md text-md mb-2'>Aproximadamente 12.300 resultados</p>
+                    <p className='text-bright-gray font-bold text-sm md:text-md text-md mb-2'>Aproximadamente { data.length } resultados</p>
                 </div>
 
                 <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-1 gap-7 w-full md:mb-5'>
-                    <List data={ data } itemsPerPage={ 1 }></List>
+                    <List data={ data } itemsPerPage={ 10 }></List>
                 </div>
             </div>
         </CompanyDefault>
