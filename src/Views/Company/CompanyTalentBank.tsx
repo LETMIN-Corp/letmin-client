@@ -8,7 +8,7 @@ import TextInput from '../../Components/Inputs/TextInput';
 const CompanyTalentBank = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Banco de Talentos';
-    });
+    }, []);
 
     const [allFolders, setAllFolders] = useState<FoldersInterface>([]);
     const [folders, setFolders] = useState<FoldersInterface>([]);

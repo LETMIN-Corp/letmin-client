@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 const CorpRegister : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Cadastro';
-    });
+    }, []);
 
     const navigate = useNavigate();
 

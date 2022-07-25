@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 const Home : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Página Inicial';
-    });
+    }, []);
 
     const menuButtons = [
         {

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const CompanyCombinations : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Combinações';
-    });
+    }, []);
 
     return (
         <CompanyDefault>

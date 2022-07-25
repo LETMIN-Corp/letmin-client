@@ -6,7 +6,7 @@ import UserDefault from './UserDefault'
 const CompanyTalentSearch = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Buscar Vagas';
-    });
+    }, []);
 
     return (
         <UserDefault>

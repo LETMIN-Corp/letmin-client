@@ -9,7 +9,7 @@ import FormModal from '../../Components/Modals/FormModal';
 const CompanyProfile = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Meus Dados';
-    });
+    }, []);
 
     interface FormModalInterface {
         title?: string,
