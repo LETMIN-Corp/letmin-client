@@ -6,6 +6,7 @@ import CompanyError from './Views/Company/CompanyError';
 import CompanyIndicators from './Views/Company/CompanyIndicators';
 import CompanyTalentBank from './Views/Company/CompanyTalentBank';
 import CompanyTalentSearch from './Views/Company/CompanyTalentSearch';
+import CompanyRegisterVacancy from './Views/Company/CompanyRegisterVacancy';
 import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
 import UserProfile from './Views/User/UserProfle';
@@ -40,8 +41,9 @@ function App() {
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
               <Route path='/company/talent/search' element={ <CompanyTalentSearch /> } />
-              <Route path='/company/profile' element={ <CompanyProfile /> } />
               <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
+              <Route path='/company/register/vacancy' element={ <CompanyRegisterVacancy /> } />
+              <Route path='/company/profile' element={ <CompanyProfile /> } />
             </>
           )
         }

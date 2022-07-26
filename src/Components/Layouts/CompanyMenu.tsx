@@ -24,6 +24,11 @@ const CompanyMenu : React.FC = () => {
             isLink: true,
         },
         {
+            text: 'Inserção de Vagas',
+            path: '/company/register/vacancy',
+            isLink: true,
+        },
+        {
             text: 'Meus Dados',
             path: '/company/profile',
             isLink: true,
