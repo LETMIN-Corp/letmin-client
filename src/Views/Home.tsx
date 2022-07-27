@@ -18,7 +18,7 @@ import Star from '../Assets/star.png';
 const Home : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Página Inicial';
-    });
+    }, []);
 
     const menuButtons = [
         {

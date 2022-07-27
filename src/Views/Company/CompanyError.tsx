@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 const CompanyError : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - 404';
-    });
+    }, []);
 
     return (
         <CompanyDefault>

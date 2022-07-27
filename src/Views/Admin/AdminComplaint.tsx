@@ -4,7 +4,7 @@ import AdminDefault from './AdminDefault';
 const AdminComplaint : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Denúncias';
-    });
+    }, []);
 
     return (
         <AdminDefault>

@@ -7,7 +7,7 @@ import AdminDefault from './AdminDefault';
 const AdminCollaborator : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Colaboradores';
-    });
+    }, []);
 
     const [openModal, setOpenModal] = useState(false);
 

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const AdminLogin : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Login';
-    });
+    }, []);
 
     return (
         <div className='w-screen min-h-screen flex items-center justify-center bg-primary'>
