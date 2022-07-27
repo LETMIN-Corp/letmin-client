@@ -55,11 +55,13 @@ const CompanyTalentSearch = () => {
                         <i className='fa-solid fa-magnifying-glass absolute right-2 top-1 text-xl text-dark-purple'></i>
                     </div>
                 </div>
-
-                <div className='mt-7'>
-                    <p className='text-bright-gray font-bold text-sm md:text-md text-md mb-2'>Aproximadamente { data.length } resultados</p>
-                </div>
-
+                {
+                    !!data.length && (
+                        <div className='mt-7'>
+                            <p className='text-bright-gray font-bold text-sm md:text-md text-md mb-2'>Foram encontrados { data.length } resultados</p>
+                        </div>
+                    )
+                }
                 <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-1 gap-7 w-full md:mb-5'>
                     <List data={ data } itemsPerPage={ 10 }></List>
                 </div>

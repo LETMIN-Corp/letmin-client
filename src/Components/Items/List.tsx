@@ -53,15 +53,17 @@ const List : React.FC<ListInterface> = ({ data, itemsPerPage }) => {
             }
             if(currentPage === maxPage) {
                 buttons = [];
-                for(let i = (currentPage - 2); (i >= 1 && i < currentPage); i++) {
-                    buttons.push(i);
+                for(let i = (currentPage - 2); i < currentPage; i++) {
+                    if(i >= 1) {
+                        buttons.push(i);
+                    }
                 }
                 buttons.push(maxPage);
             }
         }
         setButtons(buttons);
     }, [currentPage]);
-    console.log(data);
+
     return (
         <>
             {
@@ -77,13 +79,13 @@ const List : React.FC<ListInterface> = ({ data, itemsPerPage }) => {
                     !!buttons.length && (
                         <>
                             <ListButton handleClick={ () => setCurrentPage(1) }>
-                                <i className="fa-solid fa-chevron-left"></i>
+                                <i className="fa-solid fa-angles-left"></i>
                             </ListButton>
                             {
                                 buttons.map((page) => <ListButton key={ page } isCurrent={ currentPage === page } handleClick={ () => setCurrentPage(page)}>{ page }</ListButton>)
                             }
                             <ListButton handleClick={ () => setCurrentPage(maxPage) }>
-                                <i className="fa-solid fa-chevron-right"></i>
+                                <i className="fa-solid fa-angles-right"></i>
                             </ListButton>
                         </>
                     ) 
