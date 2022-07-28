@@ -4,6 +4,7 @@ import Register from './Views/Register';
 import CompanyRegister from './Views/Company/CompanyRegister'
 import CompanyError from './Views/Company/CompanyError';
 import CompanyIndicators from './Views/Company/CompanyIndicators';
+import CompanyMatch from './Views/Company/CompanyMatch';
 import CompanyTalentBank from './Views/Company/CompanyTalentBank';
 import CompanyTalentSearch from './Views/Company/CompanyTalentSearch';
 import CompanyProfile from './Views/Company/CompanyProfile';
@@ -33,6 +34,7 @@ function App() {
         <Route path='/' element={ <Home /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
+
         {
           userRole === RoleEnum.company && (
             <>
@@ -41,6 +43,7 @@ function App() {
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
               <Route path='/company/talent/search' element={ <CompanyTalentSearch /> } />
               <Route path='/company/profile' element={ <CompanyProfile /> } />
+              <Route path='/company/combinations' element={ <CompanyMatch />} />
               <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
             </>
           )
