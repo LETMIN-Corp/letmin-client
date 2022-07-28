@@ -10,7 +10,6 @@ import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
 import UserProfile from './Views/User/UserProfle';
 import UserError from './Views/User/UserError';
-import CompanyMatch from './Views/Company/CompanyMatch';
 
 function App() {
   return (
@@ -19,7 +18,6 @@ function App() {
         <Route path='/' element={ <Home /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
-<<<<<<< Updated upstream
 
         <Route path='/company/*' element={ <CompanyError /> } />
         <Route path='/company/indicators' element={ <CompanyIndicators /> } />
@@ -30,41 +28,6 @@ function App() {
 
         <Route path='/user/*' element={ <UserError /> } />
         <Route path='/user/profile' element={ <UserProfile /> } />
-=======
-        {
-          userRole === RoleEnum.company && (
-            <>
-              <Route path='/company/*' element={ <CompanyError /> } />
-              <Route path='/company/indicators' element={ <CompanyIndicators /> } />
-              <Route path='/company/talents' element={ <CompanyTalentBank /> } />
-              <Route path='/company/talent/search' element={ <CompanyTalentSearch /> } />
-              <Route path='/company/profile' element={ <CompanyProfile /> } />
-              <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
-              <Route path='/company/combinations' element={ <CompanyMatch/> }/>
-            </>
-          )
-        }
-        {
-          userRole === RoleEnum.user && (
-            <>
-              <Route path='/user/*' element={ <UserError /> } />
-              <Route path='/user/profile' element={ <UserProfile /> } />
-              <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
-            </>
-          )
-        }
-        {
-          userRole === RoleEnum.admin && (
-            <>
-              <Route path='/admin/*' element={ <AdminError /> } />
-              <Route path='/admin/login' element={ <AdminLogin /> } />
-              <Route path='/admin/company' element={ <AdminCompany/> } />
-              <Route path='/admin/collaborator' element={ <AdminCollaborator/> } />
-              <Route path='/admin/complaint' element={ <AdminComplaint/> } />
-            </>
-          )
-        }
->>>>>>> Stashed changes
       </Routes>
     </div>
   )
