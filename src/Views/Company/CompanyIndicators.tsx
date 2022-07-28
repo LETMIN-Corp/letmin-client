@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 
 const CompanyIndicators = () => {
     useEffect((): void => {
-        window.document.title = 'Indicadores';
-    });
+        window.document.title = 'Letmin - Indicadores';
+    }, []);
 
     return (
         <CompanyDefault>

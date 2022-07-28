@@ -1,9 +1,9 @@
-import UserMenu from "../../Components/Layouts/UserMenu";
+import AdminMenu from '../../Components/Layouts/AdminMenu';
 
-const UserDefault : React.FC = ({ children }) => {
+const AdminDefault : React.FC = ({ children }) => {
     return (
         <div className='flex'>
-            <UserMenu />
+            <AdminMenu />
             <div className='w-full mt-16 md:mt-20'>
                 { children }
             </div>
@@ -11,4 +11,4 @@ const UserDefault : React.FC = ({ children }) => {
     );
 }
 
-export default UserDefault;
+export default AdminDefault;

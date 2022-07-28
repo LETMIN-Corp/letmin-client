@@ -1,18 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserProfileCard from '../../Components/Cards/UserProfileCard';
 import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
 
-const UserProfile = () => {
+const UserProfile : React.FC = () => {
+    useEffect((): void => {
+        window.document.title = 'Letmin - Perfil';
+    }, []);
+
     const [openModal, setOpenModal] = useState(false);
 
     return (
         <UserDefault>
-            <main>
+            <main className=''>
                 <div className='h-32 bg-lively-purple'></div>
-                <div className='relative flex w-full md:justify-end mx-5'>
+                <div className='relative flex md:justify-end mx-5'>
                     <img src='https://via.placeholder.com/150' className='rounded-full border-4 border-lively-purple absolute left-0 -top-20' />
-                    <div className='mt-24 md:mr-14 md:mt-5 text-lg md:justify-end flex justify-between items-center w-full mr-14'>
+                    <div className='mt-24 md:mt-5 text-lg md:justify-end flex justify-between items-center w-full'>
                         <a href='#' className='font-medium text-dark-purple hover:text-lively-purple'>
                             <i className='fa-solid fa-link mr-2'></i>
                             <span>Link Externo</span>
@@ -24,16 +28,16 @@ const UserProfile = () => {
                 </div>
                 <div className='mt-5 md:mt-10 mx-5'>
                     <div className='font-medium text-xl text-dark-purple'>Nome do Usuário</div>
-                    <div className='text-lg mr-5 text-justify'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dolore reiciendis nobis tempora eos quo unde dolores perspiciatis ut id sapiente molestiae vero eligendi ullam quibusdam libero, tempore in fugit!</div>
+                    <div className='text-lg text-justify'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dolore reiciendis nobis tempora eos quo unde dolores perspiciatis ut id sapiente molestiae vero eligendi ullam quibusdam libero, tempore in fugit!</div>
                 </div>
             </main>
             <section className='px-5 mt-10'>
                 <div className='font-medium text-xl text-dark-purple'>Quem Sou Eu?</div>
-                <div className='text-lg mr-5 text-justify'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dolore reiciendis nobis tempora eos quo unde dolores perspiciatis ut id sapiente molestiae vero eligendi ullam quibusdam libero, tempore in fugit!</div>
+                <div className='text-lg text-justify'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dolore reiciendis nobis tempora eos quo unde dolores perspiciatis ut id sapiente molestiae vero eligendi ullam quibusdam libero, tempore in fugit!</div>
             </section>
             <section className='px-5 mt-10'>
                 <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mr-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {
                         [
                             {
@@ -54,7 +58,7 @@ const UserProfile = () => {
             </section>
             <section className='px-5 my-10'>
                 <div className='font-medium text-xl text-dark-purple mb-2'>Formação Acadêmica</div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mr-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {
                         [
                             {

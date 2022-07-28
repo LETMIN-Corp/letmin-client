@@ -20,7 +20,7 @@ const CompanyMenu : React.FC = () => {
         },
         {
             text: 'Buscar Talentos',
-            path: '/company/anything',
+            path: '/company/talent/search',
             isLink: true,
         },
         {

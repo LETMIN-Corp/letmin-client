@@ -1,20 +1,20 @@
 import Menu from '../../Components/Layouts/Menu';
 
-const UserMenu : React.FC = () => {
+const AdminMenu : React.FC = () => {
     const menuButtons = [
         {
-            text: 'Perfil',
-            path: '/user/profile',
+            text: 'Empresas',
+            path: '/admin/company',
             isLink: true,
         },
         {
-            text: 'Combinações',
-            path: '/user/combinations',
+            text: 'Colaboradores',
+            path: '/admin/collaborator',
             isLink: true,
         },
         {
-            text: 'Buscar Vagas',
-            path: '/user/vacancy/search',
+            text: 'Denúncias',
+            path: '/admin/complaint',
             isLink: true,
         },
     ];
@@ -24,4 +24,4 @@ const UserMenu : React.FC = () => {
     );
 }
 
-export default UserMenu;
+export default AdminMenu;

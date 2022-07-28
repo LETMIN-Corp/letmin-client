@@ -14,6 +14,7 @@ module.exports = {
       'lilac': '#F4E6FF',
       'white': '#FFFEFF',
       'gray': '#E6DCC7',
+      'bright-gray':  '#9ca3af',
       'black': '#000002',
       'green': '#00C853',
       'red': '#E83736'
@@ -26,7 +27,7 @@ module.exports = {
     },
     minWidth: {
       'sm': '115px',
-    }
+    },
   },
   plugins: [],
 } 

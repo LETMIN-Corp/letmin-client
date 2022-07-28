@@ -1,14 +1,18 @@
+import { ReactNode } from "react";
+
 interface ComponentInterface {
-    url: string, 
+    url: ReactNode, 
 }
 
 const PartnerImage: React.FC<ComponentInterface> = ({ url }) => {
     return (
-        <img src={ url } className='rounded-full m-auto' style={{
-            width: '80px',
-            height: '80px',
+        // @ts-ignore:next-line
+        <img src={ url } className='m-auto' style={{
+            width: '50px',
+            height: '50px',
         }} />
     );
 }
 
 export default PartnerImage;
+
