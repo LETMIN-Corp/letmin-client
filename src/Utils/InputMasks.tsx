@@ -77,4 +77,14 @@ function cvvMask (value : string) {
         .replace(/(\d{3})\d+?$/, '$1');
 }
 
-export { holderMask, cpfMask, cardNumbermask, cnpjMask, phoneMask, phoneDDI, cepMask, cardValidDateMask, dateWithDashesMask, cvvMask };
+function moneyMask(value : string) {
+    value = value.replace(/\D/g,"")
+    value = value.replace(/(\d{1})(\d{14})$/,"$1.$2")
+    value = value.replace(/(\d{1})(\d{11})$/,"$1.$2")
+    value = value.replace(/(\d{1})(\d{8})$/,"$1.$2")
+    value = value.replace(/(\d{1})(\d{5})$/,"$1.$2")
+    value = value.replace(/(\d{1})(\d{1,2})$/,"$1,$2")
+    return value;
+}
+
+export { holderMask, cpfMask, cardNumbermask, cnpjMask, phoneMask, phoneDDI, cepMask, cardValidDateMask, dateWithDashesMask, cvvMask, moneyMask };

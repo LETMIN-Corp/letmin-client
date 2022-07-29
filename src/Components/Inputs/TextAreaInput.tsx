@@ -33,7 +33,7 @@ const TextAreaInput : React.FC<ComponentInterface> = ({ row, placeholder, limit 
                 className='w-full mt-2 mb-5 md:mt-2 py-3 px-5 border-2 border-dark-purple rounded-md'
                 disabled = { disabled }
             >
-                {inputValue}
+                { inputValue }
             </textarea>
             {
                 inputValue && (

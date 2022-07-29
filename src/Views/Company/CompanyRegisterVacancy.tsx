@@ -16,7 +16,7 @@ import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 
 const CompanyRegisterVacancy = () => {
     useEffect((): void => {
-        window.document.title = 'Letmin - Vagas';
+        window.document.title = 'Letmin - Inserção de Vagas';
     });
 
     interface IVacancyData {
@@ -37,11 +37,6 @@ const CompanyRegisterVacancy = () => {
             workload: '',
             region: '',
             vacancyType: '',
-        },
-        requisite: {
-            previousKnowledge: '',
-            trainingLevel: '',
-            experienceTime: '',
         },
         systemicData: {
             insertVacancyDate: '',
@@ -71,13 +66,6 @@ const CompanyRegisterVacancy = () => {
         setValue: setInputValue, 
     }
 
-    function handleRegister() {
-        // Lógica de cadastro e validação de dados da vaga
-
-        navigate('/company/register/logic/vacancy');
-    }
-
-
     return (
         <CompanyDefault>
             <div className="p-5">
@@ -86,7 +74,7 @@ const CompanyRegisterVacancy = () => {
                     <span>Cadastro de Vagas</span>
                 </h1>
 
-                <div className='w-full bg-lilac rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 drop-shadow-lg px-5 md:mr-5'>
+                <div className='w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5'>
                     <h1 className='text-xl'>Dados da Vaga</h1>
                     <div className='md:flex md:justify-between'>
                         <div className='md:w-6/12 w-full mr-5'>
@@ -95,14 +83,16 @@ const CompanyRegisterVacancy = () => {
                             <TextAreaInput name="vacancyInfo-description" id="vacancyInfo-description" row={ 6 } consultPackage={ consultPackage } placeholder='Descrição'/>
                         </div>
                         <div className='md:w-6/12 w-full md:mt-1'>
-                            <SelectInput placeholder='Carga Horária' options={["1", "2", "3"]} consultPackage={ consultPackage } name="vacancyInfo-workload" id='vacancyInfo-workload'></SelectInput>  
+                            <SelectInput placeholder='Carga Horária' options={["Integral", "Meio Período", "Folguista", "Flexível"]} consultPackage={ consultPackage } name="vacancyInfo-workload" id='vacancyInfo-workload'></SelectInput>     
                             <div className="md:flex justify-between">
-                                <TextInput placeholder='Salário' type='number' size='large' name='vacancyInfo-salary' id='vacancyInfo-salary' consultPackage={ consultPackage }/>  
-                                <SelectInput placeholder='Moeda' options={["Moeda 1", "Moeda 2", "Moeda 3"]} size='medium' consultPackage={ consultPackage } name="vacancyInfo-currency" id="vacancyInfo-currency"></SelectInput>  
+                                <TextInput placeholder='Salário' useMask={ MaskTypesEnum.money } limit={ 12 } type='text' size='large' name='vacancyInfo-salary' id='vacancyInfo-salary' consultPackage={ consultPackage }/>  
+                                <SelectInput placeholder='Moeda' options={["Real", "Dolar", "Euro"]} size='medium' consultPackage={ consultPackage } name="vacancyInfo-currency" id="vacancyInfo-currency"></SelectInput>  
                             </div>
-                            <SelectInput placeholder='Setor' options={["Front", "Back"]} consultPackage={ consultPackage } name="vacancyInfo-sector" id='vacancyInfo-sector'></SelectInput>     
-                           
+                            <SelectInput placeholder='Setor' options={["Recursos Humanos", "Tecnologia", "Administrativo", "Financeiro", "Operacional"]} consultPackage={ consultPackage } name="vacancyInfo-sector" id='vacancyInfo-sector'></SelectInput>     
                             <div className='pb-2'>
+                                <div className='text-dark-purple font-medium text-md'>
+                                    Tipo de Contratação
+                                </div>
                                 <input type='radio' value="Estágio" id="vagaEstagio" name='vacancyInfo-type'></input>
                                 <label className='text-lg' htmlFor='vagaEstagio'> Estágio</label><br></br>
                                 <input type='radio' value="Permanente" id='Permanente' name='vacancyInfo-type'></input>
@@ -115,39 +105,23 @@ const CompanyRegisterVacancy = () => {
                     </div>
                     
                 </div>
-
-                <div className='w-full bg-lilac rounded-md mx-auto text-justify mt-6 pt-2 text-8x1 drop-shadow-lg px-5 md:mr-5'>
-                    <h1 className='text-xl'>Requisitos</h1>
-                    <div className='md:flex md:justify-between'>
-                        <div className='md:w-6/12 w-full mr-5'>
-                            <SelectInput placeholder='Nível de Formação' options={["Júnior", "Sênior", "Plena"]} consultPackage={ consultPackage } name='requisite-trainingLevel' id='requisite-trainingLevel'></SelectInput>  
-                            <TextInput placeholder='Conhecimentos Prévios' type='text' name='requisite-knowledge' id='requisite-knowledge' consultPackage={ consultPackage }/>   
-                            
-                        </div>
-                        <div className='md:w-6/12 w-full'>
-                            <SelectInput placeholder='Tempo de Experiência' options={["1", "2", "3"]} consultPackage={ consultPackage } name="requisite-experienceTime" id="vacancyInfo-experienceTime"></SelectInput>  
-                        </div>
-                    
-                    </div>
-                    
-                </div>
-                <div className='w-full bg-lilac rounded-md mx-auto text-justify my-6 pt-2 text-8x1 drop-shadow-lg px-5 md:mr-5'>
+                <div className='w-full rounded-md mx-auto text-justify my-6 pt-2 text-8x1 md:mr-5'>
                     <h1 className='text-xl'>Dados Sistemáticos</h1>
                     <div className='md:flex md:justify-between'>
                         <div className='md:w-6/12 w-full mr-5'>
-                            <TextInput placeholder='Data que vai ao ar' type='date' name='systemicData-insertVacancyDate' id='systemicData-insertVacancyDate'consultPackage={ consultPackage }/>
+                            <TextInput placeholder='Lançamento de Vaga' type='date' name='systemicData-insertVacancyDate' id='systemicData-insertVacancyDate'consultPackage={ consultPackage }/>
                         </div>
                         <div className='md:w-6/12 w-full'>
-                            <TextInput placeholder='Data que vai sair do ar' type='date' name='systemicData-removeVacancyDate' id='systemicData-removeVacancyDate' consultPackage={ consultPackage }/>  
+                            <TextInput placeholder='Fechamento de Vaga' type='date' name='systemicData-removeVacancyDate' id='systemicData-removeVacancyDate' consultPackage={ consultPackage }/>  
                         </div>
                     
                     </div>
                     
                 </div>
                 
-                <FormButton text='Cadastrar' handleClick={ () => handleRegister() }/>
-                
-
+                <div className='flex w-full justify-end'>
+                    <FormButton text='Cadastrar' handleClick={ () => {} }/>
+                </div>
             </div>
         </CompanyDefault>
     );

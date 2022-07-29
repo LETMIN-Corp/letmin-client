@@ -6,6 +6,7 @@ enum MaskTypesEnum {
     phone = 'phone',
     cardNumber = 'cardNumber',
     holder = 'holder',
+    money = 'money'
 }
 
 export default MaskTypesEnum;

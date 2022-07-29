@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { cnpjMask, cpfMask, cardValidDateMask, cvvMask, phoneMask, cardNumbermask, holderMask } from '../../Utils/InputMasks';
+import { cnpjMask, cpfMask, cardValidDateMask, cvvMask, phoneMask, cardNumbermask, holderMask, moneyMask } from '../../Utils/InputMasks';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
 import MaskTypesEnum from '../../Utils/MaskTypesEnum';
 
@@ -48,6 +48,8 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, use
                 return phoneMask(value);
             case MaskTypesEnum.cardNumber:
                 return cardNumbermask(value);
+            case MaskTypesEnum.money:
+                return moneyMask(value)
         }
 
         return value;
@@ -90,7 +92,7 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, use
                 )
             }
             {
-                inputValue && (
+                (inputValue || type == InputTypesEnum.date) && (
                     <div className='input-up-animation z-50 bg-white font-medium px-1 text-dark-purple'>{ placeholder }</div>
                 )
             }
