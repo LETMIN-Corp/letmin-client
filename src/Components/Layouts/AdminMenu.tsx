@@ -4,17 +4,17 @@ const AdminMenu : React.FC = () => {
     const menuButtons = [
         {
             text: 'Empresas',
-            path: '/admin/company',
+            path: '/admin/companies',
             isLink: true,
         },
         {
             text: 'Colaboradores',
-            path: '/admin/collaborator',
+            path: '/admin/collaborators',
             isLink: true,
         },
         {
             text: 'Denúncias',
-            path: '/admin/complaint',
+            path: '/admin/complaints',
             isLink: true,
         },
     ];

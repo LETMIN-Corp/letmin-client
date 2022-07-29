@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 
 const CompanyCombinations : React.FC = () => {
     useEffect((): void => {
-        window.document.title = 'Letmin - Combinações';
+        window.document.title = 'Letmin - Combinação';
     }, []);
 
     return (
         <CompanyDefault>
             <div className='flex justify-center items-center py-5 lg:py-10 bg-primary'>
-                <h1 className='text-white text-4xl lg:text-5xl font-black mt-4'>Combinações</h1>
+                <h1 className='text-white text-4xl lg:text-5xl font-black mt-4'>Combinação</h1>
             </div>
             <div className='p-5'>
                 <section className='flex flex-col justify-center items-center py-10'>

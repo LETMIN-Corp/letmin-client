@@ -1,5 +1,7 @@
 import CompanyDefault from './CompanyDefault';
 import { useEffect } from 'react';
+import SecondaryLink from '../../Components/Links/SecondaryLink';
+import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 
 const CompanyMatch : React.FC = () => {
     useEffect((): void => {
@@ -24,16 +26,12 @@ const CompanyMatch : React.FC = () => {
                                 <h2 className='lg:text-5xl md:text-4xl text-3xl mb-4'>Combinação</h2>
                                 <h2 className='lg:text-5xl md:text-4xl text-3xl'>Perfeita!</h2>
                             </div>
-                            <div className='flex items-center justify-evenly lg:justify-between'>
-                                <div>
-                                    <button className='bg-primary py-2 px-4 w-30 h-10 rounded-full text-white hover:bg-dark-purple ease-out duration-200'>
-                                    <span>Ver perfil</span>
-                                    </button>
+                            <div className='sm:flex lg:w-80 items-center justify-evenly lg:justify-between'>
+                                <div className='flex w-full justify-center'>
+                                    <SecondaryLink text='Ver Perfil' path='/company/combinations/1'></SecondaryLink>
                                 </div>
-                                <div>
-                                    <button className='bg-primary py-2 px-4 w-30 h-10 rounded-full text-white hover:bg-dark-purple ease-out duration-200'>
-                                    <span>Próximo</span>
-                                    </button>
+                                <div className='flex w-full justify-center mt-5 sm:mt-0'>
+                                    <SecondaryButton text='Próximo' handleClick={ () => {} }></SecondaryButton>
                                 </div>
                             </div>
                         </div>   

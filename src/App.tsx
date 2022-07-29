@@ -1,7 +1,10 @@
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+
 import Home from './Views/Home';
 import Register from './Views/Register';
 import CompanyRegister from './Views/Company/CompanyRegister'
+
 import CompanyError from './Views/Company/CompanyError';
 import CompanyIndicators from './Views/Company/CompanyIndicators';
 import CompanyMatch from './Views/Company/CompanyMatch';
@@ -10,16 +13,18 @@ import CompanyTalentSearch from './Views/Company/CompanyTalentSearch';
 import CompanyRegisterVacancy from './Views/Company/CompanyRegisterVacancy';
 import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
+
 import UserProfile from './Views/User/UserProfle';
 import UserError from './Views/User/UserError';
 import UserVacancySearch from './Views/User/UserVacancySearch';
+
 import AdminLogin from './Views/Admin/AdminLogin';
 import AdminCompany from './Views/Admin/AdminCompany';
 import AdminError from './Views/Admin/AdminError';
 import AdminCollaborator from './Views/Admin/AdminCollaborator';
 import AdminComplaint from './Views/Admin/AdminComplaint';
+
 import { AuthContext } from './Providers/Auth';
-import React from 'react';
 import RoleEnum from './Utils/RoleEnum';
 
 function App() {
@@ -42,7 +47,7 @@ function App() {
               <Route path='/company/*' element={ <CompanyError /> } />
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
-              <Route path='/company/talent/search' element={ <CompanyTalentSearch /> } />
+              <Route path='/company/talents/search' element={ <CompanyTalentSearch /> } />
               <Route path='/company/combinations' element={ <CompanyMatch />} />
               <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
               <Route path='/company/register/vacancy' element={ <CompanyRegisterVacancy /> } />
@@ -64,9 +69,9 @@ function App() {
             <>
               <Route path='/admin/*' element={ <AdminError /> } />
               <Route path='/admin/login' element={ <AdminLogin /> } />
-              <Route path='/admin/company' element={ <AdminCompany/> } />
-              <Route path='/admin/collaborator' element={ <AdminCollaborator/> } />
-              <Route path='/admin/complaint' element={ <AdminComplaint/> } />
+              <Route path='/admin/companies' element={ <AdminCompany/> } />
+              <Route path='/admin/collaborators' element={ <AdminCollaborator/> } />
+              <Route path='/admin/complaints' element={ <AdminComplaint/> } />
             </>
           )
         }
