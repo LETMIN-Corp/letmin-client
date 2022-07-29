@@ -14,6 +14,11 @@ const CompanyMenu : React.FC = () => {
             isLink: true,
         },
         {
+            text: 'Inserção de Vagas',
+            path: '/company/register/vacancy',
+            isLink: true,
+        },
+        {
             text: 'Combinações',
             path: '/company/combinations',
             isLink: true,
@@ -21,11 +26,6 @@ const CompanyMenu : React.FC = () => {
         {
             text: 'Buscar Talentos',
             path: '/company/talent/search',
-            isLink: true,
-        },
-        {
-            text: 'Inserção de Vagas',
-            path: '/company/register/vacancy',
             isLink: true,
         },
         {
