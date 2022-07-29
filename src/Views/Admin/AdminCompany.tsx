@@ -7,7 +7,7 @@ import AdminDefault from './AdminDefault';
 const AdminCompany : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Empresas';
-    });
+    }, []);
 
     const [openModal, setOpenModal] = useState(false);
 

@@ -6,7 +6,7 @@ import UserDefault from './UserDefault'
 const UserProfile : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Perfil';
-    });
+    }, []);
 
     const [openModal, setOpenModal] = useState(false);
 

@@ -5,11 +5,20 @@ import SecondaryLink from '../Components/Links/SecondaryLink';
 import HighLight from '../Components/Items/HighLight';
 import HomeSection from '../Components/Layouts/HomeSections';
 import { useEffect } from 'react';
+import ImgMatch from '../Assets/img-match.png';
+import ImgTeam from '../Assets/img-team.png';
+import ImgComemoration from "../Assets/img-comemoration.png";
+
+import PartnerImage from '../Components/Images/PartnerImage';
+import Cube from '../Assets/cube.png';
+import Hearth from '../Assets/hearth.png';
+import Hourglass from '../Assets/hourglass.png';
+import Star from '../Assets/star.png';
 
 const Home : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Página Inicial';
-    });
+    }, []);
 
     const menuButtons = [
         {
@@ -46,8 +55,8 @@ const Home : React.FC = () => {
             </main>
             <HomeSection id='differential'>
                 <h2 className='text-4xl text-center text-dark-purple font-bold px-6 mb-4'>Nada parecido no mercado</h2>
-                <div className='px-5 md:w-10/12 lg:w-8/12 my-6 md:my-10'>
-                    <p className='w-12/12 md:w-6/12 text-lg md:text-xl text-justify'>
+                <div className='px-5 md:w-10/12 my-6 md:my-10 flex flex-wrap'>
+                    <p className='lg:w-7/12 text-lg text-justify'>
                         Oferecemos um serviço <HighLight>rápido e fácil</HighLight> em sua utilização,
                         onde toda a triagem da mão de obra é feita através do aplicativo.
                         A vantagem na utilização do App é reduzir o custo e o tempo que a empresa gastaria na seleção de candidatos aptos ao cargo,
@@ -55,6 +64,9 @@ const Home : React.FC = () => {
                         A vantagem para os candidatos é a <HighLight>redução no tempo gasto em longas filas de emprego</HighLight>,
                         pois o mesmo tem condições de estar concorrendo a várias vagas de emprego ao mesmo tempo,
                         através do currículo e perfil cadastrado na aplicação.
+                    </p>
+                    <p className='w-full lg:w-5/12 flex justify-center mt-5 lg:mt-0 lg:justify-end'>
+                        <img src={ ImgMatch } className='w-10/12 md:max-w-sm md:h-80' />
                     </p>
                 </div>
             </HomeSection>
@@ -99,7 +111,12 @@ const Home : React.FC = () => {
                 </span>
                 <span className='grid grid-cols-3 md:grid-cols-4 xl:grid-cols-10 gap-4 my-6 w-full md:w-12/12'>
                     {
-                        
+                        [
+                            Cube,
+                            Hearth,
+                            Hourglass,
+                            Star,
+                        ].map((url) => <PartnerImage url={ url }></PartnerImage>)
                     }
                 </span>
             </section>
@@ -113,10 +130,14 @@ const Home : React.FC = () => {
                         <HighLight> agilidade</HighLight> e <HighLight>praticidade</HighLight> nos processos, para que tanto
                         a empresa quanto o candidato obtenham satisfação no uso do programa.
                     </p>
-                    <div className='md:w-6/12 my-3 md:my-0 md:ml-5'></div>
+                    <div className='w-full md:w-6/12 my-3 md:my-0 md:ml-5 flex justify-center mt-5 lg:mt-0 lg:justify-end'>
+                        <img src={ ImgComemoration } className='w-10/12 md:max-w-sm md:h-80' />
+                    </div>
                 </div>
                 <div className='flex flex-col-reverse md:flex-row px-6 md:pt-6 max-w-4xl'>
-                    <div className='md:w-6/12 my-3 md:my-0 md:mr-5'></div>
+                    <div className='w-full md:w-6/12 my-3 md:my-0 md:mr-5 flex justify-center mt-5 lg:mt-0 lg:justify-start'>
+                        <img src={ ImgTeam } className='w-10/12 md:max-w-sm md:h-80' />
+                    </div>
                     <p className='text-lg md:text-xl text-justify mt-8 md:mt-0 md:w-6/12'>
                         Nós da <HighLight>LETMIN</HighLight> prezamos pela integração de novas 
                         tecnologias ao mercado de trabalho, almejando <HighLight>modernizar os recursos humanos</HighLight>,
