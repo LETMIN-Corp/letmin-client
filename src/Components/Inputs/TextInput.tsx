@@ -14,11 +14,12 @@ interface ComponentInterface {
         setValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
     },
     name: string,
+    value?: string,
     id?: string,
     disabled?: boolean,
 };
 
-const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, useMask, limit = 512, consultPackage, name, id, disabled }) => {
+const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, value, useMask, limit = 512, consultPackage, name, id, disabled }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const getInputSize = () => {
@@ -75,7 +76,7 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, use
             <input
                 type={ type }
                 placeholder={ placeholder }
-                value={ inputValue }
+                value={ inputValue || value}
                 onChange={ setValue }
                 name={ name }
                 id={ id }
@@ -92,7 +93,7 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, use
                 )
             }
             {
-                (inputValue || type == InputTypesEnum.date) && (
+                (inputValue || type == InputTypesEnum.date || value) && (
                     <div className='input-up-animation z-50 bg-white font-medium px-1 text-dark-purple'>{ placeholder }</div>
                 )
             }
