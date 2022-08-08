@@ -1,7 +1,6 @@
-import { useEffect, useState  } from 'react';
+import { useEffect } from 'react';
 import UserVacancySearchCard from '../../Components/Cards/UserVacancySearchCard';
 import List from '../../Components/Items/List';
-import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
 
 const UserVacancySearch = () => {
@@ -49,7 +48,7 @@ const UserVacancySearch = () => {
 
     return (
         <UserDefault>
-            <div className='p-5'>
+            <div className='p-5 min-h-90'>
                 <h1 className='text-2xl'>
                     <i className="fa-solid fa-bullhorn mr-2"></i>
                     <span> Buscar Vagas</span>

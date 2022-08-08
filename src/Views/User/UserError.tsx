@@ -9,7 +9,7 @@ const UserError : React.FC = () => {
 
     return (
         <UserDefault>
-            <div className='h-96 w-full flex flex-col items-center justify-center'>
+            <div className='h-screen w-full flex flex-col items-center justify-center'>
                 <div>
                     <i className="fa-solid fa-triangle-exclamation text-9xl text-black"></i>
                 </div>

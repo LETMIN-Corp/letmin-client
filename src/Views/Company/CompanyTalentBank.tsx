@@ -90,7 +90,7 @@ const CompanyTalentBank = () => {
 
     return (
         <CompanyDefault>
-            <div className='p-5'>
+            <div className='p-5 min-h-90'>
                 <h1 className='text-2xl'>
                     <i className='fa-solid fa-folder-open mr-2'></i>
                     <span>Banco de Talentos</span>

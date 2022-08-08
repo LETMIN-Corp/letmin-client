@@ -1,11 +1,15 @@
+import Footer from "../../Components/Layouts/Footer";
 import UserMenu from "../../Components/Layouts/UserMenu";
 
 const UserDefault : React.FC = ({ children }) => {
     return (
         <div className='flex'>
             <UserMenu />
-            <div className='w-full mt-16 md:mt-20'>
-                { children }
+            <div className='w-full flex flex-col justify-between'>
+                <div className='mt-16 md:mt-20'>
+                    { children }
+                </div>
+                <Footer />
             </div>
         </div>
     );

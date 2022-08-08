@@ -10,7 +10,7 @@ const CompanyMatch : React.FC = () => {
 
     return (
         <CompanyDefault>
-            <div className='p-5 w-full h-screen'>
+            <div className='p-5 w-full min-h-80'>
                 <h1 className='text-2xl'>
                     <i className="fa-solid fa-user-check mr-2"></i>
                     <span>Combinações</span>

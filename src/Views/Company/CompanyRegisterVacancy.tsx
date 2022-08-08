@@ -62,7 +62,7 @@ const CompanyRegisterVacancy = () => {
 
     return (
         <CompanyDefault>
-            <div className="p-5">
+            <div className="p-5 min-h-screen">
                 <h1 className='text-2xl'>
                     <i className="fa-solid fa-briefcase mr-2"></i>
                     <span>Cadastro de Vagas</span>
