@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Views/Home';
 import Register from './Views/Register';
@@ -19,25 +19,27 @@ import AdminCompany from './Views/Admin/AdminCompany';
 import AdminError from './Views/Admin/AdminError';
 import AdminCollaborator from './Views/Admin/AdminCollaborator';
 import AdminComplaint from './Views/Admin/AdminComplaint';
-import { AuthContext } from './Providers/Auth';
+import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
 
-import { AuthState } from "./Context/AuthContextProvider";
-
 function App() {
-  const Auth: any = React.useContext(AuthContext);
-  // @ts-ignore:next-line
-  const userRole = 'admin';
+  const { isAuthenticated, userData, getRole} = useContext(AuthContext);
+
+  let userRole = '';
   
+  if (isAuthenticated) {
+    userRole = getRole();
+  }
+
   // @TODO: Refactor this to Router v6 https://reactrouter.com/docs/en/v6/getting-started/overview
   return (
-    <AuthState>
     <div className='w-screen min-h-screen relative'>
       <Routes>
         {/* <Route path='*' element={ <Home /> } /> */}
         <Route path='/' element={ <Home /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
+        <Route path='/admin/login' element={ <AdminLogin /> } />
 
         {
           userRole === RoleEnum.company && (
@@ -66,7 +68,6 @@ function App() {
           userRole === RoleEnum.admin && (
             <>
               <Route path='/admin/*' element={ <AdminError /> } />
-              <Route path='/admin/login' element={ <AdminLogin /> } />
               <Route path='/admin/companies' element={ <AdminCompany/> } />
               <Route path='/admin/collaborators' element={ <AdminCollaborator/> } />
               <Route path='/admin/complaints' element={ <AdminComplaint/> } />
@@ -75,7 +76,6 @@ function App() {
         }
       </Routes>
     </div>
-    </AuthState>
   )
 }
 

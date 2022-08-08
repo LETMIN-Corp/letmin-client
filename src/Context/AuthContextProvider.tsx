@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, createContext } from 'react';
 import { Reducer } from "./Reducer";
 import { SET_LOADING, SET_USER_DATA } from "./Types";
+import { useNavigate } from 'react-router-dom';
 
 const InitialState = {
     loading: false,
@@ -14,6 +15,7 @@ export const AuthContext = createContext(InitialState);
 
 export const AuthState = ({ children } : any) => {
 
+    const navigate = useNavigate();
     const [state, dispatch] = useReducer(Reducer, InitialState);
 
     const setLoading = () => dispatch({
@@ -41,6 +43,10 @@ export const AuthState = ({ children } : any) => {
         })
     }
 
+    const getRole = () => {
+        return state.userData.role;
+    }
+
     const checkAuthStatus = async () => {
         // checks is there's a token - returns true or false as data
         const data = await requestData('/users/profile', 'GET');
@@ -66,6 +72,8 @@ export const AuthState = ({ children } : any) => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         dispatch({ type: SET_USER_DATA, payload: {} });
+        navigate(`/admin/login`);
+        location.reload();
     }
 
     useEffect(() => {
@@ -80,6 +88,7 @@ export const AuthState = ({ children } : any) => {
             isAuthenticated: state.isAuthenticated,
             userData: state.userData,
             setLoading,
+            getRole,
             signIn,
             signOut,
             checkAuthStatus,

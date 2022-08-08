@@ -5,7 +5,7 @@ import { AuthContext } from "../../Context/AuthContextProvider";
 import { Loading } from "../../Context/Loading";
 
 const AdminLogin : React.FC = () => {
-    const { signIn, loading, isAuthenticated, use }:any = useContext(AuthContext);
+    const { signIn, loading, isAuthenticated, userData }:any = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -14,7 +14,6 @@ const AdminLogin : React.FC = () => {
     const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let user = await signIn('admin', { email, password });
-
         navigate('/admin/companies');
         return;
     };

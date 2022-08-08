@@ -15,17 +15,10 @@ const AdminCompany : React.FC = () => {
         if(!isAuthenticated) {
             navigate(`/admin/login`);
         }
-        console.log('userData', userData);
+        //console.log('userData', userData);
     }, []);
 
     const [openModal, setOpenModal] = useState(false);
-
-    const logout = () => {
-        signOut();
-        navigate(`/admin/login`);
-        //reload page
-        location.reload();
-    }
 
     return (
         <AdminDefault>
@@ -62,7 +55,7 @@ const AdminCompany : React.FC = () => {
             {
                 openModal && <CompanyForm isDisabled={ false } handleClose={ () => setOpenModal(false) } />
             }
-            <button onClick={ logout } >Logout</button>
+            <button onClick={ signOut } >Logout</button>
         </AdminDefault>
     );
 }
