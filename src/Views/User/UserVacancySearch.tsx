@@ -4,7 +4,7 @@ import List from '../../Components/Items/List';
 import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
 
-const CompanyTalentSearch = () => {
+const UserVacancySearch = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Buscar Vagas';
     }, []);
@@ -88,4 +88,4 @@ const CompanyTalentSearch = () => {
     );
 }
 
-export default CompanyTalentSearch;
+export default UserVacancySearch;

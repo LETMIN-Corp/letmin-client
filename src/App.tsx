@@ -21,6 +21,7 @@ import AdminCollaborator from './Views/Admin/AdminCollaborator';
 import AdminComplaint from './Views/Admin/AdminComplaint';
 import { AuthContext } from './Providers/Auth';
 import RoleEnum from './Utils/RoleEnum';
+import UserVacancyDetail from './Views/User/UserVacancyDetail';
 
 function App() {
   const user = React.useContext(AuthContext);
@@ -56,6 +57,7 @@ function App() {
               <Route path='/user/*' element={ <UserError /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
+              <Route path='/user/vacancy/detail' element={ <UserVacancyDetail /> } />
             </>
           )
         }
