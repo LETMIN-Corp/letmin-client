@@ -9,24 +9,44 @@ const CompanyIndicators = () => {
 
     let lista = ([
         {
-            name: 'Pasta X',
+            name: 'Gerente',
+            candidate: 8,
+        },
+        {
+            name: 'Mecânico',
+            candidate: 45,
+        },
+        {
+            name: 'Supervisor',
             candidate: 15,
         },
         {
-            name: 'Pasta Y',
+            name: 'Técnico em Informática',
             candidate: 15,
         },
         {
-            name: 'Pasta Z',
+            name: 'Técnico em Eletrônica',
+            candidate: 56,
+        },
+        {
+            name: 'Gerente',
+            candidate: 8,
+        },
+        {
+            name: 'Mecânico',
+            candidate: 45,
+        },
+        {
+            name: 'Supervisor',
             candidate: 15,
         },
         {
-            name: 'Pasta W',
+            name: 'Técnico em Informática',
             candidate: 15,
         },
         {
-            name: 'Pasta T',
-            candidate: 15,
+            name: 'Técnico em Eletrônica',
+            candidate: 56,
         },
     ]);
 
@@ -76,7 +96,7 @@ const CompanyIndicators = () => {
                             )
                         }
                         {
-                            lista.map((candidate) => <VacancyData name="name" candidates={ candidate } />)
+                            lista.map((row, key) => <VacancyData key={ key } name={ row.name } candidates={ row.candidate } />)
                         }
 
                     </div>
