@@ -94,7 +94,7 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, val
             }
             {
                 (inputValue || type == InputTypesEnum.date || value) && (
-                    <div className='input-up-animation z-50 bg-white font-medium px-1 text-dark-purple'>{ placeholder }</div>
+                    <div className='input-up-animation z-10 bg-white font-medium px-1 text-dark-purple'>{ placeholder }</div>
                 )
             }
         </div>
