@@ -17,3 +17,8 @@ Para iniciar o desenvolvimento do projeto em sua máquina é necessário rodar o
 ## Conexão com a API
 
 Após realizar a instalação da [API](https://github.com/LETMIN-Corp/letmin-api) é necessário configurar os arquivos `.env` de ambos os projetos e servir as duas aplicações.
+
+## Autenticação
+Após a Autenticação ser feita, o token JWT de autenticação será armazenado no localStorage do navegador com o nome `token`, para que o usuário possa ser autenticado em todas as requisições.
+Alguns dados basicos do usuário serão armazenados na aplicação como um contexto global do react.
+Para a revogação do token, basta acessar o endpoint `API_URL/api/users/logout` e remover o token do localStorage.
