@@ -1,15 +1,31 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
 import AdminDefault from './AdminDefault';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../../Context/AuthContextProvider";
 
 const AdminCompany : React.FC = () => {
+    const { isAuthenticated, userData, signOut } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     useEffect((): void => {
         window.document.title = 'Letmin - Empresas';
+        if(!isAuthenticated) {
+            navigate(`/admin/login`);
+        }
+        console.log('userData', userData);
     }, []);
 
     const [openModal, setOpenModal] = useState(false);
+
+    const logout = () => {
+        signOut();
+        navigate(`/admin/login`);
+        //reload page
+        location.reload();
+    }
 
     return (
         <AdminDefault>
@@ -46,6 +62,7 @@ const AdminCompany : React.FC = () => {
             {
                 openModal && <CompanyForm isDisabled={ false } handleClose={ () => setOpenModal(false) } />
             }
+            <button onClick={ logout } >Logout</button>
         </AdminDefault>
     );
 }

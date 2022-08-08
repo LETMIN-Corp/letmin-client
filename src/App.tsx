@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Views/Home';
 import Register from './Views/Register';
@@ -22,16 +22,19 @@ import AdminComplaint from './Views/Admin/AdminComplaint';
 import { AuthContext } from './Providers/Auth';
 import RoleEnum from './Utils/RoleEnum';
 
+import { AuthState } from "./Context/AuthContextProvider";
+
 function App() {
-  const user = React.useContext(AuthContext);
-
+  const Auth: any = React.useContext(AuthContext);
   // @ts-ignore:next-line
-  const userRole = user.getRole();
-
+  const userRole = 'admin';
+  
+  // @TODO: Refactor this to Router v6 https://reactrouter.com/docs/en/v6/getting-started/overview
   return (
+    <AuthState>
     <div className='w-screen min-h-screen relative'>
       <Routes>
-        <Route path='*' element={ <Home /> } />
+        {/* <Route path='*' element={ <Home /> } /> */}
         <Route path='/' element={ <Home /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
@@ -72,6 +75,7 @@ function App() {
         }
       </Routes>
     </div>
+    </AuthState>
   )
 }
 
