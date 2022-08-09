@@ -11,7 +11,7 @@ interface ComponentInterface {
 const CandidateData : React.FC<ComponentInterface> = ({ name, compatibility, curriculum }) => {
 
     return (
-        <div className='flex md:text-xl text-md font-medium pt-2'>
+        <div className='flex md:text-xl text-md font-medium pt-4'>
             <div className='w-4/12 flex justify-center items-center text-center'>
                 { name }
             </div>

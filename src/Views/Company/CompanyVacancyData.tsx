@@ -1,5 +1,6 @@
 import CompanyDefault from './CompanyDefault';
 import CandidateData from '../../Components/Items/CandidateData';
+import SecondaryLink from '../../Components/Links/SecondaryLink';
 import { useEffect } from 'react';
 
 const CompanyVacancyData = () => {
@@ -10,9 +11,9 @@ const CompanyVacancyData = () => {
     let lista = ([
         {
             name: 'Candidato 1',
-            compatibility: 15,
-            curriculum: '/link',
-        },
+            compatibility: 0,
+            curriculum: '',
+        },        
         {
             name: 'Candidato 2',
             compatibility: 15,
@@ -39,53 +40,49 @@ const CompanyVacancyData = () => {
         <CompanyDefault>
             <div className="p-5">
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-chart-line mr-2"></i>
+                    <i className="fa-solid fa-briefcase mr-2"></i>
                     <span>Vaga 1</span>
                 </h1>
-                {/* <div className='mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
-                    <div className='bg-primary w-full h-52 rounded-sm'></div>
-                    <div className='bg-primary w-full h-52 rounded-sm'></div>
-                    <div className='bg-primary w-full h-52 rounded-sm'></div>
-                    <div className='bg-primary w-full h-52 rounded-sm'></div>
-                    <div className='bg-primary w-full h-52 rounded-sm'></div>
-                    <div className='bg-primary w-full h-52 rounded-sm'></div>
-                </div> */}
 
-                <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
-                    <div className='flex md:text-xl lg:text-2xl text-lg font-medium'> {/* Cabeçalho */}
-                        <div className='w-4/12 flex justify-center'>
-                            Vagas
+                    {
+                        lista[0].name === ""  && (
+                        <div className='h-96 w-full flex flex-col items-center justify-center'>
+                            <div>
+                                <i className="fa-solid fa-user-slash text-8xl"></i>
+                            </div>
+                            <h1 className='text-xl font-bold text-center px-10 my-10 text-bright-purple'>Nenhum Candidato Encontrado</h1>
+                            <div>
+                                <SecondaryLink path='/company/indicators' text='Voltar aos indicadores'></SecondaryLink>
+                            </div>
                         </div>
-                        <div className='w-4/12 flex justify-center'>
-                            Candidatos
-                        </div>
-                        <div className='w-4/12 flex justify-center'>
-                            Ações
-                        </div>
-                    </div>
-                    <div> {/* Corpo */}
-                        {/* <VacancyData name='Técnico de Informática' candidates={ 10 }/>
-                        <VacancyData name='Supervisor' candidates={ 15 }/>
-                        <VacancyData name='Gerente' candidates={ 8 }/>
-                        <VacancyData name='Mecânico' candidates={ 45 }/>
-                        <VacancyData name='Supervisor' candidates={ 15 }/>
-                        <VacancyData name='Gerente' candidates={ 8 }/>
-                        <VacancyData name='Mecânico' candidates={ 45 }/>
-                        <VacancyData name='Supervisor' candidates={ 15 }/>
-                        <VacancyData name='Gerente' candidates={ 8 }/>
-                        <VacancyData name='Mecânico' candidates={ 45 }/> */}
+                        )
+                    }
+                     {
+                        lista[0].name != ""  && (
+                            <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
+                                <div className='flex md:text-xl lg:text-2xl text-lg font-medium'> {/* Cabeçalho */}
+                                    <div className='w-4/12 flex justify-center'>
+                                        Vagas
+                                    </div>
+                                    <div className='w-4/12 flex justify-center'>
+                                        Candidatos
+                                    </div>
+                                    <div className='w-4/12 flex justify-center'>
+                                        Ações
+                                    </div>
+                                </div>
+                                <div>
+                                    {
 
-                        {
-                            lista.length === 0 && (
-                                <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhuma pasta encontrada</div>
-                            )
-                        }
-                        {
-                            lista.map((row, key) => <CandidateData key={ key } name={ row.name } compatibility={ row.compatibility } curriculum={ row.curriculum } />)
-                        }
+                                        lista.map((row, key) => <CandidateData key={ key } name={ row.name } compatibility={ row.compatibility } curriculum={ row.curriculum } />)
+                                    }
 
-                    </div>
-                </div>
+                                </div>
+                            </div>
+
+                            
+                        )
+                    }
 
             </div>
         </CompanyDefault>
