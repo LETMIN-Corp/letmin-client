@@ -11,6 +11,7 @@ import CompanyTalentSearch from './Views/Company/CompanyTalentSearch';
 import CompanyRegisterVacancy from './Views/Company/CompanyRegisterVacancy';
 import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
+import CompanyVacancyData from './Views/Company/CompanyVacancyData';
 import UserProfile from './Views/User/UserProfle';
 import UserError from './Views/User/UserError';
 import UserVacancySearch from './Views/User/UserVacancySearch';
@@ -44,6 +45,7 @@ function App() {
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
               <Route path='/company/talents/search' element={ <CompanyTalentSearch /> } />
+              <Route path='/company/vacancy/data' element={ <CompanyVacancyData /> } />
               <Route path='/company/combinations' element={ <CompanyMatch />} />
               <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
               <Route path='/company/register/vacancy' element={ <CompanyRegisterVacancy /> } />
