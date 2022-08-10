@@ -8,27 +8,7 @@ const CompanyIndicators = () => {
         window.document.title = 'Letmin - Indicadores';
     }, []);
 
-    let lista = ([
-        {
-            name: 'Gerente',
-            candidate: 8,
-         }, // [0][0] [0][1]
-        {
-            name: 'Mecânico',
-            candidate: 45,
-        }, // [1][0] [1][1]
-        {
-            name: 'Supervisor',
-            candidate: 15,
-        },
-        {
-            name: 'Técnico em Informática',
-            candidate: 15,
-        },
-        {
-            name: 'Técnico em Eletrônica',
-            candidate: 56,
-        },
+    const data = [
         {
             name: 'Gerente',
             candidate: 8,
@@ -49,19 +29,39 @@ const CompanyIndicators = () => {
             name: 'Técnico em Eletrônica',
             candidate: 56,
         },
-    ]);
+        {
+            name: 'Gerente',
+            candidate: 8,
+        },
+        {
+            name: 'Mecânico',
+            candidate: 45,
+        },
+        {
+            name: 'Supervisor',
+            candidate: 15,
+        },
+        {
+            name: 'Técnico em Informática',
+            candidate: 15,
+        },
+        {
+            name: 'Técnico em Eletrônica',
+            candidate: 56,
+        },
+    ];
 
     return (
         <CompanyDefault>
-            <div className="p-5">
+            <div className="p-5 min-h-90">
                 <h1 className='text-2xl'>
                     <i className="fa-solid fa-chart-line mr-2"></i>
                     <span>Indicadores</span>
                 </h1>
                 {
-                    lista[0].name != "" && (
+                    data.length > 0 && (
                         <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
-                            <div className='flex md:text-xl lg:text-2xl text-lg font-medium'>
+                            <div className='flex text-xl font-medium'>
                                 <div className='w-4/12 flex justify-center'>
                                     Vagas
                                 </div>
@@ -74,9 +74,8 @@ const CompanyIndicators = () => {
                             </div>
                             <div>
                                 {
-                                    lista.map((row, key) => <VacancyData key={ key } name={ row.name } candidates={ row.candidate } />)
+                                    data.map((row, key) => <VacancyData key={ key } name={ row.name } candidates={ row.candidate } />)
                                 }
-
                             </div>
                         </div>
                     )

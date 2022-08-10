@@ -8,7 +8,7 @@ const CompanyVacancyData = () => {
         window.document.title = 'Letmin - Dados da Vaga';
     }, []);
 
-    let lista = ([
+    const data = [
         {
             name: 'Candidato 1',
             compatibility: 0,
@@ -34,18 +34,17 @@ const CompanyVacancyData = () => {
             compatibility: 15,
             curriculum: '/link',
         },
-    ]);
+    ];
 
     return (
         <CompanyDefault>
-            <div className="p-5">
+            <div className="p-5 min-h-90">
                 <h1 className='text-2xl'>
                     <i className="fa-solid fa-briefcase mr-2"></i>
                     <span>Vaga 1</span>
                 </h1>
-
                     {
-                        lista[0].name === ""  && (
+                        data.length === 0 && (
                         <div className='h-96 w-full flex flex-col items-center justify-center'>
                             <div>
                                 <i className="fa-solid fa-user-slash text-8xl"></i>
@@ -57,10 +56,10 @@ const CompanyVacancyData = () => {
                         </div>
                         )
                     }
-                     {
-                        lista[0].name != ""  && (
+                    {
+                        data.length > 0  && (
                             <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
-                                <div className='flex md:text-xl lg:text-2xl text-lg font-medium'> {/* Cabeçalho */}
+                                <div className='flex text-xl font-medium'>
                                     <div className='w-4/12 flex justify-center'>
                                         Vagas
                                     </div>
@@ -73,17 +72,12 @@ const CompanyVacancyData = () => {
                                 </div>
                                 <div>
                                     {
-
-                                        lista.map((row, key) => <CandidateData key={ key } name={ row.name } compatibility={ row.compatibility } curriculum={ row.curriculum } />)
+                                        data.map((row, key) => <CandidateData key={ key } name={ row.name } compatibility={ row.compatibility } curriculum={ row.curriculum } />)
                                     }
-
                                 </div>
                             </div>
-
-                            
                         )
                     }
-
             </div>
         </CompanyDefault>
     );

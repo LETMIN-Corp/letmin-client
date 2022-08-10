@@ -5,7 +5,7 @@ export const AuthContext = React.createContext({});
 export const AuthProvider : React.FC = ({ children }) => {
     const user = {
         name: 'Usuário',
-        role: 'admin', //role: 'company', role: 'user', role: 'admin'
+        role: 'company', //role: 'company', role: 'user', role: 'admin'
     };
 
     function getName() {
