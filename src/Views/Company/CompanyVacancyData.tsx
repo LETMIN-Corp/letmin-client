@@ -10,27 +10,27 @@ const CompanyVacancyData = () => {
 
     const data = [
         {
-            name: 'Candidato 1',
-            compatibility: 0,
+            name: 'Bianca',
+            compatibility: 70,
             curriculum: '',
         },        
         {
-            name: 'Candidato 2',
-            compatibility: 15,
+            name: 'Carlos',
+            compatibility: 10,
             curriculum: '/link',
         },
         {
-            name: 'Candidato 3',
-            compatibility: 15,
+            name: 'Renato',
+            compatibility: 45,
             curriculum: '/link',
         },
         {
-            name: 'Candidato 4',
-            compatibility: 15,
+            name: 'Gabriela',
+            compatibility: 95,
             curriculum: '/link',
         },
         {
-            name: 'Candidato 5',
+            name: 'Sofia',
             compatibility: 15,
             curriculum: '/link',
         },
@@ -61,13 +61,13 @@ const CompanyVacancyData = () => {
                             <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
                                 <div className='flex text-xl font-medium'>
                                     <div className='w-4/12 flex justify-center'>
-                                        Vagas
+                                        Candidato
                                     </div>
                                     <div className='w-4/12 flex justify-center'>
-                                        Candidatos
+                                        Compatibilidade
                                     </div>
                                     <div className='w-4/12 flex justify-center'>
-                                        Ações
+                                        Currículo
                                     </div>
                                 </div>
                                 <div>
