@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer, createContext } from 'react';
 import { Reducer } from "./Reducer";
-import { SET_LOADING, SET_USER_DATA } from "./Types";
+import { SET_LOADING, SET_USER_DATA, LOGOUT } from "./Types";
 import { useNavigate } from 'react-router-dom';
 
-const InitialState = {
+const InitialState : any = {
     loading: false,
     userData: {},
     isAuthenticated: false,
@@ -31,7 +31,7 @@ export const AuthState = ({ children } : any) => {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token || '',
-                "x-auth-token": token || ''
+                'Origin': '*'
             },
             body: JSON.stringify(data),
         })
@@ -50,7 +50,7 @@ export const AuthState = ({ children } : any) => {
     const checkAuthStatus = async () => {
         // checks is there's a token - returns true or false as data
         const data = await requestData('/users/profile', 'GET');
-        if(data != '{}') {
+        if(data.role) {
             // todo: checks if the token is valid and returns the user's data
             return dispatch({ type: SET_USER_DATA, payload: data });
         }
@@ -68,12 +68,11 @@ export const AuthState = ({ children } : any) => {
     }
 
     async function signOut(): Promise<void> {
-        console.log('signOut');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        dispatch({ type: SET_USER_DATA, payload: {} });
+        dispatch({ type: LOGOUT});
         navigate(`/admin/login`);
-        location.reload();
+        return;
     }
 
     useEffect(() => {

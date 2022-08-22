@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../Context/AuthContextProvider";
 
 const AdminCompany : React.FC = () => {
-    const { isAuthenticated, userData, signOut } = useContext(AuthContext);
+    const { isAuthenticated, userData, signOut }:any = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect((): void => {
@@ -15,8 +15,7 @@ const AdminCompany : React.FC = () => {
         if(!isAuthenticated) {
             navigate(`/admin/login`);
         }
-        //console.log('userData', userData);
-    }, []);
+    }, [isAuthenticated]);
 
     const [openModal, setOpenModal] = useState(false);
 
