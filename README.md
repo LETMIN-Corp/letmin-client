@@ -1,6 +1,6 @@
-<div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-    <img style="width: 100px;" src="https://user-images.githubusercontent.com/69210720/185982833-789fde66-a3d4-401b-a9c3-efdbcbdfba2c.png">
-</div>
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/69210720/185982833-789fde66-a3d4-401b-a9c3-efdbcbdfba2c.png" width="120" alt="Letmin">
+</p>
 
 # Letmin Client
 
