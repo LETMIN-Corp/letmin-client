@@ -21,6 +21,7 @@ import AdminCollaborator from './Views/Admin/AdminCollaborator';
 import AdminComplaint from './Views/Admin/AdminComplaint';
 import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
+import { Loading } from './Views/Loading';
 
 function App() {
   
@@ -37,7 +38,7 @@ function App() {
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
         <Route path='/admin/login' element={ <AdminLogin /> } />
-
+        <Route path='/admin/loading' element={ <Loading /> } />
         {
           userRole === RoleEnum.company && (
             <>

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../Context/AuthContextProvider";
 import GoogleIcon from '../Assets/google-icon.png';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import SecondaryLink from '../Components/Links/SecondaryLink';
 
 const Register : React.FC = () => {
 
@@ -36,33 +37,32 @@ const Register : React.FC = () => {
             <Menu menuButtons={ menuButtons } />
             <StripTitle text='Cadastro' />
             <section className='flex flex-col justify-center items-center md:py-10'>
-            <GoogleOAuthProvider clientId={CLIENT_ID}>
-                <GoogleLogin
-                    onSuccess={credentialResponse => {
-                        loginGoogle(credentialResponse.credential);
-                    }}
-                    onError={() => {
-                        console.log('Login Failed');
-                    }}
-                />
-            </GoogleOAuthProvider>
                 <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-2 gap-10 w-10/12 lg:w-8/12  my-6 md:my-10'>
-                    {
-                        [
-                            {
-                                icon: 'fa-solid fa-user',
-                                title: 'Sou um candidato',
-                                text: 'Cadastrar',
-                                path: '',
-                            },
-                            {
-                                icon: 'fa-solid fa-building',
-                                title: 'Sou uma empresa',
-                                text: 'Cadastrar',
-                                path: '/register/company',
-                            },
-                        ].map((card) => <RegisterCard card={ card } key={ card.path } />)
-                    }
+                    <RegisterCard>
+                        <div className='w-48 h-48 border-4 rounded-full flex items-center justify-center'>
+                            <i className='fa-solid fa-user text-9xl'></i>
+                        </div>
+                        <div className='text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8'>Sou um candidato</div>
+                        
+                        <GoogleOAuthProvider clientId={CLIENT_ID}>
+                            <GoogleLogin
+                                onSuccess={credentialResponse => {
+                                    loginGoogle(credentialResponse.credential);
+                                }}
+                                onError={() => {
+                                    console.log('Login Failed');
+                                }}
+                            />
+                        </GoogleOAuthProvider>
+                    </RegisterCard>
+                    <RegisterCard>
+                        <div className=' w-48 h-48 border-4 rounded-full flex items-center justify-center'>
+                            <i className='fa-solid fa-building text-9xl'></i>
+                        </div>
+                        <div className='text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8'>Sou uma empresa</div>
+                        
+                        <SecondaryLink text='Cadastrar' path='/register/company' />
+                    </RegisterCard>
                 </div>
             </section>
             <Footer />

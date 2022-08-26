@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../Context/AuthContextProvider";
-import { Loading } from "../../Context/Loading";
+import { Loading } from "../Loading";
 
 const AdminLogin : React.FC = () => {
     const { signIn, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
