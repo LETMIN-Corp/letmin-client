@@ -2,6 +2,8 @@ import HighLight from '../../Components/Items/HighLight';
 import { useEffect } from 'react';
 import CompanyDefault from './CompanyDefault';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBriefcase, faHeart, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons';
 
 const CompanyCombinations : React.FC = () => {
     useEffect((): void => {
@@ -19,18 +21,18 @@ const CompanyCombinations : React.FC = () => {
                         <Link to='/company/combinations/'>
                             <span className='flex items-center text-dark-purple cursor-pointer'>
                                 <span className='rounded-full w-1 h-6 bg-dark-purple mr-1'></span>
-                                <i className='fa-solid fa-left-long text-dark-purple text-4xl'></i>
+                                <FontAwesomeIcon icon={ faLeftLong } className='text-dark-purple text-4xl' />
                             </span>
                         </Link>
-                        <i className='fa-solid fa-right-long text-dark-purple text-4xl cursor-pointer'></i>
+                        <FontAwesomeIcon icon={ faRightLong } className='text-dark-purple text-4xl cursor-pointer' />
                     </section>
                     <div className='w-full flex items-center justify-between lg:w-8/12'>
                         <div>
                             <img src='https://via.placeholder.com/150' className='rounded-md' />
                         </div>
                         <div>
-                            <i className='fa-solid fa-briefcase border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl'></i>
-                            <i className='fa-solid fa-heart ml-3 border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl'></i>
+                            <FontAwesomeIcon icon={ faBriefcase } className='border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl' />
+                            <FontAwesomeIcon icon={ faHeart } className='ml-3 border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl' />
                         </div>
                     </div>
                 </section>

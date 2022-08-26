@@ -1,3 +1,5 @@
+import { faBullhorn, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState  } from 'react';
 import UserVacancySearchCard from '../../Components/Cards/UserVacancySearchCard';
 import List from '../../Components/Items/List';
@@ -51,14 +53,14 @@ const CompanyTalentSearch = () => {
         <UserDefault>
             <div className='p-5'>
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-bullhorn mr-2"></i>
+                    <FontAwesomeIcon icon={ faBullhorn } className='mr-2' />
                     <span> Buscar Vagas</span>
                 </h1>
 
                 <div className='mt-5 flex flex-wrap'>
                     <div className='max-w-sm w-full relative'>
                         <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
-                        <i className='fa-solid fa-magnifying-glass absolute right-2 top-1 text-xl text-dark-purple'></i>
+                        <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-1 text-xl text-dark-purple' />
                     </div>
                     <div className='w-full md:w-auto flex mt-2 lg:mt-0 lg:ml-5'>
                         <select name='' id='' className='w-full px-2 py-1.5 border-2 border-dark-purple rounded-md'>

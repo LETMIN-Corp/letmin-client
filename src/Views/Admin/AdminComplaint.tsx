@@ -1,3 +1,5 @@
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
 import AdminDefault from './AdminDefault';
 
@@ -10,7 +12,7 @@ const AdminComplaint : React.FC = () => {
         <AdminDefault>
             <div className='p-5'>
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-triangle-exclamation mr-2"></i>
+                    <FontAwesomeIcon icon={ faTriangleExclamation } className='mr-2' />
                     Denúncias
                 </h1>
                 <div className='w-full flex items-center justify-between mt-5'>

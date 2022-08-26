@@ -1,3 +1,5 @@
+import { faBan, faInfo, faMessage, faUnlock, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
@@ -15,7 +17,7 @@ const AdminCollaborator : React.FC = () => {
         <AdminDefault>
             <div className='p-5'>
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-users mr-2"></i>
+                    <FontAwesomeIcon icon={ faUsers } className='mr-2' />
                     Colaboradores
                 </h1>
                 <div className='w-full flex items-center justify-between mt-5'>
@@ -65,13 +67,13 @@ const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen }) =
             <span className='w-4/12 pr-1'>{ collaborator.status ? 'Ativo' : 'Bloqueado' }</span>
             <span className='w-3/12 md:w-24 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
-                    <i className='fa-solid fa-info text-dark-purple' onClick={ handleOpen } ></i>
+                    <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen } className='text-dark-purple' />
                 </div>
                 <div className='cursor-pointer'>
-                    <i className='fa-solid fa-message text-light-purple'></i>
+                    <FontAwesomeIcon icon={ faMessage } className='text-light-purple' />
                 </div>
                 <div className='cursor-pointer'>
-                    { collaborator.status ? <i className='fa-solid fa-ban text-red'></i> : <i className='fa-solid fa-unlock text-primary'></i> }
+                    { collaborator.status ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
                 </div>
             </span>
         </div>

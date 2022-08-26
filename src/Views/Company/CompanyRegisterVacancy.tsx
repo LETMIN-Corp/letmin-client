@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import SelectInput from '../../Components/Inputs/SelectInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const CompanyRegisterVacancy = () => {
@@ -64,7 +66,7 @@ const CompanyRegisterVacancy = () => {
         <CompanyDefault>
             <div className="p-5">
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-briefcase mr-2"></i>
+                    <FontAwesomeIcon icon={ faBriefcase } className='mr-2' />
                     <span>Cadastro de Vagas</span>
                 </h1>
 

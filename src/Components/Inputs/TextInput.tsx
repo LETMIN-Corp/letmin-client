@@ -1,3 +1,5 @@
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { cnpjMask, cpfMask, cardValidDateMask, cvvMask, phoneMask, cardNumbermask, holderMask, moneyMask } from '../../Utils/InputMasks';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
@@ -86,7 +88,7 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, use
                 isPassword && (
                     <div className='absolute top-5 right-5'>
                         {
-                            <i onClick={ () => setShowPassword(!showPassword) } className={`${ showPassword ? 'fa-eye' : 'fa-eye-slash' } cursor-pointer fa-solid  text-xl text-dark-purple`}></i>
+                            <FontAwesomeIcon icon={ showPassword ? faEye : faEyeSlash } onClick={ () => setShowPassword(!showPassword) } className='cursor-pointer fa-solid  text-xl text-dark-purple' />
                         }
                     </div>
                 )

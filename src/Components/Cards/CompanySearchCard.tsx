@@ -1,3 +1,5 @@
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 interface ComponentInterface {
@@ -13,7 +15,7 @@ const CompanyTalentSearchCard: React.FC<ComponentInterface> = ({ card }) => {
     return (
         <div className='w-full bg-lilac rounded-md mx-auto text-justify pt-2 text-8x1 drop-shadow-lg px-5 md:mr-5 flex flex-col md:flex-row items-center justify-between'>
             <div className='flex xl:w-32 xl:h-32 lg:w-28 lg:h-28 w-24 h-24 border-4 rounded-full items-center justify-center'>
-                <i className='fa-solid fa-user xl:text-7x1 lg:text-6x1 text-5xl'></i>
+                <FontAwesomeIcon icon={ faUser } className='xl:text-7x1 lg:text-6x1 text-5xl' />
             </div>
             <div className='xl:w-8/12 md:w-7/12 w-full text-black pl-5 md:my-8 my-3 mr-4'>
                 <h1 className='text-md lg:text-2xl font-bold'>{ card.name }</h1>

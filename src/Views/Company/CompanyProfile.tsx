@@ -5,6 +5,8 @@ import TextInput from '../../Components/Inputs/TextInput';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
 import SelectInput from '../../Components/Inputs/SelectInput';
 import FormModal from '../../Components/Modals/FormModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
 
 const CompanyProfile = () => {
     useEffect((): void => {
@@ -28,7 +30,7 @@ const CompanyProfile = () => {
         <CompanyDefault>
             <div className='p-5'>
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-address-card mr-2"></i>
+                    <FontAwesomeIcon icon={ faAddressCard } className='mr-2' />
                     <span>Meus Dados</span>
                 </h1>
                 <div>

@@ -1,3 +1,6 @@
+import { faInfo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 interface ComponentInterface {
     title: string,
     handleClose: () => void,
@@ -16,7 +19,7 @@ const InfoModal:React.FC<ComponentInterface> = ({ title, children, handleClose, 
                             {
                                 showIcon && (
                                     <div className='mx-auto flex-shrink-0 md:mr-4 flex items-center justify-center h-12 sm:mx-0 sm:h-10 sm:w-10'>
-                                        <i className="fa-solid fa-info text-4xl"></i>
+                                        <FontAwesomeIcon icon={ faInfo } className='text-4xl' />
                                     </div>
                                 )
                             }

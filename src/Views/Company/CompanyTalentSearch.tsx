@@ -2,6 +2,8 @@ import CompanyDefault from './CompanyDefault';
 import { useEffect } from 'react';
 import CompanyTalentSearchCard from '../../Components/Cards/CompanySearchCard';
 import List from '../../Components/Items/List';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLightbulb, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const CompanyTalentSearch = () => {
     useEffect((): void => {
@@ -45,14 +47,14 @@ const CompanyTalentSearch = () => {
         <CompanyDefault>
             <div className='p-5'>
                 <h1 className='text-2xl'>
-                    <i className='fa-solid fa-lightbulb mr-2'></i>
+                    <FontAwesomeIcon icon={ faLightbulb } className='mr-2' />
                     <span> Buscar Talentos</span>
                 </h1>
 
                 <div className='mt-5'>
                     <div className='max-w-sm w-full relative'>
                         <input type='text' placeholder='Buscar' className='w-full mr-3 pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
-                        <i className='fa-solid fa-magnifying-glass absolute right-2 top-1 text-xl text-dark-purple'></i>
+                        <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-1 text-xl text-dark-purple' />
                     </div>
                 </div>
                 {

@@ -14,6 +14,8 @@ import Cube from '../Assets/cube.png';
 import Hearth from '../Assets/hearth.png';
 import Hourglass from '../Assets/hourglass.png';
 import Star from '../Assets/star.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 const Home : React.FC = () => {
     useEffect((): void => {
@@ -117,7 +119,7 @@ const Home : React.FC = () => {
                             Hearth,
                             Hourglass,
                             Star,
-                        ].map((url) => <PartnerImage url={ url }></PartnerImage>)
+                        ].map((url, key) => <PartnerImage url={ url } key={key}></PartnerImage>)
                     }
                 </span>
             </section>
@@ -148,7 +150,7 @@ const Home : React.FC = () => {
             </HomeSection>
             <div className='block text-center'>
                 <a href='#main'>
-                    <i className='fa-solid fa-circle-arrow-up text-2xl mb-5 mx-auto text-primary'></i>
+                    <FontAwesomeIcon icon={ faCircleArrowUp } className='text-2xl mb-5 mx-auto text-primary' />
                 </a>
             </div>
             <Footer />

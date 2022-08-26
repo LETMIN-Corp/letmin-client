@@ -1,6 +1,8 @@
 import CompanyDefault from './CompanyDefault';
 import SecondaryLink from '../../Components/Links/SecondaryLink';
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 const CompanyError : React.FC = () => {
     useEffect((): void => {
@@ -11,7 +13,7 @@ const CompanyError : React.FC = () => {
         <CompanyDefault>
             <div className='h-96 w-full flex flex-col items-center justify-center'>
                 <div>
-                    <i className="fa-solid fa-triangle-exclamation text-9xl text-black"></i>
+                    <FontAwesomeIcon icon={ faTriangleExclamation } className='text-9xl text-black' />
                 </div>
                 <h1 className='text-xl font-bold text-center px-10 my-10 text-black'>404 - Página Não Encontrada</h1>
                 <div>

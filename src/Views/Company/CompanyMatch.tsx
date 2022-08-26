@@ -2,6 +2,8 @@ import CompanyDefault from './CompanyDefault';
 import { useEffect } from 'react';
 import SecondaryLink from '../../Components/Links/SecondaryLink';
 import SecondaryButton from '../../Components/Buttons/SecondaryButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 
 const CompanyMatch : React.FC = () => {
     useEffect((): void => {
@@ -12,7 +14,7 @@ const CompanyMatch : React.FC = () => {
         <CompanyDefault>
             <div className='p-5 w-full h-screen'>
                 <h1 className='text-2xl'>
-                    <i className="fa-solid fa-user-check mr-2"></i>
+                    <FontAwesomeIcon icon={ faUserCheck } className='mr-2' />
                     <span>Combinações</span>
                 </h1>
                 <div className='lg:flex h-2/3 justify-around mt-5'>

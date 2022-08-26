@@ -1,3 +1,5 @@
+import { faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode, useEffect, useState } from "react";
 
 interface ListButtonInterface {
@@ -79,13 +81,13 @@ const List : React.FC<ListInterface> = ({ data, itemsPerPage }) => {
                     !!buttons.length && (
                         <>
                             <ListButton handleClick={ () => setCurrentPage(1) }>
-                                <i className="fa-solid fa-angles-left"></i>
+                                <FontAwesomeIcon icon={ faAnglesLeft } />
                             </ListButton>
                             {
                                 buttons.map((page) => <ListButton key={ page } isCurrent={ currentPage === page } handleClick={ () => setCurrentPage(page)}>{ page }</ListButton>)
                             }
                             <ListButton handleClick={ () => setCurrentPage(maxPage) }>
-                                <i className="fa-solid fa-angles-right"></i>
+                                <FontAwesomeIcon icon={ faAnglesRight } />
                             </ListButton>
                         </>
                     ) 

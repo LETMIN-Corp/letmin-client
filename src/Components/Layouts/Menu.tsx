@@ -3,6 +3,8 @@ import { useState } from 'react';
 import PrimaryLink from '../Links/PrimaryLink';
 import { Link } from 'react-router-dom';
 import MenuLink from '../Links/MenuLink';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface ButtonsInterface {
     text: string,
@@ -31,7 +33,7 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                         (menuButtons) && (
                             <>
                                 <div>
-                                    <i onClick={ () => setMenuIsOpen(true) } className='fa-solid fa-bars text-2xl block md:hidden cursor-pointer'></i>
+                                    <FontAwesomeIcon icon={ faBars } onClick={ () => setMenuIsOpen(true) } className='text-2xl block md:hidden cursor-pointer' />
                                 </div>
 
                                 <div className={`${[menuIsOpen ? 'block' : 'hidden']} md:block`}>
@@ -39,10 +41,7 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                                         <div className='w-screen min-h-screen bg-white fixed top-0 left-0 md:w-full md:min-h-0 md:sticky'>
                                             <div className='w-full flex items-center justify-between px-4 py-4 md:hidden'>
                                                 <div></div>
-                                                <i 
-                                                    onClick={ () => setMenuIsOpen(false) } 
-                                                    className='fa-solid fa-circle-xmark text-3xl cursor-pointer'>
-                                                </i>
+                                                <FontAwesomeIcon icon={ faCircleXmark } onClick={ () => setMenuIsOpen(false) } className='text-3xl cursor-pointer' />
                                             </div>
 
                                             <div className='px-14 text-center mt-20 md:mt-0 md:flex md:p-1'>

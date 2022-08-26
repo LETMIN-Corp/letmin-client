@@ -1,3 +1,6 @@
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 interface ComponentInterface {
     card : {
         title: string,
@@ -21,7 +24,7 @@ const PlanCard : React.FC<ComponentInterface> = ({ card, selected }) => {
                 {
                     card.features.map((feature, key) => (
                         <div key={ key } className='flex items-center my-4'>
-                            <i className='fa-solid fa-circle-check text-2xl xl:text-4xl mr-3 text-green'></i>
+                            <FontAwesomeIcon icon={ faCircleCheck } className='text-2xl xl:text-4xl mr-3 text-green' />
                             <span className='xl:text-lg'>{ feature }</span>
                         </div>
                     ))
