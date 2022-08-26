@@ -5,7 +5,7 @@ import { AuthContext } from "../../Context/AuthContextProvider";
 import { Loading } from "../../Context/Loading";
 
 const AdminLogin : React.FC = () => {
-    const { signIn, loading, isAuthenticated, userData }:any = useContext(AuthContext);
+    const { signIn, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -13,15 +13,19 @@ const AdminLogin : React.FC = () => {
 
     const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let user = await signIn('admin', { email, password });
-        navigate('/admin/companies');
+        await signIn('admin', { email, password });
+
+        if (getRole() === 'admin') {
+            navigate(`/admin/companies`);
+        }
+
         return;
     };
 
     useEffect((): void => {
         window.document.title = 'Letmin - Login';
 
-        if(isAuthenticated) {
+        if(isAuthenticated && userData.role === 'admin') {
             navigate(`/admin/companies`);
         }
     }, [isAuthenticated]);

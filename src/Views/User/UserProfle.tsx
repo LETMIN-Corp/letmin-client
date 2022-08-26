@@ -1,9 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import UserProfileCard from '../../Components/Cards/UserProfileCard';
 import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../../Context/AuthContextProvider";
 
 const UserProfile : React.FC = () => {
+    const { isAuthenticated, userData, signOut }:any = useContext(AuthContext);
+    const navigate = useNavigate();
+
     useEffect((): void => {
         window.document.title = 'Letmin - Perfil';
     }, []);
@@ -12,6 +17,7 @@ const UserProfile : React.FC = () => {
 
     return (
         <UserDefault>
+            <button onClick={ signOut } >Logout</button>
             <main className=''>
                 <div className='h-32 bg-lively-purple'></div>
                 <div className='relative flex md:justify-end mx-5'>

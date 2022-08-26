@@ -2,10 +2,15 @@ import React, { useEffect, useReducer, createContext } from 'react';
 import { Reducer } from "./Reducer";
 import { SET_LOADING, SET_USER_DATA, LOGOUT } from "./Types";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import jwtDecode from 'jwt-decode';
+import Cookies from 'js-cookie';
 
 const InitialState : any = {
     loading: false,
-    userData: {},
+    userData: {
+        role: '',
+    },
     isAuthenticated: false,
 };
 
@@ -23,24 +28,29 @@ export const AuthState = ({ children } : any) => {
         payload: undefined
     });
 
-    async function requestData(url: string, method: string, data?: any) : Promise<any> {
-        const token = localStorage.getItem('token');
+    async function loginGoogle(token: string) {
+        if (!token) return;
+        
+        setLoading();
 
-        return await fetch(`${API_URL}/api${url}`, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token || '',
-                'Origin': '*'
-            },
-            body: JSON.stringify(data),
+        await axios.post(`${API_URL}/api/users/auth/google`, { token })
+        .then((res) => {
+            if (res.status === 200) {
+                Cookies.set('token', res.data.token);
+                dispatch({
+                    type: SET_USER_DATA,
+                    payload: jwtDecode(res.data.token)
+                });
+                console.log(jwtDecode(res.data.token));
+                navigate('user/profile');
+                
+            } else {
+                console.log('error', res);
+            }
         })
-        .then(res => {
-            return res.json();
-        })
-        .catch(err => {
-            return JSON.stringify(err);
-        })
+        .catch((err) => {
+            console.log(err);
+        });
     }
 
     const getRole = () => {
@@ -48,30 +58,44 @@ export const AuthState = ({ children } : any) => {
     }
 
     const checkAuthStatus = async () => {
-        // checks is there's a token - returns true or false as data
-        const data = await requestData('/users/profile', 'GET');
-        if(data.role) {
-            // todo: checks if the token is valid and returns the user's data
-            return dispatch({ type: SET_USER_DATA, payload: data });
+        const token = Cookies.get('token');
+        if (token) {
+            const decodedToken:any = jwtDecode(token);
+            if (decodedToken.exp * 1000 < Date.now()) {
+                signOut();
+            } else {
+                dispatch({
+                    type: SET_USER_DATA,
+                    payload: decodedToken
+                });
+            }
         }
     };
 
     async function signIn(role: string, userCredentials: any): Promise<any> {
         setLoading();
-        const data = await requestData(`/users/login-${role}`, 'POST', userCredentials);
-        // sleep for 2 seconds to simulate loading
-        //await new Promise(resolve => setTimeout(resolve, 1000));
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data));
-        dispatch({ type: SET_USER_DATA, payload: data });
-        return data;
+
+        await axios.post(`${API_URL}/api/users/login-${role}`, userCredentials)
+        .then((res) => {
+            console.log(res);
+            if (res.status === 200) {
+                Cookies.set('token', res.data.token);
+                dispatch({
+                    type: SET_USER_DATA,
+                    payload: jwtDecode(res.data.token)
+                });
+                navigate('user/profile');
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
     async function signOut(): Promise<void> {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        Cookies.remove('token');
         dispatch({ type: LOGOUT});
-        navigate(`/admin/login`);
+        navigate('/');
         return;
     }
 
@@ -87,6 +111,7 @@ export const AuthState = ({ children } : any) => {
             isAuthenticated: state.isAuthenticated,
             userData: state.userData,
             setLoading,
+            loginGoogle,
             getRole,
             signIn,
             signOut,

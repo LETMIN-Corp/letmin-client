@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Views/Home';
 import Register from './Views/Register';
@@ -23,19 +23,16 @@ import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
 
 function App() {
+  
   const { isAuthenticated, userData, getRole} = useContext(AuthContext);
 
-  let userRole = '';
-  
-  if (isAuthenticated) {
-    userRole = getRole();
-  }
+  let userRole = getRole();
 
   // @TODO: Refactor this to Router v6 https://reactrouter.com/docs/en/v6/getting-started/overview
   return (
     <div className='w-screen min-h-screen relative'>
       <Routes>
-        {/* <Route path='*' element={ <Home /> } /> */}
+        <Route path='*' element={ <Home /> } />
         <Route path='/' element={ <Home /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
@@ -79,4 +76,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
