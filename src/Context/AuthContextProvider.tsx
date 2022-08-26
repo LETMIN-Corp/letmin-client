@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 const InitialState : any = {
     loading: false,
     userData: {
-        role: 'company',
+        role: '',
     },
     isAuthenticated: false,
 };
