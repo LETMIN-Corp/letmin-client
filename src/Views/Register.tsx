@@ -9,6 +9,8 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import SecondaryLink from '../Components/Links/SecondaryLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuilding, faUser } from '@fortawesome/free-solid-svg-icons';
+import { Outlet, Navigate } from 'react-router-dom'
+
 
 const Register : React.FC = () => {
 
@@ -17,12 +19,16 @@ const Register : React.FC = () => {
     const { isAuthenticated, userData, signOut, loginGoogle }:any = useContext(AuthContext);
     const navigate = useNavigate();
 
-    useEffect((): void => {
-        window.document.title = 'Letmin - Cadastro';
+    
 
-        if(isAuthenticated && userData.role === 'user') {
-            navigate(`/user/profile`);
-        }
+    useEffect((): void => {
+        let isMounted = true;
+
+
+
+        window.document.title = 'Letmin - Cadastro';
+        
+       
     }, [isAuthenticated]);
 
     const menuButtons = [

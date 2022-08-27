@@ -7,7 +7,7 @@ import Loading from "../Loading";
 const AdminLogin : React.FC = () => {
     const { signIn, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
     const navigate = useNavigate();
-
+        
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

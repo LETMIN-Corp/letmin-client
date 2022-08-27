@@ -22,24 +22,33 @@ import AdminComplaint from './Views/Admin/AdminComplaint';
 import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
 
+import PrivateRoutes from './utils/PrivateRoutes';
+
 function App() {
   
   const { isAuthenticated, userData, getRole} = useContext(AuthContext);
 
   let userRole = getRole();
 
+  // // get role from user data
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     userRole = userData.role;
+  //   }
+  // }, [isAuthenticated, userData]);
+
   // @TODO: Refactor this to Router v6 https://reactrouter.com/docs/en/v6/getting-started/overview
   return (
     <div className='w-screen min-h-screen relative'>
+      {/* //To keep the history clean, you should set replace prop. This will avoid extra redirects after the user click back. Thanks @Paul for this tip. */}
       <Routes>
-        <Route path='*' element={ <Home /> } />
+        {/* <Route path='*' element={ <Home /> } /> */}
         <Route path='/' element={ <Home /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
         <Route path='/admin/login' element={ <AdminLogin /> } />
-        {
-          userRole === RoleEnum.company && (
-            <>
+
+        <Route element={ <PrivateRoutes role="company" /> }>
               <Route path='/company/*' element={ <CompanyError /> } />
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
@@ -48,18 +57,12 @@ function App() {
               <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
               <Route path='/company/register/vacancy' element={ <CompanyRegisterVacancy /> } />
               <Route path='/company/profile' element={ <CompanyProfile /> } />
-            </>
-          )
-        }
-        {
-          userRole === RoleEnum.user && (
-            <>
+        </Route>
+        <Route element={ <PrivateRoutes role="user" /> }>
               <Route path='/user/*' element={ <UserError /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
-            </>
-          )
-        }
+        </Route>
         {
           userRole === RoleEnum.admin && (
             <>
