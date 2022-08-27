@@ -39,7 +39,7 @@ export const AuthState = ({ children } : any) => {
                 Cookies.set('token', res.data.token);
                 dispatch({
                     type: SET_USER_DATA,
-                    payload: jwtDecode(res.data.token)
+                    payload: res.data
                 });
                 console.log(jwtDecode(res.data.token));
                 navigate('user/profile');
@@ -82,7 +82,7 @@ export const AuthState = ({ children } : any) => {
                 Cookies.set('token', res.data.token);
                 dispatch({
                     type: SET_USER_DATA,
-                    payload: jwtDecode(res.data.token)
+                    payload: res.data
                 });
                 navigate('user/profile');
             }
