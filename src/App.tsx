@@ -23,6 +23,7 @@ import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
 
 import PrivateRoutes from './Utils/PrivateRoutes';
+import CompanyLogin from './Views/Company/CompanyLogin';
 
 function App() {
   return (
