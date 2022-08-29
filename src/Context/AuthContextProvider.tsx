@@ -54,7 +54,8 @@ export const AuthState = ({ children } : any) => {
     }
 
     const getRole = () => {
-        return state.userData.role;
+        // @ts-ignore:next-line
+        return state.userData.role || jwtDecode(Cookies.get('token').toString()).role;
     }
 
     const checkAuthStatus = async () => {

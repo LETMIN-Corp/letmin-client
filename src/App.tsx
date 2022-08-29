@@ -22,26 +22,11 @@ import AdminComplaint from './Views/Admin/AdminComplaint';
 import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
 
-import PrivateRoutes from './utils/PrivateRoutes';
-import CompanyLogin from './Views/Company/CompanyLogin';
+import PrivateRoutes from './Utils/PrivateRoutes';
 
 function App() {
-  
-  const { isAuthenticated, userData, getRole} = useContext(AuthContext);
-
-  let userRole = getRole();
-
-  // // get role from user data
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     userRole = userData.role;
-  //   }
-  // }, [isAuthenticated, userData]);
-
-  // @TODO: Refactor this to Router v6 https://reactrouter.com/docs/en/v6/getting-started/overview
   return (
     <div className='w-screen min-h-screen relative'>
-      {/* //To keep the history clean, you should set replace prop. This will avoid extra redirects after the user click back. Thanks @Paul for this tip. */}
       <Routes>
         {/* <Route path='*' element={ <Home /> } /> */}
         <Route path='/' element={ <Home /> } />
@@ -50,7 +35,7 @@ function App() {
         <Route path='/company/login' element={ <CompanyLogin /> } />
         <Route path='/admin/login' element={ <AdminLogin /> } />
 
-        <Route element={ <PrivateRoutes role="company" /> }>
+        <Route element={ <PrivateRoutes role={RoleEnum.company} /> }>
               <Route path='/company/*' element={ <CompanyError /> } />
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
@@ -60,21 +45,17 @@ function App() {
               <Route path='/company/register/vacancy' element={ <CompanyRegisterVacancy /> } />
               <Route path='/company/profile' element={ <CompanyProfile /> } />
         </Route>
-        <Route element={ <PrivateRoutes role="user" /> }>
+        <Route element={ <PrivateRoutes role={RoleEnum.user} /> }>
               <Route path='/user/*' element={ <UserError /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
         </Route>
-        {
-          userRole === RoleEnum.admin && (
-            <>
+        <Route element={ <PrivateRoutes role={RoleEnum.admin} /> }>
               <Route path='/admin/*' element={ <AdminError /> } />
               <Route path='/admin/companies' element={ <AdminCompany/> } />
               <Route path='/admin/collaborators' element={ <AdminCollaborator/> } />
               <Route path='/admin/complaints' element={ <AdminComplaint/> } />
-            </>
-          )
-        }
+        </Route>
       </Routes>
     </div>
   )
