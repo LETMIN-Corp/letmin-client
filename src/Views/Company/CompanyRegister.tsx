@@ -32,7 +32,7 @@ const CorpRegister : React.FC = () => {
 
     const [currentPage, setCurrentPage] = useState(0);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [termIsAccepted, setTermIsAccepted] = useState(true);
+    const [termIsAccepted, setTermIsAccepted] = useState(false);
     const [registerData, setRegisterData] = useState<IRegisterData>({
         company: {
             name: '',
@@ -280,7 +280,7 @@ const CorpRegister : React.FC = () => {
                                 </form>
 
                                 <div className='mb-16 lg:w-8/12 lg:mx-auto flex items-center text-lg'>
-                                    <input onClick={ () => setTermIsAccepted(!termIsAccepted) } type="checkbox" className='mr-3 h-5 w-5 cursor-pointer' name="accept" id="accept" />
+                                    <input onClick={ () => setTermIsAccepted(!termIsAccepted) } type="checkbox" defaultChecked={ termIsAccepted } className='mr-3 h-5 w-5 cursor-pointer' name="accept" id="accept" />
                                     <label htmlFor='accept'>
                                         <span>Aceitar os </span>
                                         <a className='text-bright-purple font-medium'target='_blank' href='../../../resources/term-of-commitment.pdf'>termos de compromisso</a>
@@ -306,7 +306,7 @@ const CorpRegister : React.FC = () => {
 
                     {
                         (currentPage === pageConstraints.max) && (
-                            <FormButton text='Confirmar' handleClick={ () => handleRegister() } isDisabled={ termIsAccepted } />
+                            <FormButton text='Confirmar' handleClick={ () => handleRegister() } isDisabled={ !termIsAccepted } />
                         )
                     }
                 </div>
