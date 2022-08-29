@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, createContext } from 'react';
-import { Reducer } from "./Reducer";
+import { AuthReducer } from "./AuthReducer";
 import { SET_LOADING, SET_USER_DATA, LOGOUT } from "./Types";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -21,7 +21,7 @@ export const AuthContext = createContext(InitialState);
 export const AuthState = ({ children } : any) => {
 
     const navigate = useNavigate();
-    const [state, dispatch] = useReducer(Reducer, InitialState);
+    const [state, dispatch] = useReducer(AuthReducer, InitialState);
 
     const setLoading = () => dispatch({
         type: SET_LOADING,
@@ -54,7 +54,8 @@ export const AuthState = ({ children } : any) => {
     }
 
     const getRole = () => {
-        return state.userData.role;
+        // @ts-ignore:next-line
+        return state.userData.role || jwtDecode(Cookies.get('token').toString()).role;
     }
 
     const checkAuthStatus = async () => {

@@ -22,24 +22,21 @@ import AdminComplaint from './Views/Admin/AdminComplaint';
 import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
 
+import PrivateRoutes from './Utils/PrivateRoutes';
+import CompanyLogin from './Views/Company/CompanyLogin';
+
 function App() {
-  
-  const { isAuthenticated, userData, getRole} = useContext(AuthContext);
-
-  let userRole = getRole();
-
-  // @TODO: Refactor this to Router v6 https://reactrouter.com/docs/en/v6/getting-started/overview
   return (
     <div className='w-screen min-h-screen relative'>
       <Routes>
-        <Route path='*' element={ <Home /> } />
+        {/* <Route path='*' element={ <Home /> } /> */}
         <Route path='/' element={ <Home /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
+        <Route path='/company/login' element={ <CompanyLogin /> } />
         <Route path='/admin/login' element={ <AdminLogin /> } />
-        {
-          userRole === RoleEnum.company && (
-            <>
+
+        <Route element={ <PrivateRoutes role={RoleEnum.company} /> }>
               <Route path='/company/*' element={ <CompanyError /> } />
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
@@ -48,28 +45,18 @@ function App() {
               <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
               <Route path='/company/register/vacancy' element={ <CompanyRegisterVacancy /> } />
               <Route path='/company/profile' element={ <CompanyProfile /> } />
-            </>
-          )
-        }
-        {
-          userRole === RoleEnum.user && (
-            <>
+        </Route>
+        <Route element={ <PrivateRoutes role={RoleEnum.user} /> }>
               <Route path='/user/*' element={ <UserError /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
-            </>
-          )
-        }
-        {
-          userRole === RoleEnum.admin && (
-            <>
+        </Route>
+        <Route element={ <PrivateRoutes role={RoleEnum.admin} /> }>
               <Route path='/admin/*' element={ <AdminError /> } />
               <Route path='/admin/companies' element={ <AdminCompany/> } />
               <Route path='/admin/collaborators' element={ <AdminCollaborator/> } />
               <Route path='/admin/complaints' element={ <AdminComplaint/> } />
-            </>
-          )
-        }
+        </Route>
       </Routes>
     </div>
   )
