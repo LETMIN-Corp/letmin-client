@@ -19,16 +19,10 @@ const Register : React.FC = () => {
     const { isAuthenticated, userData, signOut, loginGoogle }:any = useContext(AuthContext);
     const navigate = useNavigate();
 
-    
-
     useEffect((): void => {
         let isMounted = true;
 
-
-
         window.document.title = 'Letmin - Cadastro';
-        
-       
     }, [isAuthenticated]);
 
     const menuButtons = [

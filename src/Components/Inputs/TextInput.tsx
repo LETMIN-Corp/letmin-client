@@ -78,16 +78,16 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, val
             <input
                 type={ type }
                 placeholder={ placeholder }
-                value={ inputValue || value}
+                value={ inputValue || value }
                 onChange={ setValue }
                 name={ name }
                 id={ id }
-                className='w-full mt-2 mb-5 md:mt-2 py-3 px-5 border-2 border-dark-purple rounded-md'
+                className='w-full mt-2 mb-5 md:mt-2 py-2 px-5 border-2 border-dark-purple rounded-md'
                 disabled = { disabled }
             />
             {
                 isPassword && (
-                    <div className='absolute top-5 right-5'>
+                    <div className='absolute top-5 right-2'>
                         {
                             <FontAwesomeIcon icon={ showPassword ? faEye : faEyeSlash } onClick={ () => setShowPassword(!showPassword) } className='cursor-pointer fa-solid  text-xl text-dark-purple' />
                         }

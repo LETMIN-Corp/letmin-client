@@ -1,4 +1,3 @@
-import React, { useEffect, useContext, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Views/Home';
 import Register from './Views/Register';
@@ -20,25 +19,24 @@ import AdminCompany from './Views/Admin/AdminCompany';
 import AdminError from './Views/Admin/AdminError';
 import AdminCollaborator from './Views/Admin/AdminCollaborator';
 import AdminComplaint from './Views/Admin/AdminComplaint';
-import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
 import UserVacancyDetail from './Views/User/UserVacancyDetail';
-
-import PrivateRoutes from './Utils/PrivateRoutes';
+import PrivateRoutes from './Routes/PrivateRoutes';
 import CompanyLogin from './Views/Company/CompanyLogin';
+import PublicRoutes from './Routes/PublicRoutes';
 
 function App() {
   return (
     <div className='w-screen min-h-screen relative'>
       <Routes>
-        {/* <Route path='*' element={ <Home /> } /> */}
-        <Route path='/' element={ <Home /> } />
-        <Route path='/register' element={ <Register /> } />
-        <Route path='/register/company' element={ <CompanyRegister /> } />
-        <Route path='/company/login' element={ <CompanyLogin /> } />
-        <Route path='/admin/login' element={ <AdminLogin /> } />
-
-        <Route element={ <PrivateRoutes role={RoleEnum.company} /> }>
+        <Route element={ <PublicRoutes /> }>
+          <Route path='/' element={ <Home /> } />
+          <Route path='/register' element={ <Register /> } />
+          <Route path='/register/company' element={ <CompanyRegister /> } />
+          <Route path='/company/login' element={ <CompanyLogin /> } />
+          <Route path='/admin/login' element={ <AdminLogin /> } />
+        </Route>
+        <Route element={ <PrivateRoutes role={ RoleEnum.company } /> }>
               <Route path='/company/*' element={ <CompanyError /> } />
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
@@ -49,13 +47,13 @@ function App() {
               <Route path='/company/register/vacancy' element={ <CompanyRegisterVacancy /> } />
               <Route path='/company/profile' element={ <CompanyProfile /> } />
         </Route>
-        <Route element={ <PrivateRoutes role={RoleEnum.user} /> }>
+        <Route element={ <PrivateRoutes role={ RoleEnum.user } /> }>
               <Route path='/user/*' element={ <UserError /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
               <Route path='/user/vacancy/detail' element={ <UserVacancyDetail /> } />
         </Route>
-        <Route element={ <PrivateRoutes role={RoleEnum.admin} /> }>
+        <Route element={ <PrivateRoutes role={ RoleEnum.admin } /> }>
               <Route path='/admin/*' element={ <AdminError /> } />
               <Route path='/admin/companies' element={ <AdminCompany/> } />
               <Route path='/admin/collaborators' element={ <AdminCollaborator/> } />

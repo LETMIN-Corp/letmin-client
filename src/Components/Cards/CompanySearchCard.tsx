@@ -25,7 +25,7 @@ const CompanyTalentSearchCard: React.FC<ComponentInterface> = ({ card }) => {
             </div>
             
             <div className='flex xl:w-2/12 md:w-3/12 w-9/12 lg:h-48 h-16 pb-5 items-center justify-center'>
-            <Link to={ '/company/combinations/' + card.id } className='text-center xl:text-lg lg:text-md text-sm rounded-full text-white py-2 px-10 bg-bright-purple drop-shadow-lg hover:bg-bold-purple'>Ver Perfil</Link>
+            <Link to={ '/company/combinations/' + card.id } className='text-center xl:text-lg lg:text-md text-sm rounded-md text-white py-2 px-10 bg-bright-purple drop-shadow-lg hover:bg-bold-purple'>Ver Perfil</Link>
             </div>
         </div>
     );
