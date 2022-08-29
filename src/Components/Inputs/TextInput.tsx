@@ -78,7 +78,7 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, val
             <input
                 type={ type }
                 placeholder={ placeholder }
-                value={ inputValue || value }
+                value={ inputValue }
                 onChange={ setValue }
                 name={ name }
                 id={ id }
