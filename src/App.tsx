@@ -23,6 +23,7 @@ import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
 
 import PrivateRoutes from './utils/PrivateRoutes';
+import CompanyLogin from './Views/Company/CompanyLogin';
 
 function App() {
   
@@ -46,6 +47,7 @@ function App() {
         <Route path='/' element={ <Home /> } />
         <Route path='/register' element={ <Register /> } />
         <Route path='/register/company' element={ <CompanyRegister /> } />
+        <Route path='/company/login' element={ <CompanyLogin /> } />
         <Route path='/admin/login' element={ <AdminLogin /> } />
 
         <Route element={ <PrivateRoutes role="company" /> }>

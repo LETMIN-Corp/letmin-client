@@ -22,7 +22,7 @@ const CorpRegister : React.FC = () => {
 
     const pageButtons = [
         {
-            text: 'Voltar para o cadastro',
+            text: 'Voltar',
             path: '/register',
             isLink: true,
             hasFunction: true,

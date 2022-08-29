@@ -68,7 +68,14 @@ const Register : React.FC = () => {
                         </div>
                         <div className='text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8'>Sou uma empresa</div>
                         
-                        <SecondaryLink text='Cadastrar' path='/register/company' />
+                        <div className='flex flex-col lg:flex-row w-full items-center justify-around'>
+                            <div>
+                                <SecondaryLink text='Cadastrar' path='/register/company' />
+                            </div>
+                            <div className='mt-8'>
+                                <SecondaryLink text='Entrar' path='/company/login' />
+                            </div>
+                        </div>
                     </RegisterCard>
                 </div>
             </section>
