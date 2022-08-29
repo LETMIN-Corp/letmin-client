@@ -72,7 +72,7 @@ const Register : React.FC = () => {
                             <div>
                                 <SecondaryLink text='Cadastrar' path='/register/company' />
                             </div>
-                            <div className='mt-8'>
+                            <div className='mt-8 lg:mt-0'>
                                 <SecondaryLink text='Entrar' path='/company/login' />
                             </div>
                         </div>
