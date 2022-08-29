@@ -298,8 +298,6 @@ const CorpRegister : React.FC = () => {
                         )
                     }
 
-                    <div></div>
-
                     {
                         (currentPage < pageConstraints.max) && (
                             <FormButton text='Próximo' handleClick={ () => setCurrentPage(currentPage + 1) } />
