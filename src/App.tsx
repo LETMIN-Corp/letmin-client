@@ -11,6 +11,7 @@ import CompanyTalentSearch from './Views/Company/CompanyTalentSearch';
 import CompanyRegisterVacancy from './Views/Company/CompanyRegisterVacancy';
 import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
+import CompanyVacancyData from './Views/Company/CompanyVacancyData';
 import UserProfile from './Views/User/UserProfle';
 import UserError from './Views/User/UserError';
 import UserVacancySearch from './Views/User/UserVacancySearch';
@@ -21,6 +22,7 @@ import AdminCollaborator from './Views/Admin/AdminCollaborator';
 import AdminComplaint from './Views/Admin/AdminComplaint';
 import { AuthContext, AuthState } from "./Context/AuthContextProvider";
 import RoleEnum from './Utils/RoleEnum';
+import UserVacancyDetail from './Views/User/UserVacancyDetail';
 
 import PrivateRoutes from './Utils/PrivateRoutes';
 import CompanyLogin from './Views/Company/CompanyLogin';
@@ -41,6 +43,7 @@ function App() {
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
               <Route path='/company/talents/search' element={ <CompanyTalentSearch /> } />
+              <Route path='/company/vacancy/data' element={ <CompanyVacancyData /> } />
               <Route path='/company/combinations' element={ <CompanyMatch />} />
               <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
               <Route path='/company/register/vacancy' element={ <CompanyRegisterVacancy /> } />
@@ -50,6 +53,7 @@ function App() {
               <Route path='/user/*' element={ <UserError /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
+              <Route path='/user/vacancy/detail' element={ <UserVacancyDetail /> } />
         </Route>
         <Route element={ <PrivateRoutes role={RoleEnum.admin} /> }>
               <Route path='/admin/*' element={ <AdminError /> } />

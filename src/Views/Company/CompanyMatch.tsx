@@ -12,7 +12,7 @@ const CompanyMatch : React.FC = () => {
 
     return (
         <CompanyDefault>
-            <div className='p-5 w-full h-screen'>
+            <div className='p-5 w-full min-h-80'>
                 <h1 className='text-2xl'>
                     <FontAwesomeIcon icon={ faUserCheck } className='mr-2' />
                     <span>Combinações</span>

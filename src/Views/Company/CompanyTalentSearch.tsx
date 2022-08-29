@@ -45,7 +45,7 @@ const CompanyTalentSearch = () => {
 
     return (
         <CompanyDefault>
-            <div className='p-5'>
+            <div className='p-5 min-h-90'>
                 <h1 className='text-2xl'>
                     <FontAwesomeIcon icon={ faLightbulb } className='mr-2' />
                     <span> Buscar Talentos</span>

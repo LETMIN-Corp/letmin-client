@@ -11,7 +11,7 @@ const CompanyError : React.FC = () => {
 
     return (
         <CompanyDefault>
-            <div className='h-96 w-full flex flex-col items-center justify-center'>
+            <div className='w-full h-screen flex flex-col items-center justify-center'>
                 <div>
                     <FontAwesomeIcon icon={ faTriangleExclamation } className='text-9xl text-black' />
                 </div>

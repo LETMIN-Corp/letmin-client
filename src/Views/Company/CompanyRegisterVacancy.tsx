@@ -64,7 +64,7 @@ const CompanyRegisterVacancy = () => {
 
     return (
         <CompanyDefault>
-            <div className="p-5">
+            <div className="p-5 min-h-screen">
                 <h1 className='text-2xl'>
                     <FontAwesomeIcon icon={ faBriefcase } className='mr-2' />
                     <span>Cadastro de Vagas</span>

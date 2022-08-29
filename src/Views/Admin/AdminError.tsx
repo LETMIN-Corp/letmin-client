@@ -11,7 +11,7 @@ const AdminError : React.FC = () => {
 
     return (
         <AdminDefault>
-            <div className='h-96 w-full flex flex-col items-center justify-center'>
+            <div className='min-h-90 w-full flex flex-col items-center justify-center'>
                 <div>
                     <FontAwesomeIcon icon={ faTriangleExclamation } className='text-9xl text-black' />
                 </div>

@@ -24,7 +24,7 @@ const AdminCompany : React.FC = () => {
 
     return (
         <AdminDefault>
-            <div className='p-5'>
+            <div className='p-5 min-h-90'>
                 <h1 className='text-2xl'>
                     <FontAwesomeIcon icon={ faBuilding } className='mr-2' />
                     Empresas

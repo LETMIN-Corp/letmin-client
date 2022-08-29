@@ -105,6 +105,17 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                                                         );
                                                     })
                                                 }
+                                                {
+                                                    // If is logged
+                                                    false && (
+                                                        <button
+                                                        className='block mx-auto rounded-full bg-white text-red font-bold py-2 px-4 drop-shadow-lg border-2 border-red md:text-lg'
+                                                        onClick={ () => {} }
+                                                    >
+                                                        Logout
+                                                    </button>
+                                                    )
+                                                }
                                             </div>
                                         </div>
                                     }
@@ -120,20 +131,33 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                         <div className='md:pl-5'>
                             <div className='w-full md:w-52'></div>
                         </div>
-                        <div className='hidden md:block h-screen bg-dark-purple pl-5 mt-20 drop-shadow-lg fixed'>
+                        <div className='hidden md:block h-screen bg-dark-purple pl-5 mt-20 drop-shadow-lg fixed md:flex flex-col justify-between pb-20'>
+                            <div>
+                                {
+                                    (menuButtons) && (
+                                        menuButtons.map((button : ButtonsInterface) => {
+                                            if(button.isLink) {
+                                                return (
+                                                    <MenuLink
+                                                        text={ button.text }
+                                                        path={ button.path }
+                                                        key={ button.path }
+                                                    />
+                                                );
+                                            }
+                                        })
+                                    )
+                                }
+                            </div>
                             {
-                                (menuButtons) && (
-                                    menuButtons.map((button : ButtonsInterface) => {
-                                        if(button.isLink) {
-                                            return (
-                                                <MenuLink
-                                                    text={ button.text }
-                                                    path={ button.path }
-                                                    key={ button.path }
-                                                />
-                                            );
-                                        }
-                                    })
+                                // If is logged
+                                false && (
+                                    <button
+                                        className='flex my-10 w-full block md:w-52 md:text-gray font-medium md:hover:text-white ease-out duration-200'
+                                        onClick={ () => {} }
+                                    >
+                                        Logout
+                                    </button>
                                 )
                             }
                         </div>

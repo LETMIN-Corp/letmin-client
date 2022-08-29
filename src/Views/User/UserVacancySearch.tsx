@@ -3,10 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState  } from 'react';
 import UserVacancySearchCard from '../../Components/Cards/UserVacancySearchCard';
 import List from '../../Components/Items/List';
-import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
 
-const CompanyTalentSearch = () => {
+const UserVacancySearch = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Buscar Vagas';
     }, []);
@@ -51,7 +50,7 @@ const CompanyTalentSearch = () => {
 
     return (
         <UserDefault>
-            <div className='p-5'>
+            <div className='p-5 min-h-90'>
                 <h1 className='text-2xl'>
                     <FontAwesomeIcon icon={ faBullhorn } className='mr-2' />
                     <span> Buscar Vagas</span>
@@ -90,4 +89,4 @@ const CompanyTalentSearch = () => {
     );
 }
 
-export default CompanyTalentSearch;
+export default UserVacancySearch;

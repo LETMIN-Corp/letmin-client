@@ -11,7 +11,7 @@ const UserError : React.FC = () => {
 
     return (
         <UserDefault>
-            <div className='h-96 w-full flex flex-col items-center justify-center'>
+            <div className='h-screen w-full flex flex-col items-center justify-center'>
                 <div>
                     <FontAwesomeIcon icon={ faTriangleExclamation } className='text-9xl text-black' />
                 </div>
