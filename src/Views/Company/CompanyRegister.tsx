@@ -285,7 +285,7 @@ const CorpRegister : React.FC = () => {
                                 </form>
 
                                 <div className='mb-16 lg:w-8/12 lg:mx-auto flex items-center text-lg'>
-                                    <input onClick={ () => setTermIsAccepted(!termIsAccepted) } type="checkbox" defaultChecked={ termIsAccepted } className='mr-3 h-5 w-5 cursor-pointer' name="accept" id="accept" />
+                                    <input onClick={ () => setTermIsAccepted(!termIsAccepted) } defaultChecked={ termIsAccepted } type="checkbox" className='mr-3 h-5 w-5 cursor-pointer' name="accept" id="accept" />
                                     <label htmlFor='accept'>
                                         <span>Aceitar os </span>
                                         <a className='text-bright-purple font-medium'target='_blank' href='../../../resources/term-of-commitment.pdf'>termos de compromisso</a>
@@ -302,6 +302,8 @@ const CorpRegister : React.FC = () => {
                             <FormButton text='Voltar' handleClick={ () => setCurrentPage(currentPage - 1) } /> 
                         )
                     }
+
+                    <div></div>
 
                     {
                         (currentPage < pageConstraints.max) && (

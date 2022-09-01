@@ -26,7 +26,7 @@ const UserVacancySearchCard: React.FC<ComponentInterface> = ({ card }) => {
             </div>
             
             <div className='flex xl:w-2/12 md:w-3/12 w-9/12 pb-5 md:pb-0 items-center justify-center'>
-                <Link to='/user/vacancy/detail' className='text-center xl:text-lg lg:text-md text-sm rounded-full text-white py-2 px-10 bg-bright-purple drop-shadow-lg hover:bg-bold-purple'>Detalhes</Link>
+                <Link to='/user/vacancy/detail' className='text-center xl:text-lg lg:text-md text-sm rounded-md text-white py-2 px-10 bg-bright-purple drop-shadow-lg hover:bg-bold-purple'>Detalhes</Link>
             </div>
         </div>
     );
