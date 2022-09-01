@@ -76,7 +76,7 @@ export const AuthState = ({ children } : any) => {
     async function signIn(role: string, userCredentials: any): Promise<any> {
         setLoading();
 
-        await axios.post(`${API_URL}/api/users/login-${role}`, userCredentials)
+        return await axios.post(`${API_URL}/api/users/login-${role}`, userCredentials)
         .then((res) => {
             console.log(res);
             if (res.status === 200) {
@@ -85,11 +85,11 @@ export const AuthState = ({ children } : any) => {
                     type: SET_USER_DATA,
                     payload: res.data
                 });
-                navigate('user/profile');
             }
         })
         .catch((err) => {
-            console.log(err);
+            console.log('Error: ', err);
+            return err;
         })
     }
 

@@ -1,7 +1,7 @@
 import Footer from '../../Components/Layouts/Footer';
 import Menu from '../../Components/Layouts/Menu';
 import TextInput from '../../Components/Inputs/TextInput';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import StripTitle from '../../Components/Titles/StripTitle';
 import Pagination from '../../Components/Items/Pagination';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
@@ -12,8 +12,11 @@ import PlanCard from '../../Components/Cards/PlanCard';
 import PlanTypesEnum from '../../Utils/PlanTypesEnum';
 import ConfirmationModal from '../../Components/Modals/CofirmationModal';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../../Context/AuthContextProvider";
 
 const CorpRegister : React.FC = () => {
+    const { signIn, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
+
     useEffect((): void => {
         window.document.title = 'Letmin - Cadastro';
     }, []);
