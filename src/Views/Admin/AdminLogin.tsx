@@ -12,8 +12,8 @@ const AdminLogin : React.FC = () => {
 
     const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await signIn('admin', { email, password });
-
+        const response = await signIn('admin', { email, password });
+        console.log('res', response)
         if (getRole() === 'admin') {
             navigate(`/admin/companies`);
         }

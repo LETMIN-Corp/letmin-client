@@ -75,7 +75,9 @@ const CorpRegister : React.FC = () => {
     }
 
     function handleRegister() {
-        navigate('/company/indicators');
+
+        signIn('company', registerData)
+
     }
 
     function getInputValue (name: string): string {
