@@ -10,7 +10,7 @@ import SelectInput from '../../Components/Inputs/SelectInput';
 import FormButton from '../../Components/Buttons/FormButton';
 import PlanCard from '../../Components/Cards/PlanCard';
 import PlanTypesEnum from '../../Utils/PlanTypesEnum';
-import ErrorModal from '../../Components/Modals/ErrorModal';
+import ConfirmationModal from '../../Components/Modals/CofirmationModal';
 import { useNavigate } from 'react-router-dom';
 
 const CorpRegister : React.FC = () => {
@@ -129,7 +129,7 @@ const CorpRegister : React.FC = () => {
 
     return (
         <>
-            { modalIsOpen && <ErrorModal title='Sair do cadastro' text='Você pode perder seus dados. Tem certeza que deseja sair do cadastro?' handleClose={ () => setModalIsOpen(false) } handleConfirm={ returnToRegisterPage } /> }
+            { modalIsOpen && <ConfirmationModal title='Sair do cadastro' text='Você pode perder seus dados. Tem certeza que deseja sair do cadastro?' handleClose={ () => setModalIsOpen(false) } handleConfirm={ returnToRegisterPage } /> }
             <Menu menuButtons={ pageButtons } />
             <StripTitle text='Cadastro de Empresa' />            
             <div className='w-screen min-h-screen p-5 md:px-20 md:py-10'>
