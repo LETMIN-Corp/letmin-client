@@ -1,7 +1,7 @@
 import Footer from '../../Components/Layouts/Footer';
 import Menu from '../../Components/Layouts/Menu';
 import TextInput from '../../Components/Inputs/TextInput';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import StripTitle from '../../Components/Titles/StripTitle';
 import Pagination from '../../Components/Items/Pagination';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
@@ -10,10 +10,13 @@ import SelectInput from '../../Components/Inputs/SelectInput';
 import FormButton from '../../Components/Buttons/FormButton';
 import PlanCard from '../../Components/Cards/PlanCard';
 import PlanTypesEnum from '../../Utils/PlanTypesEnum';
-import ErrorModal from '../../Components/Modals/ErrorModal';
+import ConfirmationModal from '../../Components/Modals/CofirmationModal';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../../Context/AuthContextProvider";
 
 const CorpRegister : React.FC = () => {
+    const { signIn, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
+
     useEffect((): void => {
         window.document.title = 'Letmin - Cadastro';
     }, []);
@@ -72,7 +75,9 @@ const CorpRegister : React.FC = () => {
     }
 
     function handleRegister() {
-        navigate('/company/indicators');
+
+        signIn('company', registerData)
+
     }
 
     function getInputValue (name: string): string {
@@ -129,7 +134,7 @@ const CorpRegister : React.FC = () => {
 
     return (
         <>
-            { modalIsOpen && <ErrorModal title='Sair do cadastro' text='Você pode perder seus dados. Tem certeza que deseja sair do cadastro?' handleClose={ () => setModalIsOpen(false) } handleConfirm={ returnToRegisterPage } /> }
+            { modalIsOpen && <ConfirmationModal title='Sair do cadastro' text='Você pode perder seus dados. Tem certeza que deseja sair do cadastro?' handleClose={ () => setModalIsOpen(false) } handleConfirm={ returnToRegisterPage } /> }
             <Menu menuButtons={ pageButtons } />
             <StripTitle text='Cadastro de Empresa' />            
             <div className='w-screen min-h-screen p-5 md:px-20 md:py-10'>
@@ -308,7 +313,7 @@ const CorpRegister : React.FC = () => {
 
                     {
                         (currentPage === pageConstraints.max) && (
-                            <FormButton text='Confirmar' handleClick={ () => handleRegister() } isDisabled={ ! termIsAccepted } />
+                            <FormButton text='Confirmar' handleClick={ () => handleRegister() } isDisabled={ !termIsAccepted } />
                         )
                     }
                 </div>
