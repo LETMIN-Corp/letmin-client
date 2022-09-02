@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, createContext } from 'react';
 import { AuthReducer } from "./AuthReducer";
-import { SET_LOADING, SET_USER_DATA, LOGOUT } from "./Types";
+import { SET_LOADING, SET_USER_DATA, LOGOUT, ERROR } from "./Types";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
@@ -52,6 +52,7 @@ export const AuthState = ({ children } : any) => {
             console.log(err);
         });
     }
+    const removeLoading = () => dispatch({ type: ERROR });
 
     const getRole = () => {
         // @ts-ignore:next-line
@@ -74,6 +75,7 @@ export const AuthState = ({ children } : any) => {
     };
 
     async function signIn(role: string, userCredentials: any): Promise<any> {
+        if (!userCredentials) return;
         setLoading();
 
         return await axios.post(`${API_URL}/api/users/login-${role}`, userCredentials)
