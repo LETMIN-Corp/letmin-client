@@ -38,6 +38,7 @@ function App() {
         </Route>
         <Route element={ <PrivateRoutes role={ RoleEnum.company } /> }>
               <Route path='/company/*' element={ <CompanyError /> } />
+              <Route path='/company/' element={ <CompanyIndicators /> } />
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
               <Route path='/company/talents/search' element={ <CompanyTalentSearch /> } />
@@ -49,12 +50,14 @@ function App() {
         </Route>
         <Route element={ <PrivateRoutes role={ RoleEnum.user } /> }>
               <Route path='/user/*' element={ <UserError /> } />
+              <Route path='/user/' element={ <UserProfile /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
               <Route path='/user/vacancy/detail' element={ <UserVacancyDetail /> } />
         </Route>
         <Route element={ <PrivateRoutes role={ RoleEnum.admin } /> }>
               <Route path='/admin/*' element={ <AdminError /> } />
+              <Route path='/admin/' element={ <AdminCompany/> } />
               <Route path='/admin/companies' element={ <AdminCompany/> } />
               <Route path='/admin/collaborators' element={ <AdminCollaborator/> } />
               <Route path='/admin/complaints' element={ <AdminComplaint/> } />
