@@ -28,30 +28,6 @@ export const AuthState = ({ children } : any) => {
         payload: undefined
     });
 
-    async function loginGoogle(token: string) {
-        if (!token) return;
-        
-        setLoading();
-
-        await axios.post(`${API_URL}/api/users/auth/google`, { token })
-        .then((res) => {
-            if (res.status === 200) {
-                Cookies.set('token', res.data.token);
-                dispatch({
-                    type: SET_USER_DATA,
-                    payload: res.data
-                });
-                console.log(jwtDecode(res.data.token));
-                navigate('user/profile');
-                
-            } else {
-                console.log('error', res);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
     const removeLoading = () => dispatch({ type: ERROR });
 
     const getRole = () => {
@@ -80,8 +56,8 @@ export const AuthState = ({ children } : any) => {
 
         return await axios.post(`${API_URL}/api/users/login-${role}`, userCredentials)
         .then((res) => {
-            console.log(res);
             if (res.status === 200) {
+                console.log(res.status)
                 Cookies.set('token', res.data.token);
                 dispatch({
                     type: SET_USER_DATA,
@@ -90,6 +66,7 @@ export const AuthState = ({ children } : any) => {
             }
         })
         .catch((err) => {
+            removeLoading();
             console.log('Error: ', err);
             return err;
         })
@@ -99,7 +76,7 @@ export const AuthState = ({ children } : any) => {
         Cookies.remove('token');
         dispatch({ type: LOGOUT});
         navigate('/');
-        return;
+        return Promise.resolve();
     }
 
     useEffect(() => {
@@ -114,7 +91,6 @@ export const AuthState = ({ children } : any) => {
             isAuthenticated: state.isAuthenticated,
             userData: state.userData,
             setLoading,
-            loginGoogle,
             getRole,
             signIn,
             signOut,
