@@ -5,7 +5,7 @@ import UserDefault from './UserDefault'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../Context/AuthContextProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfo, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faHandshake, faInfo, faLink } from '@fortawesome/free-solid-svg-icons';
 
 const UserProfile : React.FC = () => {
     const { isAuthenticated, userData, signOut }:any = useContext(AuthContext);
@@ -26,11 +26,11 @@ const UserProfile : React.FC = () => {
                         <img src='https://via.placeholder.com/150' className='rounded-full border-4 border-lively-purple absolute left-0 -top-20' />
                         <div className='mt-24 md:mt-5 text-lg md:justify-end flex justify-between items-center w-full'>
                             <a href='#' className='font-medium text-dark-purple hover:text-lively-purple'>
-                                <i className='fa-solid fa-link mr-2'></i>
+                                <FontAwesomeIcon icon={ faLink } className='mr-2' />
                                 <span>Link Externo</span>
                             </a>
                             <button onClick={ () => setOpenModal(true) } className='text-white bg-dark-purple w-8 h-8 rounded-full ml-2'>
-                                <i className="fa-solid fa-info"></i>
+                                <FontAwesomeIcon icon={ faInfo } className='mr-2 pl-2' />
                             </button>
                         </div>
                     </div>
