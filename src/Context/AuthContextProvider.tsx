@@ -62,7 +62,34 @@ export const AuthState = ({ children } : any) => {
                     type: SET_USER_DATA,
                     payload: res.data
                 });
+                return navigate(`/${role}`);
             }
+            return res;
+        })
+        .catch((err) => {
+            removeLoading();
+            console.log('Error: ', err);
+            alert('Erro ao fazer login');
+            return err;
+        })
+    }
+
+    const registerCompany = async (userCredentials: any): Promise<any> => {
+        if (!userCredentials) return;
+
+        setLoading();
+
+        return await axios.post(`${API_URL}/api/users/register-company`, userCredentials)
+        .then((res) => {
+            if (res.status === 201) {
+                Cookies.set('token', res.headers.authorization);
+                dispatch({
+                    type: SET_USER_DATA,
+                    payload: res.data
+                });
+                return navigate(`/company`);
+            }
+            return res;
         })
         .catch((err) => {
             removeLoading();
@@ -93,6 +120,7 @@ export const AuthState = ({ children } : any) => {
             getRole,
             signIn,
             signOut,
+            registerCompany,
             checkAuthStatus,
             setUserData
         }}>

@@ -169,7 +169,7 @@ const CardForm:React.FC<FormInterface> = ({ isDisabled }) => {
             <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-number' disabled={ isDisabled }/>
             
             <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-due' disabled={ isDisabled }/>
+                <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-expiration' disabled={ isDisabled }/>
                 <TextInput placeholder='CVV' size='small' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-code' disabled={ isDisabled }/>
                 <SelectInput placeholder='Bandeira' options={ [] } size='small' consultPackage={ viewConsultPackage } name='card-type' disabled={ isDisabled }/>
             </div>

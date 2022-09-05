@@ -23,9 +23,30 @@ const CompanyLogin : React.FC = () => {
         }
     ];
 
+    interface IRegisterData {
+        [key: string]: string,
+    }
+    
+    const [data, setData] = useState<IRegisterData>({
+        email: '',
+        password: '',
+    });
+
+    function getInputValue (name: string): string {
+        return data[name];
+    }
+
+    function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
+        const { name, value } = e.target;
+        setData({
+            ...data,
+            [name]: value,
+        });
+    }
+
     const consultPackage = {
-        getValue: () => { return '' },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { },
+        getValue: getInputValue,
+        setValue: setInputValue
     };
 
     const [email, setEmail] = useState('');
@@ -33,9 +54,9 @@ const CompanyLogin : React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await signIn('admin', { email, password });
+        await signIn('company', data);
 
-        if (getRole() === 'admin') {
+        if (getRole() === 'company') {
             navigate(`/admin/companies`);
         }
 
@@ -46,12 +67,12 @@ const CompanyLogin : React.FC = () => {
         <>
             <Menu menuButtons={ pageButtons } />
             <div className='w-screen min-h-screen flex items-center justify-center'>
-                <div className='w-full md:w-6/12 lg:w-3/12 p-5'>
+                <form onSubmit={handleSubmit} className='w-full md:w-6/12 lg:w-3/12 p-5'>
                     <h1 className='text-xl font-normal'>Entrar</h1>
-                    <TextInput type={ InputTypesEnum.email } consultPackage={ consultPackage } placeholder='Email' name='' />
-                    <TextInput type={ InputTypesEnum.password } consultPackage={ consultPackage } placeholder='Senha' name='' />
-                    <FormButton text='Entrar' handleClick={ () => {handleSubmit} } isFullWidth={ true } />
-                </div>
+                    <TextInput type={ InputTypesEnum.email } consultPackage={ consultPackage } placeholder='Email' name='email' />
+                    <TextInput type={ InputTypesEnum.password } consultPackage={ consultPackage } placeholder='Senha' name='password' />
+                    <FormButton text='Entrar'  isFullWidth={ true } />
+                </form>
             </div>
             <Footer />
         </>

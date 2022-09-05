@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../Context/AuthContextProvider";
 
 const CorpRegister : React.FC = () => {
-    const { signIn, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
+    const { registerCompany, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
 
     useEffect((): void => {
         window.document.title = 'Letmin - Cadastro';
@@ -59,7 +59,7 @@ const CorpRegister : React.FC = () => {
             type: '',
             number: '',
             owner: '',
-            due: '',
+            expiration: '',
             code: '',
         }
     });
@@ -74,9 +74,9 @@ const CorpRegister : React.FC = () => {
         navigate('/register');
     }
 
-    function handleRegister() {
+    async function handleRegister() {
 
-        signIn('company', registerData)
+        let res = await registerCompany(registerData)
 
     }
 
@@ -228,7 +228,7 @@ const CorpRegister : React.FC = () => {
                                 <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ consultPackage } useMask={ MaskTypesEnum.cardNumber } name='card-number' id='card-number' />
                                 
                                 <div className='md:flex justify-between w-full'>
-                                    <TextInput placeholder='Data de Vencimento' size='medium' useMask={ MaskTypesEnum.date } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-due' id='card-due' />
+                                    <TextInput placeholder='Data de Vencimento' size='medium' useMask={ MaskTypesEnum.date } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-expiration' id='card-expiration' />
                                     <TextInput placeholder='CVV' size='small' useMask={ MaskTypesEnum.cvv }  type={ InputTypesEnum.text } consultPackage={ consultPackage } name='card-code' id='card-code' />
                                     <SelectInput placeholder='Bandeira' options={cardTypes} size='small' consultPackage={consultPackage} name='card-type' id='card-type' disabled={false} />
                                 </div>
@@ -278,7 +278,7 @@ const CorpRegister : React.FC = () => {
                                     <TextInput placeholder='Número do Cartão' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-number' disabled={ true }/>
                                     
                                     <div className='md:flex justify-between w-full'>
-                                        <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-due' disabled={ true }/>
+                                        <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-expiration' disabled={ true }/>
                                         <TextInput placeholder='CVV' size='small' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-code' disabled={ true }/>
                                         <SelectInput placeholder='Bandeira' options={ cardTypes } size='small' consultPackage={ viewConsultPackage } name='card-type' disabled={ true }/>
                                     </div>

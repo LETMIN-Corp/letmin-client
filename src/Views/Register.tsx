@@ -17,13 +17,10 @@ const Register : React.FC = () => {
     const CLIENT_ID: string  = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID || '';
 
     const { isAuthenticated, userData, signOut, signIn }:any = useContext(AuthContext);
-    const navigate = useNavigate();
 
     useEffect((): void => {
-        let isMounted = true;
-
         window.document.title = 'Letmin - Cadastro';
-    }, [isAuthenticated]);
+    });
 
     const menuButtons = [
         {
