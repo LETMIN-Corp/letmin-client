@@ -7,11 +7,11 @@ const PrivateRoutes = ({ role }: any) => {
 
     let userRole = getRole(); 
 
-    if (userRole !== role) {
-        return (
-            <Navigate to="/register"/>
-        );
-    }
+     if (userRole !== role) {
+         return (
+             <Navigate to="/register"/>
+         );
+     }
 
     return <Outlet />;
 }

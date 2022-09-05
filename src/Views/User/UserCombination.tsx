@@ -60,7 +60,7 @@ const UserCombination = () => {
                                 <div className='w-4/12 flex justify-center'>
                                     Empresas
                                 </div>
-                                <div className='w-4/12 flex justify-center'>
+                                <div className='w-4/12 flex justify-center text-center'>
                                     Tipos de Vaga
                                 </div>
                                 <div className='w-4/12 flex justify-center'>
