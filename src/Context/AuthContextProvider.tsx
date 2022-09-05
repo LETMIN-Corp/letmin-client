@@ -57,8 +57,7 @@ export const AuthState = ({ children } : any) => {
         return await axios.post(`${API_URL}/api/users/login-${role}`, userCredentials)
         .then((res) => {
             if (res.status === 200) {
-                console.log(res.status)
-                Cookies.set('token', res.data.token);
+                Cookies.set('token', res.headers.authorization);
                 dispatch({
                     type: SET_USER_DATA,
                     payload: res.data
