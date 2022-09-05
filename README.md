@@ -21,7 +21,7 @@ Para iniciar o desenvolvimento do projeto em sua máquina é necessário rodar o
 ## Conexão com a API
 
 Após realizar a instalação da [API](https://github.com/LETMIN-Corp/letmin-api) é necessário configurar os arquivos `.env` de ambos os projetos e servir as duas aplicações.
-Para garantir o bom funcionamento da comunicação da API com o Client da aplicação é importante que o `.env` siga o seguinte exemplo:
+Para garantir o bom funcionamento da comunicação da API com o Client da aplicação é importante que siga o seguinte exemplo:
 
 ```
 VITE_APP_API_URL=<APP_API_URL>
