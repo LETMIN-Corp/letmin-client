@@ -4,6 +4,7 @@ import SecondaryLink from '../../Components/Links/SecondaryLink';
 import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
+import Combine from '../../Assets/combine.gif';
 
 const CompanyMatch : React.FC = () => {
     useEffect((): void => {
@@ -19,7 +20,8 @@ const CompanyMatch : React.FC = () => {
                 </h1>
                 <div className='lg:flex h-2/3 justify-around mt-5'>
                     <div className='lg:flex lg:items-center w-full lg:w-1/3'>
-                        <div className='rounded-xl bg-gray px-3 py-4 h-80 w-full'>
+                        <div className='px-3 py-4 h-80 w-full'>
+                            <img src={ Combine } className='h-full m-auto' />
                         </div>
                     </div>
                     <div className='lg:flex lg:items-center mt-10 lg:mt-0'>
