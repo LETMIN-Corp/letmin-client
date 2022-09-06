@@ -30,6 +30,7 @@ function App() {
     <div className='w-screen min-h-screen relative'>
       <Routes>
         <Route element={ <PublicRoutes /> }>
+          <Route path='/*' element={ <Home /> } />
           <Route path='/' element={ <Home /> } />
           <Route path='/register' element={ <Register /> } />
           <Route path='/register/company' element={ <CompanyRegister /> } />
