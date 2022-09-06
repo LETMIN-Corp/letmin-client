@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, createContext } from 'react';
 import { AuthReducer } from "./AuthReducer";
-import { SET_LOADING, SET_USER_DATA, LOGOUT } from "./Types";
+import { SET_LOADING, SET_USER_DATA, LOGOUT, ERROR } from "./Types";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
@@ -28,30 +28,7 @@ export const AuthState = ({ children } : any) => {
         payload: undefined
     });
 
-    async function loginGoogle(token: string) {
-        if (!token) return;
-        
-        setLoading();
-
-        await axios.post(`${API_URL}/api/users/auth/google`, { token })
-        .then((res) => {
-            if (res.status === 200) {
-                Cookies.set('token', res.data.token);
-                dispatch({
-                    type: SET_USER_DATA,
-                    payload: res.data
-                });
-                console.log(jwtDecode(res.data.token));
-                navigate('user/profile');
-                
-            } else {
-                console.log('error', res);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
+    const removeLoading = () => dispatch({ type: ERROR });
 
     const getRole = () => {
         // @ts-ignore:next-line
@@ -74,20 +51,48 @@ export const AuthState = ({ children } : any) => {
     };
 
     async function signIn(role: string, userCredentials: any): Promise<any> {
+        if (!userCredentials) return;
         setLoading();
 
         return await axios.post(`${API_URL}/api/users/login-${role}`, userCredentials)
         .then((res) => {
-            console.log(res);
             if (res.status === 200) {
-                Cookies.set('token', res.data.token);
+                Cookies.set('token', res.headers.authorization);
                 dispatch({
                     type: SET_USER_DATA,
                     payload: res.data
                 });
+                return navigate(`/${role}`);
             }
+            return res;
         })
         .catch((err) => {
+            removeLoading();
+            console.log('Error: ', err);
+            alert('Erro ao fazer login');
+            return err;
+        })
+    }
+
+    const registerCompany = async (userCredentials: any): Promise<any> => {
+        if (!userCredentials) return;
+
+        setLoading();
+
+        return await axios.post(`${API_URL}/api/users/register-company`, userCredentials)
+        .then((res) => {
+            if (res.status === 201) {
+                Cookies.set('token', res.headers.authorization);
+                dispatch({
+                    type: SET_USER_DATA,
+                    payload: res.data
+                });
+                return navigate(`/company`);
+            }
+            return res;
+        })
+        .catch((err) => {
+            removeLoading();
             console.log('Error: ', err);
             return err;
         })
@@ -97,7 +102,7 @@ export const AuthState = ({ children } : any) => {
         Cookies.remove('token');
         dispatch({ type: LOGOUT});
         navigate('/');
-        return;
+        return Promise.resolve();
     }
 
     useEffect(() => {
@@ -112,10 +117,10 @@ export const AuthState = ({ children } : any) => {
             isAuthenticated: state.isAuthenticated,
             userData: state.userData,
             setLoading,
-            loginGoogle,
             getRole,
             signIn,
             signOut,
+            registerCompany,
             checkAuthStatus,
             setUserData
         }}>

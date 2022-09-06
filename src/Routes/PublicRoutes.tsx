@@ -7,13 +7,9 @@ const PublicRoutes = () => {
 
     let userRole = getRole(); 
 
-    if(userRole == '') {
-        return <Outlet />
-    }
-
-    if (userRole != undefined && userRole != null) {
+    if (userRole != undefined && userRole != '') {
         return (
-            <Navigate to={`/${userRole}/`}/>
+            <Navigate to={`/${userRole}`}/>
         );
     }
 

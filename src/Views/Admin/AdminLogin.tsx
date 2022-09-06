@@ -37,15 +37,7 @@ const AdminLogin : React.FC = () => {
 
     const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let email = data.email;
-        let password = data.password;
-        await signIn('admin', { email, password });
-
-        if (getRole() === 'admin') {
-            navigate(`/admin/companies`);
-        }
-
-        navigate(`/admin/login`);
+        await signIn('admin', data );
     };
 
     useEffect((): void => {
@@ -54,7 +46,7 @@ const AdminLogin : React.FC = () => {
         if(isAuthenticated && userData.role === 'admin') {
             navigate(`/admin/companies`);
         }
-    }, [isAuthenticated]);
+    }, [userData]);
 
     if(loading) return (<Loading />);
 

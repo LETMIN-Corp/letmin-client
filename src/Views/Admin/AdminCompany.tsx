@@ -14,11 +14,7 @@ const AdminCompany : React.FC = () => {
 
     useEffect((): void => {
         window.document.title = 'Letmin - Empresas';
-
-        if(!isAuthenticated || userData.role !== 'admin') {
-            navigate(`/admin/login`);
-        }
-    }, [isAuthenticated]);
+    }, []);
 
     const [openModal, setOpenModal] = useState(false);
 

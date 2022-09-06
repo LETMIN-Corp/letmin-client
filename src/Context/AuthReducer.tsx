@@ -1,4 +1,4 @@
-import { SET_LOADING, SET_USER_DATA, LOGOUT } from "./Types";
+import { SET_LOADING, ERROR, SET_USER_DATA, LOGOUT } from "./Types";
 
 export const AuthReducer = (state: any, { type, payload }: any) => {
 
@@ -7,6 +7,11 @@ export const AuthReducer = (state: any, { type, payload }: any) => {
         case SET_LOADING:
             return { ...state,
                 loading: true
+            };
+        
+        case ERROR:
+            return { ...state,
+                loading: false,
             };
 
         case SET_USER_DATA:

@@ -1,6 +1,6 @@
 interface ComponentInterface {
     text: string,
-    handleClick: () => void,
+    handleClick?: () => void,
     isDisabled?: boolean,
     isFullWidth?: boolean, 
 }

@@ -16,14 +16,11 @@ const Register : React.FC = () => {
 
     const CLIENT_ID: string  = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID || '';
 
-    const { isAuthenticated, userData, signOut, loginGoogle }:any = useContext(AuthContext);
-    const navigate = useNavigate();
+    const { isAuthenticated, userData, signOut, signIn }:any = useContext(AuthContext);
 
     useEffect((): void => {
-        let isMounted = true;
-
         window.document.title = 'Letmin - Cadastro';
-    }, [isAuthenticated]);
+    });
 
     const menuButtons = [
         {
@@ -48,10 +45,10 @@ const Register : React.FC = () => {
                         <GoogleOAuthProvider clientId={CLIENT_ID}>
                             <GoogleLogin
                                 onSuccess={credentialResponse => {
-                                    loginGoogle(credentialResponse.credential);
+                                    signIn('user', credentialResponse);
                                 }}
                                 onError={() => {
-                                    console.log('Login Failed');
+                                    console.log('Google Login Failed');
                                 }}
                             />
                         </GoogleOAuthProvider>
