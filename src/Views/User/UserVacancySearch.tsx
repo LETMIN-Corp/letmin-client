@@ -1,6 +1,6 @@
 import { faBullhorn, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState  } from 'react';
+import { useEffect } from 'react';
 import UserVacancySearchCard from '../../Components/Cards/UserVacancySearchCard';
 import List from '../../Components/Items/List';
 import UserDefault from './UserDefault'

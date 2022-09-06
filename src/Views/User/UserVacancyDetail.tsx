@@ -1,11 +1,8 @@
 import { useEffect, useState  } from 'react';
 import UserDefault from './UserDefault'
-import SelectInput from '../../Components/Inputs/SelectInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
-import { Link } from 'react-router-dom';
-import SecondaryLink from '../../Components/Links/SecondaryLink';
 import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 
 const UserVacancyDetail = () => {

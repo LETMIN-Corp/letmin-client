@@ -1,10 +1,8 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import UserProfileCard from '../../Components/Cards/UserProfileCard';
 import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfo, faLink } from '@fortawesome/free-solid-svg-icons';
 
 const UserProfile : React.FC = () => {
     const navigate = useNavigate();

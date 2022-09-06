@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
