@@ -23,19 +23,16 @@ export const AuthState = ({ children } : any) => {
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(AuthReducer, InitialState);
 
-    const setLoading = () => dispatch({
-        type: ReducerEnum.set_loading,
-        payload: undefined,
-    });
-
+    const setLoading = () => dispatch({ type: ReducerEnum.set_loading, payload: undefined});
     const removeLoading = () => dispatch({ type: ReducerEnum.error });
-
+    const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
     const getRole = () => {
         // @ts-ignore:next-line
         return state.userData.role || (Cookies.get('token') != null ? jwtDecode(Cookies.get('token').toString()).role : '');
     }
 
-    const checkAuthStatus = async () => {
+    // Auth function
+    const getInitialUserData = async () => {
         const token = Cookies.get('token');
         if (token) {
             const decodedToken:any = jwtDecode(token);
@@ -104,13 +101,18 @@ export const AuthState = ({ children } : any) => {
         navigate('/');
         return Promise.resolve();
     }
+    // End auth functions
 
     useEffect(() => {
-        checkAuthStatus();
+        getInitialUserData();
     }, []);
 
-    const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
+    // Company function
+    // End company function
 
+    // User functions
+    // End user functions
+    
     return (
         <AuthContext.Provider value={{
             loading: state.loading,
@@ -121,7 +123,7 @@ export const AuthState = ({ children } : any) => {
             signIn,
             signOut,
             registerCompany,
-            checkAuthStatus,
+            getInitialUserData,
             setUserData
         }}>
             { children }
