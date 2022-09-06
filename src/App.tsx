@@ -19,7 +19,7 @@ import AdminCompany from './Views/Admin/AdminCompany';
 import AdminError from './Views/Admin/AdminError';
 import AdminCollaborator from './Views/Admin/AdminCollaborator';
 import AdminComplaint from './Views/Admin/AdminComplaint';
-import RoleEnum from './Utils/RoleEnum';
+import RoleEnum from './Enums//RoleEnum';
 import UserVacancyDetail from './Views/User/UserVacancyDetail';
 import PrivateRoutes from './Routes/PrivateRoutes';
 import CompanyLogin from './Views/Company/CompanyLogin';

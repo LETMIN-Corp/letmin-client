@@ -1,14 +1,14 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import FormButton from "../../Components/Buttons/FormButton";
 import TextInput from "../../Components/Inputs/TextInput";
 import Footer from "../../Components/Layouts/Footer";
 import Menu from '../../Components/Layouts/Menu';
-import InputTypesEnum from "../../Utils/InputTypesEnum";
-import { AuthContext } from "../../Contexts/AuthContextProvider";
+import InputTypesEnum from "../../Enums//InputTypesEnum";
+import useAuth from "../../Utils/useAuth";
 
 const CompanyLogin : React.FC = () => {
-    const { signIn, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
+    const auth = useAuth();
     const navigate = useNavigate();
 
     useEffect((): void => {
@@ -54,9 +54,9 @@ const CompanyLogin : React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await signIn('company', data);
+        await auth.signIn('company', data);
 
-        if (getRole() === 'company') {
+        if (auth.getRole() === 'company') {
             navigate(`/admin/companies`);
         }
 

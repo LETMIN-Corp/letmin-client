@@ -1,4 +1,4 @@
-import MaskTypesEnum from '../../Utils/MaskTypesEnum';
+import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import FormButton from '../../Components/Buttons/FormButton';
 import { useNavigate } from 'react-router-dom';
 import CompanyDefault from './CompanyDefault';

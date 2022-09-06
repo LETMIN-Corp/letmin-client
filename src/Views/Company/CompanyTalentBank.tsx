@@ -2,7 +2,7 @@ import TalentBankCard from '../../Components/Cards/TalentBankCard';
 import CompanyDefault from './CompanyDefault';
 import { useEffect, useState } from 'react';
 import FormModal from '../../Components/Modals/FormModal';
-import InputTypesEnum from '../../Utils/InputTypesEnum';
+import InputTypesEnum from '../../Enums//InputTypesEnum';
 import TextInput from '../../Components/Inputs/TextInput';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFolderOpen, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';

@@ -1,4 +1,4 @@
-import ReducerEnum from "../Utils/ReducerEnum";
+import ReducerEnum from "../Enums/ReducerEnum";
 
 export const AuthReducer = (state: any, { type, payload }: any) => {
 

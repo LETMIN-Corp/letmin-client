@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, createContext } from 'react';
 import { AuthReducer } from "../Reducers/AuthReducer";
-import ReducerEnum from "../Utils/ReducerEnum";
+import ReducerEnum from "../Enums//ReducerEnum";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';

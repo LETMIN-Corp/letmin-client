@@ -2,7 +2,7 @@ import CompanyDefault from './CompanyDefault';
 import { useEffect, useState } from 'react';
 import CompanyEditCard from '../../Components/Cards/CompanyEditCard';
 import TextInput from '../../Components/Inputs/TextInput';
-import InputTypesEnum from '../../Utils/InputTypesEnum';
+import InputTypesEnum from '../../Enums//InputTypesEnum';
 import SelectInput from '../../Components/Inputs/SelectInput';
 import FormModal from '../../Components/Modals/FormModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -1,11 +1,9 @@
 import { Outlet, Navigate } from 'react-router-dom'
-import { useContext } from "react";
-import { AuthContext } from "../Contexts/AuthContextProvider";
+import useAuth from '../Utils/useAuth';
 
 const PublicRoutes = () => {
-    const { getRole } : any = useContext(AuthContext);
-
-    let userRole = getRole(); 
+    const auth = useAuth();
+    let userRole = auth.getRole(); 
 
     if (userRole != undefined && userRole != '') {
         return (

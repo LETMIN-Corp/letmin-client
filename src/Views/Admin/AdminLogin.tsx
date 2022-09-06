@@ -1,14 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import TextInput from "../../Components/Inputs/TextInput";
-import { AuthContext } from "../../Contexts/AuthContextProvider";
-import InputTypesEnum from "../../Utils/InputTypesEnum";
+import InputTypesEnum from "../../Enums//InputTypesEnum";
 import Loading from "../Loading";
+import useAuth from "../../Utils/useAuth";
 
 const AdminLogin : React.FC = () => {
-    const { signIn, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
+    const auth = useAuth();
     const navigate = useNavigate();
-
     interface IRegisterData {
         [key: string]: string,
     }
@@ -37,18 +36,18 @@ const AdminLogin : React.FC = () => {
 
     const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await signIn('admin', data );
+        await auth.signIn('admin', data );
     };
 
     useEffect((): void => {
         window.document.title = 'Letmin - Login';
 
-        if(isAuthenticated && userData.role === 'admin') {
+        if(auth.isAuthenticated && auth.userData.role === 'admin') {
             navigate(`/admin/companies`);
         }
-    }, [userData]);
+    }, [auth.userData]);
 
-    if(loading) return (<Loading />);
+    if(auth.loading) return (<Loading />);
 
     return (
         <div className='w-screen min-h-screen flex items-center justify-center bg-primary'>

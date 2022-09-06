@@ -4,19 +4,18 @@ import TextInput from '../../Components/Inputs/TextInput';
 import { useEffect, useState, useContext } from 'react';
 import StripTitle from '../../Components/Titles/StripTitle';
 import Pagination from '../../Components/Items/Pagination';
-import InputTypesEnum from '../../Utils/InputTypesEnum';
-import MaskTypesEnum from '../../Utils/MaskTypesEnum';
+import InputTypesEnum from '../../Enums//InputTypesEnum';
+import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import SelectInput from '../../Components/Inputs/SelectInput';
 import FormButton from '../../Components/Buttons/FormButton';
 import PlanCard from '../../Components/Cards/PlanCard';
-import PlanTypesEnum from '../../Utils/PlanTypesEnum';
+import PlanTypesEnum from '../../Enums//PlanTypesEnum';
 import ConfirmationModal from '../../Components/Modals/CofirmationModal';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../../Contexts/AuthContextProvider";
+import useAuth from '../../Utils/useAuth';
 
 const CorpRegister : React.FC = () => {
-    const { registerCompany, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);
-
+    const auth = useAuth();
     useEffect((): void => {
         window.document.title = 'Letmin - Cadastro';
     }, []);
@@ -76,7 +75,7 @@ const CorpRegister : React.FC = () => {
 
     async function handleRegister() {
 
-        let res = await registerCompany(registerData)
+        let res = await auth.registerCompany(registerData)
 
     }
 

@@ -3,12 +3,10 @@ import UserProfileCard from '../../Components/Cards/UserProfileCard';
 import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../../Contexts/AuthContextProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfo, faLink } from '@fortawesome/free-solid-svg-icons';
 
 const UserProfile : React.FC = () => {
-    const { isAuthenticated, userData, signOut }:any = useContext(AuthContext);
     const navigate = useNavigate();
 
     useEffect((): void => {

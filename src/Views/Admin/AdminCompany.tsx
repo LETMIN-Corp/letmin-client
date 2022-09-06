@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
-import InputTypesEnum from '../../Utils/InputTypesEnum';
+import InputTypesEnum from '../../Enums//InputTypesEnum';
 import AdminDefault from './AdminDefault';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../../Contexts/AuthContextProvider";
 import { faBan, faBuilding, faInfo, faMessage, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useAuth from '../../Utils/useAuth';
 
 const AdminCompany : React.FC = () => {
-    const { isAuthenticated, userData, signOut }:any = useContext(AuthContext);
+    const auth = useAuth();
     const navigate = useNavigate();
 
     useEffect((): void => {
@@ -53,7 +53,7 @@ const AdminCompany : React.FC = () => {
             {
                 openModal && <CompanyForm isDisabled={ false } handleClose={ () => setOpenModal(false) } />
             }
-            <button onClick={ signOut } >Logout</button>
+            <button onClick={ auth.signOut } >Logout</button>
         </AdminDefault>
     );
 }

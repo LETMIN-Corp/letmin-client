@@ -1,11 +1,11 @@
 import LogoImage from '../../Assets/logo.svg';
-import { useEffect, useState, useContext } from 'react';
+import { useState } from 'react';
 import PrimaryLink from '../Links/PrimaryLink';
 import { Link } from 'react-router-dom';
 import MenuLink from '../Links/MenuLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AuthContext } from "../../Contexts/AuthContextProvider";
 import { faBars, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import useAuth from '../../Utils/useAuth';
 
 interface ButtonsInterface {
     text: string,
@@ -20,7 +20,7 @@ interface ComponentInterface {
 };
 
 const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
-    const { isAuthenticated, signOut }:any = useContext(AuthContext);
+    const auth = useAuth();
     const [menuIsOpen, setMenuIsOpen] = useState(false);
 
     return (
@@ -108,11 +108,10 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                                                     })
                                                 }
                                                 {
-                                                    // If is logged
-                                                    isAuthenticated && (
+                                                    auth.isAuthenticated && (
                                                         <button
                                                         className='block mx-auto rounded-md bg-white text-red font-bold py-2 px-4 drop-shadow-lg border-2 border-red md:text-lg'
-                                                        onClick={ signOut }
+                                                        onClick={ auth.signOut }
                                                     >
                                                         Logout
                                                     </button>
@@ -152,11 +151,10 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                                 }
                             </div>
                             {
-                                // If is logged
-                                isAuthenticated && (
+                                auth.isAuthenticated && (
                                     <button
                                         className='flex my-10 w-full block md:w-52 md:text-gray font-medium md:hover:text-white ease-out duration-200'
-                                        onClick={ signOut}
+                                        onClick={ auth.signOut }
                                     >
                                         Logout
                                     </button>
