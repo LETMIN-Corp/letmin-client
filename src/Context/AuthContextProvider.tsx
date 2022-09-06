@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, createContext } from 'react';
 import { AuthReducer } from "./AuthReducer";
-import { SET_LOADING, SET_USER_DATA, LOGOUT, ERROR } from "./Types";
+import ReducerEnum from "../Utils/ReducerEnum";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
@@ -24,11 +24,11 @@ export const AuthState = ({ children } : any) => {
     const [state, dispatch] = useReducer(AuthReducer, InitialState);
 
     const setLoading = () => dispatch({
-        type: SET_LOADING,
+        type: ReducerEnum.set_loading,
         payload: undefined
     });
 
-    const removeLoading = () => dispatch({ type: ERROR });
+    const removeLoading = () => dispatch({ type: ReducerEnum.error });
 
     const getRole = () => {
         // @ts-ignore:next-line
@@ -43,7 +43,7 @@ export const AuthState = ({ children } : any) => {
                 signOut();
             } else {
                 dispatch({
-                    type: SET_USER_DATA,
+                    type: ReducerEnum.set_user_data,
                     payload: decodedToken
                 });
             }
@@ -59,7 +59,7 @@ export const AuthState = ({ children } : any) => {
             if (res.status === 200) {
                 Cookies.set('token', res.headers.authorization);
                 dispatch({
-                    type: SET_USER_DATA,
+                    type: ReducerEnum.set_user_data,
                     payload: res.data
                 });
                 return navigate(`/${role}`);
@@ -84,7 +84,7 @@ export const AuthState = ({ children } : any) => {
             if (res.status === 201) {
                 Cookies.set('token', res.headers.authorization);
                 dispatch({
-                    type: SET_USER_DATA,
+                    type: ReducerEnum.set_user_data,
                     payload: res.data
                 });
                 return navigate(`/company`);
@@ -100,7 +100,7 @@ export const AuthState = ({ children } : any) => {
 
     async function signOut(): Promise<void> {
         Cookies.remove('token');
-        dispatch({ type: LOGOUT});
+        dispatch({ type: ReducerEnum.logout });
         navigate('/');
         return Promise.resolve();
     }
@@ -109,7 +109,7 @@ export const AuthState = ({ children } : any) => {
         checkAuthStatus();
     }, []);
 
-    const setUserData = (data:any) => dispatch({ type: SET_USER_DATA, payload: data });
+    const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
 
     return (
         <AuthContext.Provider value={{
