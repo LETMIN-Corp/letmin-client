@@ -12,7 +12,7 @@ import PlanCard from '../../Components/Cards/PlanCard';
 import PlanTypesEnum from '../../Utils/PlanTypesEnum';
 import ConfirmationModal from '../../Components/Modals/CofirmationModal';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../../Context/AuthContextProvider";
+import { AuthContext } from "../../Contexts/AuthContextProvider";
 
 const CorpRegister : React.FC = () => {
     const { registerCompany, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);

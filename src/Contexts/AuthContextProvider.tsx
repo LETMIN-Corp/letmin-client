@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, createContext } from 'react';
-import { AuthReducer } from "./AuthReducer";
+import { AuthReducer } from "../Reducers/AuthReducer";
 import ReducerEnum from "../Utils/ReducerEnum";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -25,7 +25,7 @@ export const AuthState = ({ children } : any) => {
 
     const setLoading = () => dispatch({
         type: ReducerEnum.set_loading,
-        payload: undefined
+        payload: undefined,
     });
 
     const removeLoading = () => dispatch({ type: ReducerEnum.error });
@@ -44,7 +44,7 @@ export const AuthState = ({ children } : any) => {
             } else {
                 dispatch({
                     type: ReducerEnum.set_user_data,
-                    payload: decodedToken
+                    payload: decodedToken,
                 });
             }
         }
@@ -60,7 +60,7 @@ export const AuthState = ({ children } : any) => {
                 Cookies.set('token', res.headers.authorization);
                 dispatch({
                     type: ReducerEnum.set_user_data,
-                    payload: res.data
+                    payload: res.data,
                 });
                 return navigate(`/${role}`);
             }
@@ -85,7 +85,7 @@ export const AuthState = ({ children } : any) => {
                 Cookies.set('token', res.headers.authorization);
                 dispatch({
                     type: ReducerEnum.set_user_data,
-                    payload: res.data
+                    payload: res.data,
                 });
                 return navigate(`/company`);
             }

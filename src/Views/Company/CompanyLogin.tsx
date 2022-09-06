@@ -5,7 +5,7 @@ import TextInput from "../../Components/Inputs/TextInput";
 import Footer from "../../Components/Layouts/Footer";
 import Menu from '../../Components/Layouts/Menu';
 import InputTypesEnum from "../../Utils/InputTypesEnum";
-import { AuthContext } from "../../Context/AuthContextProvider";
+import { AuthContext } from "../../Contexts/AuthContextProvider";
 
 const CompanyLogin : React.FC = () => {
     const { signIn, loading, isAuthenticated, userData, getRole }:any = useContext(AuthContext);

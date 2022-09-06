@@ -4,7 +4,7 @@ import PrimaryLink from '../Links/PrimaryLink';
 import { Link } from 'react-router-dom';
 import MenuLink from '../Links/MenuLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AuthContext } from "../../Context/AuthContextProvider";
+import { AuthContext } from "../../Contexts/AuthContextProvider";
 import { faBars, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface ButtonsInterface {

@@ -4,7 +4,7 @@ import InfoModal from '../../Components/Modals/InfoModal';
 import InputTypesEnum from '../../Utils/InputTypesEnum';
 import AdminDefault from './AdminDefault';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../../Context/AuthContextProvider";
+import { AuthContext } from "../../Contexts/AuthContextProvider";
 import { faBan, faBuilding, faInfo, faMessage, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

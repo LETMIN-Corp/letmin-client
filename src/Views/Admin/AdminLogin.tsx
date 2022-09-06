@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import TextInput from "../../Components/Inputs/TextInput";
-import { AuthContext } from "../../Context/AuthContextProvider";
+import { AuthContext } from "../../Contexts/AuthContextProvider";
 import InputTypesEnum from "../../Utils/InputTypesEnum";
 import Loading from "../Loading";
 

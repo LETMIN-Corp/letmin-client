@@ -4,7 +4,7 @@ import RegisterCard from '../Components/Cards/RegisterCard';
 import StripTitle from '../Components/Titles/StripTitle';
 import { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../Context/AuthContextProvider";
+import { AuthContext } from "../Contexts/AuthContextProvider";
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import SecondaryLink from '../Components/Links/SecondaryLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
