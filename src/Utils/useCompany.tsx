@@ -7,4 +7,4 @@ const useCompany = () => {
     return { getCompanyData };
 }
 
-export default useCompany;   
+export default useCompany;

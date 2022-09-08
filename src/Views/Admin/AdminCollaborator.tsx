@@ -1,5 +1,5 @@
-import { faBan, faInfo, faMessage, faUnlock, faUsers } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBan, faInfo, faMessage, faUnlock, faUsers, faMagnifyingGlass  } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
@@ -20,14 +20,15 @@ const AdminCollaborator : React.FC = () => {
                     <FontAwesomeIcon icon={ faUsers } className='mr-2' />
                     Colaboradores
                 </h1>
-                <div className='w-full flex items-center justify-between mt-5'>
-                    <input type='text' placeholder='Buscar' className='max-w-sm w-full md:mr-3 px-2 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                <div className='max-w-sm w-full relative mt-5'>
+                    <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                    <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-2 text-xl text-dark-purple' />
                 </div>
                 <div className='mt-5 break-all'>
                     <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
                         <span className='w-5/12 md:w-7/12 pr-1'>Nome</span>
                         <span className='w-4/12 pr-1'>Status</span>
-                        <span className='w-3/12 md:w-24 pr-1'>Ações</span>
+                        <span className='w-3/12 md:w-12 pr-1'>Ações</span>
                     </div>
                     <div>
                         {
@@ -65,12 +66,9 @@ const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen }) =
         <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
             <span className='w-5/12 md:w-7/12 pr-1'>{ collaborator.name }</span>
             <span className='w-4/12 pr-1'>{ collaborator.status ? 'Ativo' : 'Bloqueado' }</span>
-            <span className='w-3/12 md:w-24 md:text-lg pr-1 flex justify-between'>
+            <span className='w-2/12 md:w-12 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
                     <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen } className='text-dark-purple' />
-                </div>
-                <div className='cursor-pointer'>
-                    <FontAwesomeIcon icon={ faMessage } className='text-light-purple' />
                 </div>
                 <div className='cursor-pointer'>
                     { collaborator.status ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }

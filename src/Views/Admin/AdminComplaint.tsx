@@ -1,4 +1,4 @@
-import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faTriangleExclamation, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect } from 'react';
 import AdminDefault from './AdminDefault';
@@ -15,8 +15,9 @@ const AdminComplaint : React.FC = () => {
                     <FontAwesomeIcon icon={ faTriangleExclamation } className='mr-2' />
                     Denúncias
                 </h1>
-                <div className='w-full flex items-center justify-between mt-5'>
-                    <input type='text' placeholder='Buscar' className='max-w-sm w-full md:mr-3 px-2 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                <div className='max-w-sm w-full relative mt-5'>
+                    <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                    <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-2 text-xl text-dark-purple' />
                 </div>
                 <div className='mt-5 break-all'>
                     <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
