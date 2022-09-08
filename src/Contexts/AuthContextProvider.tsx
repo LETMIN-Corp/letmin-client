@@ -108,9 +108,17 @@ export const AuthState = ({ children } : any) => {
     }, []);
 
     // Company function
+    const getCompanyData = async (id: string) => {
+        setLoading();
+        // todo: get company data
+    }
     // End company function
 
     // User functions
+    const getUserData = async (id: string) => {
+        setLoading();
+        // todo: get user data
+    }
     // End user functions
     
     return (
@@ -124,7 +132,9 @@ export const AuthState = ({ children } : any) => {
             signOut,
             registerCompany,
             getInitialUserData,
-            setUserData
+            setUserData,
+            getCompanyData,
+            getUserData,
         }}>
             { children }
         </AuthContext.Provider>

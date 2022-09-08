@@ -7,6 +7,7 @@ import SelectInput from '../../Components/Inputs/SelectInput';
 import FormModal from '../../Components/Modals/FormModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
 
 const CompanyProfile = () => {
     useEffect((): void => {
@@ -37,7 +38,7 @@ const CompanyProfile = () => {
                     <CompanyEditCard>
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
                             <span>Informações da Empresa</span>
-                            <i
+                            <FontAwesomeIcon
                                 onClick={
                                     () => {
                                         setModalIsOpen(true);
@@ -47,9 +48,10 @@ const CompanyProfile = () => {
                                         });
                                     }
                                 }
-                                className='fa-solid fa-gear cursor-pointer'
+                                className='cursor-pointer'
+                                icon={ faGear }
                             >
-                            </i>
+                            </FontAwesomeIcon>
                         </h3>
                         <CompanyForm isDisabled={ true } />
                     </CompanyEditCard>
