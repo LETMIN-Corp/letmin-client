@@ -50,8 +50,7 @@ const CompanyProfile = () => {
                                 }
                                 className='cursor-pointer'
                                 icon={ faGear }
-                            >
-                            </FontAwesomeIcon>
+                            />
                         </h3>
                         <CompanyForm isDisabled={ true } />
                     </CompanyEditCard>

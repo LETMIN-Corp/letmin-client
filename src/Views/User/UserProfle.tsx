@@ -4,7 +4,6 @@ import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
 import { useNavigate } from 'react-router-dom';
 
-import { AuthContext } from "../../Context/AuthContextProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandshake, faInfo, faLink } from '@fortawesome/free-solid-svg-icons';
 
