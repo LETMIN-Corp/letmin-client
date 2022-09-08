@@ -2,21 +2,18 @@ import Menu from '../Components/Layouts/Menu';
 import Footer from '../Components/Layouts/Footer';
 import RegisterCard from '../Components/Cards/RegisterCard';
 import StripTitle from '../Components/Titles/StripTitle';
-import { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from "../Context/AuthContextProvider";
+import { useEffect } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import SecondaryLink from '../Components/Links/SecondaryLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuilding, faUser } from '@fortawesome/free-solid-svg-icons';
-import { Outlet, Navigate } from 'react-router-dom'
+import useAuth from '../Utils/useAuth';
 
 
 const Register : React.FC = () => {
-
     const CLIENT_ID: string  = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID || '';
 
-    const { isAuthenticated, userData, signOut, signIn }:any = useContext(AuthContext);
+    const auth = useAuth();
 
     useEffect((): void => {
         window.document.title = 'Letmin - Cadastro';
@@ -45,7 +42,7 @@ const Register : React.FC = () => {
                         <GoogleOAuthProvider clientId={CLIENT_ID}>
                             <GoogleLogin
                                 onSuccess={credentialResponse => {
-                                    signIn('user', credentialResponse);
+                                    auth.signIn('user', credentialResponse);
                                 }}
                                 onError={() => {
                                     console.log('Google Login Failed');

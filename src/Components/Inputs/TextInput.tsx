@@ -2,8 +2,8 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { cnpjMask, cpfMask, cardValidDateMask, cvvMask, phoneMask, cardNumbermask, holderMask, moneyMask } from '../../Utils/InputMasks';
-import InputTypesEnum from '../../Utils/InputTypesEnum';
-import MaskTypesEnum from '../../Utils/MaskTypesEnum';
+import InputTypesEnum from '../../Enums//InputTypesEnum';
+import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 
 interface ComponentInterface {
     type: string,

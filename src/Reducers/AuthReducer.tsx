@@ -1,26 +1,26 @@
-import { SET_LOADING, ERROR, SET_USER_DATA, LOGOUT } from "./Types";
+import ReducerEnum from "../Enums/ReducerEnum";
 
 export const AuthReducer = (state: any, { type, payload }: any) => {
 
     switch (type) {
 
-        case SET_LOADING:
+        case ReducerEnum.set_loading:
             return { ...state,
                 loading: true
             };
         
-        case ERROR:
+        case ReducerEnum.error:
             return { ...state,
                 loading: false,
             };
 
-        case SET_USER_DATA:
+        case ReducerEnum.set_user_data:
             return { ...state,
                 userData: payload,
                 isAuthenticated: true,
                 loading: false
             };
-        case LOGOUT:
+        case ReducerEnum.logout:
             return { ...state,
                 userData: {},
                 isAuthenticated: false,

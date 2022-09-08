@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, createContext } from 'react';
-import { AuthReducer } from "./AuthReducer";
-import { SET_LOADING, SET_USER_DATA, LOGOUT, ERROR } from "./Types";
+import { AuthReducer } from "../Reducers/AuthReducer";
+import ReducerEnum from "../Enums//ReducerEnum";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
@@ -23,19 +23,16 @@ export const AuthState = ({ children } : any) => {
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(AuthReducer, InitialState);
 
-    const setLoading = () => dispatch({
-        type: SET_LOADING,
-        payload: undefined
-    });
-
-    const removeLoading = () => dispatch({ type: ERROR });
-
+    const setLoading = () => dispatch({ type: ReducerEnum.set_loading, payload: undefined});
+    const removeLoading = () => dispatch({ type: ReducerEnum.error });
+    const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
     const getRole = () => {
         // @ts-ignore:next-line
         return state.userData.role || (Cookies.get('token') != null ? jwtDecode(Cookies.get('token').toString()).role : '');
     }
 
-    const checkAuthStatus = async () => {
+    // Auth function
+    const getInitialUserData = async () => {
         const token = Cookies.get('token');
         if (token) {
             const decodedToken:any = jwtDecode(token);
@@ -43,8 +40,8 @@ export const AuthState = ({ children } : any) => {
                 signOut();
             } else {
                 dispatch({
-                    type: SET_USER_DATA,
-                    payload: decodedToken
+                    type: ReducerEnum.set_user_data,
+                    payload: decodedToken,
                 });
             }
         }
@@ -59,8 +56,8 @@ export const AuthState = ({ children } : any) => {
             if (res.status === 200) {
                 Cookies.set('token', res.headers.authorization);
                 dispatch({
-                    type: SET_USER_DATA,
-                    payload: res.data
+                    type: ReducerEnum.set_user_data,
+                    payload: res.data,
                 });
                 return navigate(`/${role}`);
             }
@@ -84,8 +81,8 @@ export const AuthState = ({ children } : any) => {
             if (res.status === 201) {
                 Cookies.set('token', res.headers.authorization);
                 dispatch({
-                    type: SET_USER_DATA,
-                    payload: res.data
+                    type: ReducerEnum.set_user_data,
+                    payload: res.data,
                 });
                 return navigate(`/company`);
             }
@@ -100,17 +97,30 @@ export const AuthState = ({ children } : any) => {
 
     async function signOut(): Promise<void> {
         Cookies.remove('token');
-        dispatch({ type: LOGOUT});
+        dispatch({ type: ReducerEnum.logout });
         navigate('/');
         return Promise.resolve();
     }
+    // End auth functions
 
     useEffect(() => {
-        checkAuthStatus();
+        getInitialUserData();
     }, []);
 
-    const setUserData = (data:any) => dispatch({ type: SET_USER_DATA, payload: data });
+    // Company function
+    const getCompanyData = async (id: string) => {
+        setLoading();
+        // todo: get company data
+    }
+    // End company function
 
+    // User functions
+    const getUserData = async (id: string) => {
+        setLoading();
+        // todo: get user data
+    }
+    // End user functions
+    
     return (
         <AuthContext.Provider value={{
             loading: state.loading,
@@ -121,8 +131,10 @@ export const AuthState = ({ children } : any) => {
             signIn,
             signOut,
             registerCompany,
-            checkAuthStatus,
-            setUserData
+            getInitialUserData,
+            setUserData,
+            getCompanyData,
+            getUserData,
         }}>
             { children }
         </AuthContext.Provider>

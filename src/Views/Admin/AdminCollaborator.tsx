@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
-import InputTypesEnum from '../../Utils/InputTypesEnum';
+import InputTypesEnum from '../../Enums//InputTypesEnum';
 import AdminDefault from './AdminDefault';
 
 const AdminCollaborator : React.FC = () => {
