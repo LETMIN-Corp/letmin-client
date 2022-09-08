@@ -9,8 +9,10 @@ import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import SelectInput from '../../Components/Inputs/SelectInput';
 import FormButton from '../../Components/Buttons/FormButton';
 import PlanCard from '../../Components/Cards/PlanCard';
-import PlanTypesEnum from '../../Enums//PlanTypesEnum';
-import ConfirmationModal from '../../Components/Modals/CofirmationModal';
+
+import PlanTypesEnum from '../../Enums/PlanTypesEnum';
+import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
+
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../Utils/useAuth';
 
