@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 const InitialState : any = {
     loading: false,
     userData: {
-        role: '',
+        role: {},
     },
     isAuthenticated: false,
 };
@@ -39,10 +39,7 @@ export const AuthState = ({ children } : any) => {
             if (decodedToken.exp * 1000 < Date.now()) {
                 signOut();
             } else {
-                dispatch({
-                    type: ReducerEnum.set_user_data,
-                    payload: decodedToken,
-                });
+                setUserData(decodedToken);
             }
         }
     };
@@ -55,10 +52,8 @@ export const AuthState = ({ children } : any) => {
         .then((res) => {
             if (res.status === 200) {
                 Cookies.set('token', res.headers.authorization);
-                dispatch({
-                    type: ReducerEnum.set_user_data,
-                    payload: res.data,
-                });
+                setUserData(res.data);
+
                 return navigate(`/${role}`);
             }
             return res;
@@ -80,10 +75,8 @@ export const AuthState = ({ children } : any) => {
         .then((res) => {
             if (res.status === 201) {
                 Cookies.set('token', res.headers.authorization);
-                dispatch({
-                    type: ReducerEnum.set_user_data,
-                    payload: res.data,
-                });
+                setUserData(res.data);
+
                 return navigate(`/company`);
             }
             return res;
@@ -112,6 +105,38 @@ export const AuthState = ({ children } : any) => {
         setLoading();
         // todo: get company data
     }
+
+    const registerVacancy = async (company_id: string, vacancy: any) => {
+        console.log('company_id: ', company_id);
+
+        return axios.post(`${API_URL}/api/users/register-vacancy`, vacancy)
+        .then((res) => {
+            if (res.status === 201) {
+                return res;
+            }
+            return res;
+        })
+        .catch((err) => {
+            console.log('Error: ', err);
+            return err;
+        })
+    }
+
+    const getAllVacancies = (company_id: string)  => {
+        console.log('company_id: ', company_id);
+        return axios.get(`${API_URL}/api/users/get-vacancies`, { params: { company_id } })
+        .then((res) => {
+            if (res.status === 200) {
+                console.log('res: ', res);
+                return res.data;
+            }
+        })
+        .catch((err) => {
+            console.log('Error: ', err);
+            return err;
+        })
+    }
+
     // End company function
 
     // User functions
@@ -135,6 +160,8 @@ export const AuthState = ({ children } : any) => {
             setUserData,
             getCompanyData,
             getUserData,
+            registerVacancy,
+            getAllVacancies,
         }}>
             { children }
         </AuthContext.Provider>

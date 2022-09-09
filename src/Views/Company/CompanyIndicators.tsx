@@ -1,14 +1,28 @@
 import CompanyDefault from './CompanyDefault';
 import VacancyData from '../../Components/Items/VacancyActions';
-import SecondaryLink from '../../Components/Links/SecondaryLink';
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
+import useCompany from '../../Utils/useCompany';
 
 const CompanyIndicators = () => {
+    const Company = useCompany();
+
+    const getCompanyData = Company.getAllVacancies(Company.userData.user_id);
+
     useEffect((): void => {
         window.document.title = 'Letmin - Indicadores';
+
+        if (getCompanyData) {
+            console.log('getCompanyData', getCompanyData);
+        }
+
+        //console.log('vacancies', data);
     }, []);
+
+    interface VacancyData {
+        [key: string]: string;
+    }
 
     const data = [
         {
