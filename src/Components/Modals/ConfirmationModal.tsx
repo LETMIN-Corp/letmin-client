@@ -30,7 +30,7 @@ const ConfirmationModal:React.FC<ComponentInterface> = ({ title, text, handleClo
                     </div>
                     <div className='px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse'>
                         <button type='button' onClick={ handleConfirm } className='w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm'>Confirmar</button>
-                        <button type='button' onClick={ handleClose } className='mt-3 w-full inline-flex justify-center rounded-md border shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm'>Cancel</button>
+                        <button type='button' onClick={ handleClose } className='mt-3 w-full inline-flex justify-center rounded-md border shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm'>Cancelar</button>
                     </div>
                 </div>
             </div>

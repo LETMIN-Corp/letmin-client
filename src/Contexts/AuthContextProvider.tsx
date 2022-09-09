@@ -122,19 +122,59 @@ export const AuthState = ({ children } : any) => {
         })
     }
 
-    const getAllVacancies = (company_id: string)  => {
+    const getAllVacancies = async (company_id: string)  => {
         console.log('company_id: ', company_id);
-        return axios.get(`${API_URL}/api/users/get-vacancies`, { params: { company_id } })
+        return await axios.get(`${API_URL}/api/users/get-vacancies`, { params: { company_id } })
         .then((res) => {
             if (res.status === 200) {
-                console.log('res: ', res);
-                return res.data;
+                console.log('res: ', res.data);
+                return res;
             }
         })
         .catch((err) => {
             console.log('Error: ', err);
             return err;
         })
+    }
+
+
+
+    const axiosRequest = async (url: string, method: string, data: any) => {
+        return await axios({
+            method,
+            url,
+            data,
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('token')}`
+            }
+        })
+        .then((res) => {
+            if (res.status === 200) {
+                return res;
+            }
+            return res;
+        })
+        .catch((err) => {
+            console.log('Error: ', err);
+            return err;
+        })
+    }
+
+    const confirmVacancy = async (vacancy_id: string) => {
+        
+        let company_id = state.userData.user_id;
+
+        return axiosRequest(`${API_URL}/api/users/confirm-vacancy`, 'patch', { company_id, vacancy_id })
+        // .then((res) => {
+        //     if (res.status === 200) {
+        //         return res;
+        //     }
+        //     return res;
+        // })
+        // .catch((err) => {
+        //     console.log('Error: ', err);
+        //     return err;
+        // })
     }
 
     // End company function
@@ -162,6 +202,7 @@ export const AuthState = ({ children } : any) => {
             getUserData,
             registerVacancy,
             getAllVacancies,
+            confirmVacancy,
         }}>
             { children }
         </AuthContext.Provider>

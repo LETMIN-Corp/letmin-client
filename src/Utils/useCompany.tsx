@@ -2,9 +2,9 @@ import { useContext } from "react";
 import { AuthContext } from "../Contexts/AuthContextProvider";
 
 const useCompany = () => {
-    const { getCompanyData, registerVacancy, getAllVacancies, userData } : any = useContext(AuthContext);
+    const { getCompanyData, registerVacancy, getAllVacancies, userData, confirmVacancy } : any = useContext(AuthContext);
 
-    return { getCompanyData, registerVacancy, getAllVacancies, userData };
+    return { getCompanyData, registerVacancy, getAllVacancies, userData, confirmVacancy };
 }
 
 export default useCompany;   
