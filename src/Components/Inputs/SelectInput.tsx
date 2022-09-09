@@ -37,7 +37,7 @@ const SelectInput : React.FC<ComponentInterface> = ({ placeholder = '', options,
                 id={ id }
                 defaultValue={ inputValue }
                 disabled = { disabled }
-                className='w-full mt-2 mb-5 md:mt-2 py-2 px-5 border-2 border-dark-purple rounded-lg'
+                className='w-full mt-2 mb-5 md:mt-2 py-2 px-5 border-2 border-dark-purple rounded-md'
             >
                 <option value=''>{ placeholder }</option>
 
@@ -50,7 +50,7 @@ const SelectInput : React.FC<ComponentInterface> = ({ placeholder = '', options,
 
             {
                 inputValue && (
-                    <div className='input-up-animation z-50 bg-white font-medium px-1 text-dark-purple'>{ placeholder }</div>                
+                    <div className='input-up-animation z-10 bg-white font-medium px-1 text-dark-purple'>{ placeholder }</div>                
                 )
             }
         </div>
