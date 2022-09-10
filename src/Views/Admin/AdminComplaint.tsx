@@ -27,12 +27,12 @@ const AdminComplaint : React.FC = () => {
                         {
                             [
                                 {
-                                    emissary: 'Pedro',
-                                    description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate ipsum blanditiis ratione ut eveniet quaerat eum, at quam dolore ad sint sit enim reiciendis libero delectus suscipit, aliquam, ipsam odit.',
+                                    emissary: 'Pedro da Silva',
+                                    description: 'Usuário "João Nazista" com nome ofensivo'
                                 },
                                 {
-                                    emissary: 'Paulo hausudsia',
-                                    description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate ipsum blanditiis ratione ut eveniet quaerat eum, at quam dolore ad sint sit enim reiciendis libero delectus suscipit, aliquam, ipsam odit.',
+                                    emissary: 'Paulo Gustavo',
+                                    description: 'Usuário "João Nazista" com nome ofensivo'
                                 },
                             ].map((complaint, key) => <TableCard key={ key } complaint={ complaint } /> )
                         }

@@ -76,9 +76,13 @@ const CorpRegister : React.FC = () => {
     }
 
     async function handleRegister() {
-
-        let res = await auth.registerCompany(registerData)
-
+        await auth.registerCompany(registerData)
+        .then((res : any) => {
+            console.log(res)
+            if (res.status != 200) {
+                alert('Erro no login');
+            }
+        });
     }
 
     function getInputValue (name: string): string {

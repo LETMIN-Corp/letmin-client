@@ -33,10 +33,12 @@ const CompanyRegisterVacancy = () => {
                 return;
             }
             alert('Vaga cadastrada com sucesso!');
+            //setVacancyData(initialState);
+
         })
     };
-    
-    const [vacancyData, setVacancyData] = useState<IVacancyData>({
+
+    const initialState = {
         role: '',
         sector: '',
         description: '',
@@ -46,7 +48,9 @@ const CompanyRegisterVacancy = () => {
         region: '',
         insertDate: '',
         expirationDate: '',
-    });
+    }
+    
+    const [vacancyData, setVacancyData] = useState<IVacancyData>(initialState);
 
     function getInputValue (name: string): string {
         return vacancyData[name];
