@@ -25,6 +25,7 @@ import UserVacancyDetail from './Views/User/UserVacancyDetail';
 import PrivateRoutes from './Routes/PrivateRoutes';
 import CompanyLogin from './Views/Company/CompanyLogin';
 import PublicRoutes from './Routes/PublicRoutes';
+import CookiesPopUp from './Components/Items/CookiesPopUp';
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
               <Route path='/admin/complaints' element={ <AdminComplaint/> } />
         </Route>
       </Routes>
+      <CookiesPopUp />
     </div>
   )
 }
