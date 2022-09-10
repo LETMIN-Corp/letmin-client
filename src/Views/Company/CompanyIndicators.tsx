@@ -16,9 +16,9 @@ const CompanyIndicators =  () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Indicadores';
 
-        Company.getAllVacancies(Company.userData.user_id)
+        Company.getAllVacancies()
         .then((res: any ) => {
-            setData(res.data.jobs);
+            setData(res.data.vacancies);
         })
         .catch((err: any) => {
             console.log('err: ', err);
@@ -32,13 +32,17 @@ const CompanyIndicators =  () => {
         role : string;
         description : string;
         length: number;
+        closed: boolean;
         candidates: [];
     }
     
     interface VacancyData {
         [key: number]: Vacancy;
-        map: (arg0: (vacancy: Vacancy) => JSX.Element) => any;
         length: number;
+        map: (arg0: (vacancy: Vacancy) => JSX.Element) => any;
+        filter: (arg0: (vacancy: Vacancy) => boolean) => any;
+        findIndex: (arg0: (vacancy: Vacancy) => boolean) => number;
+        [Symbol.iterator](): IterableIterator<Vacancy>;
     }
 
     function openModalWithType(id : string, type : 'CONFIRM' | 'CLOSE') {
@@ -53,11 +57,24 @@ const CompanyIndicators =  () => {
 
     function handleConfirm() {
         if(currentType === 'CONFIRM') {
-            console.log('current', currentVacancyId);
+            // if type is confirm, call confirmVacancy
             Company.confirmVacancy(currentVacancyId)
+            .then((res: any) => {
+                // set changed vacancy closed boolean to true
+                const index = data.findIndex((vacancy: Vacancy) => vacancy._id === currentVacancyId);
+                data[index].closed = true;
+                setData([...data]);
+                setModalIsOpen(false); 
+            })
         } else {
             // if type is close
-            //Company.closeVacancy(currentVacancyId)
+            Company.closeVacancy(currentVacancyId)
+            .then((res: any) => {
+                if (res.data.success) {
+                    let newData = data.filter((vacancy: Vacancy) => vacancy._id !== currentVacancyId);
+                    setData(newData);
+                }
+            })
         }
 
         setCurrentType('');
@@ -72,6 +89,13 @@ const CompanyIndicators =  () => {
                     <FontAwesomeIcon icon={ faChartLine } className='mr-2' />
                     <span>Indicadores</span>
                 </h1>
+                {
+                    (!data.length) && (
+                        <div className='text-center'>
+                            <p className='text-xl'>Nenhuma vaga cadastrada</p>
+                        </div>
+                    )
+                }
                 {
                     !!data.length && (
                         <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
@@ -90,7 +114,8 @@ const CompanyIndicators =  () => {
                                 {
                                     data.map((row) => {
                                         return (
-                                            <div key={ row._id } className='flex pt-2 text-sm md:text-md'>
+                                            // print red strip if closed is true
+                                            <div key={ row._id } className={`flex pt-2 text-sm ${row.closed ? 'bg-sky-500/75' : ''} md:text-md `}>
                                                 <div className='w-4/12 flex justify-center items-center text-center'>
                                                     { row.role }
                                                 </div>
@@ -98,9 +123,13 @@ const CompanyIndicators =  () => {
                                                     <Link to='../company/vacancy/data' className="text-primary font-medium hover:text-bright-purple">{ row.candidates.length }</Link>                
                                                 </div>
                                                 <div className='w-4/12 flex justify-center items-center text-center'>
-                                                    <button onClick={ () => openModalWithType(row._id, 'CONFIRM') }>
-                                                        <FontAwesomeIcon icon={ faCheck } className='text-xl text-green mr-3' />
-                                                    </button>
+                                                    {
+                                                        !row.closed && (
+                                                            <button onClick={ () => openModalWithType(row._id, 'CONFIRM') }>
+                                                                <FontAwesomeIcon icon={ faCheck } className='text-xl text-green mr-3' />
+                                                            </button>
+                                                        )
+                                                    }
                                                     <button onClick={ () => openModalWithType(row._id, 'CLOSE') }>
                                                         <FontAwesomeIcon icon={ faXmark } className='text-xl text-red' />
                                                     </button>

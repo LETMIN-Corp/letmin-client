@@ -106,40 +106,7 @@ export const AuthState = ({ children } : any) => {
         // todo: get company data
     }
 
-    const registerVacancy = async (company_id: string, vacancy: any) => {
-        console.log('company_id: ', company_id);
-
-        return axios.post(`${API_URL}/api/users/register-vacancy`, vacancy)
-        .then((res) => {
-            if (res.status === 201) {
-                return res;
-            }
-            return res;
-        })
-        .catch((err) => {
-            console.log('Error: ', err);
-            return err;
-        })
-    }
-
-    const getAllVacancies = async (company_id: string)  => {
-        console.log('company_id: ', company_id);
-        return await axios.get(`${API_URL}/api/users/get-vacancies`, { params: { company_id } })
-        .then((res) => {
-            if (res.status === 200) {
-                console.log('res: ', res.data);
-                return res;
-            }
-        })
-        .catch((err) => {
-            console.log('Error: ', err);
-            return err;
-        })
-    }
-
-
-
-    const axiosRequest = async (url: string, method: string, data: any) => {
+    const axiosRequest = async (url: string, method: string, data: any = null) => {
         return await axios({
             method,
             url,
@@ -160,23 +127,23 @@ export const AuthState = ({ children } : any) => {
         })
     }
 
-    const confirmVacancy = async (vacancy_id: string) => {
-        
-        let company_id = state.userData.user_id;
-
-        return axiosRequest(`${API_URL}/api/users/confirm-vacancy`, 'patch', { company_id, vacancy_id })
-        // .then((res) => {
-        //     if (res.status === 200) {
-        //         return res;
-        //     }
-        //     return res;
-        // })
-        // .catch((err) => {
-        //     console.log('Error: ', err);
-        //     return err;
-        // })
+    const registerVacancy = async (vacancy: any) => {
+        return await axiosRequest(`${API_URL}/api/users/register-vacancy`, 'POST', vacancy);
     }
 
+    const getAllVacancies = async ()  => {
+        return await axiosRequest(`${API_URL}/api/users/get-all-vacancies`, 'GET');
+    }
+
+    const confirmVacancy = async (vacancy_id: string) => {
+        let company_id = state.userData.user_id;
+        return axiosRequest(`${API_URL}/api/users/confirm-vacancy/${vacancy_id}`, 'patch', { company_id,  })
+    }
+
+    const closeVacancy = async (vacancy_id: string) => {
+        let company_id = state.userData.user_id;
+        return axiosRequest(`${API_URL}/api/users/close-vacancy/${vacancy_id}`, 'delete', { company_id })
+    }
     // End company function
 
     // User functions
@@ -203,6 +170,7 @@ export const AuthState = ({ children } : any) => {
             registerVacancy,
             getAllVacancies,
             confirmVacancy,
+            closeVacancy,
         }}>
             { children }
         </AuthContext.Provider>

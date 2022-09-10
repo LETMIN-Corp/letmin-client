@@ -25,7 +25,15 @@ const CompanyRegisterVacancy = () => {
 
         console.log('data', vacancyData);
 
-        Company.registerVacancy(Company.userData.user_id, vacancyData);
+        Company.registerVacancy(vacancyData)
+        .then((res: any) => {
+            if (res.status !== 200) {
+                console.log('err: ', res);
+                alert('Erro ao cadastrar vaga');
+                return;
+            }
+            alert('Vaga cadastrada com sucesso!');
+        })
     };
     
     const [vacancyData, setVacancyData] = useState<IVacancyData>({
