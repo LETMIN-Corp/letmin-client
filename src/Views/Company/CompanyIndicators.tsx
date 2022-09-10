@@ -114,8 +114,8 @@ const CompanyIndicators =  () => {
                                 {
                                     data.map((row) => {
                                         return (
-                                            // print red strip if closed is true
-                                            <div key={ row._id } className={`flex pt-2 text-sm ${row.closed ? 'bg-sky-500/75' : ''} md:text-md `}>
+                                            // todo: print in green strip if closed is true
+                                            <div key={ row._id } className={`flex pt-2 text-sm ${row.closed ? 'bg-green-500' : ''} md:text-md `}>
                                                 <div className='w-4/12 flex justify-center items-center text-center'>
                                                     { row.role }
                                                 </div>
