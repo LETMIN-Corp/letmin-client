@@ -21,4 +21,4 @@ const useCompany = () => {
     };
 }
 
-export default useCompany;   
+export default useCompany;

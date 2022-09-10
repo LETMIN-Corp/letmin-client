@@ -100,7 +100,7 @@ const CompanyTalentBank = () => {
                 <div className='w-full flex items-center justify-between mt-5'>
                     <div className='max-w-sm w-full relative mr-2'>
                         <input onChange={ (e) => setSearchFolders(e.target.value) } type='text' placeholder='Buscar' className='w-full mr-3 pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
-                        <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-1 text-xl text-dark-purple' />
+                        <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-2 text-xl text-dark-purple' />
                     </div>
                     <button onClick={ () => setModalIsOpen(true) } className='bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                         <FontAwesomeIcon icon={ faPlus } />

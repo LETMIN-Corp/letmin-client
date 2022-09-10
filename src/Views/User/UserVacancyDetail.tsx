@@ -61,8 +61,6 @@ const UserVacancyDetail = () => {
                 <div className='flex justify-center items-center py-5 lg:py-10 bg-primary'>
                     <h1 className='text-white text-4xl lg:text-5xl font-black mt-4'>Detalhes da Vaga</h1>
                 </div>
-                {/*  */}
-
                 <div className='p-5'>
                     <div className='bg-primary text-center md:text-left'> 
                     </div>
