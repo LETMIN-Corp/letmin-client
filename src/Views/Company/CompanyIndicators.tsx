@@ -89,6 +89,8 @@ const CompanyIndicators =  () => {
                     <FontAwesomeIcon icon={ faChartLine } className='mr-2' />
                     <span>Indicadores</span>
                 </h1>
+                
+                <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
                 {
                     (!data.length) && (
                         <div className='text-center'>
@@ -98,7 +100,7 @@ const CompanyIndicators =  () => {
                 }
                 {
                     !!data.length && (
-                        <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
+                        <>
                             <div className='flex text-xl font-medium'>
                                 <div className='w-4/12 flex justify-center'>
                                     Descrição
@@ -139,9 +141,10 @@ const CompanyIndicators =  () => {
                                     })
                                 }
                             </div>
-                        </div>
+                        </>
                     )
                 }
+                </div>
                 {
                     modalIsOpen && <ConfirmationModal title='Confirmar' text={`Confirmar ${ currentType === 'CLOSE' ? 'cancelamento' : 'conclusão'} da vaga?`} handleClose={ () => setModalIsOpen(false) } handleConfirm={ () => handleConfirm() } />
                 }
