@@ -49,16 +49,14 @@ const CompanyLogin : React.FC = () => {
         setValue: setInputValue
     };
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await auth.signIn('company', data);
-
-        if (auth.getRole() === 'company') {
-            navigate(`/admin/companies`);
-        }
+        await auth.signIn('company', data)
+        .then((res : any) => {
+            if (res.status !== 200) {
+                alert('Erro no login');
+            }
+        })
 
         return;
     }

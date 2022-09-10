@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 const InitialState : any = {
     loading: false,
     userData: {
-        role: '',
+        role: {},
     },
     isAuthenticated: false,
 };
@@ -27,8 +27,9 @@ export const AuthState = ({ children } : any) => {
     const removeLoading = () => dispatch({ type: ReducerEnum.error });
     const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
     const getRole = () => {
+        //console.log('state.userData.role: ', state.userData.role);
         // @ts-ignore:next-line
-        return state.userData.role || (Cookies.get('token') != null ? jwtDecode(Cookies.get('token').toString()).role : '');
+        return (Cookies.get('token') ? jwtDecode(Cookies.get('token').toString()).role : '');
     }
 
     // Auth function
@@ -39,36 +40,42 @@ export const AuthState = ({ children } : any) => {
             if (decodedToken.exp * 1000 < Date.now()) {
                 signOut();
             } else {
-                dispatch({
-                    type: ReducerEnum.set_user_data,
-                    payload: decodedToken,
-                });
+                setUserData(decodedToken);
             }
         }
     };
 
-    async function signIn(role: string, userCredentials: any): Promise<any> {
-        if (!userCredentials) return;
-        setLoading();
-
-        return await axios.post(`${API_URL}/api/users/login-${role}`, userCredentials)
-        .then((res) => {
-            if (res.status === 200) {
-                Cookies.set('token', res.headers.authorization);
-                dispatch({
-                    type: ReducerEnum.set_user_data,
-                    payload: res.data,
-                });
-                return navigate(`/${role}`);
+    const axiosRequest = async (url: string, method: string, data: any = null) => {
+        return await axios({
+            method,
+            url,
+            data,
+            headers: {
+                'Authorization': `Bearer ${Cookies.get('token')}`
             }
+        })
+        .then((res) => {
             return res;
         })
         .catch((err) => {
-            removeLoading();
             console.log('Error: ', err);
-            alert('Erro ao fazer login');
             return err;
         })
+    }
+
+    async function signIn(role: string, userCredentials: any): Promise<any> {
+        if (!userCredentials) return;
+
+        return await axiosRequest(`${API_URL}/api/users/login-${role}`, 'POST', userCredentials)
+        .then((res: any) => {
+            if (res.status === 200) {
+                Cookies.set('token', res.headers.authorization);
+                setUserData(res.data);
+                return navigate(`/${role}`);
+            }
+            
+            return res;
+        })  
     }
 
     const registerCompany = async (userCredentials: any): Promise<any> => {
@@ -76,23 +83,7 @@ export const AuthState = ({ children } : any) => {
 
         setLoading();
 
-        return await axios.post(`${API_URL}/api/users/register-company`, userCredentials)
-        .then((res) => {
-            if (res.status === 201) {
-                Cookies.set('token', res.headers.authorization);
-                dispatch({
-                    type: ReducerEnum.set_user_data,
-                    payload: res.data,
-                });
-                return navigate(`/company`);
-            }
-            return res;
-        })
-        .catch((err) => {
-            removeLoading();
-            console.log('Error: ', err);
-            return err;
-        })
+        return axiosRequest(`${API_URL}/api/users/register-company`, userCredentials);
     }
 
     async function signOut(): Promise<void> {
@@ -109,8 +100,24 @@ export const AuthState = ({ children } : any) => {
 
     // Company function
     const getCompanyData = async (id: string) => {
-        setLoading();
-        // todo: get company data
+        return await axiosRequest(`${API_URL}/api/users/company-data`, 'GET');
+    }
+    const registerVacancy = async (vacancy: any) => {
+        return await axiosRequest(`${API_URL}/api/users/register-vacancy`, 'POST', vacancy);
+    }
+
+    const getAllVacancies = async ()  => {
+        return await axiosRequest(`${API_URL}/api/users/get-all-vacancies`, 'GET');
+    }
+
+    const confirmVacancy = async (vacancy_id: string) => {
+        let company_id = state.userData.user_id;
+        return axiosRequest(`${API_URL}/api/users/confirm-vacancy/${vacancy_id}`, 'patch', { company_id,  })
+    }
+
+    const closeVacancy = async (vacancy_id: string) => {
+        let company_id = state.userData.user_id;
+        return axiosRequest(`${API_URL}/api/users/close-vacancy/${vacancy_id}`, 'delete', { company_id })
     }
     // End company function
 
@@ -135,6 +142,10 @@ export const AuthState = ({ children } : any) => {
             setUserData,
             getCompanyData,
             getUserData,
+            registerVacancy,
+            getAllVacancies,
+            confirmVacancy,
+            closeVacancy,
         }}>
             { children }
         </AuthContext.Provider>

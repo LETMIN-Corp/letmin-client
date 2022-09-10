@@ -8,10 +8,26 @@ import FormModal from '../../Components/Modals/FormModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
+import useCompany from '../../Utils/useCompany';
 
 const CompanyProfile = () => {
+    const Company = useCompany();
+
+    const [companyData, setCompanyData] = useState({});
+
     useEffect((): void => {
         window.document.title = 'Letmin - Meus Dados';
+
+        Company.getCompanyData()
+        .then((res: any) => {
+            if (res.status !== 200) {
+                console.log('err: ', res);
+                alert('Erro ao carregar dados');
+                return;
+            }
+            
+            //setCompanyData(res.data);
+        });
     }, []);
 
     interface FormModalInterface {

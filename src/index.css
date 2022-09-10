@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 * {
-    font-family: 'Libre Franklin', sans-serif;
+  font-family: 'Libre Franklin', sans-serif;
 }
 
 html {
@@ -12,7 +12,7 @@ html {
 }
 
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 p {
@@ -32,7 +32,7 @@ p {
   animation-name: up;
   animation-duration: .3s;
   position: absolute;
-  top: 0px;
+  top: -2px;
   left: 10px;
 }
 

@@ -1,57 +1,86 @@
 import CompanyDefault from './CompanyDefault';
-import VacancyData from '../../Components/Items/VacancyActions';
-import SecondaryLink from '../../Components/Links/SecondaryLink';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
+import useCompany from '../../Utils/useCompany';
+import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
+import { Link } from 'react-router-dom';
 
-const CompanyIndicators = () => {
+const CompanyIndicators =  () => {
+    const Company = useCompany();
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [currentVacancyId, setCurrentVacancyId] = useState('');
+    const [currentType, setCurrentType] = useState('');
+    const [data, setData] = useState<VacancyData>([]); 
+
     useEffect((): void => {
         window.document.title = 'Letmin - Indicadores';
+
+        Company.getAllVacancies()
+        .then((res: any ) => {
+            setData(res.data.vacancies);
+        })
+        .catch((err: any) => {
+            console.log('err: ', err);
+        });
     }, []);
 
-    const data = [
-        {
-            name: 'Gerente',
-            candidate: 8,
-        },
-        {
-            name: 'Mecânico',
-            candidate: 45,
-        },
-        {
-            name: 'Supervisor',
-            candidate: 15,
-        },
-        {
-            name: 'Técnico em Informática',
-            candidate: 15,
-        },
-        {
-            name: 'Técnico em Eletrônica',
-            candidate: 56,
-        },
-        {
-            name: 'Gerente',
-            candidate: 8,
-        },
-        {
-            name: 'Mecânico',
-            candidate: 45,
-        },
-        {
-            name: 'Supervisor',
-            candidate: 15,
-        },
-        {
-            name: 'Técnico em Informática',
-            candidate: 15,
-        },
-        {
-            name: 'Técnico em Eletrônica',
-            candidate: 56,
-        },
-    ];
+    
+    interface Vacancy {
+        _id : string;
+        company_id : string;
+        role : string;
+        description : string;
+        length: number;
+        closed: boolean;
+        candidates: [];
+    }
+    
+    interface VacancyData {
+        [key: number]: Vacancy;
+        length: number;
+        map: (arg0: (vacancy: Vacancy) => JSX.Element) => any;
+        filter: (arg0: (vacancy: Vacancy) => boolean) => any;
+        findIndex: (arg0: (vacancy: Vacancy) => boolean) => number;
+        [Symbol.iterator](): IterableIterator<Vacancy>;
+    }
+
+    function openModalWithType(id : string, type : 'CONFIRM' | 'CLOSE') {
+        setCurrentVacancyId(id);
+        setModalIsOpen(true);
+        if(type === 'CONFIRM') {
+            setCurrentType('CONFIRM');
+            return;
+        }
+        setCurrentType('CLOSE');
+    }
+
+    function handleConfirm() {
+        if(currentType === 'CONFIRM') {
+            // if type is confirm, call confirmVacancy
+            Company.confirmVacancy(currentVacancyId)
+            .then((res: any) => {
+                // set changed vacancy closed boolean to true
+                const index = data.findIndex((vacancy: Vacancy) => vacancy._id === currentVacancyId);
+                data[index].closed = true;
+                setData([...data]);
+                setModalIsOpen(false); 
+            })
+        } else {
+            // if type is close
+            Company.closeVacancy(currentVacancyId)
+            .then((res: any) => {
+                if (res.data.success) {
+                    let newData = data.filter((vacancy: Vacancy) => vacancy._id !== currentVacancyId);
+                    setData(newData);
+                }
+            })
+        }
+
+        setCurrentType('');
+        setCurrentVacancyId('');
+        setModalIsOpen(false);
+    }
 
     return (
         <CompanyDefault>
@@ -61,11 +90,18 @@ const CompanyIndicators = () => {
                     <span>Indicadores</span>
                 </h1>
                 {
-                    data.length > 0 && (
+                    (!data.length) && (
+                        <div className='text-center'>
+                            <p className='text-xl'>Nenhuma vaga cadastrada</p>
+                        </div>
+                    )
+                }
+                {
+                    !!data.length && (
                         <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
                             <div className='flex text-xl font-medium'>
                                 <div className='w-4/12 flex justify-center'>
-                                    Vagas
+                                    Descrição
                                 </div>
                                 <div className='w-4/12 flex justify-center'>
                                     Candidatos
@@ -76,15 +112,39 @@ const CompanyIndicators = () => {
                             </div>
                             <div>
                                 {
-                                    data.map((row, key) => <VacancyData key={ key } name={ row.name } candidates={ row.candidate } />)
+                                    data.map((row) => {
+                                        return (
+                                            // todo: print in green strip if closed is true
+                                            <div key={ row._id } className={`flex pt-2 text-sm ${row.closed ? 'bg-green-light' : ''} md:text-md `}>
+                                                <div className='w-4/12 flex justify-center items-center text-center'>
+                                                    { row.role }
+                                                </div>
+                                                <div className='w-4/12 flex justify-center items-center text-center'>
+                                                    <Link to='../company/vacancy/data' className="text-primary font-medium hover:text-bright-purple">{ row.candidates.length }</Link>                
+                                                </div>
+                                                <div className='w-4/12 flex justify-center items-center text-center'>
+                                                    {
+                                                        !row.closed && (
+                                                            <button onClick={ () => openModalWithType(row._id, 'CONFIRM') }>
+                                                                <FontAwesomeIcon icon={ faCheck } className='text-xl text-green mr-3' />
+                                                            </button>
+                                                        )
+                                                    }
+                                                    <button onClick={ () => openModalWithType(row._id, 'CLOSE') }>
+                                                        <FontAwesomeIcon icon={ faXmark } className='text-xl text-red' />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
                                 }
                             </div>
                         </div>
                     )
                 }
-
-                        
-
+                {
+                    modalIsOpen && <ConfirmationModal title='Confirmar' text={`Confirmar ${ currentType === 'CLOSE' ? 'cancelamento' : 'conclusão'} da vaga?`} handleClose={ () => setModalIsOpen(false) } handleConfirm={ () => handleConfirm() } />
+                }
             </div>
         </CompanyDefault>
     );

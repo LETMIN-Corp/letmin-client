@@ -34,11 +34,11 @@ const AdminCollaborator : React.FC = () => {
                         {
                             [
                                 {
-                                    name: 'Teste bom',
+                                    name: 'João da Silva',
                                     status: true,
                                 },
                                 {
-                                    name: 'Teste ruim',
+                                    name: 'Maria da Silva',
                                     status: false,
                                 },
                             ].map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => setOpenModal(true) } /> )

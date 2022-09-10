@@ -3,14 +3,14 @@ import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
 import AdminDefault from './AdminDefault';
+import { faBan, faBuilding, faInfo, faMessage, faUnlock, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { faBan, faBuilding, faInfo, faUnlock, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAuth from '../../Utils/useAuth';
 
 const AdminCompany : React.FC = () => {
     const auth = useAuth();
-    const navigate = useNavigate();
 
     useEffect((): void => {
         window.document.title = 'Letmin - Empresas';
@@ -39,11 +39,11 @@ const AdminCompany : React.FC = () => {
                         {
                             [
                                 {
-                                    name: 'Teste bom',
+                                    name: 'Sul&Cidiomar',
                                     status: true,
                                 },
                                 {
-                                    name: 'Teste ruim',
+                                    name: 'Gestão de Resíduos',
                                     status: false,
                                 },
                             ].map((company, key) => <TableCard key={ key } company={ company } handleOpen={ () => setOpenModal(true) } /> )
