@@ -8,7 +8,7 @@ import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 interface ComponentInterface {
     type: string,
     placeholder?: string
-    size?: 'small' | 'medium' | 'large',
+    size?: 'small' | 'normal' | 'medium' | 'large' | 'extra-large',
     useMask?: string,
     limit?: number,
     consultPackage: {
@@ -29,10 +29,14 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, val
         switch(size) {
             case 'small':
                 return 'md:w-3/12';
+            case 'normal':
+                return 'md:w-4/12';
             case 'medium':
                 return 'md:w-5/12';
             case 'large':
                 return 'md:w-6/12'
+            case 'extra-large':
+                return 'md:w-7/12'
         }
     }
 
