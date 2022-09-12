@@ -20,13 +20,13 @@ const CookiesPopUp : React.FC = () => {
         <>
         {
             !cookiesAccepted && (
-                <div className='rounded-md md:w-6/12 lg:w-3/12 bg-white p-5 border-2 border-lilac fixed bottom-5 left-5 right-5'>
+                <div className='rounded-md md:w-6/12 lg:w-3/12 bg-white p-5 border-2 border-lilac fixed bottom-5 left-5 right-5 drop-shadow-2xl'>
                     <div className='text-dark-purple flex items-center'>
                         <FontAwesomeIcon className='text-2xl mr-2' icon={ faCookieBite } />
                         <h3 className='font-medium text-lg'>Aceitar cookies</h3>
                     </div>
                     <div className='text-sm md:text-md text-justify mb-4 text-lg'>
-                        Ao clicar em "Aceitar", você concorda que a Letmin pode guardar cookies no seu dispositivo e utilizar essas informações de acordo com a nossa política de cookies.
+                        Ao clicar em "Aceitar todos os cookies", você concorda que a Letmin pode guardar cookies no seu dispositivo e utilizar essas informações de acordo com a nossa política de cookies.
                     </div>
                     <div className='w-full flex justify-center'>
                         <SecondaryButton text='Aceitar todos os cookies' handleClick={ () => acceptCookie() }  />
