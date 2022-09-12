@@ -82,43 +82,6 @@ const CompanyCombinations : React.FC = () => {
                         </p>
                 </section>
             </div>
-            {/* <section className='flex flex-col justify-center items-center bg-primary p-5'>
-                <h2 className='text-2xl lg:text-4xl text-white text-center pt-9 font-bold'>
-                    Entre em contato com o candidato
-                </h2>
-                <div className='mt-10 flex flex-wrap justify-around'>
-                    {
-                        [
-                            {
-                                text: 'Entrevista',
-                            },
-                            {
-                                text: 'Aprovar',
-                            },
-                            {
-                                text: 'Reprovar',
-                            },
-                        ].map((button, key) => {
-                            return (
-                                <div className='m-4 '>
-                                    <FormButton text={ button.text } handleClick={ () => {} } key={ key } />
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <div className='flex flex-col justify-center items-center py-10'>
-                    <div className='flex mr-auto bg-white rounded-t-md px-10 py-1 text-primary font-bold'>
-                        Email
-                    </div>
-                    <div className='text-lg md:text-xl text-justify p-6 bg-white rounded-b-md rounded-tr-md'>
-                        <textarea rows={ 5 } cols={ 60 } className='w-full resize-none p-2 outline-none text-lg md:text-xl text-justify pb-10' name='comment' id='comment' placeholder='Digite aqui seu email'></textarea>
-                        <div className='flex justify-end mt-2'>
-                            <FormButton text='Enviar'  handleClick={ () => {} }/>
-                        </div>
-                    </div>    
-                </div>
-            </section> */}
         </CompanyDefault> 
     );
 }

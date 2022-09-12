@@ -18,19 +18,25 @@ const CompanyMatch : React.FC = () => {
                     <FontAwesomeIcon icon={ faUserCheck } className='mr-2' />
                     <span>Combinações</span>
                 </h1>
-                <div className='lg:flex h-2/3 justify-around mt-5'>
-                    <div className='lg:flex lg:items-center w-full lg:w-1/3'>
-                        <div className='px-3 py-4 h-80 w-full'>
-                            <img src={ Combine } className='h-full m-auto' />
+                <div className='xl:flex h-2/3 justify-around mt-5'>
+                    <div className='xl:flex xl:items-center w-full xl:w-1/3'>
+                        <div className='px-3 py-4 w-full'>
+                            <img src={ Combine } className='md:h-80 lg:h-full m-auto' />
+                            <div className='font-bold text-dark-purple text-lg'>
+                                Pedro Antonio da Silva
+                            </div>
+                            <div className='font-medium lg:text-lg text-justify'>
+                                Sou um Designer de Interiores, que estagiou durante o ano de 2018 na empresa INSIDE - Arquitetura e Design de Interiores na cidade de São Paulo. Meus projetos se baseiam no estilo gregoriano moderno, onde mesclo tradição e história com tecnologia e inovação.
+                            </div>
                         </div>
                     </div>
-                    <div className='lg:flex lg:items-center mt-10 lg:mt-0'>
+                    <div className='xl:flex xl:items-center mt-10 lg:mt-0'>
                         <div>
-                            <div className='text-center mb-10 lg:mb-20 '>
+                            <div className='text-center mb-10 lg:mb-20 font-bold text-dark-purple'>
                                 <h2 className='lg:text-5xl md:text-4xl text-3xl mb-4'>Combinação</h2>
                                 <h2 className='lg:text-5xl md:text-4xl text-3xl'>Perfeita!</h2>
                             </div>
-                            <div className='sm:flex lg:w-80 items-center justify-evenly lg:justify-between'>
+                            <div className='sm:flex xl:w-80 items-center justify-evenly lg:justify-between'>
                                 <div className='flex w-full justify-center'>
                                     <SecondaryLink text='Ver Perfil' path='/company/combinations/1'></SecondaryLink>
                                 </div>
