@@ -106,7 +106,7 @@ export const AuthState = ({ children } : any) => {
         return await axiosRequest(`${API_URL}/api/users/register-vacancy`, 'POST', vacancy);
     }
 
-    const getAllVacancies = async ()  => {
+    const getAllCompanyVacancies = async ()  => {
         return await axiosRequest(`${API_URL}/api/users/get-all-vacancies`, 'GET');
     }
 
@@ -126,6 +126,10 @@ export const AuthState = ({ children } : any) => {
         setLoading();
         // todo: get user data
     }
+
+    const getVacancies = async () => {
+        return await axiosRequest(`${API_URL}/api/users/vacancy`, 'GET');
+    }
     // End user functions
     
     return (
@@ -143,9 +147,10 @@ export const AuthState = ({ children } : any) => {
             getCompanyData,
             getUserData,
             registerVacancy,
-            getAllVacancies,
+            getAllCompanyVacancies,
             confirmVacancy,
             closeVacancy,
+            getVacancies,
         }}>
             { children }
         </AuthContext.Provider>

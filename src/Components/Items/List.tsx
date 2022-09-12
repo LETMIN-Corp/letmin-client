@@ -71,11 +71,6 @@ const List : React.FC<ListInterface> = ({ data, itemsPerPage }) => {
             {
                 displayNodes
             }
-            {
-                !data.length && (
-                    <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhum item encontrado</div>
-                )
-            }
             <div className='flex justify-center w-full my-10 mr-40'>
                 {
                     !!buttons.length && (

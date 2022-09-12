@@ -16,7 +16,7 @@ const CompanyIndicators =  () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Indicadores';
 
-        Company.getAllVacancies()
+        Company.getAllCompanyVacancies()
         .then((res: any ) => {
             setData(res.data.vacancies);
         })

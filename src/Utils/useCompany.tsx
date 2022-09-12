@@ -5,7 +5,7 @@ const useCompany = () => {
     const { 
         getCompanyData,
         registerVacancy,
-        getAllVacancies,
+        getAllCompanyVacancies,
         userData,
         confirmVacancy,
         closeVacancy,
@@ -14,7 +14,7 @@ const useCompany = () => {
     return { 
         getCompanyData,
         registerVacancy,
-        getAllVacancies,
+        getAllCompanyVacancies,
         userData,
         confirmVacancy,
         closeVacancy,
