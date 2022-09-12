@@ -6,13 +6,19 @@ import AdminDefault from './AdminDefault';
 import { faBan, faBuilding, faInfo, faUnlock, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useAuth from '../../Utils/useAuth';
+import useAdmin from '../../Utils/useAdmin';
 
 const AdminCompany : React.FC = () => {
-    const auth = useAuth();
+    const Admin = useAdmin();
+    const [companies, setCompanies] = useState([]);
 
     useEffect((): void => {
         window.document.title = 'Letmin - Empresas';
+
+        Admin.getAllCompanies().then((res: any) => {
+            console.log(res.data.companies);
+            setCompanies(res.data.companies);
+        });
     }, []);
 
     const [openModal, setOpenModal] = useState(false);
@@ -36,16 +42,7 @@ const AdminCompany : React.FC = () => {
                     </div>
                     <div>
                         {
-                            [
-                                {
-                                    name: 'Sul&Cidiomar',
-                                    status: true,
-                                },
-                                {
-                                    name: 'Gestão de Resíduos',
-                                    status: false,
-                                },
-                            ].map((company, key) => <TableCard key={ key } company={ company } handleOpen={ () => setOpenModal(true) } /> )
+                            companies.map((company, key) => <TableCard key={ key } companyData={ company } handleOpen={ () => setOpenModal(true) } /> )
                         }
                     </div>
                 </div>
@@ -53,30 +50,43 @@ const AdminCompany : React.FC = () => {
             {
                 openModal && <CompanyForm isDisabled={ false } handleClose={ () => setOpenModal(false) } />
             }
-            <button onClick={ auth.signOut } >Logout</button>
         </AdminDefault>
     );
 }
 
 interface TableCardInterface {
-    company: {
-        name: string,
-        status: boolean,
+    companyData: {
+        company: {
+            name: string,
+            cnpj: string,
+            email: string,
+            phone: string,
+            address: string,
+        },
+        holder: {
+            name: string,
+            email: string,
+            phone: string,
+        },
+        status: {
+            blocked: boolean,
+        }
     },
     handleOpen: () => void,
 };
 
-const TableCard: React.FC<TableCardInterface> = ({ company, handleOpen }) => {
+const TableCard: React.FC<TableCardInterface> = ({ companyData, handleOpen }) => {
+    console.log(companyData)
     return (
         <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
-            <span className='w-5/12 md:w-7/12 pr-1'>{ company.name }</span>
-            <span className='w-4/12 pr-1'>{ company.status ? 'Ativo' : 'Bloqueado' }</span>
+            <span className='w-5/12 md:w-7/12 pr-1'>{ companyData.company.name }</span>
+            <span className='w-4/12 pr-1'>{ companyData.status.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-3/12 md:w-12 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
                     <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen } className='text-dark-purple' />
                 </div>
                 <div className='cursor-pointer'>
-                    { company.status ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
+                    { companyData.status.blocked ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
                 </div>
             </span>
         </div>

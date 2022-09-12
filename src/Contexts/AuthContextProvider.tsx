@@ -128,6 +128,11 @@ export const AuthState = ({ children } : any) => {
     }
     // End user functions
     
+    // Admin functions
+    const getAllCompanies = async () => {
+        return axiosRequest(`${API_URL}/api/users/get-all-companies`, 'GET');
+    }
+    // End Admin functions
     return (
         <AuthContext.Provider value={{
             loading: state.loading,
@@ -146,6 +151,8 @@ export const AuthState = ({ children } : any) => {
             getAllVacancies,
             confirmVacancy,
             closeVacancy,
+            //Admin
+            getAllCompanies,
         }}>
             { children }
         </AuthContext.Provider>
