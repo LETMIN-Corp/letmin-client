@@ -20,7 +20,7 @@ const CookiesPopUp : React.FC = () => {
         <>
         {
             !cookiesAccepted && (
-                <div className='rounded-md md:w-6/12 lg:w-3/12 bg-white p-5 border-2 border-lilac fixed bottom-5 left-5 right-5 drop-shadow-2xl'>
+                <div className='rounded-md md:w-6/12 lg:w-3/12 bg-white p-5 z-50 border-2 border-lilac fixed bottom-5 left-5 right-5 drop-shadow-2xl'>
                     <div className='text-dark-purple flex items-center'>
                         <FontAwesomeIcon className='text-2xl mr-2' icon={ faCookieBite } />
                         <h3 className='font-medium text-lg'>Aceitar cookies</h3>
