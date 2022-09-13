@@ -132,6 +132,9 @@ export const AuthState = ({ children } : any) => {
     const getAllCompanies = async () => {
         return axiosRequest(`${API_URL}/api/users/get-all-companies`, 'GET');
     }
+    const blockCompany = async (company_id: string) => {
+        return axiosRequest(`${API_URL}/api/users/company-block`, 'patch', { company_id });
+    }
     // End Admin functions
     return (
         <AuthContext.Provider value={{
@@ -153,6 +156,7 @@ export const AuthState = ({ children } : any) => {
             closeVacancy,
             //Admin
             getAllCompanies,
+            blockCompany
         }}>
             { children }
         </AuthContext.Provider>

@@ -3,11 +3,13 @@ import { AuthContext } from "../Contexts/AuthContextProvider";
 
 const useAdmin = () => {
     const { 
-        getAllCompanies
+        getAllCompanies,
+        blockCompany,
     } : any = useContext(AuthContext);
 
     return { 
-        getAllCompanies
+        blockCompany,
+        getAllCompanies,
     };
 }
 

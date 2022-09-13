@@ -22,9 +22,15 @@ const AdminCompany : React.FC = () => {
 
     const [openModal, setOpenModal] = useState(false);
 
-    function handleOpen(key : number) {
+    function handleOpen(key : number) : void {
         setSelectedCompanyKey(key);
         setOpenModal(true);
+    }
+
+    function handleCompanyBlock(id: string) : void {
+        Admin.blockCompany(id).then((res: any) => {
+            setCompanies(res.data.companies);
+        });
     }
 
     return (
@@ -45,8 +51,8 @@ const AdminCompany : React.FC = () => {
                         <span className='w-3/12 md:w-12 pr-1'>Ações</span>
                     </div>
                     <div>
-                        {
-                            companies.map((company, key) => <TableCard key={ key } companyData={ company } handleOpen={ () => handleOpen(key) } /> )
+                        {   // @ts-ignore
+                            companies.map((company, key) => <TableCard key={ key } companyData={ company } handleOpen={ () => handleOpen(key) } handleCompanyBlock={ () => handleCompanyBlock(company._id) } /> )
                         }
                     </div>
                 </div>
@@ -60,6 +66,7 @@ const AdminCompany : React.FC = () => {
 
 interface TableCardInterface {
     companyData: {
+        _id: string,
         company: {
             name: string,
             cnpj: string,
@@ -80,19 +87,22 @@ interface TableCardInterface {
         }
     },
     handleOpen: () => void,
+    handleCompanyBlock: () => void,
 };
 
-const TableCard: React.FC<TableCardInterface> = ({ companyData, handleOpen }) => {
+const TableCard: React.FC<TableCardInterface> = ({ companyData, handleOpen, handleCompanyBlock }) => {
+    const Admin = useAdmin();
+
     return (
         <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
             <span className='w-5/12 md:w-7/12 pr-1'>{ companyData.company.name }</span>
             <span className='w-4/12 pr-1'>{ companyData.status.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-3/12 md:w-12 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
-                    <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen }  className='text-dark-purple' />
+                    <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen } className='text-dark-purple' />
                 </div>
-                <div className='cursor-pointer'>
-                    { companyData.status.blocked ? <FontAwesomeIcon icon={ faBan }  className='text-red' /> : <FontAwesomeIcon icon={ faUnlock }  className='text-primary' /> }
+                <div className='cursor-pointer' onClick={() => handleCompanyBlock()}>
+                    { !companyData.status.blocked ? <FontAwesomeIcon icon={ faBan }  className='text-red' /> : <FontAwesomeIcon icon={ faUnlock }  className='text-primary' /> }
                 </div>
             </span>
         </div>
