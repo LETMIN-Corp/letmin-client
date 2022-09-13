@@ -10,23 +10,25 @@ import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import useCompany from '../../Utils/useCompany';
 
+
+
 const CompanyProfile = () => {
     const Company = useCompany();
 
-    const [companyData, setCompanyData] = useState({});
+    const [companyData, setCompanyData] = useState<CompanyData>([]); 
 
     useEffect((): void => {
         window.document.title = 'Letmin - Meus Dados';
 
+        // const token = Cookies.get('token');
+
         Company.getCompanyData()
-        .then((res: any) => {
-            if (res.status !== 200) {
-                console.log('err: ', res);
-                alert('Erro ao carregar dados');
-                return;
-            }
-            
-            //setCompanyData(res.data);
+        .then((res: any ) => {
+            setCompanyData(res.data.data);
+        })
+        .catch((err: any) => {
+            console.log('err: ', err);
+            alert('Não esta pegando os dados ' + err);
         });
     }, []);
 
@@ -35,12 +37,71 @@ const CompanyProfile = () => {
         form?: JSX.Element,
     }
 
+    interface Company {
+        company: {
+            name: string,
+            cnpj: string,
+            email: string,
+            phone: string,
+            address: string,
+        },
+        holder: {
+            name: string,
+            cpf: string,
+            email: string,
+            phone: string,
+        },
+        plan: {
+            selected: string,
+        },
+        card: {
+            type: string,
+            number: string,
+            code: string,
+            expiration: string,
+            owner: string,
+        },
+    }
+    
+    interface CompanyData {
+        [key: number]: Company;
+        length: number;
+    }
+
+
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [formModal, setFormModal] = useState<FormModalInterface>({});
 
+    function getInputValue (name: string): string {
+        const [type, data] = name.split('-'); //company-name  -> company  name
+
+        if(companyData.length === 0) {
+            return '';
+        }
+        console.log(companyData[type][data]);
+
+        return companyData[type][data];
+    }
+
+    function setInputValue (e: React.ChangeEvent<HTMLInputElement>): void {
+        const { name, value } = e.target;
+        const [type, data] = name.split('-');
+
+        setCompanyData({
+                ...companyData,
+                [type]: { ...companyData[type], [data]: value
+            }
+        });
+    }
+
+    const consultPackage = {
+        getValue: getInputValue,
+        setValue: setInputValue, 
+    }
+
     const viewConsultPackage = {
-        getValue: () : string => { return '' },
-        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
+        getValue: getInputValue,
+        setValue: (e: React.ChangeEvent<HTMLInputElement>) => {}
     }
 
     return (
@@ -60,7 +121,7 @@ const CompanyProfile = () => {
                                         setModalIsOpen(true);
                                         setFormModal({
                                             title: 'Informações da Empresa',
-                                            form: <CompanyForm isDisabled={ false } />,
+                                            form: <CompanyForm viewConsultPackage={ consultPackage } isDisabled={ false } />,
                                         });
                                     }
                                 }
@@ -68,30 +129,30 @@ const CompanyProfile = () => {
                                 icon={ faGear }
                             />
                         </h3>
-                        <CompanyForm isDisabled={ true } />
+                        <CompanyForm viewConsultPackage={ viewConsultPackage } isDisabled={ true } />
                     </CompanyEditCard>
                     <CompanyEditCard>
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
                             <span>Informações do Titular</span>
-                            <i
+                            <FontAwesomeIcon
                                 onClick={
                                     () => {
                                         setModalIsOpen(true);
                                         setFormModal({
                                             title: 'Informações do Titular',
-                                            form: <HolderForm isDisabled={ false } />,
+                                            form: <HolderForm viewConsultPackage={ consultPackage } isDisabled={ false } />,
                                         });
                                     }
                                 }
-                                className='fa-solid fa-gear cursor-pointer'
-                            >
-                            </i>
+                                className='cursor-pointer'
+                                icon={ faGear }
+                            />
                         </h3>
-                        <HolderForm isDisabled={ true } />
+                        <HolderForm viewConsultPackage={ viewConsultPackage } isDisabled={ true } />
                     </CompanyEditCard>
                     <CompanyEditCard>
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
-                            <span>Informações da Assinatura</span>
+                            <span>Informações da Assinatura</span> 
                         </h3>
                         <div className='mt-2'>
                             <TextInput placeholder='Plano Selecionado' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='plan-selected' disabled={ true }/>
@@ -100,21 +161,8 @@ const CompanyProfile = () => {
                     <CompanyEditCard>
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
                             <span>Informações do Cartão</span>
-                            <i
-                                onClick={
-                                    () => {
-                                        setModalIsOpen(true);
-                                        setFormModal({
-                                            title: 'Informações do Cartão',
-                                            form: <CardForm isDisabled={ false } />,
-                                        });
-                                    }
-                                }
-                                className='fa-solid fa-gear cursor-pointer'
-                            >
-                            </i>
                         </h3>
-                        <CardForm isDisabled={ true } />
+                        <CardForm viewConsultPackage={ viewConsultPackage } isDisabled={ true } />
                     </CompanyEditCard>
                 </div>
             </div>
@@ -131,14 +179,13 @@ const CompanyProfile = () => {
 
 interface FormInterface {
     isDisabled: boolean,
+    viewConsultPackage: {
+        getValue: (name: string) => string,
+        setValue: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    },
 }
 
-const CompanyForm:React.FC<FormInterface> = ({ isDisabled }) => {
-    const viewConsultPackage = {
-        getValue: () : string => { return '' },
-        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
-    }
-
+const CompanyForm:React.FC<FormInterface> = ({ isDisabled, viewConsultPackage }) => {
     return (
         <form className='mt-2'>
             <div className='md:flex justify-between w-full'>
@@ -154,11 +201,7 @@ const CompanyForm:React.FC<FormInterface> = ({ isDisabled }) => {
     );
 }
 
-const HolderForm:React.FC<FormInterface> = ({ isDisabled }) => {
-    const viewConsultPackage = {
-        getValue: () : string => { return '' },
-        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
-    }
+const HolderForm:React.FC<FormInterface> = ({ isDisabled, viewConsultPackage }) => {
 
     return (
         <form className='mt-2'>
@@ -174,12 +217,7 @@ const HolderForm:React.FC<FormInterface> = ({ isDisabled }) => {
     );
 }
 
-const CardForm:React.FC<FormInterface> = ({ isDisabled }) => {
-    const viewConsultPackage = {
-        getValue: () : string => { return '' },
-        setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
-    }
-
+const CardForm:React.FC<FormInterface> = ({ isDisabled, viewConsultPackage }) => {
     return (
         <form className='mt-2'>
             <TextInput placeholder='Nome do Titular' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-owner' disabled={ isDisabled }/>
@@ -188,7 +226,7 @@ const CardForm:React.FC<FormInterface> = ({ isDisabled }) => {
             <div className='md:flex justify-between w-full'>
                 <TextInput placeholder='Data de Vencimento' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-expiration' disabled={ isDisabled }/>
                 <TextInput placeholder='CVV' size='small' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='card-code' disabled={ isDisabled }/>
-                <SelectInput placeholder='Bandeira' options={ [] } size='small' consultPackage={ viewConsultPackage } name='card-type' disabled={ isDisabled }/>
+                <TextInput placeholder='Bandeira' size='small' type={ InputTypesEnum.text }  consultPackage={ viewConsultPackage } name='card-type' disabled={ isDisabled }/>
             </div>
         </form>
     );

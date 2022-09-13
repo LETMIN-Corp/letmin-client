@@ -99,7 +99,7 @@ export const AuthState = ({ children } : any) => {
     }, []);
 
     // Company function
-    const getCompanyData = async (id: string) => {
+    const getCompanyData = async () => {
         return await axiosRequest(`${API_URL}/api/users/company-data`, 'GET');
     }
     const registerVacancy = async (vacancy: any) => {
