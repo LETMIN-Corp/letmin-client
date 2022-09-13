@@ -5,11 +5,15 @@ const useAdmin = () => {
     const { 
         getAllCompanies,
         blockCompany,
+        getAllUsers,
+        blockUser,
     } : any = useContext(AuthContext);
 
     return { 
         blockCompany,
         getAllCompanies,
+        getAllUsers,
+        blockUser,
     };
 }
 

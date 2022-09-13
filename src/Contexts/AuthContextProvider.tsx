@@ -73,6 +73,7 @@ export const AuthState = ({ children } : any) => {
                 setUserData(res.data);
                 return navigate(`/${role}`);
             }
+            alert('Usuário Bloqueado, contato um administrador');
             
             return res;
         })  
@@ -135,6 +136,12 @@ export const AuthState = ({ children } : any) => {
     const blockCompany = async (company_id: string) => {
         return axiosRequest(`${API_URL}/api/users/company-block`, 'patch', { company_id });
     }
+    const getAllUsers = async () => {
+        return axiosRequest(`${API_URL}/api/users/get-all-users`, 'GET');
+    }
+    const blockUser = async (user_id: string) => {
+        return axiosRequest(`${API_URL}/api/users/user-block`, 'patch', { user_id });
+    }
     // End Admin functions
     return (
         <AuthContext.Provider value={{
@@ -156,7 +163,9 @@ export const AuthState = ({ children } : any) => {
             closeVacancy,
             //Admin
             getAllCompanies,
-            blockCompany
+            blockCompany,
+            getAllUsers,
+            blockUser,
         }}>
             { children }
         </AuthContext.Provider>
