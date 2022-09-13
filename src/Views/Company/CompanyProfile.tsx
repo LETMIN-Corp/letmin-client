@@ -16,6 +16,7 @@ const CompanyProfile = () => {
     const Company = useCompany();
 
     const [companyData, setCompanyData] = useState<CompanyData>([]); 
+    const [companyDataEdition, setCompanyDataEdition] = useState<CompanyDataEdition>([]); 
 
     useEffect((): void => {
         window.document.title = 'Letmin - Meus Dados';
@@ -68,6 +69,11 @@ const CompanyProfile = () => {
         length: number;
     }
 
+    interface CompanyDataEdition {
+        [key: number]: Company;
+        length: number;
+    }
+
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [formModal, setFormModal] = useState<FormModalInterface>({});
@@ -87,16 +93,16 @@ const CompanyProfile = () => {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
 
-        setCompanyData({
-                ...companyData,
-                [type]: { ...companyData[type], [data]: value
+        setCompanyDataEdition({
+                ...companyDataEdition,
+                [type]: { ...companyDataEdition[type], [data]: value
             }
         });
     }
 
     const consultPackage = {
-        getValue: getInputValue,
-        setValue: setInputValue, 
+        getValue: () : string => { return '' },
+        setValue: setInputValue,
     }
 
     const viewConsultPackage = {
