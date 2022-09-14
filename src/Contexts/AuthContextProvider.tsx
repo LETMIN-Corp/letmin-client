@@ -7,7 +7,7 @@ import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
 
 const InitialState : any = {
-    loading: false,
+    loading: true,
     userData: {
         role: {},
     },
@@ -23,7 +23,7 @@ export const AuthState = ({ children } : any) => {
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(AuthReducer, InitialState);
 
-    const setLoading = () => dispatch({ type: ReducerEnum.set_loading, payload: undefined});
+    const setLoading = () => dispatch({ type: ReducerEnum.set_loading, payload: undefined });
     const removeLoading = () => dispatch({ type: ReducerEnum.error });
     const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
     const getRole = () => {
@@ -46,6 +46,7 @@ export const AuthState = ({ children } : any) => {
     };
 
     const axiosRequest = async (url: string, method: string, data: any = null) => {
+        setLoading();
         return await axios({
             method,
             url,
@@ -55,6 +56,7 @@ export const AuthState = ({ children } : any) => {
             }
         })
         .then((res) => {
+            removeLoading();
             return res;
         })
         .catch((err) => {

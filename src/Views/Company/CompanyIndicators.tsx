@@ -5,6 +5,8 @@ import { faChartLine, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons
 import useCompany from '../../Utils/useCompany';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
 import { Link } from 'react-router-dom';
+import Loading from '../../Components/Items/Loading';
+import useLoading from '../../Utils/useLoading';
 
 const CompanyIndicators =  () => {
     const Company = useCompany();
@@ -12,6 +14,7 @@ const CompanyIndicators =  () => {
     const [currentVacancyId, setCurrentVacancyId] = useState('');
     const [currentType, setCurrentType] = useState('');
     const [data, setData] = useState<VacancyData>([]); 
+    const { loading } = useLoading();
 
     useEffect((): void => {
         window.document.title = 'Letmin - Indicadores';
@@ -89,61 +92,69 @@ const CompanyIndicators =  () => {
                     <FontAwesomeIcon icon={ faChartLine } className='mr-2' />
                     <span>Indicadores</span>
                 </h1>
-                
-                <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
                 {
-                    (!data.length) && (
-                        <div className='text-center'>
-                            <p className='text-xl'>Nenhuma vaga cadastrada</p>
+                    loading && (
+                        <Loading />
+                    )
+                }
+                {
+                    !loading && (
+                        <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
+                            {
+                                (!data.length) && (
+                                    <div className='text-center'>
+                                        <p className='text-xl'>Nenhuma vaga cadastrada</p>
+                                    </div>
+                                )
+                            }
+                            {
+                                !!data.length && (
+                                    <>
+                                        <div className='flex md:text-lg font-medium'>
+                                            <div className='w-4/12 flex justify-center'>
+                                                Descrição
+                                            </div>
+                                            <div className='w-4/12 flex justify-center'>
+                                                Candidatos
+                                            </div>
+                                            <div className='w-4/12 flex justify-center'>
+                                                Ações
+                                            </div>
+                                        </div>
+                                        <div>
+                                            {
+                                                data.map((row) => {
+                                                    return (
+                                                        <div key={ row._id } className={`flex py-2 text-sm ${row.closed ? 'bg-green-light' : ''} md:text-md `}>
+                                                            <div className='w-4/12 flex justify-center items-center text-center'>
+                                                                { row.role }
+                                                            </div>
+                                                            <div className='w-4/12 flex justify-center items-center text-center'>
+                                                                <Link to='../company/vacancy/data' className="text-primary font-medium hover:text-bright-purple">{ row.candidates.length }</Link>                
+                                                            </div>
+                                                            <div className='w-4/12 flex justify-center items-center text-center'>
+                                                                {
+                                                                    !row.closed && (
+                                                                        <button onClick={ () => openModalWithType(row._id, 'CONFIRM') }>
+                                                                            <FontAwesomeIcon icon={ faCheck } className='text-xl text-green mr-3' />
+                                                                        </button>
+                                                                    )
+                                                                }
+                                                                <button onClick={ () => openModalWithType(row._id, 'CLOSE') }>
+                                                                    <FontAwesomeIcon icon={ faXmark } className='text-xl text-red' />
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </>
+                                )
+                            }
                         </div>
                     )
                 }
-                {
-                    !!data.length && (
-                        <>
-                            <div className='flex text-xl font-medium'>
-                                <div className='w-4/12 flex justify-center'>
-                                    Descrição
-                                </div>
-                                <div className='w-4/12 flex justify-center'>
-                                    Candidatos
-                                </div>
-                                <div className='w-4/12 flex justify-center'>
-                                    Ações
-                                </div>
-                            </div>
-                            <div>
-                                {
-                                    data.map((row) => {
-                                        return (
-                                            <div key={ row._id } className={`flex pt-2 text-sm ${row.closed ? 'bg-green-light' : ''} md:text-md `}>
-                                                <div className='w-4/12 flex justify-center items-center text-center'>
-                                                    { row.role }
-                                                </div>
-                                                <div className='w-4/12 flex justify-center items-center text-center'>
-                                                    <Link to='../company/vacancy/data' className="text-primary font-medium hover:text-bright-purple">{ row.candidates.length }</Link>                
-                                                </div>
-                                                <div className='w-4/12 flex justify-center items-center text-center'>
-                                                    {
-                                                        !row.closed && (
-                                                            <button onClick={ () => openModalWithType(row._id, 'CONFIRM') }>
-                                                                <FontAwesomeIcon icon={ faCheck } className='text-xl text-green mr-3' />
-                                                            </button>
-                                                        )
-                                                    }
-                                                    <button onClick={ () => openModalWithType(row._id, 'CLOSE') }>
-                                                        <FontAwesomeIcon icon={ faXmark } className='text-xl text-red' />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
-                        </>
-                    )
-                }
-                </div>
                 {
                     modalIsOpen && <ConfirmationModal title='Confirmar' text={`Confirmar ${ currentType === 'CLOSE' ? 'cancelamento' : 'conclusão'} da vaga?`} handleClose={ () => setModalIsOpen(false) } handleConfirm={ () => handleConfirm() } />
                 }

@@ -3,7 +3,6 @@ import ReducerEnum from "../Enums/ReducerEnum";
 export const AuthReducer = (state: any, { type, payload }: any) => {
 
     switch (type) {
-
         case ReducerEnum.set_loading:
             return { ...state,
                 loading: true
@@ -18,7 +17,6 @@ export const AuthReducer = (state: any, { type, payload }: any) => {
             return { ...state,
                 userData: payload,
                 isAuthenticated: true,
-                loading: false
             };
         case ReducerEnum.logout:
             return { ...state,
@@ -26,7 +24,6 @@ export const AuthReducer = (state: any, { type, payload }: any) => {
                 isAuthenticated: false,
                 loading: false
             };
-
         default:
             return state;
     }
