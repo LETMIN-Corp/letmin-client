@@ -59,7 +59,7 @@ export const AuthState = ({ children } : any) => {
         })
         .catch((err) => {
             console.log('Error: ', err);
-            return err;
+            return err.response;
         })
     }
 
@@ -73,8 +73,12 @@ export const AuthState = ({ children } : any) => {
                 setUserData(res.data);
                 return navigate(`/${role}`);
             }
-            alert('Usuário Bloqueado, contato um administrador');
-            
+            if (res.status === 400) {
+                alert('Usuário não encontrado');
+            }
+            if (res.status === 401) {
+                alert('Usuário ou senha incorretos');
+            }
             return res;
         })  
     }

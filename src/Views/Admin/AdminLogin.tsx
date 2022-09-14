@@ -37,11 +37,6 @@ const AdminLogin : React.FC = () => {
     const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await auth.signIn('admin', data )
-        .then((res : any) => {
-            if (res.status !== 200) {
-                alert('Erro no login');
-            }
-        });
     };
 
     useEffect((): void => {

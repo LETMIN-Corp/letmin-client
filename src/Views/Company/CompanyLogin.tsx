@@ -51,14 +51,7 @@ const CompanyLogin : React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await auth.signIn('company', data)
-        .then((res : any) => {
-            if (res.status !== 200) {
-                alert('Erro no login');
-            }
-        })
-
-        return;
+        return await auth.signIn('company', data)
     }
 
     return (
