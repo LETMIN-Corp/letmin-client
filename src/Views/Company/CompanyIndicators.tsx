@@ -9,7 +9,7 @@ import Loading from '../../Components/Items/Loading';
 import useLoading from '../../Utils/useLoading';
 
 const CompanyIndicators =  () => {
-    const Company = useCompany();
+    const company = useCompany();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [currentVacancyId, setCurrentVacancyId] = useState('');
     const [currentType, setCurrentType] = useState('');
@@ -19,12 +19,12 @@ const CompanyIndicators =  () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Indicadores';
 
-        Company.getAllVacancies()
+        company.getAllVacancies()
         .then((res: any ) => {
             setData(res.data.vacancies);
         })
         .catch((err: any) => {
-            console.log('err: ', err);
+            company.dispatchError('Erro ao buscar as vagas da empresa')
         });
     }, []);
 
@@ -61,7 +61,7 @@ const CompanyIndicators =  () => {
     function handleConfirm() {
         if(currentType === 'CONFIRM') {
             // if type is confirm, call confirmVacancy
-            Company.confirmVacancy(currentVacancyId)
+            company.confirmVacancy(currentVacancyId)
             .then((res: any) => {
                 // set changed vacancy closed boolean to true
                 const index = data.findIndex((vacancy: Vacancy) => vacancy._id === currentVacancyId);
@@ -71,7 +71,7 @@ const CompanyIndicators =  () => {
             })
         } else {
             // if type is close
-            Company.closeVacancy(currentVacancyId)
+            company.closeVacancy(currentVacancyId)
             .then((res: any) => {
                 if (res.data.success) {
                     let newData = data.filter((vacancy: Vacancy) => vacancy._id !== currentVacancyId);

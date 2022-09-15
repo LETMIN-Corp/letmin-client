@@ -80,7 +80,7 @@ const CorpRegister : React.FC = () => {
         .then((res : any) => {
             console.log(res)
             if (res.status != 200) {
-                alert('Erro no login');
+                auth.dispatchError('Erro no cadastro da empresa');
             }
         });
     }

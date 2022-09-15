@@ -8,14 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAdmin from '../../Utils/useAdmin';
 
 const AdminCompany : React.FC = () => {
-    const Admin = useAdmin();
+    const admin = useAdmin();
     const [companies, setCompanies] = useState([]);
     const [selectedCompanyKey, setSelectedCompanyKey] = useState(0);
 
     useEffect((): void => {
         window.document.title = 'Letmin - Empresas';
 
-        Admin.getAllCompanies().then((res: any) => {
+        admin.getAllCompanies().then((res: any) => {
             setCompanies(res.data.companies);
         });
     }, []);
@@ -28,7 +28,7 @@ const AdminCompany : React.FC = () => {
     }
 
     function handleCompanyBlock(id: string) : void {
-        Admin.blockCompany(id).then((res: any) => {
+        admin.blockCompany(id).then((res: any) => {
             setCompanies(res.data.companies);
         });
     }

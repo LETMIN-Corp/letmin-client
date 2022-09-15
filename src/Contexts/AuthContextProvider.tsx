@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
+import { ToastContainer, toast } from 'react-toastify';
 
 const InitialState : any = {
     loading: true,
@@ -19,7 +20,6 @@ const API_URL = import.meta.env.VITE_APP_API_URL;
 export const AuthContext = createContext(InitialState);
 
 export const AuthState = ({ children } : any) => {
-
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(AuthReducer, InitialState);
 
@@ -27,9 +27,32 @@ export const AuthState = ({ children } : any) => {
     const removeLoading = () => dispatch({ type: ReducerEnum.error });
     const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
     const getRole = () => {
-        //console.log('state.userData.role: ', state.userData.role);
         // @ts-ignore:next-line
         return (Cookies.get('token') ? jwtDecode(Cookies.get('token').toString()).role : '');
+    }
+
+    function dispatchError(text : string) {
+        toast.error(text, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
+    function dispatchSuccess(text : string) {
+        toast.success(text, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
     }
 
     // Auth function
@@ -60,7 +83,6 @@ export const AuthState = ({ children } : any) => {
             return res;
         })
         .catch((err) => {
-            console.log('Error: ', err);
             return err.response;
         })
     }
@@ -76,10 +98,10 @@ export const AuthState = ({ children } : any) => {
                 return navigate(`/${role}`);
             }
             if (res.status === 400) {
-                alert('Usuário não encontrado');
+                dispatchError('Usuário não encontrado');
             }
             if (res.status === 401) {
-                alert('Usuário ou senha incorretos');
+                dispatchError('Usuário ou senha incorretos');
             }
             return res;
         })  
@@ -154,6 +176,8 @@ export const AuthState = ({ children } : any) => {
             loading: state.loading,
             isAuthenticated: state.isAuthenticated,
             userData: state.userData,
+            dispatchError,
+            dispatchSuccess,
             setLoading,
             getRole,
             signIn,

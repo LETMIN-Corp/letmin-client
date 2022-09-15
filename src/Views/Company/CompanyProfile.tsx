@@ -11,22 +11,19 @@ import { faGear } from '@fortawesome/free-solid-svg-icons';
 import useCompany from '../../Utils/useCompany';
 
 const CompanyProfile = () => {
-    const Company = useCompany();
+    const company = useCompany();
 
     const [companyData, setCompanyData] = useState({});
 
     useEffect((): void => {
         window.document.title = 'Letmin - Meus Dados';
 
-        Company.getCompanyData()
+        company.getCompanyData()
         .then((res: any) => {
             if (res.status !== 200) {
-                console.log('err: ', res);
-                alert('Erro ao carregar dados');
+                company.dispatchError('Erro ao carregar dados');
                 return;
-            }
-            
-            //setCompanyData(res.data);
+            }            
         });
     }, []);
 

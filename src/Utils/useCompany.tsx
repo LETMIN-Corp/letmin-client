@@ -9,6 +9,8 @@ const useCompany = () => {
         userData,
         confirmVacancy,
         closeVacancy,
+        dispatchError,
+        dispatchSuccess,
     } : any = useContext(AuthContext);
 
     return { 
@@ -18,6 +20,8 @@ const useCompany = () => {
         userData,
         confirmVacancy,
         closeVacancy,
+        dispatchError,
+        dispatchSuccess,
     };
 }
 

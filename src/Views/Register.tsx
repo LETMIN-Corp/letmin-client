@@ -44,9 +44,6 @@ const Register : React.FC = () => {
                                 onSuccess={credentialResponse => {
                                     auth.signIn('user', credentialResponse);
                                 }}
-                                onError={() => {
-                                    console.log('Google Login Failed');
-                                }}
                             />
                         </GoogleOAuthProvider>
                     </RegisterCard>

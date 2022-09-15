@@ -26,6 +26,8 @@ import PrivateRoutes from './Routes/PrivateRoutes';
 import CompanyLogin from './Views/Company/CompanyLogin';
 import PublicRoutes from './Routes/PublicRoutes';
 import CookiesPopUp from './Components/Items/CookiesPopUp';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -68,6 +70,17 @@ function App() {
         </Route>
       </Routes>
       <CookiesPopUp />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   )
 }

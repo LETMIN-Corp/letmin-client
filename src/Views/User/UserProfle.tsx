@@ -2,14 +2,10 @@ import { useEffect, useState } from 'react';
 import UserProfileCard from '../../Components/Cards/UserProfileCard';
 import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
-import { useNavigate } from 'react-router-dom';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandshake, faInfo, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faInfo, faLink } from '@fortawesome/free-solid-svg-icons';
 
 const UserProfile : React.FC = () => {
-    const navigate = useNavigate();
-
     useEffect((): void => {
         window.document.title = 'Letmin - Perfil';
     }, []);

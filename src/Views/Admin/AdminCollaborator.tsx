@@ -8,14 +8,14 @@ import AdminDefault from './AdminDefault';
 import useAdmin from '../../Utils/useAdmin';
 
 const AdminCollaborator : React.FC = () => {
-    const Admin = useAdmin();
+    const admin = useAdmin();
     const [users, setUsers] = useState([]);
     const [selectedUserKey, setSelectedUserKey] = useState(0);
 
     useEffect((): void => {
         window.document.title = 'Letmin - Colaboradores';
 
-        Admin.getAllUsers().then((res: any) => {
+        admin.getAllUsers().then((res: any) => {
             setUsers(res.data.users);
         });
     }, []);
@@ -23,7 +23,7 @@ const AdminCollaborator : React.FC = () => {
     const [openModal, setOpenModal] = useState(false);
 
     function handleUserBlock(id: string) : void {
-        Admin.blockUser(id).then((res: any) => {
+        admin.blockUser(id).then((res: any) => {
             setUsers(res.data.users);
         });
     }
