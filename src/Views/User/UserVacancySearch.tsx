@@ -52,7 +52,7 @@ const UserVacancySearch = () => {
             <div className='p-5 min-h-90'>
                 <h1 className='text-2xl'>
                     <FontAwesomeIcon icon={ faBullhorn } className='mr-2' />
-                    <span> Buscar Vagas</span>
+                    <span>Buscar Vagas</span>
                 </h1>
 
                 <div className='mt-5 flex flex-wrap'>
