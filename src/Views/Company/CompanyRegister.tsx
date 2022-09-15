@@ -78,9 +78,8 @@ const CorpRegister : React.FC = () => {
     async function handleRegister() {
         await auth.registerCompany(registerData)
         .then((res : any) => {
-            console.log(res)
             if (res.status != 200) {
-                alert('Erro no login');
+                auth.dispatchError('Erro no cadastro da empresa');
             }
         });
     }
@@ -191,7 +190,7 @@ const CorpRegister : React.FC = () => {
                                         {
                                             title: 'Plano semestral',
                                             description: 'bbb',
-                                            price: 'R$ 100,00 / Mês',
+                                            price: 'R$ 250,00 / Mês',
                                             text: 'ddd',
                                             features: [
                                                 'Banco de talentos',
