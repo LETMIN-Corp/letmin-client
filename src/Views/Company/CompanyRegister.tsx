@@ -78,7 +78,6 @@ const CorpRegister : React.FC = () => {
     async function handleRegister() {
         await auth.registerCompany(registerData)
         .then((res : any) => {
-            console.log(res)
             if (res.status != 200) {
                 auth.dispatchError('Erro no cadastro da empresa');
             }
