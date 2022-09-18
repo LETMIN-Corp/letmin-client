@@ -75,7 +75,8 @@ export const AuthState = ({ children } : any) => {
             url,
             data,
             headers: {
-                'Authorization': `Bearer ${Cookies.get('token')}`
+                'Authorization': `Bearer ${Cookies.get('token')}`,
+                'Access-Control-Allow-Origin': '*',
             }
         })
         .then((res) => {
