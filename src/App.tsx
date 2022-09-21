@@ -58,7 +58,7 @@ function App() {
               <Route path='/user/' element={ <UserProfile /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
-              <Route path='/user/vacancy/detail' element={ <UserVacancyDetail /> } />              
+              <Route path='/user/vacancy/detail/:id' element={ <UserVacancyDetail /> } />              
               <Route path='/user/combinations' element={ <UserCombination /> } />
         </Route>
         <Route element={ <PrivateRoutes role={ RoleEnum.admin } /> }>
