@@ -13,6 +13,7 @@ import CompanyCombinations from './Views/Company/CompanyCombinations';
 import CompanyVacancyData from './Views/Company/CompanyVacancyData';
 import UserProfile from './Views/User/UserProfle';
 import UserCombination from './Views/User/UserCombination';
+import UserEditData from './Views/User/UserEditData';
 import UserError from './Views/User/UserError';
 import UserVacancySearch from './Views/User/UserVacancySearch';
 import AdminLogin from './Views/Admin/AdminLogin';
@@ -54,6 +55,7 @@ function App() {
               <Route path='/user/*' element={ <UserError /> } />
               <Route path='/user/' element={ <UserProfile /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
+              <Route path='/user/profile/edit' element={ <UserEditData /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
               <Route path='/user/vacancy/detail' element={ <UserVacancyDetail /> } />              
               <Route path='/user/combinations' element={ <UserCombination /> } />
