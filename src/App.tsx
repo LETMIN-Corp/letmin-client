@@ -26,6 +26,8 @@ import PrivateRoutes from './Routes/PrivateRoutes';
 import CompanyLogin from './Views/Company/CompanyLogin';
 import PublicRoutes from './Routes/PublicRoutes';
 import CookiesPopUp from './Components/Items/CookiesPopUp';
+import { ToastLayout } from './Utils/ToastMessages';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -56,7 +58,7 @@ function App() {
               <Route path='/user/' element={ <UserProfile /> } />
               <Route path='/user/profile' element={ <UserProfile /> } />
               <Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />
-              <Route path='/user/vacancy/detail' element={ <UserVacancyDetail /> } />              
+              <Route path='/user/vacancy/detail/:id' element={ <UserVacancyDetail /> } />              
               <Route path='/user/combinations' element={ <UserCombination /> } />
         </Route>
         <Route element={ <PrivateRoutes role={ RoleEnum.admin } /> }>
@@ -68,6 +70,7 @@ function App() {
         </Route>
       </Routes>
       <CookiesPopUp />
+      <ToastLayout />
     </div>
   )
 }

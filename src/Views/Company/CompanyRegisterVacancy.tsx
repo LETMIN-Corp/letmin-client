@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useCompany from '../../Utils/useCompany';
 
 const CompanyRegisterVacancy = () => {
-    const Company = useCompany();
+    const company = useCompany();
 
     useEffect((): void => {
         window.document.title = 'Letmin - Inserção de Vagas';
@@ -23,18 +23,13 @@ const CompanyRegisterVacancy = () => {
     const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        console.log('data', vacancyData);
-
-        Company.registerVacancy(vacancyData)
+        company.registerVacancy(vacancyData)
         .then((res: any) => {
             if (res.status !== 200) {
-                console.log('err: ', res);
-                alert('Erro ao cadastrar vaga');
+                company.dispatchError('Erro ao cadastrar vaga');
                 return;
             }
-            alert('Vaga cadastrada com sucesso!');
-            //setVacancyData(initialState);
-
+            company.dispatchSuccess('Vaga cadastrada com sucesso!');
         })
     };
 

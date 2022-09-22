@@ -8,7 +8,6 @@ interface ComponentInterface {
     vacancy: string,
     handleClick: () => void,
 };
-// const [formModal, setFormModal] = useState<FormModalInterface>({});
 
 const CombinationData : React.FC<ComponentInterface> = ({ name, vacancy, handleClick }) => {
 

@@ -1,9 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import TextInput from "../../Components/Inputs/TextInput";
 import InputTypesEnum from "../../Enums//InputTypesEnum";
-import Loading from "../Loading";
 import useAuth from "../../Utils/useAuth";
+import Loading from '../../Components/Items/Loading';
+import useLoading from '../../Utils/useLoading';
 
 const AdminLogin : React.FC = () => {
     const auth = useAuth();
@@ -11,6 +12,7 @@ const AdminLogin : React.FC = () => {
     interface IRegisterData {
         [key: string]: string,
     }
+    const { loading } = useLoading();
     
     const [data, setData] = useState<IRegisterData>({
         email: '',
@@ -36,12 +38,7 @@ const AdminLogin : React.FC = () => {
 
     const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await auth.signIn('admin', data )
-        .then((res : any) => {
-            if (res.status !== 200) {
-                alert('Erro no login');
-            }
-        });
+        await auth.signIn('admin', data);
     };
 
     useEffect((): void => {
@@ -50,21 +47,30 @@ const AdminLogin : React.FC = () => {
         if(auth.isAuthenticated && auth.userData.role === 'admin') {
             navigate(`/admin/companies`);
         }
-    }, [auth.userData]);
-
-    if(auth.loading) return (<Loading />);
+    }, [auth.isAuthenticated]);
 
     return (
-        <div className='w-screen min-h-screen flex items-center justify-center bg-primary'>
-            <div className='p-8 rounded-md flex items-center h-screen w-screen sm:h-auto sm:max-w-sm bg-white drop-shadow-xl'>
-                <form className='w-full' onSubmit={handleSubmit}>
-                    <h1 className='font-medium text-lg mb-5'>Login</h1>
-                    <TextInput type={ InputTypesEnum.email } consultPackage={ consultPackage } placeholder='Email' name='email' />
-                    <TextInput type={ InputTypesEnum.password } consultPackage={ consultPackage } placeholder='Senha' name='password' />
-                    <button className='drop-shadow-md w-full text-center text-white bg-primary rounded-sm py-2 hover:bg-dark-purple ease-out duration-200'>Enviar</button>
-                </form>
-            </div>
-        </div>
+        <>
+        {
+            loading && (
+                <Loading />
+            )
+        }
+        {
+            !loading && (
+                <div className='w-screen min-h-screen flex items-center justify-center bg-primary'>
+                    <div className='p-8 rounded-md flex items-center h-screen w-screen sm:h-auto sm:max-w-sm bg-white drop-shadow-xl'>
+                        <form className='w-full' onSubmit={handleSubmit}>
+                            <h1 className='font-medium text-lg mb-5'>Login</h1>
+                            <TextInput type={ InputTypesEnum.email } consultPackage={ consultPackage } placeholder='Email' name='email' />
+                            <TextInput type={ InputTypesEnum.password } consultPackage={ consultPackage } placeholder='Senha' name='password' />
+                            <button className='drop-shadow-md w-full text-center text-white bg-primary rounded-sm py-2 hover:bg-dark-purple ease-out duration-200'>Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            )
+        }
+        </>
     );
 }
 

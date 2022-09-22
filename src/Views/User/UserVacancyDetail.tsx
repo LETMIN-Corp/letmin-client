@@ -4,18 +4,19 @@ import TextInput from '../../Components/Inputs/TextInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import SecondaryButton from '../../Components/Buttons/SecondaryButton';
+import { useParams } from "react-router-dom";
 
 const UserVacancyDetail = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Buscar Vagas';
     }, []);
-
+    const params = useParams();
     interface IVacancyData {
         [key: string]: {
             [key: string]: string;
         };
     }
-    
+
     const [vacancyData, setVacancyData] = useState<IVacancyData>({
         vacancyInfo: {
             role: '',

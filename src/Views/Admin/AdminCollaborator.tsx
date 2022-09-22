@@ -5,13 +5,28 @@ import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
 import AdminDefault from './AdminDefault';
+import useAdmin from '../../Utils/useAdmin';
 
 const AdminCollaborator : React.FC = () => {
+    const admin = useAdmin();
+    const [users, setUsers] = useState([]);
+    const [selectedUserKey, setSelectedUserKey] = useState(0);
+
     useEffect((): void => {
         window.document.title = 'Letmin - Colaboradores';
+
+        admin.getAllUsers().then((res: any) => {
+            setUsers(res.data.users);
+        });
     }, []);
 
     const [openModal, setOpenModal] = useState(false);
+
+    function handleUserBlock(id: string) : void {
+        admin.blockUser(id).then((res: any) => {
+            setUsers(res.data.users);
+        });
+    }
 
     return (
         <AdminDefault>
@@ -31,17 +46,8 @@ const AdminCollaborator : React.FC = () => {
                         <span className='w-3/12 md:w-12 pr-1'>Ações</span>
                     </div>
                     <div>
-                        {
-                            [
-                                {
-                                    name: 'João da Silva',
-                                    status: true,
-                                },
-                                {
-                                    name: 'Maria da Silva',
-                                    status: false,
-                                },
-                            ].map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => setOpenModal(true) } /> )
+                        {   // @ts-ignore
+                            users.map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => setOpenModal(true) } handleUserBlock={ () => handleUserBlock(collaborator._id) } /> )
                         }
                     </div>
                 </div>
@@ -56,22 +62,23 @@ const AdminCollaborator : React.FC = () => {
 interface TableCardInterface {
     collaborator: {
         name: string,
-        status: boolean,
+        blocked: boolean,
     },
     handleOpen: () => void,
+    handleUserBlock: () => void,
 };
 
-const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen }) => {
+const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen, handleUserBlock }) => {
     return (
         <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
             <span className='w-5/12 md:w-7/12 pr-1'>{ collaborator.name }</span>
-            <span className='w-4/12 pr-1'>{ collaborator.status ? 'Ativo' : 'Bloqueado' }</span>
+            <span className='w-4/12 pr-1'>{ collaborator.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-2/12 md:w-12 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
                     <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen } className='text-dark-purple' />
                 </div>
-                <div className='cursor-pointer'>
-                    { collaborator.status ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
+                <div className='cursor-pointer' onClick={() => handleUserBlock()}>
+                    { collaborator.blocked ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
                 </div>
             </span>
         </div>

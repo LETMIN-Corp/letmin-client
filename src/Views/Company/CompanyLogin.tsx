@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 import FormButton from "../../Components/Buttons/FormButton";
 import TextInput from "../../Components/Inputs/TextInput";
 import Footer from "../../Components/Layouts/Footer";
@@ -9,7 +8,6 @@ import useAuth from "../../Utils/useAuth";
 
 const CompanyLogin : React.FC = () => {
     const auth = useAuth();
-    const navigate = useNavigate();
 
     useEffect((): void => {
         window.document.title = 'Letmin - Login';
@@ -51,14 +49,7 @@ const CompanyLogin : React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await auth.signIn('company', data)
-        .then((res : any) => {
-            if (res.status !== 200) {
-                alert('Erro no login');
-            }
-        })
-
-        return;
+        return await auth.signIn('company', data)
     }
 
     return (

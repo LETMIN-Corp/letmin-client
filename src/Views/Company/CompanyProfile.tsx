@@ -13,7 +13,7 @@ import useCompany from '../../Utils/useCompany';
 
 
 const CompanyProfile = () => {
-    const Company = useCompany();
+    const company = useCompany();
 
     const [companyData, setCompanyData] = useState<CompanyData>([]); 
     const [companyDataEdition, setCompanyDataEdition] = useState<CompanyDataEdition>([]); 
@@ -21,15 +21,12 @@ const CompanyProfile = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Meus Dados';
 
-        // const token = Cookies.get('token');
-
-        Company.getCompanyData()
-        .then((res: any ) => {
-            setCompanyData(res.data.data);
-        })
-        .catch((err: any) => {
-            console.log('err: ', err);
-            alert('Não esta pegando os dados ' + err);
+        company.getCompanyData()
+        .then((res: any) => {
+            if (res.status !== 200) {
+                company.dispatchError('Erro ao carregar dados');
+                return;
+            }            
         });
     }, []);
 
