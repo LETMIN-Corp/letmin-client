@@ -28,6 +28,11 @@ const AdminCollaborator : React.FC = () => {
         });
     }
 
+    function handleOpen(key : number) : void {
+        setSelectedUserKey(key);
+        setOpenModal(true);
+    }
+
     return (
         <AdminDefault>
             <div className='p-5 min-h-90'>
@@ -47,13 +52,13 @@ const AdminCollaborator : React.FC = () => {
                     </div>
                     <div>
                         {   // @ts-ignore
-                            users.map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => setOpenModal(true) } handleUserBlock={ () => handleUserBlock(collaborator._id) } /> )
+                            users.map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => handleOpen(key) } handleUserBlock={ () => handleUserBlock(collaborator._id) } /> )
                         }
                     </div>
                 </div>
             </div>
             {
-                openModal && <CollaboratorForm isDisabled={ false } handleClose={ () => setOpenModal(false) } />
+                openModal && <CollaboratorForm isDisabled={ false } collaborators={users} selectedCollaboratorKey={selectedUserKey} handleClose={ () => setOpenModal(false) } />
             }
         </AdminDefault>
     );
@@ -87,12 +92,16 @@ const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen, han
 
 interface CollaboratorFormInterface {
     isDisabled: boolean,
+    collaborators: [] | any,
+    selectedCollaboratorKey: number,
     handleClose: () => void,
 }
 
-const CollaboratorForm:React.FC<CollaboratorFormInterface> = ({ isDisabled, handleClose }) => {
+const CollaboratorForm:React.FC<CollaboratorFormInterface> = ({ isDisabled, collaborators, selectedCollaboratorKey, handleClose }) => {
     const viewConsultPackage = {
-        getValue: () : string => { return '' },
+        getValue: (name: string) => {
+            return collaborators[selectedCollaboratorKey][name];
+        },
         setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
     }
 
@@ -100,10 +109,10 @@ const CollaboratorForm:React.FC<CollaboratorFormInterface> = ({ isDisabled, hand
         <InfoModal title='Informações' handleClose={ handleClose } showIcon={ false }>
             <h2 className='text-lg'>Colaborador</h2>
             <form className='mt-2'>
-                <TextInput placeholder='Nome' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='collaborator-name' disabled={ isDisabled }/>
+                <TextInput placeholder='Nome' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='name' disabled={ isDisabled }/>
                 <div className='md:flex justify-between w-full'>
-                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='collaborator-email' disabled={ isDisabled }/>
-                    <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='collaborator-phone' disabled={ isDisabled }/>
+                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='email' disabled={ isDisabled }/>
+                    <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='phone' disabled={ isDisabled }/>
                 </div>
             </form>
         </InfoModal>
