@@ -69,7 +69,7 @@ export const AuthState = ({ children } : any) => {
         if (!userCredentials) return;
         return await axiosRequest(`${API_URL}/api/users/login-${role}`, 'POST', userCredentials)
         .then((res: any) => {
-            if (res.status === 200) {
+            if (res.status === (200 || 201)) {
                 Cookies.set('token', res.headers.authorization);
                 setUserData(res.data);
                 return navigate(`/${role}`);
