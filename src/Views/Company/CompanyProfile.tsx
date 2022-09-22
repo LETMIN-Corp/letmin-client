@@ -26,7 +26,8 @@ const CompanyProfile = () => {
             if (res.status !== 200) {
                 company.dispatchError('Erro ao carregar dados');
                 return;
-            }            
+            }
+            setCompanyData(res.data.data);   
         });
     }, []);
 
