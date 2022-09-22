@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 
 const InitialState : any = {
-    loading: true,
+    loading: false,
     userData: {
         role: {},
     },
@@ -23,7 +23,7 @@ export const AuthState = ({ children } : any) => {
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(AuthReducer, InitialState);
 
-    const setLoading = () => dispatch({ type: ReducerEnum.set_loading, payload: undefined });
+    const setLoading = () => dispatch({ type: ReducerEnum.set_loading });
     const removeLoading = () => dispatch({ type: ReducerEnum.error });
     const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
     const getRole = () => {
@@ -84,13 +84,13 @@ export const AuthState = ({ children } : any) => {
             return res;
         })
         .catch((err) => {
+            removeLoading();
             return err.response;
         })
     }
 
     async function signIn(role: string, userCredentials: any): Promise<any> {
         if (!userCredentials) return;
-
         return await axiosRequest(`${API_URL}/api/users/login-${role}`, 'POST', userCredentials)
         .then((res: any) => {
             if (res.status === 200) {
@@ -98,22 +98,28 @@ export const AuthState = ({ children } : any) => {
                 setUserData(res.data);
                 return navigate(`/${role}`);
             }
-            if (res.status === 400) {
-                dispatchError('Usuário não encontrado');
+
+            interface IError {
+                [key: string]: string,
+                map: any,
             }
-            if (res.status === 401) {
-                dispatchError('Usuário ou senha incorretos');
+
+            let errors:IError = res.data.message;
+
+            let errorText = '';
+            for (let key in errors) {
+                errorText += `${errors[key]}, \n`;
             }
-            return res;
-        })  
+
+            dispatchError(errorText);
+        }).catch((err: any) => {
+            dispatchError(`Erro no login: ${err}`);
+        });
     }
 
     const registerCompany = async (userCredentials: any): Promise<any> => {
         if (!userCredentials) return;
 
-        setLoading();
-
-        return axiosRequest(`${API_URL}/api/users/register-company`, userCredentials);
         return axiosRequest(`${API_URL}/api/users/register-company`, 'POST', userCredentials);
     }
 
@@ -143,20 +149,17 @@ export const AuthState = ({ children } : any) => {
 
     const confirmVacancy = async (vacancy_id: string) => {
         let company_id = state.userData.user_id;
-        return axiosRequest(`${API_URL}/api/users/confirm-vacancy/${vacancy_id}`, 'patch', { company_id,  })
         return axiosRequest(`${API_URL}/api/users/confirm-vacancy/${vacancy_id}`, 'PATCH', { company_id,  })
     }
 
     const closeVacancy = async (vacancy_id: string) => {
         let company_id = state.userData.user_id;
-        return axiosRequest(`${API_URL}/api/users/close-vacancy/${vacancy_id}`, 'delete', { company_id })
         return axiosRequest(`${API_URL}/api/users/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
     }
     // End company function
 
     // User functions
     const getUserData = async (id: string) => {
-        setLoading();
         // todo: get user data
     }
 
@@ -176,7 +179,6 @@ export const AuthState = ({ children } : any) => {
         return axiosRequest(`${API_URL}/api/users/get-all-users`, 'GET');
     }
     const blockUser = async (user_id: string) => {
-        return axiosRequest(`${API_URL}/api/users/user-block`, 'patch', { user_id });
         return axiosRequest(`${API_URL}/api/users/user-block`, 'PATCH', { user_id });
     }
     // End Admin functions
@@ -188,6 +190,7 @@ export const AuthState = ({ children } : any) => {
             dispatchError,
             dispatchSuccess,
             setLoading,
+            removeLoading,
             getRole,
             signIn,
             signOut,
@@ -196,12 +199,13 @@ export const AuthState = ({ children } : any) => {
             setUserData,
             getCompanyData,
             getUserData,
+            // Company functions
             registerVacancy,
             getAllCompanyVacancies,
             confirmVacancy,
             closeVacancy,
             getVacancies,
-            //Admin
+            // Admin functions
             getAllCompanies,
             blockCompany,
             getAllUsers,

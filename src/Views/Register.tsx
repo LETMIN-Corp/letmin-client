@@ -15,6 +15,10 @@ const Register : React.FC = () => {
 
     const auth = useAuth();
 
+    const handleLogin = (data: any) => {
+        return auth.signIn('user', data)
+    };
+
     useEffect((): void => {
         window.document.title = 'Letmin - Cadastro';
     });
@@ -42,7 +46,7 @@ const Register : React.FC = () => {
                         <GoogleOAuthProvider clientId={CLIENT_ID}>
                             <GoogleLogin
                                 onSuccess={credentialResponse => {
-                                    auth.signIn('user', credentialResponse);
+                                    handleLogin(credentialResponse);
                                 }}
                             />
                         </GoogleOAuthProvider>

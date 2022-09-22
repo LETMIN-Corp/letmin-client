@@ -10,10 +10,23 @@ const useAuth = () => {
         loading,
         getRole,
         registerCompany,
+        setLoading,
+        removeLoading,
         dispatchError
     } : any = useContext(AuthContext);
 
-    return { isAuthenticated, userData, signOut, signIn, loading, getRole, registerCompany, dispatchError };
+    return {
+        isAuthenticated,
+        userData,
+        signOut,
+        signIn,
+        loading,
+        getRole,
+        registerCompany,
+        setLoading,
+        removeLoading,
+        dispatchError
+    }
 }
 
 export default useAuth;    
