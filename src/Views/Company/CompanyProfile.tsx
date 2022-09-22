@@ -99,7 +99,7 @@ const CompanyProfile = () => {
     }
 
     const consultPackage = {
-        getValue: () : string => { return '' },
+        getValue: getInputValue,
         setValue: setInputValue,
     }
 
@@ -108,6 +108,7 @@ const CompanyProfile = () => {
         setValue: (e: React.ChangeEvent<HTMLInputElement>) => {}
     }
 
+    
     return (
         <CompanyDefault>
             <div className='p-5'>
