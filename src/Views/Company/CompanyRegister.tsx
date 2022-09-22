@@ -75,15 +75,6 @@ const CorpRegister : React.FC = () => {
         navigate('/register');
     }
 
-    async function handleRegister() {
-        await auth.registerCompany(registerData)
-        .then((res : any) => {
-            if (res.status != 200) {
-                auth.dispatchError('Erro no cadastro da empresa');
-            }
-        });
-    }
-
     function getInputValue (name: string): string {
         const [type, data] = name.split('-');
 
@@ -317,7 +308,7 @@ const CorpRegister : React.FC = () => {
 
                     {
                         (currentPage === pageConstraints.max) && (
-                            <FormButton text='Confirmar' handleClick={ () => handleRegister() } isDisabled={ !termIsAccepted } />
+                            <FormButton text='Confirmar' handleClick={ () => auth.registerCompany(registerData) } isDisabled={ !termIsAccepted } />
                         )
                     }
                 </div>

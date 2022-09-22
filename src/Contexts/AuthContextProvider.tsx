@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
-import { ToastContainer, toast } from 'react-toastify';
+import { dispatchError, dispatchSuccess, formatErrors } from '../Utils/ToastMessages';
 
 const InitialState : any = {
     loading: false,
@@ -29,30 +29,6 @@ export const AuthState = ({ children } : any) => {
     const getRole = () => {
         // @ts-ignore:next-line
         return (Cookies.get('token') ? jwtDecode(Cookies.get('token').toString()).role : '');
-    }
-
-    function dispatchError(text : string) {
-        toast.error(text, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
-    }
-
-    function dispatchSuccess(text : string) {
-        toast.success(text, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
     }
 
     // Auth function
@@ -97,6 +73,25 @@ export const AuthState = ({ children } : any) => {
                 Cookies.set('token', res.headers.authorization);
                 setUserData(res.data);
                 return navigate(`/${role}`);
+            }       
+
+            dispatchError(formatErrors(res.data.message));
+        }).catch((err: any) => {
+            dispatchError(`Erro no login: ${err}`);
+        });
+    }
+
+    const registerCompany = async (userCredentials: any): Promise<any> => {
+        if (!userCredentials) return;
+
+        return axiosRequest(`${API_URL}/api/users/register-company`, 'POST', userCredentials)
+        .then((res: any) => {
+            if (res.status === (200 || 201)) {
+                dispatchSuccess('Empresa cadastrada com sucesso!');
+
+                Cookies.set('token', res.headers.authorization);
+                setUserData(res.data);
+                return navigate(`/company`);
             }
 
             interface IError {
@@ -112,15 +107,7 @@ export const AuthState = ({ children } : any) => {
             }
 
             dispatchError(errorText);
-        }).catch((err: any) => {
-            dispatchError(`Erro no login: ${err}`);
         });
-    }
-
-    const registerCompany = async (userCredentials: any): Promise<any> => {
-        if (!userCredentials) return;
-
-        return axiosRequest(`${API_URL}/api/users/register-company`, 'POST', userCredentials);
     }
 
     async function signOut(): Promise<void> {
