@@ -114,6 +114,7 @@ export const AuthState = ({ children } : any) => {
         setLoading();
 
         return axiosRequest(`${API_URL}/api/users/register-company`, userCredentials);
+        return axiosRequest(`${API_URL}/api/users/register-company`, 'POST', userCredentials);
     }
 
     async function signOut(): Promise<void> {
@@ -143,11 +144,13 @@ export const AuthState = ({ children } : any) => {
     const confirmVacancy = async (vacancy_id: string) => {
         let company_id = state.userData.user_id;
         return axiosRequest(`${API_URL}/api/users/confirm-vacancy/${vacancy_id}`, 'patch', { company_id,  })
+        return axiosRequest(`${API_URL}/api/users/confirm-vacancy/${vacancy_id}`, 'PATCH', { company_id,  })
     }
 
     const closeVacancy = async (vacancy_id: string) => {
         let company_id = state.userData.user_id;
         return axiosRequest(`${API_URL}/api/users/close-vacancy/${vacancy_id}`, 'delete', { company_id })
+        return axiosRequest(`${API_URL}/api/users/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
     }
     // End company function
 
@@ -167,13 +170,14 @@ export const AuthState = ({ children } : any) => {
         return axiosRequest(`${API_URL}/api/users/get-all-companies`, 'GET');
     }
     const blockCompany = async (company_id: string) => {
-        return axiosRequest(`${API_URL}/api/users/company-block`, 'patch', { company_id });
+        return axiosRequest(`${API_URL}/api/users/company-block`, 'PATCH', { company_id });
     }
     const getAllUsers = async () => {
         return axiosRequest(`${API_URL}/api/users/get-all-users`, 'GET');
     }
     const blockUser = async (user_id: string) => {
         return axiosRequest(`${API_URL}/api/users/user-block`, 'patch', { user_id });
+        return axiosRequest(`${API_URL}/api/users/user-block`, 'PATCH', { user_id });
     }
     // End Admin functions
     return (
