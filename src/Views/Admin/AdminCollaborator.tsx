@@ -5,13 +5,33 @@ import TextInput from '../../Components/Inputs/TextInput';
 import InfoModal from '../../Components/Modals/InfoModal';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
 import AdminDefault from './AdminDefault';
+import useAdmin from '../../Utils/useAdmin';
 
 const AdminCollaborator : React.FC = () => {
+    const admin = useAdmin();
+    const [users, setUsers] = useState([]);
+    const [selectedUserKey, setSelectedUserKey] = useState(0);
+
     useEffect((): void => {
         window.document.title = 'Letmin - Colaboradores';
+
+        admin.getAllUsers().then((res: any) => {
+            setUsers(res.data.users);
+        });
     }, []);
 
     const [openModal, setOpenModal] = useState(false);
+
+    function handleUserBlock(id: string) : void {
+        admin.blockUser(id).then((res: any) => {
+            setUsers(res.data.users);
+        });
+    }
+
+    function handleOpen(key : number) : void {
+        setSelectedUserKey(key);
+        setOpenModal(true);
+    }
 
     return (
         <AdminDefault>
@@ -31,23 +51,14 @@ const AdminCollaborator : React.FC = () => {
                         <span className='w-3/12 md:w-12 pr-1'>Ações</span>
                     </div>
                     <div>
-                        {
-                            [
-                                {
-                                    name: 'João da Silva',
-                                    status: true,
-                                },
-                                {
-                                    name: 'Maria da Silva',
-                                    status: false,
-                                },
-                            ].map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => setOpenModal(true) } /> )
+                        {   // @ts-ignore
+                            users.map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => handleOpen(key) } handleUserBlock={ () => handleUserBlock(collaborator._id) } /> )
                         }
                     </div>
                 </div>
             </div>
             {
-                openModal && <CollaboratorForm isDisabled={ false } handleClose={ () => setOpenModal(false) } />
+                openModal && <CollaboratorForm isDisabled={ false } collaborators={users} selectedCollaboratorKey={selectedUserKey} handleClose={ () => setOpenModal(false) } />
             }
         </AdminDefault>
     );
@@ -56,22 +67,23 @@ const AdminCollaborator : React.FC = () => {
 interface TableCardInterface {
     collaborator: {
         name: string,
-        status: boolean,
+        blocked: boolean,
     },
     handleOpen: () => void,
+    handleUserBlock: () => void,
 };
 
-const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen }) => {
+const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen, handleUserBlock }) => {
     return (
         <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
             <span className='w-5/12 md:w-7/12 pr-1'>{ collaborator.name }</span>
-            <span className='w-4/12 pr-1'>{ collaborator.status ? 'Ativo' : 'Bloqueado' }</span>
+            <span className='w-4/12 pr-1'>{ collaborator.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-2/12 md:w-12 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
                     <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen } className='text-dark-purple' />
                 </div>
-                <div className='cursor-pointer'>
-                    { collaborator.status ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
+                <div className='cursor-pointer' onClick={() => handleUserBlock()}>
+                    { collaborator.blocked ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
                 </div>
             </span>
         </div>
@@ -80,12 +92,16 @@ const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen }) =
 
 interface CollaboratorFormInterface {
     isDisabled: boolean,
+    collaborators: [] | any,
+    selectedCollaboratorKey: number,
     handleClose: () => void,
 }
 
-const CollaboratorForm:React.FC<CollaboratorFormInterface> = ({ isDisabled, handleClose }) => {
+const CollaboratorForm:React.FC<CollaboratorFormInterface> = ({ isDisabled, collaborators, selectedCollaboratorKey, handleClose }) => {
     const viewConsultPackage = {
-        getValue: () : string => { return '' },
+        getValue: (name: string) => {
+            return collaborators[selectedCollaboratorKey][name];
+        },
         setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {}
     }
 
@@ -93,10 +109,10 @@ const CollaboratorForm:React.FC<CollaboratorFormInterface> = ({ isDisabled, hand
         <InfoModal title='Informações' handleClose={ handleClose } showIcon={ false }>
             <h2 className='text-lg'>Colaborador</h2>
             <form className='mt-2'>
-                <TextInput placeholder='Nome' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='collaborator-name' disabled={ isDisabled }/>
+                <TextInput placeholder='Nome' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='name' disabled={ isDisabled }/>
                 <div className='md:flex justify-between w-full'>
-                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='collaborator-email' disabled={ isDisabled }/>
-                    <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='collaborator-phone' disabled={ isDisabled }/>
+                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='email' disabled={ isDisabled }/>
+                    <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='phone' disabled={ isDisabled }/>
                 </div>
             </form>
         </InfoModal>

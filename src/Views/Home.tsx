@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 import ImgMatch from '../Assets/img-match.png';
 import ImgTeam from '../Assets/img-team.png';
 import ImgComemoration from "../Assets/img-comemoration.png";
-
 import PartnerImage from '../Components/Images/PartnerImage';
 import Cube from '../Assets/cube.png';
 import Hearth from '../Assets/hearth.png';

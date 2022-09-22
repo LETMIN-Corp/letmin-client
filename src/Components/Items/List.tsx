@@ -21,11 +21,20 @@ interface ListInterface {
 }
 
 const List : React.FC<ListInterface> = ({ data, itemsPerPage }) => {
-    const maxPage = Math.ceil(data.length / itemsPerPage);
+    const [maxPage, setMaxPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [displayNodes, setDisplayNodes] = useState<ReactNode[]>([]);
 
     useEffect(() => {
+        setCurrentPage(1);
+        setMaxPage(Math.ceil(data.length / itemsPerPage));
+    }, [data]);
+
+    useEffect(() => {
+        getNodes();
+    }, [data, currentPage]);
+
+    function getNodes() {
         let nodes : ReactNode[] = [];
         let min = (currentPage - 1) * itemsPerPage;
         let max = currentPage * itemsPerPage
@@ -34,7 +43,7 @@ const List : React.FC<ListInterface> = ({ data, itemsPerPage }) => {
         }
 
         setDisplayNodes(nodes);
-    }, [currentPage]);
+    }
 
     const [buttons, setButtons] = useState<number[]>([]);
     useEffect(() => {
@@ -64,17 +73,12 @@ const List : React.FC<ListInterface> = ({ data, itemsPerPage }) => {
             }
         }
         setButtons(buttons);
-    }, [currentPage]);
+    }, [currentPage, maxPage]);
 
     return (
         <>
             {
                 displayNodes
-            }
-            {
-                !data.length && (
-                    <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhum item encontrado</div>
-                )
             }
             <div className='flex justify-center w-full my-10 mr-40'>
                 {
