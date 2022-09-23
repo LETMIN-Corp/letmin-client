@@ -41,8 +41,6 @@ const CompanyRegisterVacancy = () => {
         currency: '',
         workload: '',
         region: '',
-        insertDate: '',
-        expirationDate: '',
     }
     
     const [vacancyData, setVacancyData] = useState<IVacancyData>(initialState);
@@ -102,23 +100,9 @@ const CompanyRegisterVacancy = () => {
                             </div>
                         </div>
                     
-                    </div>
-                    
+                    </div>        
                 </div>
-                <div className='w-full rounded-md mx-auto text-justify my-6 pt-2 text-8x1 md:mr-5'>
-                    <h1 className='text-xl'>Dados Sistemáticos</h1>
-                    <div className='md:flex md:justify-between'>
-                        <div className='md:w-6/12 w-full mr-5'>
-                            <TextInput placeholder='Lançamento de Vaga' type='date' name='insertDate' id='insertDate'consultPackage={ consultPackage }/>
-                        </div>
-                        <div className='md:w-6/12 w-full'>
-                            <TextInput placeholder='Fechamento de Vaga' type='date' name='expirationDate' id='expirationDate' consultPackage={ consultPackage }/>  
-                        </div>
-                    
-                    </div>
-                    
-                </div>
-                
+
                 <div className='flex w-full justify-end'>
                     <FormButton text='Cadastrar'/>
                 </div>
