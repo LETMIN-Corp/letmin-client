@@ -27,7 +27,8 @@ const CompanyProfile = () => {
                 company.dispatchError('Erro ao carregar dados');
                 return;
             }
-            setCompanyData(res.data.data);   
+            setCompanyData(res.data.data);  
+            setCompanyDataEdition(res.data.data);
         });
     }, []);
 
@@ -82,15 +83,28 @@ const CompanyProfile = () => {
         if(companyData.length === 0) {
             return '';
         }
-        console.log(companyData[type][data]);
+        // console.log(companyData[type][data]);
 
         return companyData[type][data];
     }
+    function getInputValueEdition (name: string): string {
+        const [type, data] = name.split('-'); //company-name  -> company  name
+       // console.log(companyDataEdition)
 
-    function setInputValue (e: React.ChangeEvent<HTMLInputElement>): void {
+
+        if(companyDataEdition.length === 0) {
+            return '';
+        }
+        console.log(companyDataEdition[type][data]);
+
+
+        return companyDataEdition[type][data];
+    }
+
+    function setInputValueEdition (e: React.ChangeEvent<HTMLInputElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
-
+       // console.log(value);
         setCompanyDataEdition({
                 ...companyDataEdition,
                 [type]: { ...companyDataEdition[type], [data]: value
@@ -99,8 +113,8 @@ const CompanyProfile = () => {
     }
 
     const consultPackage = {
-        getValue: getInputValue,
-        setValue: setInputValue,
+        getValue: getInputValueEdition,
+        setValue: setInputValueEdition,
     }
 
     const viewConsultPackage = {
