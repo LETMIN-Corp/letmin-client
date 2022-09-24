@@ -20,15 +20,21 @@ const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy }) => {
             </div>
             <div className='xl:w-8/12 md:w-7/12 w-full text-black pl-5 md:my-5 my-3 mr-4'>
                 <h1 className='text-md lg:text-xl font-bold'>{ vacancy.role }</h1>
-                <div className='flex font-medium'>
+                <div className='xl:flex font-medium'>
                     <p className='text-md'>
                         <FontAwesomeIcon className='mr-1' icon={ faAddressBook } />
                         <span>{ vacancy.sector }</span>
                     </p>
                     <p className='text-md'>
-                        <FontAwesomeIcon className='ml-3 mr-1' icon={ faLocationDot } />
+                        <FontAwesomeIcon className='xl:ml-3 mr-1' icon={ faLocationDot } />
                         <span>
                             { vacancy.region }
+                        </span>
+                    </p>
+                    <p className='text-md'>
+                        <FontAwesomeIcon className='xl:ml-3 mr-1' icon={ faBuilding } />
+                        <span>
+                            { 'Nome da empresa' }
                         </span>
                     </p>
                 </div>

@@ -4,53 +4,52 @@ import TextInput from '../../Components/Inputs/TextInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import SecondaryButton from '../../Components/Buttons/SecondaryButton';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useUser from '../../Utils/useUser';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 const UserVacancyDetail = () => {
     const params = useParams();
     const user = useUser();
-
+    const navigate = useNavigate();
     const id = params.id;
 
     useEffect((): void => {
         window.document.title = 'Letmin - Buscar Vagas';
 
-        console.log('id', id)
         if (id?.length !== 24) {
-            console.log('macaco');
+            navigate('/user/vacancy/search');
+            return;
         }
 
         user.getVacancy(id).then((res: any) => {
-            console.log(res.data.vacancy);
+            if(!res.data.success || res.data.vacancy.closed) {
+                navigate('/user/vacancy/search');
+            }
+
             setVacancyData(res.data.vacancy);
         })
 
     }, []);
     interface IVacancyData {
-        [key: string]: {
-            [key: string]: string;
-        };
+        [key: string]: string;
     }
 
     const [vacancyData, setVacancyData] = useState<IVacancyData>({
-        vacancyInfo: {
-            role: '',
-            sector: '',
-            description: '',
-            salary: '',
-            currency: '',
-            workload: '',
-            region: '',
-            vacancyType: '',
-        },
+        role: '',
+        sector: '',
+        description: '',
+        salary: '',
+        currency: '',
+        workload: '',
+        region: '',
+        vacancyType: '',
     });
 
     function getInputValue (name: string): string {
-        return vacancyData[name];
         const [type, data] = name.split('-');
-
-        return vacancyData[type][data];
+        return vacancyData[data];
     }
 
     function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
@@ -58,9 +57,10 @@ const UserVacancyDetail = () => {
         const [type, data] = name.split('-');
 
         setVacancyData({
-                ...vacancyData,
-                [type]: { ...vacancyData[type], [data]: value
-            }
+            ...vacancyData,
+            [type]: { 
+                ...vacancyData[type], [data]: value,
+            },
         });
     }
 
@@ -81,10 +81,10 @@ const UserVacancyDetail = () => {
 
                     <div className='mt-5'>
                         <div className='flex items-center'>
-                            <img src='https://via.placeholder.com/150'></img>
+                            <FontAwesomeIcon icon={ faBuilding } className='text-8xl' />
                             <div>
-                                <p className='text-2xl ml-5 w-full font-medium'>Vaga para cargo</p>
-                                <p className='text-xl ml-5 w-full'>Nome da Empresa</p>
+                                <p className='text-2xl ml-5 w-full font-medium'>{ vacancyData.role }</p>
+                                <p className='text-xl ml-5 w-full'>{ vacancyData.company ? vacancyData.company.company.name : '' }</p>
                             </div>
                         </div>
                         <div className='w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5'>
@@ -93,23 +93,21 @@ const UserVacancyDetail = () => {
                             </h1>
                             <div className='md:flex md:justify-between'>
                                 <div className='md:w-6/12 w-full mr-5'> 
-                                    <TextInput placeholder='Região' type='text' name='vacancyInfo-region' id='vacancyInfo-region' value='Região' consultPackage={ consultPackage } disabled/>           
-                                    <div className="md:flex justify-between">
-                                        <TextInput placeholder='Moeda' type='text' size='medium' name='vacancyInfo-currency' id='vacancyInfo-currency' consultPackage={ consultPackage } value='Real' disabled/>  
-                                        <TextInput placeholder='Salário' useMask={ MaskTypesEnum.money } limit={ 12 } type='text' size='large' name='vacancyInfo-salary' id='vacancyInfo-salary' consultPackage={ consultPackage } value='900,00' disabled/>  
-                                    </div>   
-                                    <TextInput placeholder='Tipo de Contratação' type='text' consultPackage={ consultPackage } name="vacancyInfo-type" id='vacancyInfo-type' value='Permanente' disabled/>    
-                                    
-                                    <TextInput placeholder='Carga Horária' type='text' consultPackage={ consultPackage } name="vacancyInfo-workload" id='vacancyInfo-workload' value='Integral' disabled/>     
+                                    <TextInput placeholder='Setor' value='Operacional' type='text' consultPackage={ consultPackage } name="vacancyInfo-sector" id='vacancyInfo-sector' disabled/>                                      
+                                    <TextAreaInput name="vacancyInfo-description" id="vacancyInfo-description" row={ 8 } consultPackage={ consultPackage } placeholder='Descrição' value={ vacancyData.description } disabled/>  
                                 </div>
                                 <div className='md:w-6/12 w-full'>
-                                    <TextInput placeholder='Setor' value='Operacional' type='text' consultPackage={ consultPackage } name="vacancyInfo-sector" id='vacancyInfo-sector' disabled/>   
-                                    <TextAreaInput name="vacancyInfo-description" id="vacancyInfo-description" row={ 8 } consultPackage={ consultPackage } placeholder='Descrição' value='Aqui estará a descrição da vaga do candidato' disabled/>  
+                                    <TextInput placeholder='Região' type='text' name='vacancyInfo-region' id='vacancyInfo-region' value='Região' consultPackage={ consultPackage } disabled/>           
+                                    <div className="md:flex justify-between">
+                                        <TextInput placeholder='Moeda' type='text' size='medium' name='vacancyInfo-currency' id='vacancyInfo-currency' consultPackage={ consultPackage } value='Real' disabled/>
+                                        <TextInput placeholder='Salário' useMask={ MaskTypesEnum.money } limit={ 12 } type='text' size='large' name='vacancyInfo-salary' id='vacancyInfo-salary' consultPackage={ consultPackage } value='900,00' disabled/>
+                                    </div>                                    
+                                    <TextInput placeholder='Carga Horária' type='text' consultPackage={ consultPackage } name="vacancyInfo-workload" id='vacancyInfo-workload' value='Integral' disabled/>
                                 </div>
                             
                             </div> 
                             <div className='w-full flex justify-end '>
-                                <SecondaryButton handleClick={()=>{}} text='Candidatar-se'></SecondaryButton>
+                                <SecondaryButton handleClick={ () => {} } text='Candidatar-se'></SecondaryButton>
                             </div>         
                         </div>
                         
