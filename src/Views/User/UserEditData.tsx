@@ -19,14 +19,17 @@ import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandshake, faInfo, faLink, faPlus, faPencil, faCalendar } from '@fortawesome/free-solid-svg-icons';
-import useCompany from '../../Utils/useCompany';
-import CompanyRegisterVacancy from '../Company/CompanyRegisterVacancy';
+import useUser from '../../Utils/useUser';
 
 const UserEditData : React.FC = () => {
     const navigate = useNavigate();
+    const user = useUser();
 
     useEffect((): void => {
         window.document.title = 'Letmin - Perfil';
+        user.getUserData().then((res:any) => {
+            console.log(res.data.user);
+        });
     }, []);
 
     const [openModal, setOpenModal] = useState(false);    
@@ -60,7 +63,7 @@ const UserEditData : React.FC = () => {
         };
     }
     const initialState = {
-        userName: 'Fulano',
+        userName: user.name,
         description: 'Sou um dev Pleno em busca de oportunidades.',
         previousExperiences: [{name:'', institutuion:'', timeStart:'', timeFinish:'', description:''}],
         academicFormation: [{name:'', institutuion:'', timeStart:'', timeFinish:'', description:''}]
@@ -107,6 +110,10 @@ const UserEditData : React.FC = () => {
         setAllExperiences([...allExperiences, { name:ExperienceName, institution: ExperienceEnterprise, timeStart:ExperienceStartTime, 
             timeFinish:ExperienceFinishTime, description:ExperienceDescription }]);   /* TROCAR TIME POR EXPERIENCETIME APÓS */
         setXPName('');
+        setXPEnterprise('');
+        setXPDescription('');
+        setXPStartTime('');
+        setXPFinishTime('');
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
@@ -194,7 +201,7 @@ const UserEditData : React.FC = () => {
                 institution: "Unesp Bauru",
                 timeStart:'2021',
                 timeFinish:'2025',
-                description: 'Grau superior em Ciências da Computação. Ainda em andamento.',
+                description: 'Grau superior em Ciências da Computação. Ainda em andamento. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAA',
             },
         ]);
     }, []);
@@ -219,8 +226,11 @@ const UserEditData : React.FC = () => {
         }
         setAllFormations([...allFormations, { name: FormationName, institution: FormationInstitution,
              timeStart:FormationStartTime, timeFinish:FormationFinishTime, description:FormationDescription, }]);
-        console.log(FormationName);
         setFormationName('');
+        setFormationInstitution('');
+        setFormationDescription('');
+        setFormationStartTime('');
+        setFormationFinishTime('');
     }
     const handleCloseModalAddFormation = () => {
         setFormationModalIsOpen(false);
@@ -289,7 +299,7 @@ const UserEditData : React.FC = () => {
                             <FontAwesomeIcon icon={ faPencil } className='rounded-full border-4 border-black bg-lively-purple ml-28 p-3 z-10' />
                         </div>
                     </div> */}
-                    <div className='relative flex md:justify-end mx-5 py-4'>
+                    <div className='relative flex md:justify-end mx-9 py-4'>
                         <img src={ImgUserDefault} className='rounded-full border-4 border-lively-purple absolute left-0 -top-20 bg-white' />
                         <div className='mt-24 md:mt-5 text-lg md:justify-end flex justify-between items-center w-full'>
                             
@@ -298,17 +308,17 @@ const UserEditData : React.FC = () => {
                     <div className='mt-5 md:mt-10 mx-5 w-2/3'>
                         <div className='font-medium text-xl text-dark-purple'>Informações do Usuário</div>
                         <div className='font-medium text-lg w-96'>
-                            <TextInput placeholder='Nome de Usuário' type='text' name='userName' id='userName' consultPackage={ consultPackage }/> 
+                            <TextInput placeholder='Nome' type='text' name='userName' id='userName' consultPackage={ consultPackage }/> 
                         </div>
                         <div className='font-medium text-lg'>
-                            <TextAreaInput name="description" id="description" row={ 6 } consultPackage={ consultPackage } placeholder='Descrição do Usuário'/>
+                            <TextAreaInput name="description" id="description" row={ 6 } consultPackage={ consultPackage } placeholder='Descrição'/>
                         </div>
                     </div>
                 </main>
                 <section className='px-5 mt-10'>
                     <div className='mt-24 md:my-4 text-lg flex justify-between items-center w-full'>
                         <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
-                        <button onClick={ () => setXPModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
+                        <button onClick={ () => setXPModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-full text-white hover:bg-dark-purple ease-out duration-200'>
                             <FontAwesomeIcon icon={ faPlus } />
                         </button>
                         {
@@ -345,7 +355,7 @@ const UserEditData : React.FC = () => {
                         {/* <button className='bg-primary mr-3 w-20 h-12 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                             <FontAwesomeIcon icon={ faPlusCircle } />
                         </button>   botao antigo */}
-                        <button onClick={ () => setFormationModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
+                        <button onClick={ () => setFormationModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-full text-white hover:bg-dark-purple ease-out duration-200'>
                             <FontAwesomeIcon icon={ faPlus } />
                         </button>
                         {
@@ -372,13 +382,10 @@ const UserEditData : React.FC = () => {
                             [
                                 ...allFormations,
                             ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
-                            /*1a de hoje (20/09): pra experiencia, a gnt ta usando só nome e tempo.
-                            Por isso, o card só aceita esses dois tipos. Crio um novo tipo de card
-                            para mostrar as formações, agora com os dados certos? */
                         }
                     </div>
                 </section>
-                <div className='ml-3 flex justify-between w-1/3'>
+                <div className='ml-3 flex justify-between justify-items-end w-1/3'>
                     <FormButton text='Salvar' />
                     { modalExitIsOpen && <ConfirmationModal title='Sair da Edição' text='Os dados editados ainda não foram salvos. Você realmente deseja sair da edição?' handleClose={ () => setModalExitIsOpen(false) } handleConfirm={ returnToUserPage } /> }
                     <SecondaryButton text='Cancelar' handleClick= {() => setModalExitIsOpen(true)}/>

@@ -111,7 +111,8 @@ export const AuthState = ({ children } : any) => {
     }, []);
 
     // Company function
-    const getCompanyData = async (id: string) => {
+
+    const getCompanyData = async () => {
         return await axiosRequest(`${API_URL}/api/company/company-data`, 'GET');
     }
     const registerVacancy = async (vacancy: any) => {
@@ -134,8 +135,8 @@ export const AuthState = ({ children } : any) => {
     // End company function
 
     // User functions
-    const getUserData = async (id: string) => {
-        // todo: get user data
+    const getUserData = async () => {
+        return await axiosRequest(`${API_URL}/api/users/get-user`, 'GET');
     }
     const getVacancy = async(id: string) => {
         return axiosRequest(`${API_URL}/api/user/get-vacancy/${id}`, 'GET');

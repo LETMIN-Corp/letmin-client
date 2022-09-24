@@ -19,7 +19,7 @@ const UserExperienceCard: React.FC<ComponentInterface> = ({ card }) => {
             <div className=' p-2 pl-3 rounded-md flex justify-between'>
                 { card.timeStart } - {card.timeFinish}
             </div>
-            <div className=' px-3 pb-3 rounded-md flex justify-between'>
+            <div className='break-words max-h-20 px-3 pb-3 rounded-md justify-between overflow-x-hidden overflow-y-auto'>
                 { card.description}
             </div>
         </div>
