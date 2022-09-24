@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import CompanyEditCard from '../../Components/Cards/CompanyEditCard';
 import TextInput from '../../Components/Inputs/TextInput';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
+import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import SelectInput from '../../Components/Inputs/SelectInput';
 import FormModal from '../../Components/Modals/FormModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,17 +11,13 @@ import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import useCompany from '../../Utils/useCompany';
 
-
-
 const CompanyProfile = () => {
     const company = useCompany();
 
     const [companyData, setCompanyData] = useState<CompanyData>([]); 
-    const [companyDataEdition, setCompanyDataEdition] = useState<CompanyDataEdition>([]); 
 
-    useEffect((): void => {
-        window.document.title = 'Letmin - Meus Dados';
-
+    function getDBCompanyData()
+    {
         company.getCompanyData()
         .then((res: any) => {
             if (res.status !== 200) {
@@ -28,8 +25,12 @@ const CompanyProfile = () => {
                 return;
             }
             setCompanyData(res.data.data);  
-            setCompanyDataEdition(res.data.data);
-        });
+        })
+    }
+
+    useEffect((): void => {
+        window.document.title = 'Letmin - Meus Dados';
+        getDBCompanyData();
     }, []);
 
     interface FormModalInterface {
@@ -68,14 +69,11 @@ const CompanyProfile = () => {
         length: number;
     }
 
-    interface CompanyDataEdition {
-        [key: number]: Company;
-        length: number;
-    }
-
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [formModal, setFormModal] = useState<FormModalInterface>({});
+    const [CompanyEdition, setCompanyEdition] = useState(true);
+    const [HolderEdition, setHolderEdition] = useState(true);
 
     function getInputValue (name: string): string {
         const [type, data] = name.split('-'); //company-name  -> company  name
@@ -87,39 +85,41 @@ const CompanyProfile = () => {
 
         return companyData[type][data];
     }
-    function getInputValueEdition (name: string): string {
-        const [type, data] = name.split('-'); //company-name  -> company  name
-       // console.log(companyDataEdition)
 
-
-        if(companyDataEdition.length === 0) {
-            return '';
-        }
-        console.log(companyDataEdition[type][data]);
-
-
-        return companyDataEdition[type][data];
-    }
-
-    function setInputValueEdition (e: React.ChangeEvent<HTMLInputElement>): void {
+    function setInputValue (e: React.ChangeEvent<HTMLInputElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
        // console.log(value);
-        setCompanyDataEdition({
-                ...companyDataEdition,
-                [type]: { ...companyDataEdition[type], [data]: value
+
+        if(CompanyEdition)
+        {
+            return;
+        }        
+
+        setCompanyData({
+                ...companyData,
+                [type]: { ...companyData[type], [data]: value
             }
         });
     }
 
-    const consultPackage = {
-        getValue: getInputValueEdition,
-        setValue: setInputValueEdition,
+    function enableCompany()
+    {
+        setCompanyEdition(false);
+        console.log(CompanyEdition);
+        alert('Feito');
     }
 
-    const viewConsultPackage = {
+    function enableHolder()
+    {
+        setHolderEdition(false);
+        console.log(CompanyEdition);
+    }
+
+
+    const consultPackage = {
         getValue: getInputValue,
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => {}
+        setValue: setInputValue,
     }
 
     
@@ -135,53 +135,59 @@ const CompanyProfile = () => {
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
                             <span>Informações da Empresa</span>
                             <FontAwesomeIcon
-                                onClick={
-                                    () => {
-                                        setModalIsOpen(true);
-                                        setFormModal({
-                                            title: 'Informações da Empresa',
-                                            form: <CompanyForm viewConsultPackage={ consultPackage } isDisabled={ false } />,
-                                        });
-                                    }
-                                }
+                                onClick={ enableCompany }
                                 className='cursor-pointer'
                                 icon={ faGear }
                             />
                         </h3>
-                        <CompanyForm viewConsultPackage={ viewConsultPackage } isDisabled={ true } />
+                        <>
+                            <form className='mt-2'>
+                                <div className='md:flex justify-between w-full'>
+                                    <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-name' disabled={ CompanyEdition }/>
+                                    <TextInput placeholder='CNPJ' size='medium' useMask={ MaskTypesEnum.cnpj } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' disabled={ CompanyEdition } />
+                                </div>
+                                <div className='md:flex justify-between w-full'>
+                                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' disabled={ CompanyEdition }/>
+                                    <TextInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='company-phone' disabled={ CompanyEdition }/>
+                                </div>
+                                <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' disabled={ CompanyEdition }/>
+                            </form>
+                            {
+                                (CompanyEdition === false) && (
+                                    <>
+                                    <div>
+                                        <button onClick={ getDBCompanyData } className='bg-gray text-black w-2/12 min-w-sm py-2 rounded-md'>Cancelar</button>
+                                        <button onClick={ () => company.updateCompanyData(companyData) } className='bg-primary text-white w-2/12 min-w-sm py-2 rounded-md ml-2'>Salvar</button>
+                                    </div>
+                                    </>
+                                )
+                            }
+                        </>
                     </CompanyEditCard>
                     <CompanyEditCard>
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
                             <span>Informações do Titular</span>
                             <FontAwesomeIcon
-                                onClick={
-                                    () => {
-                                        setModalIsOpen(true);
-                                        setFormModal({
-                                            title: 'Informações do Titular',
-                                            form: <HolderForm viewConsultPackage={ consultPackage } isDisabled={ false } />,
-                                        });
-                                    }
-                                }
+                                onClick={ enableHolder }
                                 className='cursor-pointer'
                                 icon={ faGear }
                             />
                         </h3>
-                        <HolderForm viewConsultPackage={ viewConsultPackage } isDisabled={ true } />
+                        <HolderForm viewConsultPackage={ consultPackage } isDisabled={ HolderEdition } getCompanyData={getDBCompanyData} />
                     </CompanyEditCard>
                     <CompanyEditCard>
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
                             <span>Informações da Assinatura</span> 
                         </h3>
                         <div className='mt-2'>
-                            <TextInput placeholder='Plano Selecionado' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='plan-selected' disabled={ true }/>
+                            <TextInput placeholder='Plano Selecionado' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='plan-selected' disabled={ true }/>
                         </div>
                     </CompanyEditCard>
                     <CompanyEditCard>
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
                             <span>Informações do Cartão</span>
                         </h3>
-                        <CardForm viewConsultPackage={ viewConsultPackage } isDisabled={ true } />
+                        <CardForm viewConsultPackage={ consultPackage } isDisabled={ true } getCompanyData={getDBCompanyData} />
                     </CompanyEditCard>
                 </div>
             </div>
@@ -202,37 +208,44 @@ interface FormInterface {
         getValue: (name: string) => string,
         setValue: (e: React.ChangeEvent<HTMLInputElement>) => void,
     },
+    getCompanyData: () => void,
 }
 
-const CompanyForm:React.FC<FormInterface> = ({ isDisabled, viewConsultPackage }) => {
+// const CompanyForm:React.FC<FormInterface> = ({ isDisabled, viewConsultPackage, getCompanyData }) => {
+    
+//     const company = useCompany();
+
+//     // return (
+        
+//     // );
+// }
+
+const HolderForm:React.FC<FormInterface> = ({ isDisabled, viewConsultPackage, getCompanyData }) => {
     return (
+        <>
         <form className='mt-2'>
             <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-name' disabled={ isDisabled }/>
-                <TextInput placeholder='CNPJ' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-cnpj' disabled={ isDisabled } />
-            </div>
-            <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='company-email' disabled={ isDisabled }/>
-                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='company-phone' disabled={ isDisabled }/>
-            </div>
-            <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-address' disabled={ isDisabled }/>
-        </form>
-    );
-}
-
-const HolderForm:React.FC<FormInterface> = ({ isDisabled, viewConsultPackage }) => {
-
-    return (
-        <form className='mt-2'>
-            <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Nome do Titular' size='large' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='holder-name' disabled={ isDisabled }/>
-                <TextInput placeholder='CPF' type={ InputTypesEnum.text } size='medium' consultPackage={ viewConsultPackage } name='holder-cpf' disabled={ isDisabled }/>
+                <TextInput placeholder='Nome do Titular' size='large' useMask={ MaskTypesEnum.holder } type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='holder-name' disabled={ isDisabled }/>
+                <TextInput placeholder='CPF' useMask={ MaskTypesEnum.cpf } type={ InputTypesEnum.text } size='medium' consultPackage={ viewConsultPackage } name='holder-cpf' disabled={ isDisabled }/>
             </div>
             <div className='md:flex justify-between w-full'>
                 <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='holder-email' disabled={ isDisabled }/>
-                <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='holder-phone' disabled={ isDisabled }/>
+                <TextInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='holder-phone' disabled={ isDisabled }/>
             </div>
         </form>
+        
+        {
+            
+            (isDisabled === false) && (
+                <>
+                <div>
+                    <button onClick={ getCompanyData } className='bg-gray text-black w-2/12 min-w-sm py-2 rounded-md'>Cancelar</button>
+                    <button className='bg-primary text-white w-2/12 min-w-sm py-2 rounded-md ml-2'>Salvar</button>
+                </div>
+                </>
+            )
+        }
+        </>
     );
 }
 

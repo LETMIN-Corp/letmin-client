@@ -122,6 +122,10 @@ export const AuthState = ({ children } : any) => {
         getInitialUserData();
     }, []);
 
+    const updateCompanyData = async (company: any): Promise<any> => {
+        return axiosRequest(`${API_URL}/api/users/update-company-company`, 'POST', company)
+    }
+
     // Company function
     const getCompanyData = async () => {
         return await axiosRequest(`${API_URL}/api/users/company-data`, 'GET');
@@ -192,6 +196,7 @@ export const AuthState = ({ children } : any) => {
             confirmVacancy,
             closeVacancy,
             getVacancies,
+            updateCompanyData,
             // Admin functions
             getAllCompanies,
             blockCompany,
