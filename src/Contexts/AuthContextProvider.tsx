@@ -67,7 +67,7 @@ export const AuthState = ({ children } : any) => {
 
     async function signIn(role: string, userCredentials: any): Promise<any> {
         if (!userCredentials) return;
-        return await axiosRequest(`${API_URL}/api/users/login-${role}`, 'POST', userCredentials)
+        return await axiosRequest(`${API_URL}/api/${role}/login`, 'POST', userCredentials)
         .then((res: any) => {
             if (res.status === (200 || 201)) {
                 Cookies.set('token', res.headers.authorization);
@@ -84,7 +84,7 @@ export const AuthState = ({ children } : any) => {
     const registerCompany = async (userCredentials: any): Promise<any> => {
         if (!userCredentials) return;
 
-        return axiosRequest(`${API_URL}/api/users/register-company`, 'POST', userCredentials)
+        return axiosRequest(`${API_URL}/api/company/register`, 'POST', userCredentials)
         .then((res: any) => {
             if (res.data.success && res.status === 201) {
                 dispatchSuccess('Empresa cadastrada com sucesso!');
@@ -112,24 +112,24 @@ export const AuthState = ({ children } : any) => {
 
     // Company function
     const getCompanyData = async (id: string) => {
-        return await axiosRequest(`${API_URL}/api/users/company-data`, 'GET');
+        return await axiosRequest(`${API_URL}/api/company/company-data`, 'GET');
     }
     const registerVacancy = async (vacancy: any) => {
-        return await axiosRequest(`${API_URL}/api/users/register-vacancy`, 'POST', vacancy);
+        return await axiosRequest(`${API_URL}/api/company/register-vacancy`, 'POST', vacancy);
     }
 
     const getAllCompanyVacancies = async ()  => {
-        return await axiosRequest(`${API_URL}/api/users/get-all-vacancies`, 'GET');
+        return await axiosRequest(`${API_URL}/api/company/get-all-vacancies`, 'GET');
     }
 
     const confirmVacancy = async (vacancy_id: string) => {
         let company_id = state.userData.user_id;
-        return axiosRequest(`${API_URL}/api/users/confirm-vacancy/${vacancy_id}`, 'PATCH', { company_id,  })
+        return axiosRequest(`${API_URL}/api/company/confirm-vacancy/${vacancy_id}`, 'PATCH', { company_id,  })
     }
 
     const closeVacancy = async (vacancy_id: string) => {
         let company_id = state.userData.user_id;
-        return axiosRequest(`${API_URL}/api/users/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
+        return axiosRequest(`${API_URL}/api/company/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
     }
     // End company function
 
@@ -137,28 +137,31 @@ export const AuthState = ({ children } : any) => {
     const getUserData = async (id: string) => {
         // todo: get user data
     }
-
+    const getVacancy = async(id: string) => {
+        return axiosRequest(`${API_URL}/api/user/get-vacancy/${id}`, 'GET');
+    };
     const getVacancies = async () => {
-        return await axiosRequest(`${API_URL}/api/users/vacancy`, 'GET');
+        return await axiosRequest(`${API_URL}/api/user/vacancy`, 'GET');
     }
     // End user functions
     
     // Admin functions
     const getAllCompanies = async () => {
-        return axiosRequest(`${API_URL}/api/users/get-all-companies`, 'GET');
+        return axiosRequest(`${API_URL}/api/admin/get-all-companies`, 'GET');
     }
     const blockCompany = async (company_id: string) => {
-        return axiosRequest(`${API_URL}/api/users/company-block`, 'PATCH', { company_id });
+        return axiosRequest(`${API_URL}/api/admin/company-block`, 'PATCH', { company_id });
     }
     const getAllUsers = async () => {
-        return axiosRequest(`${API_URL}/api/users/get-all-users`, 'GET');
+        return axiosRequest(`${API_URL}/api/admin/get-all-users`, 'GET');
     }
     const blockUser = async (user_id: string) => {
-        return axiosRequest(`${API_URL}/api/users/user-block`, 'PATCH', { user_id });
+        return axiosRequest(`${API_URL}/api/admin/user-block`, 'PATCH', { user_id });
     }
     // End Admin functions
     return (
         <AuthContext.Provider value={{
+            // Auth functions
             loading: state.loading,
             isAuthenticated: state.isAuthenticated,
             userData: state.userData,
@@ -172,14 +175,16 @@ export const AuthState = ({ children } : any) => {
             registerCompany,
             getInitialUserData,
             setUserData,
-            getCompanyData,
+            // User functions
             getUserData,
+            getVacancy,
+            getVacancies,
             // Company functions
+            getCompanyData,
             registerVacancy,
             getAllCompanyVacancies,
             confirmVacancy,
             closeVacancy,
-            getVacancies,
             // Admin functions
             getAllCompanies,
             blockCompany,
