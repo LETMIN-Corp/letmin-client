@@ -1,4 +1,4 @@
-import { faBan, faInfo, faMessage, faUnlock, faUsers, faMagnifyingGlass  } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faInfo, faUnlock, faUsers, faMagnifyingGlass  } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
@@ -58,7 +58,7 @@ const AdminCollaborator : React.FC = () => {
                 </div>
             </div>
             {
-                openModal && <CollaboratorForm isDisabled={ false } collaborators={users} selectedCollaboratorKey={selectedUserKey} handleClose={ () => setOpenModal(false) } />
+                openModal && <CollaboratorForm isDisabled={ true } collaborators={users} selectedCollaboratorKey={selectedUserKey} handleClose={ () => setOpenModal(false) } />
             }
         </AdminDefault>
     );
@@ -82,8 +82,8 @@ const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen, han
                 <div className='cursor-pointer'>
                     <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen } className='text-dark-purple' />
                 </div>
-                <div className='cursor-pointer' onClick={() => handleUserBlock()}>
-                    { collaborator.blocked ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
+                <div className='cursor-pointer' onClick={ () => handleUserBlock() }>
+                    { !collaborator.blocked ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
                 </div>
             </span>
         </div>
@@ -97,7 +97,7 @@ interface CollaboratorFormInterface {
     handleClose: () => void,
 }
 
-const CollaboratorForm:React.FC<CollaboratorFormInterface> = ({ isDisabled, collaborators, selectedCollaboratorKey, handleClose }) => {
+const CollaboratorForm : React.FC<CollaboratorFormInterface> = ({ isDisabled, collaborators, selectedCollaboratorKey, handleClose }) => {
     const viewConsultPackage = {
         getValue: (name: string) => {
             return collaborators[selectedCollaboratorKey][name];
