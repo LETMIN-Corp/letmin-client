@@ -136,7 +136,7 @@ export const AuthState = ({ children } : any) => {
 
     // User functions
     const getUserData = async () => {
-        return await axiosRequest(`${API_URL}/api/users/get-user`, 'GET');
+        return await axiosRequest(`${API_URL}/api/user/get-user`, 'GET');
     }
     const getVacancy = async(id: string) => {
         return axiosRequest(`${API_URL}/api/user/get-vacancy/${id}`, 'GET');

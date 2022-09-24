@@ -21,58 +21,111 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandshake, faInfo, faLink, faPlus, faPencil, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import useUser from '../../Utils/useUser';
 
+interface IUserData {
+    name: string;
+    email: string;
+    username: string;
+    password: string;
+    picture: string;
+}
+
 const UserEditData : React.FC = () => {
     const navigate = useNavigate();
     const user = useUser();
+    const [userData, setUserData] = useState<IUserData>({});
+
+    // const initialState = {
+    //     userName: 'res.data.user.name,',
+    //     description: 'Sou um dev Pleno em busca de oportunidades.',
+    //     previousExperiences: [{name:'', institutuion:'', timeStart:'', timeFinish:'', description:''}],
+    //     academicFormation: [{name:'', institutuion:'', timeStart:'', timeFinish:'', description:''}]
+    // }
+
+    user.getUserData().then((res:any) => {
+        setUserData(res.data.user)
+    });
+
+    const [searchExperiences, setSearchExperiences] = useState('');
+    const [searchFormations, setSearchFormations] = useState('');
 
     useEffect((): void => {
         window.document.title = 'Letmin - Perfil';
-        user.getUserData().then((res:any) => {
-            console.log(res.data.user);
-        });
-    }, []);
+
+        filterExperiences(searchExperiences);
+        filterFormations(searchFormations);
+    }, [searchExperiences, searchFormations]);
 
     const [openModal, setOpenModal] = useState(false);    
     const [modalExitIsOpen, setModalExitIsOpen] = useState(false);  /* Modal de confirmar para sair da página */
     const [XPModalIsOpen, setXPModalIsOpen] = useState(false);  /* Modal de adicionar dados */
     const [formationModalIsOpen, setFormationModalIsOpen] = useState(false);  /* Modal de adicionar dados */
-    const [ExperienceName, setXPName] = useState('');
-    const [ExperienceEnterprise, setXPEnterprise] = useState('');
-    const [ExperienceStartTime, setXPStartTime] = useState('');
-    const [ExperienceFinishTime, setXPFinishTime] = useState('');
-    const [ExperienceDescription, setXPDescription] = useState('');
-    const [searchExperiences, setSearchExperiences] = useState('');
-    const [FormationName, setFormationName] = useState('');
-    const [FormationInstitution, setFormationInstitution] = useState('');
-    const [FormationStartTime, setFormationStartTime] = useState('');
-    const [FormationFinishTime, setFormationFinishTime] = useState('');
-    const [FormationDescription, setFormationDescription] = useState('');
-    const [searchFormations, setSearchFormations] = useState('');
+
+    const initialStateXPFormation = {
+        name: '',
+        institution: '',
+        timeStart:'',
+        timeFinish:'',
+        description: ''
+    }
+
+    const [ExperienceData, setExperienceData] = useState([
+        {
+            name: 'Dev Junior',
+            institution: 'Firework',
+            timeStart: '2015',
+            timeFinish: '2017',
+            description: 'Desenvolvimento de sites básicos. Aprimoramento de conhecimento front-end e mobile.',
+        },
+        {
+            name: 'Dev Pleno',
+            institution: 'Paschoalotto',
+            timeStart: '2017',
+            timeFinish: '2020',
+            description: 'Desenvolvimento de sistemas aprofundados para a empresa com Laravel.',
+        },
+        {
+            name: 'Professor',
+            institution: 'SENAI Bauru',
+            timeStart: '2021',
+            timeFinish: '2023',
+            description: 'Professor para os 1os e 2os anos do curso técnico de Informática.',
+        }
+    ])
+    //useState(initialStateXPFormation);
+
+    const [FormationData, setFormationData] = useState([
+        {
+            name: 'Ensino Médio Profissionalizante',
+            institution: "CTI",
+            timeStart:'2012',
+            timeFinish:'2014',
+            description: 'Ensino Médio Profissionalizante no curso técnico de Informática',
+        },
+        {
+            name: 'Graduação',
+            institution: "Unesp Bauru",
+            timeStart:'2015',
+            timeFinish:'2020',
+            description: 'Graduação em Ciências de Computação',
+        },
+        {
+            name: 'Bacharelado em Ciências da Computação',
+            institution: "Unesp Bauru",
+            timeStart:'2021',
+            timeFinish:'2025',
+            description: 'Grau superior em Ciências da Computação. Ainda em andamento. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAA',
+        },
+    ])
+    //useState(initialStateXPFormation);
 
     function returnToUserPage () {  /* Utilizada pelo botão de retornar */
         navigate('/user/profile');
     }
-
-    interface IUserData {
-        /* [key: string]: string;             
-            --Antes era utilizado assim, pois a vaga só usava string. Agora, o candidato usa objetos para suas variáveis, como mostrado abaixo.
-            PRECISA BOTAR A VARIAVEL DE FOTO */
-        [key: number]: {
-            userName: string,
-            description: string
-        };
-    }
-    const initialState = {
-        userName: user.name,
-        description: 'Sou um dev Pleno em busca de oportunidades.',
-        previousExperiences: [{name:'', institutuion:'', timeStart:'', timeFinish:'', description:''}],
-        academicFormation: [{name:'', institutuion:'', timeStart:'', timeFinish:'', description:''}]
-    }
-    
-    const [userData, setUserData] = useState<IUserData>(initialState);
+   
     function getInputValue (name: string): string {
         return userData[name];      /* Arrumar para dados do usuário */
     }
+
     function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         const { name, value } = e.target;
         setUserData({
@@ -102,18 +155,10 @@ const UserEditData : React.FC = () => {
         filter(arg0: (experience: { title: string; }) => boolean): import("react").SetStateAction<XPInterface>;
     }
     const handleConfirmAddXp = () => {
+        setAllExperiences([...allExperiences, { ExperienceData }]);
+        setExperienceData(initialStateXPFormation);
+
         setXPModalIsOpen(false);
-        if(ExperienceName.length === 0 || ExperienceStartTime.length === 0 || ExperienceFinishTime.length === 0
-            || ExperienceDescription.length === 0 || ExperienceEnterprise.length === 0 || ExperienceStartTime > ExperienceFinishTime) {
-            return;
-        }
-        setAllExperiences([...allExperiences, { name:ExperienceName, institution: ExperienceEnterprise, timeStart:ExperienceStartTime, 
-            timeFinish:ExperienceFinishTime, description:ExperienceDescription }]);   /* TROCAR TIME POR EXPERIENCETIME APÓS */
-        setXPName('');
-        setXPEnterprise('');
-        setXPDescription('');
-        setXPStartTime('');
-        setXPFinishTime('');
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
@@ -121,31 +166,7 @@ const UserEditData : React.FC = () => {
     }
     const [allExperiences, setAllExperiences] = useState<XPInterface>([]);
     const [experiences, setExperiences] = useState<XPInterface>([]);
-    useEffect((): void => {
-        setAllExperiences([
-            {
-                name: 'Dev Junior',
-                institution: 'Firework',
-                timeStart: '2015',
-                timeFinish: '2017',
-                description: 'Desenvolvimento de sites básicos. Aprimoramento de conhecimento front-end e mobile.',
-            },
-            {
-                name: 'Dev Pleno',
-                institution: 'Paschoalotto',
-                timeStart: '2017',
-                timeFinish: '2020',
-                description: 'Desenvolvimento de sistemas aprofundados para a empresa com Laravel.',
-            },
-            {
-                name: 'Professor',
-                institution: 'SENAI Bauru',
-                timeStart: '2021',
-                timeFinish: '2023',
-                description: 'Professor para os 1os e 2os anos do curso técnico de Informática.',
-            }
-        ]);
-    }, []);
+
     const filterExperiences = (value : string) => {
         if(value.length === 0) {
             setExperiences(allExperiences);
@@ -154,10 +175,6 @@ const UserEditData : React.FC = () => {
 
         setExperiences(allExperiences.filter((folder : { title : string}) => folder.title.toLowerCase().includes(value.toLowerCase())));
     }
-    useEffect((): void => {
-        filterExperiences(searchExperiences);
-    }, [searchExperiences]);
-
 
     interface FormationInterface {
         [key: number] : {
@@ -180,31 +197,7 @@ const UserEditData : React.FC = () => {
     }
     const [allFormations, setAllFormations] = useState<FormationInterface>([]);
     const [formations, setFormations] = useState<FormationInterface>([]);
-    useEffect((): void => {
-        setAllFormations([
-            {
-                name: 'Ensino Médio Profissionalizante',
-                institution: "CTI",
-                timeStart:'2012',
-                timeFinish:'2014',
-                description: 'Ensino Médio Profissionalizante no curso técnico de Informática',
-            },
-            {
-                name: 'Graduação',
-                institution: "Unesp Bauru",
-                timeStart:'2015',
-                timeFinish:'2020',
-                description: 'Graduação em Ciências de Computação',
-            },
-            {
-                name: 'Bacharelado em Ciências da Computação',
-                institution: "Unesp Bauru",
-                timeStart:'2021',
-                timeFinish:'2025',
-                description: 'Grau superior em Ciências da Computação. Ainda em andamento. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAA',
-            },
-        ]);
-    }, []);
+
     const filterFormations = (value : string) => {
         if(value.length === 0) {
             setFormations(allFormations);
@@ -213,79 +206,25 @@ const UserEditData : React.FC = () => {
 
         setFormations(allFormations.filter((folder : { title : string}) => folder.title.toLowerCase().includes(value.toLowerCase())));
     }
-    useEffect((): void => {
-        filterFormations(searchFormations);
-    }, [searchFormations]);
 
     const handleConfirmAddFormation = () => {
         setFormationModalIsOpen(false);
-        if(FormationName.length === 0 || FormationInstitution.length === 0 || 
-            FormationStartTime.length === 0 || FormationFinishTime.length === 0
-             || FormationStartTime > FormationFinishTime ) {
-            return;
-        }
-        setAllFormations([...allFormations, { name: FormationName, institution: FormationInstitution,
-             timeStart:FormationStartTime, timeFinish:FormationFinishTime, description:FormationDescription, }]);
-        setFormationName('');
-        setFormationInstitution('');
-        setFormationDescription('');
-        setFormationStartTime('');
-        setFormationFinishTime('');
+        setAllFormations([...allFormations, { FormationData }]);
     }
     const handleCloseModalAddFormation = () => {
         setFormationModalIsOpen(false);
         /* setFolderName(''); */
     }
 
-
     const consultPackage = {
         getValue: getInputValue,
         setValue: setInputValue, 
     }
-    const consultPackageXPName = {
-        getValue: () => { return ExperienceName },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setXPName(e.target.value) },
-    };
-    const consultPackageXPEnterprise = {
-        getValue: () => { return ExperienceEnterprise },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setXPEnterprise(e.target.value) },
-    };
-    const consultPackageXPStartTime = {
-        getValue: () => { return ExperienceStartTime },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setXPStartTime(e.target.value) },
-    };
-    const consultPackageXPFinishTime = {
-        getValue: () => { return ExperienceFinishTime },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setXPFinishTime(e.target.value) },
-    };
-    const consultPackageXPDescription = {
-        getValue: () => { return ExperienceDescription },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setXPDescription(e.target.value) },
-    };
-    const consultPackageFormationName = {
-        getValue: () => { return FormationName },
+
+    const consultPackageFormation = {
+        getValue: getInputValue,
         setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setFormationName(e.target.value) },
     };
-    const consultPackageFormationInstitution = {
-        getValue: () => { return FormationInstitution },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setFormationInstitution(e.target.value) },
-    };
-    const consultPackageFormationStartTime = {
-        getValue: () => { return FormationStartTime },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setFormationStartTime(e.target.value) },
-    };
-    const consultPackageFormationFinishTime = {
-        getValue: () => { return FormationFinishTime },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setFormationFinishTime(e.target.value) },
-    };
-    const consultPackageFormationDescription = {
-        getValue: () => { return FormationDescription },
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => { setFormationDescription(e.target.value) },
-    };
-    /* Pergunta: Eu estou criando um consultPackage para cada input que eu faço.
-    A estrutura deles é parecida todavia, só muda o dado que está voltando.
-    Logo, não há um jeito de automatizar isso? Vou ter que criar um novo para
-    cada dado diferente que eu for botar? */
 
     return (
         <UserDefault>
@@ -325,16 +264,16 @@ const UserEditData : React.FC = () => {
                             XPModalIsOpen && (
                                 <FormModal handleClose={ handleCloseModalAddXp } handleConfirm={ handleConfirmAddXp } title='Adicionar Experiência Prévia'>
                                     <div className='my-2'>
-                                        <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experience-name' id='experience-name' consultPackage={ consultPackageXPName } />
-                                        <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experience-enterprise' id='experience-enterprise' consultPackage={ consultPackageXPEnterprise } />
+                                        <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experience-name' id='experience-name' consultPackage={ consultPackage } />
+                                        <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experience-enterprise' id='experience-enterprise' consultPackage={ consultPackage } />
                                         <div className='flex justify-between content-between items-center px-2'>
                                             <div className="pb-2">
                                                 <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                             </div>
-                                            <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='experience-yearS' id='experience-yearS' consultPackage={ consultPackageXPStartTime } />
-                                            <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='experience-yearF' id='experience-yearF' consultPackage={ consultPackageXPFinishTime } />
+                                            <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='experience-yearS' id='experience-yearS' consultPackage={ consultPackage } />
+                                            <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='experience-yearF' id='experience-yearF' consultPackage={ consultPackage } />
                                         </div>
-                                        <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experience-description' id='experience-description' consultPackage={ consultPackageXPDescription } />
+                                        <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experience-description' id='experience-description' consultPackage={ consultPackage } />
                                         {/* titulo / empresa / inicio (mm/aa) / termino(mm/aa) / descricao */}
                                     </div>
                                 </FormModal>
@@ -362,16 +301,16 @@ const UserEditData : React.FC = () => {
                             formationModalIsOpen && (
                                 <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ handleConfirmAddFormation } title='Adicionar Formação Acadêmica'>
                                     <div className='my-2'>
-                                        <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formation-name' id='formation-name' consultPackage={ consultPackageFormationName } />
-                                        <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formation-institution' id='formation-institution' consultPackage={ consultPackageFormationInstitution } />
+                                        <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formation-name' id='formation-name' consultPackage={ consultPackageFormation } />
+                                        <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formation-institution' id='formation-institution' consultPackage={ consultPackageFormation } />
                                         <div className='flex justify-between content-between items-center px-2'>
                                             <div className="pb-2">
                                                 <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                             </div>
-                                            <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formation-yearS' id='formation-yearS' consultPackage={ consultPackageFormationStartTime } />
-                                            <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formation-yearF' id='formation-yearF' consultPackage={ consultPackageFormationFinishTime } />
+                                            <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formation-yearS' id='formation-yearS' consultPackage={ consultPackageFormation } />
+                                            <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formation-yearF' id='formation-yearF' consultPackage={ consultPackageFormation } />
                                         </div>
-                                        <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formation-description' id='formation-description' consultPackage={ consultPackageFormationDescription } />
+                                        <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formation-description' id='formation-description' consultPackage={ consultPackageFormation } />
                                     </div>
                                 </FormModal>
                             )

@@ -4,7 +4,7 @@ import UserExperienceCard from '../../Components/Cards/UserExperienceCard';
 import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfo, faLink, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 const UserProfile : React.FC = () => {
