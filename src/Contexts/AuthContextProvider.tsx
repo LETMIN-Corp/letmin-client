@@ -86,7 +86,7 @@ export const AuthState = ({ children } : any) => {
 
         return axiosRequest(`${API_URL}/api/users/register-company`, 'POST', userCredentials)
         .then((res: any) => {
-            if (res.status === (200 || 201)) {
+            if (res.data.success && res.status === 201) {
                 dispatchSuccess('Empresa cadastrada com sucesso!');
 
                 Cookies.set('token', res.headers.authorization);
@@ -94,19 +94,7 @@ export const AuthState = ({ children } : any) => {
                 return navigate(`/company`);
             }
 
-            interface IError {
-                [key: string]: string,
-                map: any,
-            }
-
-            let errors:IError = res.data.message;
-
-            let errorText = '';
-            for (let key in errors) {
-                errorText += `${errors[key]}, \n`;
-            }
-
-            dispatchError(errorText);
+            dispatchError(formatErrors(res.data.message));
         });
     }
 
