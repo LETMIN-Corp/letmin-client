@@ -31,11 +31,10 @@ const TextAreaInput : React.FC<ComponentInterface> = ({ row, value, placeholder,
                 onChange={ setValue }
                 rows={ row }
                 id={ id }
+                defaultValue={ inputValue || value }
                 className='w-full mb-5 mt-2 py-3 px-5 border-2 border-dark-purple rounded-md'
                 disabled = { disabled }
-            >
-                { inputValue || value }
-            </textarea>
+            ></textarea>
             {
                 (inputValue || value) && (
                     <div className='input-up-animation z-50 bg-white font-medium px-1 text-dark-purple'>{ placeholder }</div>
