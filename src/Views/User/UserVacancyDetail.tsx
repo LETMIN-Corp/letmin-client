@@ -5,12 +5,28 @@ import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 import { useParams } from "react-router-dom";
+import useUser from '../../Utils/useUser';
 
 const UserVacancyDetail = () => {
+    const params = useParams();
+    const user = useUser();
+
+    const id = params.id;
+
     useEffect((): void => {
         window.document.title = 'Letmin - Buscar Vagas';
+
+        console.log('id', id)
+        if (id?.length !== 24) {
+            console.log('macaco');
+        }
+
+        user.getVacancy(id).then((res: any) => {
+            console.log(res.data.vacancy);
+            setVacancyData(res.data.vacancy);
+        })
+
     }, []);
-    const params = useParams();
     interface IVacancyData {
         [key: string]: {
             [key: string]: string;
@@ -28,13 +44,10 @@ const UserVacancyDetail = () => {
             region: '',
             vacancyType: '',
         },
-        systemicData: {
-            insertVacancyDate: '',
-            removeVacancyDate: '',
-        },
     });
 
     function getInputValue (name: string): string {
+        return vacancyData[name];
         const [type, data] = name.split('-');
 
         return vacancyData[type][data];
