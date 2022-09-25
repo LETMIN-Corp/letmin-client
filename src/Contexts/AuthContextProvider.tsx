@@ -131,6 +131,10 @@ export const AuthState = ({ children } : any) => {
         let company_id = state.userData.user_id;
         return axiosRequest(`${API_URL}/api/company/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
     }
+
+    const getUsers = async () => {
+        return await axiosRequest(`${API_URL}/api/company/user`, 'GET');
+    }
     // End company function
 
     // User functions
@@ -185,6 +189,7 @@ export const AuthState = ({ children } : any) => {
             getAllCompanyVacancies,
             confirmVacancy,
             closeVacancy,
+            getUsers,
             // Admin functions
             getAllCompanies,
             blockCompany,
