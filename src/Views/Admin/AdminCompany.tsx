@@ -94,7 +94,7 @@ const TableCard: React.FC<TableCardInterface> = ({ companyData, handleOpen, hand
     const Admin = useAdmin();
 
     return (
-        <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
+        <div className='text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2'>
             <span className='w-5/12 md:w-7/12 pr-1'>{ companyData.company.name }</span>
             <span className='w-4/12 pr-1'>{ companyData.status.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-3/12 md:w-12 md:text-lg pr-1 flex justify-between'>

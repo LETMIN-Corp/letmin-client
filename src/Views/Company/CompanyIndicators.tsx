@@ -1,7 +1,7 @@
 import CompanyDefault from './CompanyDefault';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faCheck, faDoorOpen, faXmark } from '@fortawesome/free-solid-svg-icons';
 import useCompany from '../../Utils/useCompany';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
 import { Link } from 'react-router-dom';
@@ -48,11 +48,15 @@ const CompanyIndicators =  () => {
         [Symbol.iterator](): IterableIterator<Vacancy>;
     }
 
-    function openModalWithType(id : string, type : 'CONFIRM' | 'CLOSE') {
+    function openModalWithType(id : string, type : 'CONFIRM' | 'CLOSE' | 'OPEN') {
         setCurrentVacancyId(id);
         setModalIsOpen(true);
         if(type === 'CONFIRM') {
             setCurrentType('CONFIRM');
+            return;
+        }
+        if(type === 'OPEN') {
+            setCurrentType('OPEN');
             return;
         }
         setCurrentType('CLOSE');
@@ -69,7 +73,17 @@ const CompanyIndicators =  () => {
                 setData([...data]);
                 setModalIsOpen(false); 
             })
-        } else {
+        } else if (currentType === 'OPEN') {
+            company.confirmVacancy(currentVacancyId)
+            .then((res: any) => {
+                // set changed vacancy closed boolean to false
+                const index = data.findIndex((vacancy: Vacancy) => vacancy._id === currentVacancyId);
+                data[index].closed = false;
+                setData([...data]);
+                setModalIsOpen(false); 
+            })
+        }
+        else {
             // if type is close
             company.closeVacancy(currentVacancyId)
             .then((res: any) => {
@@ -83,6 +97,20 @@ const CompanyIndicators =  () => {
         setCurrentType('');
         setCurrentVacancyId('');
         setModalIsOpen(false);
+    }
+
+    function getModalText() {
+        if(currentType === 'CLOSE') {
+            return 'cancelamento';
+        }
+
+        if(currentType === 'OPEN') {
+            return 'reabertura';
+        }
+
+        if(currentType === 'CONFIRM') {
+            return 'conclusão';
+        }
     }
 
     return (
@@ -133,15 +161,25 @@ const CompanyIndicators =  () => {
                                                                 <Link to='../company/vacancy/data' className="text-primary font-medium hover:text-bright-purple">{ row.candidates.length }</Link>                
                                                             </div>
                                                             <div className='w-4/12 flex justify-center items-center text-center'>
-                                                                {
-                                                                    !row.closed && (
-                                                                        <button onClick={ () => openModalWithType(row._id, 'CONFIRM') }>
-                                                                            <FontAwesomeIcon icon={ faCheck } className='text-xl text-green mr-3' />
+                                                            {
+                                                                    row.closed && (
+                                                                        <button className='py-2 px-3 flex items-center jusitfy-center bg-green text-white rounded-md mr-3' onClick={ () => openModalWithType(row._id, 'OPEN') }>
+                                                                            <span className='mr-1 hidden lg:flex'>Reabrir</span>
+                                                                            <FontAwesomeIcon icon={ faDoorOpen } className='text-xl' />
                                                                         </button>
                                                                     )
                                                                 }
-                                                                <button onClick={ () => openModalWithType(row._id, 'CLOSE') }>
-                                                                    <FontAwesomeIcon icon={ faXmark } className='text-xl text-red' />
+                                                                {
+                                                                    !row.closed && (
+                                                                        <button className='py-2 px-2 flex items-center jusitfy-center bg-green text-white rounded-md mr-3' onClick={ () => openModalWithType(row._id, 'CONFIRM') }>
+                                                                            <span className='mr-1 hidden lg:flex'>Concluir</span>
+                                                                            <FontAwesomeIcon icon={ faCheck } className='text-xl' />
+                                                                        </button>
+                                                                    )
+                                                                }
+                                                                <button className='py-2 px-3 flex items-center jusitfy-center bg-red text-white rounded-md' onClick={ () => openModalWithType(row._id, 'CLOSE') }>
+                                                                    <span className='mr-1 hidden lg:flex'>Encerrar</span>
+                                                                    <FontAwesomeIcon icon={ faXmark } className='text-xl' />
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -156,7 +194,7 @@ const CompanyIndicators =  () => {
                     )
                 }
                 {
-                    modalIsOpen && <ConfirmationModal title='Confirmar' text={`Confirmar ${ currentType === 'CLOSE' ? 'cancelamento' : 'conclusão'} da vaga?`} handleClose={ () => setModalIsOpen(false) } handleConfirm={ () => handleConfirm() } />
+                    modalIsOpen && <ConfirmationModal title='Confirmar' text={`Confirmar ${ getModalText() } da vaga?`} handleClose={ () => setModalIsOpen(false) } handleConfirm={ () => handleConfirm() } />
                 }
             </div>
         </CompanyDefault>

@@ -5,10 +5,14 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 
 const CookiesPopUp : React.FC = () => {
-    const [cookiesAccepted, setCookiesAccepted] = useState<boolean | string | undefined>(false);
+    const [cookiesAccepted, setCookiesAccepted] = useState<boolean | string | undefined>(true);
 
     useEffect(() => {
         setCookiesAccepted(Cookies.get('cookiesAccepted'));
+
+        if(!Cookies.get('cookiesAccepted')) {
+            setCookiesAccepted(false);
+        }
     }, []);
 
     function acceptCookie() {

@@ -1,4 +1,4 @@
-import { faBan, faInfo, faMessage, faUnlock, faUsers, faMagnifyingGlass  } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faInfo, faUnlock, faUsers, faMagnifyingGlass  } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import TextInput from '../../Components/Inputs/TextInput';
@@ -58,7 +58,7 @@ const AdminCollaborator : React.FC = () => {
                 </div>
             </div>
             {
-                openModal && <CollaboratorForm isDisabled={ false } collaborators={users} selectedCollaboratorKey={selectedUserKey} handleClose={ () => setOpenModal(false) } />
+                openModal && <CollaboratorForm isDisabled={ true } collaborators={users} selectedCollaboratorKey={selectedUserKey} handleClose={ () => setOpenModal(false) } />
             }
         </AdminDefault>
     );
@@ -75,15 +75,15 @@ interface TableCardInterface {
 
 const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen, handleUserBlock }) => {
     return (
-        <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
+        <div className='text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2'>
             <span className='w-5/12 md:w-7/12 pr-1'>{ collaborator.name }</span>
             <span className='w-4/12 pr-1'>{ collaborator.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-2/12 md:w-12 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
                     <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen } className='text-dark-purple' />
                 </div>
-                <div className='cursor-pointer' onClick={() => handleUserBlock()}>
-                    { collaborator.blocked ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
+                <div className='cursor-pointer' onClick={ () => handleUserBlock() }>
+                    { !collaborator.blocked ? <FontAwesomeIcon icon={ faBan } className='text-red' /> : <FontAwesomeIcon icon={ faUnlock } className='text-primary' /> }
                 </div>
             </span>
         </div>
@@ -97,7 +97,7 @@ interface CollaboratorFormInterface {
     handleClose: () => void,
 }
 
-const CollaboratorForm:React.FC<CollaboratorFormInterface> = ({ isDisabled, collaborators, selectedCollaboratorKey, handleClose }) => {
+const CollaboratorForm : React.FC<CollaboratorFormInterface> = ({ isDisabled, collaborators, selectedCollaboratorKey, handleClose }) => {
     const viewConsultPackage = {
         getValue: (name: string) => {
             return collaborators[selectedCollaboratorKey][name];

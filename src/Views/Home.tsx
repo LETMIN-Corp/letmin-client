@@ -36,7 +36,7 @@ const Home : React.FC = () => {
             path: '#who-we-are',
         },
         {
-            text: 'Cadastre-se',
+            text: 'Login',
             path: '/register',
             isLink: true,
         },
