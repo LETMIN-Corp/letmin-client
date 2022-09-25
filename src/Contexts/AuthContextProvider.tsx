@@ -112,7 +112,7 @@ export const AuthState = ({ children } : any) => {
 
     // Company function
     const getCompanyData = async (id: string) => {
-        return await axiosRequest(`${API_URL}/api/company/company-data`, 'GET');
+        return axiosRequest(`${API_URL}/api/company/company-data`, 'GET');
     }
     const registerVacancy = async (vacancy: any) => {
         return await axiosRequest(`${API_URL}/api/company/register-vacancy`, 'POST', vacancy);
