@@ -4,15 +4,17 @@ import CompanyEditCard from '../../Components/Cards/CompanyEditCard';
 import TextInput from '../../Components/Inputs/TextInput';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
-import SelectInput from '../../Components/Inputs/SelectInput';
 import FormModal from '../../Components/Modals/FormModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import useCompany from '../../Utils/useCompany';
+import useLoading from '../../Utils/useLoading';
+import Loading from '../../Components/Items/Loading';
 
 const CompanyProfile = () => {
     const company = useCompany();
+    const { loading } = useLoading();
 
     const [companyData, setCompanyData] = useState<CompanyData>([]); 
 
@@ -78,12 +80,11 @@ const CompanyProfile = () => {
     const [clickHolderEdition, setClickHolderEdition] = useState(false);
 
     function getInputValue (name: string): string {
-        const [type, data] = name.split('-'); //company-name  -> company  name
+        const [type, data] = name.split('-');
 
         if(companyData.length === 0) {
             return '';
         }
-        // console.log(companyData[type][data]);
 
         return companyData[type][data];
     }
@@ -91,7 +92,6 @@ const CompanyProfile = () => {
     function setInputValue (e: React.ChangeEvent<HTMLInputElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
-       // console.log(value);
 
         if(companyBlockedEdition == true && holderBlockedEdition == true)
         {
@@ -118,7 +118,6 @@ const CompanyProfile = () => {
             getDBCompanyData();
             setClickCompanyEdition(false);
         }
-        // console.log(companyBlockedEdition);
     }
 
     function enableHolder()
@@ -162,44 +161,53 @@ const CompanyProfile = () => {
                     <FontAwesomeIcon icon={ faAddressCard } className='mr-2' />
                     <span>Meus Dados</span>
                 </h1>
-                <div>
-                    <CompanyEditCard>
-                        <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
-                            <span>Informações da Empresa</span>
-                            <FontAwesomeIcon
-                                onClick={ enableCompany }
-                                className='cursor-pointer'
-                                icon={ faGear }
-                            />
-                        </h3>
-                        <CompanyForm consultPackage={ consultPackage } isDisabled={ companyBlockedEdition } getCompanyData={ getDBCompanyData } updateData={ updateCompanyData } />
-                    </CompanyEditCard>
-                    <CompanyEditCard>
-                        <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
-                            <span>Informações do Titular</span>
-                            <FontAwesomeIcon
-                                onClick={ enableHolder }
-                                className='cursor-pointer'
-                                icon={ faGear }
-                            />
-                        </h3>
-                        <HolderForm consultPackage={ consultPackage } isDisabled={ holderBlockedEdition } getCompanyData={ getDBCompanyData } updateData={ updateHolderData } />
-                    </CompanyEditCard>
-                    <CompanyEditCard>
-                        <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
-                            <span>Informações da Assinatura</span> 
-                        </h3>
-                        <div className='mt-2'>
-                            <TextInput placeholder='Plano Selecionado' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='plan-selected' disabled={ true }/>
+                {
+                    loading && (
+                        <Loading />
+                    )
+                }
+                {
+                    !loading && (
+                        <div>
+                            <CompanyEditCard>
+                                <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
+                                    <span>Informações da Empresa</span>
+                                    <FontAwesomeIcon
+                                        onClick={ enableCompany }
+                                        className='cursor-pointer'
+                                        icon={ faGear }
+                                    />
+                                </h3>
+                                <CompanyForm consultPackage={ consultPackage } isDisabled={ companyBlockedEdition } getCompanyData={ getDBCompanyData } updateData={ updateCompanyData } />
+                            </CompanyEditCard>
+                            <CompanyEditCard>
+                                <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
+                                    <span>Informações do Titular</span>
+                                    <FontAwesomeIcon
+                                        onClick={ enableHolder }
+                                        className='cursor-pointer'
+                                        icon={ faGear }
+                                    />
+                                </h3>
+                                <HolderForm consultPackage={ consultPackage } isDisabled={ holderBlockedEdition } getCompanyData={ getDBCompanyData } updateData={ updateHolderData } />
+                            </CompanyEditCard>
+                            <CompanyEditCard>
+                                <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
+                                    <span>Informações da Assinatura</span> 
+                                </h3>
+                                <div className='mt-2'>
+                                    <TextInput placeholder='Plano Selecionado' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='plan-selected' disabled={ true }/>
+                                </div>
+                            </CompanyEditCard>
+                            <CompanyEditCard>
+                                <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
+                                    <span>Informações do Cartão</span>
+                                </h3>
+                                <CardForm consultPackage={ consultPackage } isDisabled={ true } getCompanyData={getDBCompanyData} />
+                            </CompanyEditCard>
                         </div>
-                    </CompanyEditCard>
-                    <CompanyEditCard>
-                        <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
-                            <span>Informações do Cartão</span>
-                        </h3>
-                        <CardForm consultPackage={ consultPackage } isDisabled={ true } getCompanyData={getDBCompanyData} />
-                    </CompanyEditCard>
-                </div>
+                    )
+                }
             </div>
             {
                 modalIsOpen && (
