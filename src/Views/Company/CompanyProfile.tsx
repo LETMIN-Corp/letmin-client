@@ -72,8 +72,10 @@ const CompanyProfile = () => {
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [formModal, setFormModal] = useState<FormModalInterface>({});
-    const [CompanyEdition, setCompanyEdition] = useState(true);
-    const [HolderEdition, setHolderEdition] = useState(true);
+    const [companyEdition, setCompanyEdition] = useState(true);
+    const [holderEdition, setHolderEdition] = useState(true);
+    const [clickCompanyEdition, setClickCompanyEdition] = useState(false);
+    const [clickHolderEdition, setClickHolderEdition] = useState(false);
 
     function getInputValue (name: string): string {
         const [type, data] = name.split('-'); //company-name  -> company  name
@@ -91,7 +93,7 @@ const CompanyProfile = () => {
         const [type, data] = name.split('-');
        // console.log(value);
 
-        if(CompanyEdition)
+        if(companyEdition)
         {
             return;
         }        
@@ -105,15 +107,24 @@ const CompanyProfile = () => {
 
     function enableCompany()
     {
-        setCompanyEdition(false);
-        console.log(CompanyEdition);
-        alert('Feito');
+        if(!clickCompanyEdition)
+        {
+            setCompanyEdition(false);
+            setClickCompanyEdition(true);
+        }
+        else
+        {
+            setCompanyEdition(true);
+            getDBCompanyData();
+            setClickCompanyEdition(false);
+        }
+        // console.log(companyEdition);
     }
 
     function enableHolder()
     {
         setHolderEdition(false);
-        console.log(CompanyEdition);
+        // console.log(HolderEdition);
     }
 
 
@@ -143,19 +154,19 @@ const CompanyProfile = () => {
                         <>
                             <form className='mt-2'>
                                 <div className='md:flex justify-between w-full'>
-                                    <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-name' disabled={ CompanyEdition }/>
-                                    <TextInput placeholder='CNPJ' size='medium' useMask={ MaskTypesEnum.cnpj } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' disabled={ CompanyEdition } />
+                                    <TextInput placeholder='Razão Social' size='large' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-name' disabled={ companyEdition }/>
+                                    <TextInput placeholder='CNPJ' size='medium' useMask={ MaskTypesEnum.cnpj } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' disabled={ companyEdition } />
                                 </div>
                                 <div className='md:flex justify-between w-full'>
-                                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' disabled={ CompanyEdition }/>
-                                    <TextInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='company-phone' disabled={ CompanyEdition }/>
+                                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' disabled={ companyEdition }/>
+                                    <TextInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='company-phone' disabled={ companyEdition }/>
                                 </div>
-                                <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' disabled={ CompanyEdition }/>
+                                <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' disabled={ companyEdition }/>
                             </form>
                             {
-                                (CompanyEdition === false) && (
+                                (companyEdition === false) && (
                                     <>
-                                    <div>
+                                    <div className='flex justify-end w-full'>
                                         <button onClick={ getDBCompanyData } className='bg-gray text-black w-2/12 min-w-sm py-2 rounded-md'>Cancelar</button>
                                         <button onClick={ () => company.updateCompanyData(companyData) } className='bg-primary text-white w-2/12 min-w-sm py-2 rounded-md ml-2'>Salvar</button>
                                     </div>
@@ -173,7 +184,7 @@ const CompanyProfile = () => {
                                 icon={ faGear }
                             />
                         </h3>
-                        <HolderForm viewConsultPackage={ consultPackage } isDisabled={ HolderEdition } getCompanyData={getDBCompanyData} />
+                        <HolderForm viewConsultPackage={ consultPackage } isDisabled={ holderEdition } getCompanyData={getDBCompanyData} />
                     </CompanyEditCard>
                     <CompanyEditCard>
                         <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
@@ -238,7 +249,7 @@ const HolderForm:React.FC<FormInterface> = ({ isDisabled, viewConsultPackage, ge
             
             (isDisabled === false) && (
                 <>
-                <div>
+                <div className='flex justify-end w-full'>
                     <button onClick={ getCompanyData } className='bg-gray text-black w-2/12 min-w-sm py-2 rounded-md'>Cancelar</button>
                     <button className='bg-primary text-white w-2/12 min-w-sm py-2 rounded-md ml-2'>Salvar</button>
                 </div>

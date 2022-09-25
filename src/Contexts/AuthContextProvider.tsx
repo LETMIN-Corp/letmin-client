@@ -111,7 +111,7 @@ export const AuthState = ({ children } : any) => {
     }, []);
 
     const updateCompanyData = async (company: any): Promise<any> => {
-        return axiosRequest(`${API_URL}/api/users/update-company-company`, 'POST', company)
+        return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company)
     }
 
     // Company function
