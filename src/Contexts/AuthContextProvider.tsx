@@ -132,6 +132,10 @@ export const AuthState = ({ children } : any) => {
         return axiosRequest(`${API_URL}/api/company/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
     }
 
+    const getUsers = async () => {
+        return await axiosRequest(`${API_URL}/api/company/user`, 'GET');
+    }
+    
     const updateCompanyData = async (company: any): Promise<any> => {
         return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company)
         .then((res: any) => {
@@ -207,6 +211,7 @@ export const AuthState = ({ children } : any) => {
             getAllCompanyVacancies,
             confirmVacancy,
             closeVacancy,
+            getUsers,
             updateCompanyData,
             updateHolderData,
             // Admin functions
