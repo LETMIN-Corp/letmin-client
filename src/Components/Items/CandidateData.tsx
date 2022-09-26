@@ -4,6 +4,8 @@ interface ComponentInterface {
     curriculum: string,
 };
 
+import { Link } from "react-router-dom";
+
 const CandidateData : React.FC<ComponentInterface> = ({ name, compatibility, curriculum }) => {
 
     return (
@@ -15,7 +17,7 @@ const CandidateData : React.FC<ComponentInterface> = ({ name, compatibility, cur
                 { compatibility } %    
             </div>
             <div className='w-4/12 flex justify-center items-center text-center'>
-                <button className='text-primary font-medium hover:text-bright-purple'>Ver</button>
+                <Link to={ `/profile/${curriculum}` } className='text-bright-purple'>Ver Currículo</Link>
             </div>
         </div>
     );

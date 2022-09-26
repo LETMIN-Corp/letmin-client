@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useUser from '../../Utils/useUser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
 
 const UserVacancyDetail = () => {
     const params = useParams();
@@ -32,14 +33,21 @@ const UserVacancyDetail = () => {
         })
 
     }, []);
+
     interface IVacancyData {
-        [key: string]: string;
+        [key: string]: any
     }
 
     const [vacancyData, setVacancyData] = useState<IVacancyData>({
+        _id: '',
         role: '',
         sector: '',
         description: '',
+        company: {
+            company: {
+                name: '',
+            }
+        },
         salary: '',
         currency: '',
         workload: '',
@@ -47,26 +55,26 @@ const UserVacancyDetail = () => {
         vacancyType: '',
     });
 
-    function getInputValue (name: string): string {
-        const [type, data] = name.split('-');
-        return vacancyData[data];
-    }
-
     function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
-        const { name, value } = e.target;
-        const [type, data] = name.split('-');
-
         setVacancyData({
             ...vacancyData,
-            [type]: { 
-                ...vacancyData[type], [data]: value,
-            },
+            [e.target.name]: e.target.value
         });
     }
 
     const consultPackage = {
-        getValue: getInputValue,
+        getValue: (key: string) => { return vacancyData[key]; },
         setValue: setInputValue, 
+    }
+
+    const handleApplyVacancy = () => {
+        user.applyVacancy(id).then((res: any) => {
+            if(res.data.success) {
+                dispatchSuccess(res.data.message);
+                return navigate('/user/vacancy/search');
+            }
+            dispatchError(res.data.message);
+        })
     }
 
     return (
@@ -84,7 +92,7 @@ const UserVacancyDetail = () => {
                             <FontAwesomeIcon icon={ faBuilding } className='text-8xl' />
                             <div>
                                 <p className='text-2xl ml-5 w-full font-medium'>{ vacancyData.role }</p>
-                                <p className='text-xl ml-5 w-full'>{ vacancyData.company ? vacancyData.company.company.name : '' }</p>
+                                <p className='text-xl ml-5 w-full'>{ vacancyData.company.company.name }</p>
                             </div>
                         </div>
                         <div className='w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5'>
@@ -93,21 +101,21 @@ const UserVacancyDetail = () => {
                             </h1>
                             <div className='md:flex md:justify-between'>
                                 <div className='md:w-6/12 w-full mr-5'> 
-                                    <TextInput placeholder='Setor' value='Operacional' type='text' consultPackage={ consultPackage } name="vacancyInfo-sector" id='vacancyInfo-sector' disabled/>                                      
-                                    <TextAreaInput name="vacancyInfo-description" id="vacancyInfo-description" row={ 8 } consultPackage={ consultPackage } placeholder='Descrição' value={ vacancyData.description } disabled/>  
+                                    <TextInput placeholder='Setor' value='Operacional' type='text' consultPackage={ consultPackage } name="sector" id='sector' disabled/>                                      
+                                    <TextAreaInput name="description" id="description" row={ 8 } consultPackage={ consultPackage } placeholder='Descrição' value={ vacancyData.description } disabled/>  
                                 </div>
                                 <div className='md:w-6/12 w-full'>
-                                    <TextInput placeholder='Região' type='text' name='vacancyInfo-region' id='vacancyInfo-region' value='Região' consultPackage={ consultPackage } disabled/>           
+                                    <TextInput placeholder='Região' type='text' name='region' id='region' value='Região' consultPackage={ consultPackage } disabled/>           
                                     <div className="md:flex justify-between">
-                                        <TextInput placeholder='Moeda' type='text' size='medium' name='vacancyInfo-currency' id='vacancyInfo-currency' consultPackage={ consultPackage } value='Real' disabled/>
-                                        <TextInput placeholder='Salário' useMask={ MaskTypesEnum.money } limit={ 12 } type='text' size='large' name='vacancyInfo-salary' id='vacancyInfo-salary' consultPackage={ consultPackage } value='900,00' disabled/>
+                                        <TextInput placeholder='Moeda' type='text' size='medium' name='currency' id='currency' consultPackage={ consultPackage } value='Real' disabled/>
+                                        <TextInput placeholder='Salário' useMask={ MaskTypesEnum.money } limit={ 12 } type='text' size='large' name='salary' id='salary' consultPackage={ consultPackage } value='900,00' disabled/>
                                     </div>                                    
-                                    <TextInput placeholder='Carga Horária' type='text' consultPackage={ consultPackage } name="vacancyInfo-workload" id='vacancyInfo-workload' value='Integral' disabled/>
+                                    <TextInput placeholder='Carga Horária' type='text' consultPackage={ consultPackage } name="workload" id='workload' value='Integral' disabled/>
                                 </div>
                             
                             </div> 
                             <div className='w-full flex justify-end '>
-                                <SecondaryButton handleClick={ () => {} } text='Candidatar-se'></SecondaryButton>
+                                <SecondaryButton handleClick={ handleApplyVacancy } text='Candidatar-se'></SecondaryButton>
                             </div>         
                         </div>
                         
