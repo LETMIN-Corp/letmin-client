@@ -58,7 +58,6 @@ const CompanyProfile = () => {
     {
         company.getCompanyData()
         .then((res: any) => {
-            console.log(res.data)
             if (res.status !== 200) {
                 company.dispatchError('Erro ao carregar dados');
                 return;

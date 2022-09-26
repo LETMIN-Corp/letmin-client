@@ -1,41 +1,39 @@
 import CompanyDefault from './CompanyDefault';
 import CandidateData from '../../Components/Items/CandidateData';
 import SecondaryLink from '../../Components/Links/SecondaryLink';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import useCompany from '../../Utils/useCompany';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const CompanyVacancyData = () => {
+    const company = useCompany();
+
+    const navigate = useNavigate();
+    const params = useParams();
+    const id = params.id;
+
+    interface ICandidates {
+        [key: string]: any,
+    }
+
+    const [candidates, setCandidates] = useState<ICandidates>([]);
+
     useEffect((): void => {
         window.document.title = 'Letmin - Dados da Vaga';
+
+        if (id?.length !== 24) {
+            return navigate('/company/indicators');
+        }
+
+        company.getAllVacancyCandidates(id).then((res: any) => {
+            if (!res.data.success) {
+                return navigate('/company/indicators');
+            }
+
+            setCandidates(res.data.candidates);
+        });
     }, []);
-
-    const data = [
-        {
-            name: 'Bianca',
-            compatibility: 70,
-            curriculum: '',
-        },        
-        {
-            name: 'Carlos',
-            compatibility: 10,
-            curriculum: '/link',
-        },
-        {
-            name: 'Renato',
-            compatibility: 45,
-            curriculum: '/link',
-        },
-        {
-            name: 'Gabriela',
-            compatibility: 95,
-            curriculum: '/link',
-        },
-        {
-            name: 'Sofia',
-            compatibility: 15,
-            curriculum: '/link',
-        },
-    ];
-
+    
     return (
         <CompanyDefault>
             <div className="p-5 min-h-90">
@@ -44,7 +42,7 @@ const CompanyVacancyData = () => {
                     <span>Vaga 1</span>
                 </h1>
                     {
-                        data.length === 0 && (
+                        candidates.length === 0 && (
                         <div className='h-96 w-full flex flex-col items-center justify-center'>
                             <div>
                                 <i className="fa-solid fa-user-slash text-8xl"></i>
@@ -57,7 +55,7 @@ const CompanyVacancyData = () => {
                         )
                     }
                     {
-                        data.length > 0  && (
+                        candidates.length > 0  && (
                             <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
                                 <div className='flex text-xl font-medium'>
                                     <div className='w-4/12 flex justify-center'>
@@ -72,7 +70,7 @@ const CompanyVacancyData = () => {
                                 </div>
                                 <div>
                                     {
-                                        data.map((row, key) => <CandidateData key={ key } name={ row.name } compatibility={ row.compatibility } curriculum={ row.curriculum } />)
+                                        candidates.map((row : any, key: number) => <CandidateData key={ key } name={ row.name } compatibility={ 75 } curriculum={ row._id } />)
                                     }
                                 </div>
                             </div>

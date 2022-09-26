@@ -7,15 +7,13 @@ import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { dispatchError, dispatchSuccess, formatErrors } from '../Utils/ToastMessages';
 
+const API_URL = import.meta.env.VITE_APP_API_URL;
+
 const InitialState : any = {
     loading: false,
-    userData: {
-        role: {},
-    },
+    userData: Cookies.get('token') ? jwtDecode(Cookies.get('token')!) : { role: '' },
     isAuthenticated: false,
 };
-
-const API_URL = import.meta.env.VITE_APP_API_URL;
 
 export const AuthContext = createContext(InitialState);
 
@@ -30,7 +28,7 @@ export const AuthState = ({ children } : any) => {
         // @ts-ignore:next-line
         return (Cookies.get('token') ? jwtDecode(Cookies.get('token').toString()).role : '');
     }
-
+    
     // Auth function
     const getInitialUserData = async () => {
         const token = Cookies.get('token');
@@ -132,6 +130,10 @@ export const AuthState = ({ children } : any) => {
         return axiosRequest(`${API_URL}/api/company/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
     }
 
+    const getAllVacancyCandidates = async (vacancy_id: string) => {
+        return axiosRequest(`${API_URL}/api/company/get-all-candidates/${vacancy_id}`, 'GET');
+    }
+
     const getUsers = async () => {
         return await axiosRequest(`${API_URL}/api/company/user`, 'GET');
     }
@@ -162,12 +164,15 @@ export const AuthState = ({ children } : any) => {
     // User functions
     const getUserData = async (id: string) => {
         // todo: get user data
-    }
+    };
     const getVacancy = async(id: string) => {
         return axiosRequest(`${API_URL}/api/user/get-vacancy/${id}`, 'GET');
     };
     const getVacancies = async () => {
         return await axiosRequest(`${API_URL}/api/user/vacancy`, 'GET');
+    };
+    const applyVacancy = async (vacancy_id: string) => {
+        return await axiosRequest(`${API_URL}/api/user/apply-vacancy`, 'POST', { vacancy_id });
     }
     // End user functions
     
@@ -205,6 +210,7 @@ export const AuthState = ({ children } : any) => {
             getUserData,
             getVacancy,
             getVacancies,
+            applyVacancy,
             // Company functions
             getCompanyData,
             registerVacancy,
@@ -214,6 +220,7 @@ export const AuthState = ({ children } : any) => {
             getUsers,
             updateCompanyData,
             updateHolderData,
+            getAllVacancyCandidates,
             // Admin functions
             getAllCompanies,
             blockCompany,
