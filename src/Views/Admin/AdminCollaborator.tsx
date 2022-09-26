@@ -6,6 +6,7 @@ import InfoModal from '../../Components/Modals/InfoModal';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
 import AdminDefault from './AdminDefault';
 import useAdmin from '../../Utils/useAdmin';
+import Loading from '../../Components/Items/Loading';
 
 const AdminCollaborator : React.FC = () => {
     const admin = useAdmin();
@@ -44,21 +45,30 @@ const AdminCollaborator : React.FC = () => {
                     <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
                     <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-2 text-xl text-dark-purple' />
                 </div>
-                <div className='mt-5 break-all'>
-                    <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
-                        <span className='w-5/12 md:w-7/12 pr-1'>Nome</span>
-                        <span className='w-4/12 pr-1'>Status</span>
-                        <span className='w-3/12 md:w-12 pr-1'>Ações</span>
-                    </div>
-                    <div>
-                        {   // @ts-ignore
-                            users.map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => handleOpen(key) } handleUserBlock={ () => handleUserBlock(collaborator._id) } /> )
-                        }
-                    </div>
-                </div>
+                {
+                    admin.loading && (
+                        <Loading />
+                    )
+                }
+                {
+                    !admin.loading && (
+                        <div className='mt-5 break-all'>
+                            <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
+                                <span className='w-5/12 md:w-7/12 pr-1'>Nome</span>
+                                <span className='w-4/12 pr-1'>Status</span>
+                                <span className='w-3/12 md:w-12 pr-1'>Ações</span>
+                            </div>
+                            <div>
+                                {   // @ts-ignore
+                                    users.map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => handleOpen(key) } handleUserBlock={ () => handleUserBlock(collaborator._id) } /> )
+                                }
+                            </div>
+                        </div>
+                    )
+                }
             </div>
             {
-                openModal && <CollaboratorForm isDisabled={ true } collaborators={users} selectedCollaboratorKey={selectedUserKey} handleClose={ () => setOpenModal(false) } />
+                openModal && <CollaboratorForm isDisabled={ true } collaborators={ users } selectedCollaboratorKey={selectedUserKey} handleClose={ () => setOpenModal(false) } />
             }
         </AdminDefault>
     );

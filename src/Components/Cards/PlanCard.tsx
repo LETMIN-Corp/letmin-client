@@ -6,7 +6,7 @@ interface ComponentInterface {
         title: string,
         description: string,
         price: string,
-        text: string,
+        totalPrice: string,
         features: string[],
         handleClick?: () => void,
     },
@@ -16,9 +16,15 @@ interface ComponentInterface {
 const PlanCard : React.FC<ComponentInterface> = ({ card, selected }) => {
     return (
         <div className={`${[selected ? 'growth-animation' : '']} bg-white my-12 xl:w-4/12 max-w-md mx-auto lg:mx-8 drop-shadow-xl cursor-pointer rounded-lg`} onClick={ card.handleClick }>
-            <div className='text-center px-5 py-4 text-xl xl:text-2xl font-bold bg-primary text-white rounded-t-lg'>
-                <div>{ card.title }</div>
-                <div>{ card.price }</div>
+            <div className='flex justify-between items-center px-5 py-4 text-sm md:text-xl font-bold bg-primary text-white rounded-t-lg'>
+                <div>
+                    <div>{ card.title }</div>
+                    <div className='text-sm text-gray'>{ card.totalPrice }</div>
+                </div>
+                <div className='text-right'>
+                    <div>{ card.price }</div>
+                    <div className='text-sm text-gray'>por mês</div>
+                </div>
             </div>
             <div className='px-5 py-5'>
                 {

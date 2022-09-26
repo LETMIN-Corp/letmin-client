@@ -87,7 +87,7 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, val
                 onChange={ setValue }
                 name={ name }
                 id={ id }
-                className='w-full mt-2 mb-5 md:mt-2 py-2 px-5 border-2 border-dark-purple rounded-md'
+                className='w-full mt-2 mb-5 md:mt-2 py-2 px-5 border-2 border-dark-purple rounded-md text-md'
                 disabled = { disabled }
                 required = { required }
             />
