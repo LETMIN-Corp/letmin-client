@@ -150,7 +150,7 @@ const UserProfile : React.FC = () => {
                         <main>
                             <div className='h-32 bg-lively-purple'></div>
                             <div className='relative flex md:justify-end mx-5'>
-                                <img src={ userData.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-full border-4 border-lively-purple absolute left-0 -top-20' referrerPolicy='no-referrer' />
+                                <img src={ userData.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-full bg-white border-4 border-lively-purple absolute left-0 -top-20' referrerPolicy='no-referrer' />
                                 <div className='mt-24 md:mt-5 text-lg md:justify-end flex justify-between items-center w-full'>
                                     <Link to={'/user/profile/edit'} className='text-center xl:text-lg lg:text-md text-sm rounded-md text-white py-2 px-5 bg-bright-purple drop-shadow-lg hover:bg-bold-purple'>
                                         Editar Dados
