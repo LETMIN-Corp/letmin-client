@@ -164,7 +164,7 @@ const CompanyIndicators =  () => {
                                                             {
                                                                     row.closed && (
                                                                         <button className='py-2 px-3 flex items-center jusitfy-center bg-green text-white rounded-md mr-3' onClick={ () => openModalWithType(row._id, 'OPEN') }>
-                                                                            <span className='mr-1 hidden lg:flex'>Reabir</span>
+                                                                            <span className='mr-1 hidden lg:flex'>Reabrir</span>
                                                                             <FontAwesomeIcon icon={ faDoorOpen } className='text-xl' />
                                                                         </button>
                                                                     )

@@ -5,7 +5,9 @@ const useCompany = () => {
     const { 
         getCompanyData,
         registerVacancy,
-        getAllCompanyVacancies,
+        getAllCompanyVacancies,     
+        updateCompanyData,
+        updateHolderData,
         userData,
         confirmVacancy,
         closeVacancy,
@@ -16,7 +18,9 @@ const useCompany = () => {
     } : any = useContext(AuthContext);
 
     return { 
-        getCompanyData,
+        getCompanyData,        
+        updateCompanyData,
+        updateHolderData,
         registerVacancy,
         getAllCompanyVacancies,
         userData,
