@@ -16,7 +16,7 @@ const UserExperienceCard: React.FC<ComponentInterface> = ({ card }) => {
                 <div className='font-medium'>{ card.name }</div>
                 <div className='font-medium'>{ card.institution }</div>
             </div>
-            <div className='break-words max-h-20 px-3 pb-3 rounded-md overflow-x-hidden overflow-y-auto h-100'>
+            <div className='break-words max-h-40 px-3 pb-3 rounded-md overflow-x-hidden overflow-y-auto h-100'>
                 <p>{ card.start } - {card.finish}</p>
                 { card.description}
             </div>

@@ -290,10 +290,12 @@ const UserEditData : React.FC = () => {
                                 }
                             </div>
                         </section>
-                        <div className='ml-3 flex justify-between justify-items-end w-1/3'>
-                            <FormButton text='Salvar' />
-                            { modalExitIsOpen && <ConfirmationModal title='Sair da Edição' text='Os dados editados ainda não foram salvos. Você realmente deseja sair da edição?' handleClose={ () => setModalExitIsOpen(false) } handleConfirm={ returnToUserPage } /> }
+                        <div className='ml-3 flex justify-end w-full px-5'>
                             <SecondaryButton text='Cancelar' handleClick= {() => setModalExitIsOpen(true)}/>
+                            { modalExitIsOpen && <ConfirmationModal title='Sair da Edição' text='Os dados editados ainda não foram salvos. Você realmente deseja sair da edição?' handleClose={ () => setModalExitIsOpen(false) } handleConfirm={ returnToUserPage } /> }
+                            <div className='mx-5'>
+                                <FormButton text='Salvar' />
+                            </div>
                         </div>
                     </div>
                 )
