@@ -6,8 +6,10 @@ import List from '../../Components/Items/List';
 import Loading from '../../Components/Items/Loading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault'
+import useAuth from '../../Utils/useAuth';
 
 const UserVacancySearch = () => {
+    const auth = useAuth();
     const user = useUser();
     const [allVacancies, setAllVacancies] = useState([]);
     const [vacancies, setVacancies] = useState([]);
@@ -27,7 +29,7 @@ const UserVacancySearch = () => {
     const [vacancyCards, setVacancyCards] = useState([]);
     useEffect(() => {
         // @ts-ignore:next-line
-        const cards = vacancies.map((vacancy) => <UserVacancySearchCard vacancy={ vacancy } key={ vacancy._id } />);
+        const cards = vacancies.map((vacancy) => <UserVacancySearchCard user_id={  auth.userData.user_id } vacancy={ vacancy } key={ vacancy._id } />);
         // @ts-ignore:next-line
         setVacancyCards(cards);
     }, [vacancies]);

@@ -48,7 +48,7 @@ function App() {
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
               <Route path='/company/talents/search' element={ <CompanyTalentSearch /> } />
-              <Route path='/company/vacancy/data' element={ <CompanyVacancyData /> } />
+              <Route path='/company/vacancy/data/:id' element={ <CompanyVacancyData /> } />
               <Route path='/company/combinations' element={ <CompanyMatch />} />
               <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />
               <Route path='/company/register/vacancy' element={ <CompanyRegisterVacancy /> } />

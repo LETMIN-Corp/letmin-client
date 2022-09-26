@@ -32,7 +32,7 @@ const TextAreaInput : React.FC<ComponentInterface> = ({ row, value, placeholder,
                 rows={ row }
                 id={ id }
                 defaultValue={ inputValue || value }
-                className='w-full mb-5 mt-2 py-3 px-5 border-2 border-dark-purple rounded-md'
+                className={`w-full mb-5 mt-2 py-3 px-5 border-2 border-dark-purple rounded-md ${ disabled ? 'resize-none' : '' }`}
                 disabled = { disabled }
             ></textarea>
             {
