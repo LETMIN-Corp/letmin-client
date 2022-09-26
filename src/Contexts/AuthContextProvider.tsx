@@ -109,8 +109,8 @@ export const AuthState = ({ children } : any) => {
     }, []);
 
     // Company function
-    const getCompanyData = async (id: string) => {
-        return axiosRequest(`${API_URL}/api/company/company-data`, 'GET');
+    const getCompanyData = async () => {
+        return await axiosRequest(`${API_URL}/api/company/company-data`, 'GET');
     }
     const registerVacancy = async (vacancy: any) => {
         return await axiosRequest(`${API_URL}/api/company/register-vacancy`, 'POST', vacancy);
@@ -162,9 +162,9 @@ export const AuthState = ({ children } : any) => {
     // End company function
 
     // User functions
-    const getUserData = async (id: string) => {
-        // todo: get user data
-    };
+    const getUserData = async () => {
+        return await axiosRequest(`${API_URL}/api/user/get-user`, 'GET');
+    }
     const getVacancy = async(id: string) => {
         return axiosRequest(`${API_URL}/api/user/get-vacancy/${id}`, 'GET');
     };
