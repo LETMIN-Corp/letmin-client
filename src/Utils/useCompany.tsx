@@ -14,6 +14,8 @@ const useCompany = () => {
         dispatchError,
         dispatchSuccess,
         getAllVacancyCandidates,
+        getUsers,
+        loading,
     } : any = useContext(AuthContext);
 
     return { 
@@ -28,6 +30,8 @@ const useCompany = () => {
         dispatchError,
         dispatchSuccess,
         getAllVacancyCandidates,
+        getUsers,
+        loading,
     };
 }
 

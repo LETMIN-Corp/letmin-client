@@ -57,7 +57,7 @@ function formatErrors(errors : any): string {
     
     let errorString = '';
     for (let key in errors) {
-        errorString += `${errors[key]}, \n`;
+        errorString += errors[key] + '. ';
     }
     
     return errorString;

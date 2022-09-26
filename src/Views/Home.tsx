@@ -22,6 +22,10 @@ const Home : React.FC = () => {
         window.history.pushState({}, '', '/');
     }, []);
 
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+    }, []);
+
     const menuButtons = [
         {
             text: 'Diferencial',

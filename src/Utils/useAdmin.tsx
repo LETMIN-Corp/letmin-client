@@ -7,6 +7,7 @@ const useAdmin = () => {
         blockCompany,
         getAllUsers,
         blockUser,
+        loading,
     } : any = useContext(AuthContext);
 
     return { 
@@ -14,6 +15,7 @@ const useAdmin = () => {
         getAllCompanies,
         getAllUsers,
         blockUser,
+        loading,
     };
 }
 
