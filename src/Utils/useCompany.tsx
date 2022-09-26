@@ -5,16 +5,22 @@ const useCompany = () => {
     const { 
         getCompanyData,
         registerVacancy,
-        getAllCompanyVacancies,
+        getAllCompanyVacancies,     
+        updateCompanyData,
+        updateHolderData,
         userData,
         confirmVacancy,
         closeVacancy,
         dispatchError,
         dispatchSuccess,
+        getUsers,
+        loading,
     } : any = useContext(AuthContext);
 
     return { 
-        getCompanyData,
+        getCompanyData,        
+        updateCompanyData,
+        updateHolderData,
         registerVacancy,
         getAllCompanyVacancies,
         userData,
@@ -22,6 +28,8 @@ const useCompany = () => {
         closeVacancy,
         dispatchError,
         dispatchSuccess,
+        getUsers,
+        loading,
     };
 }
 

@@ -22,6 +22,10 @@ const Home : React.FC = () => {
         window.history.pushState({}, '', '/');
     }, []);
 
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+    }, []);
+
     const menuButtons = [
         {
             text: 'Diferencial',
@@ -36,7 +40,7 @@ const Home : React.FC = () => {
             path: '#who-we-are',
         },
         {
-            text: 'Cadastre-se',
+            text: 'Login',
             path: '/register',
             isLink: true,
         },

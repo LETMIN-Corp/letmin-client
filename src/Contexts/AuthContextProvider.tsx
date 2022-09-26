@@ -111,7 +111,6 @@ export const AuthState = ({ children } : any) => {
     }, []);
 
     // Company function
-
     const getCompanyData = async () => {
         return await axiosRequest(`${API_URL}/api/company/company-data`, 'GET');
     }
@@ -131,6 +130,32 @@ export const AuthState = ({ children } : any) => {
     const closeVacancy = async (vacancy_id: string) => {
         let company_id = state.userData.user_id;
         return axiosRequest(`${API_URL}/api/company/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
+    }
+
+    const getUsers = async () => {
+        return await axiosRequest(`${API_URL}/api/company/user`, 'GET');
+    }
+    
+    const updateCompanyData = async (company: any): Promise<any> => {
+        return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company)
+        .then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
+            }
+            else
+                dispatchError(formatErrors(res.data.message));
+        });
+    }
+
+    const updateHolderData = async (company: any): Promise<any> => {
+        return axiosRequest(`${API_URL}/api/company/update-company-holder`, 'POST', company)
+        .then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
+            }
+            else
+                dispatchError(formatErrors(res.data.message));
+        });
     }
     // End company function
 
@@ -186,6 +211,9 @@ export const AuthState = ({ children } : any) => {
             getAllCompanyVacancies,
             confirmVacancy,
             closeVacancy,
+            getUsers,
+            updateCompanyData,
+            updateHolderData,
             // Admin functions
             getAllCompanies,
             blockCompany,

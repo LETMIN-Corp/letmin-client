@@ -6,6 +6,7 @@ import AdminDefault from './AdminDefault';
 import { faBan, faBuilding, faInfo, faUnlock, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAdmin from '../../Utils/useAdmin';
+import Loading from '../../Components/Items/Loading';
 
 const AdminCompany : React.FC = () => {
     const admin = useAdmin();
@@ -44,18 +45,27 @@ const AdminCompany : React.FC = () => {
                     <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
                     <FontAwesomeIcon icon={ faMagnifyingGlass }  className='absolute right-2 top-2 text-xl text-dark-purple' />
                 </div>
-                <div className='mt-5 break-all'>
-                    <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
-                        <span className='w-5/12 md:w-7/12 pr-1'>Razão Social</span>
-                        <span className='w-4/12 pr-1'>Status</span>
-                        <span className='w-3/12 md:w-12 pr-1'>Ações</span>
-                    </div>
-                    <div>
-                        {   // @ts-ignore
-                            companies.map((company, key) => <TableCard key={ key } companyData={ company } handleOpen={ () => handleOpen(key) } handleCompanyBlock={ () => handleCompanyBlock(company._id) } /> )
-                        }
-                    </div>
-                </div>
+                {
+                    admin.loading && (
+                        <Loading />
+                    )
+                }
+                {
+                    !admin.loading && (
+                        <div className='mt-5 break-all'>
+                            <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
+                                <span className='w-5/12 md:w-7/12 pr-1'>Razão Social</span>
+                                <span className='w-4/12 pr-1'>Status</span>
+                                <span className='w-3/12 md:w-12 pr-1'>Ações</span>
+                            </div>
+                            <div>
+                                {   // @ts-ignore
+                                    companies.map((company, key) => <TableCard key={ key } companyData={ company } handleOpen={ () => handleOpen(key) } handleCompanyBlock={ () => handleCompanyBlock(company._id) } /> )
+                                }
+                            </div>
+                        </div>
+                    )
+                }
             </div>
             {
                 openModal && <CompanyForm isDisabled={ true } companies={ companies } selectedCompanyKey={ selectedCompanyKey } handleClose={ () => setOpenModal(false) } />
@@ -94,7 +104,7 @@ const TableCard: React.FC<TableCardInterface> = ({ companyData, handleOpen, hand
     const Admin = useAdmin();
 
     return (
-        <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
+        <div className='text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2'>
             <span className='w-5/12 md:w-7/12 pr-1'>{ companyData.company.name }</span>
             <span className='w-4/12 pr-1'>{ companyData.status.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-3/12 md:w-12 md:text-lg pr-1 flex justify-between'>

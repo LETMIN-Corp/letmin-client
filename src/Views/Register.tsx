@@ -23,6 +23,10 @@ const Register : React.FC = () => {
         window.document.title = 'Letmin - Cadastro';
     });
 
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+    }, []);
+
     const menuButtons = [
         {
             text: 'Home',

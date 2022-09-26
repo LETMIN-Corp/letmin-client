@@ -82,12 +82,12 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, val
         <div className={`${ getInputSize() } relative`}>
             <input
                 type={ type }
-                placeholder={ placeholder }
+                placeholder={ placeholder + (required ? ' *' : '') }
                 value={ inputValue }
                 onChange={ setValue }
                 name={ name }
                 id={ id }
-                className='w-full mt-2 mb-5 md:mt-2 py-3 px-5 border-2 border-dark-purple rounded-md'
+                className='w-full mt-2 mb-5 md:mt-2 py-2 px-5 border-2 border-dark-purple rounded-md text-md'
                 disabled = { disabled }
                 required = { required }
             />
@@ -102,7 +102,7 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, val
             }
             {
                 (inputValue || type == InputTypesEnum.date || value) && (
-                    <div className='input-up-animation z-10 bg-white font-medium px-1 text-dark-purple'>{ placeholder }</div>
+                    <div className='input-up-animation z-10 bg-white font-medium px-1 text-dark-purple'>{ placeholder + (required ? ' *' : '') }</div>
                 )
             }
         </div>

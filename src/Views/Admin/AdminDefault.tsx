@@ -1,7 +1,12 @@
+import { useEffect } from 'react';
 import AdminMenu from '../../Components/Layouts/AdminMenu';
 import Footer from '../../Components/Layouts/Footer';
 
 const AdminDefault : React.FC = ({ children }) => {
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+    }, []);
+
     return (
         <div className='flex'>
             <AdminMenu />
