@@ -7,15 +7,13 @@ import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { dispatchError, dispatchSuccess, formatErrors } from '../Utils/ToastMessages';
 
+const API_URL = import.meta.env.VITE_APP_API_URL;
+
 const InitialState : any = {
     loading: false,
-    userData: {
-        role: {},
-    },
+    userData: Cookies.get('token') ? jwtDecode(Cookies.get('token')!) : { role: '' },
     isAuthenticated: false,
 };
-
-const API_URL = import.meta.env.VITE_APP_API_URL;
 
 export const AuthContext = createContext(InitialState);
 
@@ -30,7 +28,7 @@ export const AuthState = ({ children } : any) => {
         // @ts-ignore:next-line
         return (Cookies.get('token') ? jwtDecode(Cookies.get('token').toString()).role : '');
     }
-
+    
     // Auth function
     const getInitialUserData = async () => {
         const token = Cookies.get('token');

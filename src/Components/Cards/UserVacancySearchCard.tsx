@@ -5,14 +5,19 @@ import { Link } from 'react-router-dom';
 interface ComponentInterface {
     vacancy : {
         _id: string,
+        candidates: Array<any>,
         role: string,
         sector: string,
         region: string,
         description: string,
     },
+    user_id: string,
 }
 
-const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy }) => {
+const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy, user_id }) => {
+    // check if user already applied to this vacancy
+    const applied = vacancy.candidates.filter((candidate_id: any) => candidate_id == user_id ).length > 0;
+    
     return (
         <div className='w-full bg-lilac rounded-md mx-auto text-justify text-8x1 drop-shadow-lg px-5 pt-5 md:py-2 md:mr-5 flex flex-col md:flex-row items-center justify-between'>
             <div className='flex xl:w-32 xl:h-32 lg:w-28 lg:h-28 w-24 h-24 border-4 rounded-full items-center justify-center'>
@@ -39,8 +44,14 @@ const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy }) => {
                     </p>
                 </div>
                 <p className='text-sm md:text-md'>{ vacancy.description }</p>
+                <div className='flex flex-col justify-center'>
+                    {
+                        applied && (
+                            <div className='mt-5 md:text-left text-dark-purple text-lg font-medium'>Você já se candidatou a esta vaga.</div>
+                        )
+                    }
+                </div>
             </div>
-            
             <div className='flex xl:w-2/12 md:w-3/12 w-9/12 pb-5 md:pb-0 items-center justify-center'>
                 <Link to={`/user/vacancy/detail/${ vacancy._id }`} className='text-center xl:text-lg lg:text-md text-sm rounded-md text-white py-2 px-10 bg-bright-purple drop-shadow-lg hover:bg-bold-purple'>Detalhes</Link>
             </div>
