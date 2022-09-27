@@ -25,6 +25,7 @@ import Loading from '../../Components/Items/Loading';
 interface IUserData {
     createdAt: string;
     name: string;
+    description: string;
     email: string;
     username: string;
     picture: string;
@@ -41,6 +42,7 @@ const UserEditData : React.FC = () => {
     const [userData, setUserData] = useState<IUserData>({
         createdAt: '',
         name: '',
+        description: '',
         email: '',
         username: '',
         picture: '',
@@ -58,8 +60,10 @@ const UserEditData : React.FC = () => {
                 navigate('/user/vacancy/search');
             }
 
+            setUserData(res.data.user);
+
             let userdata = res.data.user;
-            userdata.formations = [
+            userdata.experiences = [
                 {
                     name: 'Dev Junior',
                     institution: 'Firework',
@@ -82,7 +86,7 @@ const UserEditData : React.FC = () => {
                     description: 'Professor para os 1os e 2os anos do curso técnico de Informática.',
                 }
             ]
-            userdata.experiences = [
+            userdata.formations = [
                 {
                     name: 'Ensino Médio Profissionalizante',
                     institution: "CTI",
@@ -131,6 +135,12 @@ const UserEditData : React.FC = () => {
                 [name]: value,
             }
         );
+        console.log(userData);
+    }
+
+    function updateUserData()
+    {
+        user.updateUser(userData);
     }
 
     const handleConfirmAddXp = () => {
@@ -212,10 +222,10 @@ const UserEditData : React.FC = () => {
                             
                             <div className='mt-5 md:mt-10 mx-5 w-2/3'>
                                 <div className='font-medium text-xl text-dark-purple'>Informações do Usuário</div>
-                                <div className='font-medium text-lg w-96'>
+                                <div className='font-medium w-96'>
                                     <TextInput placeholder='Nome' type='text' name='name' id='userName' consultPackage={ consultPackage }/> 
                                 </div>
-                                <div className='font-medium text-lg'>
+                                <div className='font-medium'>
                                     <TextAreaInput name="description" id="description" row={ 6 } consultPackage={ consultPackage } placeholder='Descrição'/>
                                 </div>
                             </div>
@@ -223,7 +233,7 @@ const UserEditData : React.FC = () => {
                         <section className='px-5 mt-10'>
                             <div className='mt-24 md:my-4 text-lg flex justify-between items-center w-full'>
                                 <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
-                                <button onClick={ () => setXPModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-full text-white hover:bg-dark-purple ease-out duration-200'>
+                                <button onClick={ () => setXPModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                                     <FontAwesomeIcon icon={ faPlus } />
                                 </button>
                                 {
@@ -260,7 +270,7 @@ const UserEditData : React.FC = () => {
                                 {/* <button className='bg-primary mr-3 w-20 h-12 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                                     <FontAwesomeIcon icon={ faPlusCircle } />
                                 </button>   botao antigo */}
-                                <button onClick={ () => setFormationModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-full text-white hover:bg-dark-purple ease-out duration-200'>
+                                <button onClick={ () => setFormationModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                                     <FontAwesomeIcon icon={ faPlus } />
                                 </button>
                                 {
@@ -294,7 +304,7 @@ const UserEditData : React.FC = () => {
                             <SecondaryButton text='Cancelar' handleClick= {() => setModalExitIsOpen(true)}/>
                             { modalExitIsOpen && <ConfirmationModal title='Sair da Edição' text='Os dados editados ainda não foram salvos. Você realmente deseja sair da edição?' handleClose={ () => setModalExitIsOpen(false) } handleConfirm={ returnToUserPage } /> }
                             <div className='mx-5'>
-                                <FormButton text='Salvar' />
+                                <FormButton text='Salvar' handleClick={updateUserData} />
                             </div>
                         </div>
                     </div>

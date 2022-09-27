@@ -26,7 +26,7 @@ const UserProfile : React.FC = () => {
     useEffect((): void => {
         user.getUserData().then((res : any) => {
             let userdata = res.data.user;
-            userdata.formations = [
+            userdata.experiences = [
                 {
                     name: 'Dev Junior',
                     institution: 'Firework',
@@ -49,7 +49,7 @@ const UserProfile : React.FC = () => {
                     description: 'Professor para os 1os e 2os anos do curso técnico de Informática.',
                 }
             ]
-            userdata.experiences = [
+            userdata.formations = [
                 {
                     name: 'Ensino Médio Profissionalizante',
                     institution: "CTI",

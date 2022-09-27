@@ -138,6 +138,8 @@ export const AuthState = ({ children } : any) => {
         return await axiosRequest(`${API_URL}/api/company/user`, 'GET');
     }
     
+    
+
     const updateCompanyData = async (company: any): Promise<any> => {
         return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company)
         .then((res: any) => {
@@ -173,6 +175,17 @@ export const AuthState = ({ children } : any) => {
     };
     const applyVacancy = async (vacancy_id: string) => {
         return await axiosRequest(`${API_URL}/api/user/apply-vacancy`, 'POST', { vacancy_id });
+    }
+
+    const updateUser = async (user: any): Promise<any> => {
+        return axiosRequest(`${API_URL}/api/user/update-user`, 'POST', user)
+        .then((res: any) => { console.log(res)
+            if (res.status === 200) {
+                dispatchSuccess('Os dados do usuário foram atualizados com sucesso!');
+            }
+            else
+                dispatchError(formatErrors(res.data.message));
+        });
     }
     // End user functions
     
@@ -218,6 +231,7 @@ export const AuthState = ({ children } : any) => {
             confirmVacancy,
             closeVacancy,
             getUsers,
+            updateUser,
             updateCompanyData,
             updateHolderData,
             getAllVacancyCandidates,
