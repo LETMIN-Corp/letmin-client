@@ -22,6 +22,19 @@ const CompanyCombinations : React.FC = () => {
         });
     }, []);
 
+    function alterUserCondition(type : 'ADD' | 'REMOVE') {
+        if(type == 'ADD') {
+            company.addToTalentBank(params.id).then(() => {
+                setUserInTalentBank(true);
+            });
+            return;
+        }
+
+        company.removeFromTalentBank(params.id).then(() => {
+            setUserInTalentBank(false);
+        });
+    }
+
     return (
         <CompanyDefault>
             <div className='flex justify-center items-center py-5 lg:py-10 bg-primary'>
@@ -47,7 +60,7 @@ const CompanyCombinations : React.FC = () => {
                             {
                                 ! userInTalentBank && (
                                     <FontAwesomeIcon icon={ faHeart }
-                                        onClick={ () => company.addToTalentBank(params.id) }
+                                        onClick={ () => alterUserCondition('ADD') }
                                         className='ml-3 border-4 border-primary rounded-full px-2 py-2 cursor-pointer text-primary text-3xl'
                                     />
                                 )
@@ -55,7 +68,7 @@ const CompanyCombinations : React.FC = () => {
                             {
                                 userInTalentBank && (
                                     <FontAwesomeIcon icon={ faTrash }
-                                        onClick={ () => company.removeFromTalentBank(params.id) }
+                                        onClick={ () => alterUserCondition('REMOVE') }
                                         className='ml-3 border-4 border-red rounded-full px-2 py-2 cursor-pointer text-red text-3xl'
                                     />
                                 )
