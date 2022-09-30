@@ -172,6 +172,18 @@ export const AuthState = ({ children } : any) => {
             }
         });
     }
+
+    const removeFromTalentBank = async (target : any) => {
+        return axiosRequest(`${API_URL}/api/company/remove-from-talent-bank`, 'POST', { target })
+        .then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                dispatchSuccess(res.data.message);
+            }
+            else {
+                dispatchError(formatErrors(res.data.message));
+            }
+        });
+    }
     // End company function
 
     // User functions
@@ -235,6 +247,7 @@ export const AuthState = ({ children } : any) => {
             updateHolderData,
             getAllVacancyCandidates,
             addToTalentBank,
+            removeFromTalentBank,
             // Admin functions
             getAllCompanies,
             blockCompany,

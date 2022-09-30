@@ -55,7 +55,7 @@ const CompanyCombinations : React.FC = () => {
                             {
                                 userInTalentBank && (
                                     <FontAwesomeIcon icon={ faTrash }
-                                        onClick={ () => company.addToTalentBank(params.id) }
+                                        onClick={ () => company.removeFromTalentBank(params.id) }
                                         className='ml-3 border-4 border-red rounded-full px-2 py-2 cursor-pointer text-red text-3xl'
                                     />
                                 )
