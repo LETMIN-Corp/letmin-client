@@ -1,11 +1,22 @@
 import CompanyDefault from './CompanyDefault';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFolderOpen, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faFolderOpen, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import useCompany from '../../Utils/useCompany';
+import TalentBankCard from '../../Components/Cards/TalentBankCard';
 
 const CompanyTalentBank = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Banco de Talentos';
+    }, []);
+
+    const company = useCompany();
+    const [allTalents, setAllTalents] = useState([]);
+
+    useEffect(() => {
+        company.getTalentBank().then((res : any) => {
+            setAllTalents(res.data.users);
+        });
     }, []);
 
     return (
@@ -22,7 +33,9 @@ const CompanyTalentBank = () => {
                     </div>
                 </div>
                 <div className='mt-5 grid md:grid-cols-2 lg:grid-cols-4 gap-4'>
-                    {}
+                    {
+                        allTalents.map((user, key) => <TalentBankCard key={ key } user={ user } />)
+                    }
                 </div>
             </div>
         </CompanyDefault>

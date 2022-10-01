@@ -184,6 +184,10 @@ export const AuthState = ({ children } : any) => {
             }
         });
     }
+
+    const getTalentBank = async () => {
+        return await axiosRequest(`${API_URL}/api/company/get-talent-bank`, 'GET');
+    }
     // End company function
 
     // User functions
@@ -248,6 +252,7 @@ export const AuthState = ({ children } : any) => {
             getAllVacancyCandidates,
             addToTalentBank,
             removeFromTalentBank,
+            getTalentBank,
             // Admin functions
             getAllCompanies,
             blockCompany,
