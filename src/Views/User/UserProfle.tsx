@@ -18,6 +18,7 @@ const UserProfile : React.FC = () => {
         createdAt: '',
         email: '',
         name: '',
+        description: '',
         picture: '',
         formations: [],
         experiences: [],
@@ -165,7 +166,7 @@ const UserProfile : React.FC = () => {
                         </main>
                         <section className='px-5 mt-10'>
                             <div className='font-medium text-xl text-dark-purple'>Quem Sou Eu?</div>
-                            <div className='text-lg text-justify'>Uma pessoa que gosta muito de aprender e é muito próxima da tecnologia! Sou um desenvolver WEB backend, no qual trabalho mais com NODE e PHP</div>
+                            <div className='text-lg text-justify'>{ userData.description || 'Uma pessoa que gosta muito de aprender!'}</div>
                         </section>
                         <section className='px-5 mt-10'>
                             <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>

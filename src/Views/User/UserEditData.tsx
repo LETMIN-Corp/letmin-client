@@ -46,8 +46,12 @@ const UserEditData : React.FC = () => {
         email: '',
         username: '',
         picture: '',
-        formations: [],
-        experiences: [],
+        formations: [
+
+        ],
+        experiences: [
+            
+        ],
     });
 
     const [searchExperiences, setSearchExperiences] = useState('');
@@ -63,7 +67,7 @@ const UserEditData : React.FC = () => {
             setUserData(res.data.user);
 
             let userdata = res.data.user;
-            userdata.experiences = [
+            /* userdata.experiences = [
                 {
                     name: 'Dev Junior',
                     institution: 'Firework',
@@ -86,7 +90,7 @@ const UserEditData : React.FC = () => {
                     description: 'Professor para os 1os e 2os anos do curso técnico de Informática.',
                 }
             ]
-            userdata.formations = [
+            userdata.formations = userdata.formations || [
                 {
                     name: 'Ensino Médio Profissionalizante',
                     institution: "CTI",
@@ -108,7 +112,7 @@ const UserEditData : React.FC = () => {
                     finish:'2025',
                     description: 'Grau superior em Ciências da Computação. Ainda em andamento.',
                 },
-            ]
+            ] */
             setUserData(res.data.user);
         });
         window.document.title = 'Letmin - Perfil';
@@ -125,9 +129,8 @@ const UserEditData : React.FC = () => {
     }
    
     function getInputValue (name: string): string {
-        return userData[name];      /* Arrumar para dados do usuário */
+        return userData[name];
     }
-
     function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         const { name, value } = e.target;
         setUserData({
@@ -138,8 +141,7 @@ const UserEditData : React.FC = () => {
         console.log(userData);
     }
 
-    function updateUserData()
-    {
+    function updateUserData(){
         user.updateUser(userData);
     }
 
