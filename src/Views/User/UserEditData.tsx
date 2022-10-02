@@ -46,12 +46,20 @@ const UserEditData : React.FC = () => {
         email: '',
         username: '',
         picture: '',
-        formations: [
-
-        ],
-        experiences: [
-            
-        ],
+        formations: [{
+            name : '',
+            institution: '',
+            start: '',
+            finish: '',
+            description: '',
+        }],
+        experiences: [{
+            role: '',
+            company: '',
+            start: '',
+            finish: '',
+            description: '',
+        }],
     });
 
     const [searchExperiences, setSearchExperiences] = useState('');
@@ -66,31 +74,31 @@ const UserEditData : React.FC = () => {
 
             setUserData(res.data.user);
 
-            let userdata = res.data.user;
-            /* userdata.experiences = [
+            // let userdata = res.data.user;
+            userData.experiences = [
                 {
-                    name: 'Dev Junior',
-                    institution: 'Firework',
+                    role: 'Dev Junior',
+                    company: 'Firework',
                     start: '2015',
                     finish: '2017',
                     description: 'Desenvolvimento de sites básicos. Aprimoramento de conhecimento front-end e mobile.',
                 },
                 {
-                    name: 'Dev Pleno',
-                    institution: 'Paschoalotto',
+                    role: 'Dev Pleno',
+                    company: 'Paschoalotto',
                     start: '2017',
                     finish: '2020',
                     description: 'Desenvolvimento de sistemas aprofundados para a empresa com Laravel.',
                 },
                 {
-                    name: 'Professor',
-                    institution: 'SENAI Bauru',
+                    role: 'Professor',
+                    company: 'SENAI Bauru',
                     start: '2021',
                     finish: '2023',
                     description: 'Professor para os 1os e 2os anos do curso técnico de Informática.',
                 }
             ]
-            userdata.formations = userdata.formations || [
+            userData.formations = userData.formations || [
                 {
                     name: 'Ensino Médio Profissionalizante',
                     institution: "CTI",
@@ -112,8 +120,8 @@ const UserEditData : React.FC = () => {
                     finish:'2025',
                     description: 'Grau superior em Ciências da Computação. Ainda em andamento.',
                 },
-            ] */
-            setUserData(res.data.user);
+            ] /* */
+            // setUserData(res.data.user);
         });
         window.document.title = 'Letmin - Perfil';
 
@@ -129,15 +137,36 @@ const UserEditData : React.FC = () => {
     }
    
     function getInputValue (name: string): string {
-        return userData[name];
+        const [type, data] = name.split('-'); //experience-role  -> experience role
+
+        // console.log(type)
+        // console.log(data)
+
+        if(data == undefined)
+            return userData[name];
+        else 
+            return userData[type][data];
     }
     function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         const { name, value } = e.target;
-        setUserData({
+        const [type, data] = name.split('-'); //experience-role  -> experience role
+
+        
+        if(data == undefined)
+        {
+            setUserData({
+                    ...userData,
+                    [name]: value,
+                }
+            );
+        }
+        else {          
+            setUserData({
                 ...userData,
-                [name]: value,
-            }
-        );
+                [type]: { ...userData[type], [data]: value }
+            });
+        }
+        
         console.log(userData);
     }
 
@@ -242,16 +271,16 @@ const UserEditData : React.FC = () => {
                                     XPModalIsOpen && (
                                         <FormModal handleClose={ handleCloseModalAddXp } handleConfirm={ handleConfirmAddXp } title='Adicionar Experiência Prévia'>
                                             <div className='my-2'>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experience-name' id='experience-name' consultPackage={ consultPackage } />
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experience-enterprise' id='experience-enterprise' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experiences-role' id='experiences-role' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experiences-company' id='experiences-company' consultPackage={ consultPackage } />
                                                 <div className='flex justify-between content-between items-center px-2'>
                                                     <div className="pb-2">
                                                         <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                     </div>
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='experience-yearS' id='experience-yearS' consultPackage={ consultPackage } />
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='experience-yearF' id='experience-yearF' consultPackage={ consultPackage } />
+                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='experiences-start' id='experiences-start' consultPackage={ consultPackage } />
+                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } />
                                                 </div>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experience-description' id='experience-description' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' id='experiences-description' consultPackage={ consultPackage } />
                                                 {/* titulo / empresa / inicio (mm/aa) / termino(mm/aa) / descricao */}
                                             </div>
                                         </FormModal>
@@ -260,9 +289,9 @@ const UserEditData : React.FC = () => {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {
-                                    [
+                                    /* [
                                         ...userData.experiences,
-                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
+                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> ) */
                                 }
                             </div>
                         </section>
@@ -277,18 +306,18 @@ const UserEditData : React.FC = () => {
                                 </button>
                                 {
                                     formationModalIsOpen && (
-                                        <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ handleConfirmAddFormation } title='Adicionar Formação Acadêmica'>
+                                        <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ updateUserData } title='Adicionar Formação Acadêmica'>
                                             <div className='my-2'>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formation-name' id='formation-name' consultPackage={ consultPackage } />
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formation-institution' id='formation-institution' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' id='formations-name' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' id='formations-institution' consultPackage={ consultPackage } />
                                                 <div className='flex justify-between content-between items-center px-2'>
                                                     <div className="pb-2">
                                                         <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                     </div>
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formation-yearS' id='formation-yearS' consultPackage={ consultPackage } />
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formation-yearF' id='formation-yearF' consultPackage={ consultPackage } />
+                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formations-start' id='formations-start' consultPackage={ consultPackage } />
+                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formations-finish' id='formations-finish' consultPackage={ consultPackage } />
                                                 </div>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formation-description' id='formation-description' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' id='formations-description' consultPackage={ consultPackage } />
                                             </div>
                                         </FormModal>
                                     )
@@ -296,9 +325,9 @@ const UserEditData : React.FC = () => {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {
-                                    [
+                                    /* [
                                         ...userData.formations,
-                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
+                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> ) */
                                 }
                             </div>
                         </section>
