@@ -15,6 +15,9 @@ const useCompany = () => {
         dispatchSuccess,
         getAllVacancyCandidates,
         getUsers,
+        addToTalentBank,
+        removeFromTalentBank,
+        getTalentBank,
         loading,
     } : any = useContext(AuthContext);
 
@@ -31,6 +34,9 @@ const useCompany = () => {
         dispatchSuccess,
         getAllVacancyCandidates,
         getUsers,
+        addToTalentBank,
+        removeFromTalentBank,
+        getTalentBank,
         loading,
     };
 }
