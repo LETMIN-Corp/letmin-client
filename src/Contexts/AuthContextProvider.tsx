@@ -176,7 +176,7 @@ export const AuthState = ({ children } : any) => {
     const removeFromTalentBank = async (target : any) => {
         return axiosRequest(`${API_URL}/api/company/remove-from-talent-bank`, 'POST', { target })
         .then((res: any) => {
-            if (res.data.success && res.status === 201) {
+            if (res.data.success && res.status === 200) {
                 dispatchSuccess(res.data.message);
             }
             else {
