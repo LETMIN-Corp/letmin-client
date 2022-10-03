@@ -216,6 +216,26 @@ export const AuthState = ({ children } : any) => {
                 dispatchError(formatErrors(res.data.message));
         });
     }
+    const updateUserExperiences = async (user: any): Promise<any> => {
+        return axiosRequest(`${API_URL}/api/user/update-user-experiences`, 'POST', user)
+        .then((res: any) => { console.log(res)
+            if (res.status === 200) {
+                dispatchSuccess('Experiências atualizadas com sucesso!');
+            }
+            else
+                dispatchError(formatErrors(res.data.message));
+        });
+    }
+    const updateUserFormations = async (user: any): Promise<any> => {
+        return axiosRequest(`${API_URL}/api/user/update-user-formations`, 'POST', user)
+        .then((res: any) => { console.log(res)
+            if (res.status === 200) {
+                dispatchSuccess('Formações atualizadas com sucesso!');
+            }
+            else
+                dispatchError(formatErrors(res.data.message));
+        });
+    }
     // End user functions
     
     // Admin functions
@@ -261,6 +281,8 @@ export const AuthState = ({ children } : any) => {
             closeVacancy,
             getUsers,
             updateUser,
+            updateUserExperiences,
+            updateUserFormations,
             updateCompanyData,
             updateHolderData,
             getAllVacancyCandidates,

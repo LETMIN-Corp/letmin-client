@@ -62,10 +62,34 @@ const UserEditData : React.FC = () => {
         }],
     });
 
+    const [userTypedData, setUserTypedData] = useState<IUserData>({
+        createdAt: '',
+        name: '',
+        description: '',
+        email: '',
+        username: '',
+        picture: '',
+        formations: [{
+            name : '',
+            institution: '',
+            start: '',
+            finish: '',
+            description: '',
+        }],
+        experiences: [{
+            role: '',
+            company: '',
+            start: '',
+            finish: '',
+            description: '',
+        }],
+    });
+
     const [searchExperiences, setSearchExperiences] = useState('');
     const [searchFormations, setSearchFormations] = useState('');
 
-    useEffect((): void => {
+    function getDBUserData()
+    {
         user.getUserData()
         .then((res : any) => {
             if (res.status != 200) {
@@ -73,8 +97,10 @@ const UserEditData : React.FC = () => {
             }
 
             setUserData(res.data.user);
+            setUserTypedData(res.data.user);
 
             // let userdata = res.data.user;
+            /* 
             userData.experiences = [
                 {
                     role: 'Dev Junior',
@@ -120,9 +146,13 @@ const UserEditData : React.FC = () => {
                     finish:'2025',
                     description: 'Grau superior em Ciências da Computação. Ainda em andamento.',
                 },
-            ] /* */
+            ] */
             // setUserData(res.data.user);
         });
+    }
+
+    useEffect((): void => {
+        getDBUserData();
         window.document.title = 'Letmin - Perfil';
 
     }, []);
@@ -139,13 +169,10 @@ const UserEditData : React.FC = () => {
     function getInputValue (name: string): string {
         const [type, data] = name.split('-'); //experience-role  -> experience role
 
-        // console.log(type)
-        // console.log(data)
-
         if(data == undefined)
-            return userData[name];
+            return userTypedData[name];
         else 
-            return userData[type][data];
+            return userTypedData[type][data];
     }
     function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         const { name, value } = e.target;
@@ -154,16 +181,16 @@ const UserEditData : React.FC = () => {
         
         if(data == undefined)
         {
-            setUserData({
-                    ...userData,
+            setUserTypedData({
+                    ...userTypedData,
                     [name]: value,
                 }
             );
         }
         else {          
-            setUserData({
-                ...userData,
-                [type]: { ...userData[type], [data]: value }
+            setUserTypedData({
+                ...userTypedData,
+                [type]: { ...userTypedData[type], [data]: value }
             });
         }
         
@@ -171,19 +198,17 @@ const UserEditData : React.FC = () => {
     }
 
     function updateUserData(){
-        user.updateUser(userData);
+        user.updateUser(userTypedData);
     }
 
     const handleConfirmAddXp = () => {
-        setUserData({
-            ...userData,
-            formations: [...userData.formations, userData.experiences],
-        });
-
+        user.updateUserExperiences(userTypedData);
+        getDBUserData();
         setXPModalIsOpen(false);
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
+        getDBUserData();
     }
 
     const filterExperiences = (value : string) => {
@@ -220,13 +245,12 @@ const UserEditData : React.FC = () => {
 
     const handleConfirmAddFormation = () => {
         setFormationModalIsOpen(false);
-        setUserData({
-            ...userData,
-            formations: [...userData.formations, userData.formations],
-        });
+        user.updateUserFormations(userTypedData);
+        getDBUserData();
     }
     const handleCloseModalAddFormation = () => {
         setFormationModalIsOpen(false);
+        getDBUserData();
     }
 
     const consultPackage = {
@@ -289,9 +313,7 @@ const UserEditData : React.FC = () => {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {
-                                    /* [
-                                        ...userData.experiences,
-                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> ) */
+                                    userData.experiences.map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
                                 }
                             </div>
                         </section>
@@ -306,7 +328,7 @@ const UserEditData : React.FC = () => {
                                 </button>
                                 {
                                     formationModalIsOpen && (
-                                        <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ updateUserData } title='Adicionar Formação Acadêmica'>
+                                        <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ handleConfirmAddFormation } title='Adicionar Formação Acadêmica'>
                                             <div className='my-2'>
                                                 <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' id='formations-name' consultPackage={ consultPackage } />
                                                 <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' id='formations-institution' consultPackage={ consultPackage } />
@@ -325,9 +347,7 @@ const UserEditData : React.FC = () => {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {
-                                    /* [
-                                        ...userData.formations,
-                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> ) */
+                                    userData.formations.map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
                                 }
                             </div>
                         </section>
