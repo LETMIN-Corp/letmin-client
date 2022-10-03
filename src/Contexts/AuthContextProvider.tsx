@@ -211,6 +211,7 @@ export const AuthState = ({ children } : any) => {
         .then((res: any) => { console.log(res)
             if (res.status === 200) {
                 dispatchSuccess('Os dados do usuário foram atualizados com sucesso!');
+                navigate('/user/profile');
             }
             else
                 dispatchError(formatErrors(res.data.message));

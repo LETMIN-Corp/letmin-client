@@ -7,71 +7,55 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import useUser from '../../Utils/useUser';
 import useLoading from '../../Utils/useLoading';
+import { dispatchError } from '../../Utils/ToastMessages';
 import Loading from '../../Components/Items/Loading';
+
+interface IUserData {
+    createdAt: string;
+    name: string;
+    description: string;
+    email: string;
+    username: string;
+    picture: string;
+    formations: Array<any>;
+    experiences: Array<any>;
+    [key: string]: any;
+}
 
 const UserProfile : React.FC = () => {
     const { loading } = useLoading();
     const user = useUser();
 
-    const [userData, setUserData] = useState({
+    const [userData, setUserData] = useState<IUserData>({
         createdAt: '',
-        email: '',
         name: '',
         description: '',
+        email: '',
+        username: '',
         picture: '',
-        formations: [],
-        experiences: [],
+        formations: [{
+            name : '',
+            institution: '',
+            start: '',
+            finish: '',
+            description: '',
+        }],
+        experiences: [{
+            role: '',
+            company: '',
+            start: '',
+            finish: '',
+            description: '',
+        }],
     });
 
     useEffect((): void => {
-        user.getUserData().then((res : any) => {
-            let userdata = res.data.user;
-            userdata.experiences = [
-                {
-                    name: 'Dev Junior',
-                    institution: 'Firework',
-                    start: '2015',
-                    finish: '2017',
-                    description: 'Desenvolvimento de sites básicos. Aprimoramento de conhecimento front-end e mobile.',
-                },
-                {
-                    name: 'Dev Pleno',
-                    institution: 'Paschoalotto',
-                    start: '2017',
-                    finish: '2020',
-                    description: 'Desenvolvimento de sistemas aprofundados para a empresa com Laravel.',
-                },
-                {
-                    name: 'Professor',
-                    institution: 'SENAI Bauru',
-                    start: '2021',
-                    finish: '2023',
-                    description: 'Professor para os 1os e 2os anos do curso técnico de Informática.',
-                }
-            ]
-            userdata.formations = [
-                {
-                    name: 'Ensino Médio Profissionalizante',
-                    institution: "CTI",
-                    start:'2012',
-                    finish:'2014',
-                    description: 'Ensino Médio Profissionalizante no curso técnico de Informática',
-                },
-                {
-                    name: 'Graduação',
-                    institution: "Unesp Bauru",
-                    start:'2015',
-                    finish:'2020',
-                    description: 'Graduação em Ciências de Computação',
-                },
-                {
-                    name: 'Bacharelado em Ciências da Computação',
-                    institution: "Unesp Bauru",
-                    start:'2021',
-                    finish:'2025',
-                    description: 'Grau superior em Ciências da Computação. Ainda em andamento.',
-                },
-            ]
+        user.getUserData()
+        .then((res : any) => {
+            if (res.status != 200) {
+                dispatchError('Não foi possível carregar seus dados.');
+            }
+
             setUserData(res.data.user);
         });
         window.document.title = 'Letmin - Perfil';

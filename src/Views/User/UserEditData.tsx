@@ -17,7 +17,7 @@ import ImgUserDefault from '../../Assets/user_default.jpg';
 import UserDefault from './UserDefault'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandshake, faInfo, faLink, faPlus, faPencil, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faHandshake, faInfo, faLink, faPlus, faPencil, faCalendar, faRemove, faTrash } from '@fortawesome/free-solid-svg-icons';
 import useUser from '../../Utils/useUser';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
@@ -32,6 +32,10 @@ interface IUserData {
     formations: Array<any>;
     experiences: Array<any>;
     [key: string]: any;
+}
+
+interface CanExclude {
+    [key: string]: boolean;
 }
 
 const UserEditData : React.FC = () => {
@@ -158,8 +162,16 @@ const UserEditData : React.FC = () => {
 
     const [openModal, setOpenModal] = useState(false);    
     const [modalExitIsOpen, setModalExitIsOpen] = useState(false);  /* Modal de confirmar para sair da página */
+    const [modalSaveConfirmationIsOpen, setModalSaveConfirmationIsOpen] = useState(false);  /* Modal de confirmar para salvar os dados */
     const [XPModalIsOpen, setXPModalIsOpen] = useState(false);  /* Modal de adicionar dados */
     const [formationModalIsOpen, setFormationModalIsOpen] = useState(false);  /* Modal de adicionar dados */
+
+    const [canExclude, setCanExclude] = useState<CanExclude>({
+        experiences: false,
+        formations: false,
+    });
+
+
 
     function returnToUserPage () {  /* Utilizada pelo botão de retornar */
         navigate('/user/profile');
@@ -169,7 +181,7 @@ const UserEditData : React.FC = () => {
         const [type, data] = name.split('-'); //experience-role  -> experience role
 
         if(data == undefined)
-            return userTypedData[name];
+            return userData[name];
         else 
             return userTypedData[type][data];
     }
@@ -180,8 +192,8 @@ const UserEditData : React.FC = () => {
         
         if(data == undefined)
         {
-            setUserTypedData({
-                    ...userTypedData,
+            setUserData({
+                    ...userData,
                     [name]: value,
                 }
             );
@@ -195,18 +207,29 @@ const UserEditData : React.FC = () => {
     }
 
     function updateUserData(){
-        user.updateUser(userTypedData);
+        user.updateUser(userData);
     }
 
     const handleConfirmAddXp = () => {
         setXPModalIsOpen(false);
-        user.updateUserExperiences(userTypedData);
-        getDBUserData();
-        getDBUserData();
+        userData.experiences.push(userTypedData.experiences)
+        userTypedData.experiences = [];
+        // console.log(userData.experiences)
+        // user.updateUserExperiences(userTypedData);
+        // getDBUserData();
+        // getDBUserData();
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
         getDBUserData();
+    }
+
+    function flipExclude(property: string)
+    {
+        setCanExclude({
+            ...canExclude,
+            [property]: !canExclude[property],
+        });
     }
 
     const filterExperiences = (value : string) => {
@@ -243,9 +266,11 @@ const UserEditData : React.FC = () => {
 
     const handleConfirmAddFormation = () => {
         setFormationModalIsOpen(false);
-        user.updateUserFormations(userTypedData);
-        getDBUserData();
-        getDBUserData();
+        userData.formations.push(userTypedData.formations)
+        userTypedData.formations = [];
+        // user.updateUserFormations(userTypedData);
+        // getDBUserData();
+        // getDBUserData();
     }
     const handleCloseModalAddFormation = () => {
         setFormationModalIsOpen(false);
@@ -287,32 +312,37 @@ const UserEditData : React.FC = () => {
                         <section className='px-5 mt-10'>
                             <div className='mt-24 md:my-4 text-lg flex justify-between items-center w-full'>
                                 <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
-                                <button onClick={ () => setXPModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
-                                    <FontAwesomeIcon icon={ faPlus } />
-                                </button>
-                                {
-                                    XPModalIsOpen && (
-                                        <FormModal handleClose={ handleCloseModalAddXp } handleConfirm={ handleConfirmAddXp } title='Adicionar Experiência Prévia'>
-                                            <div className='my-2'>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experiences-role' id='experiences-role' consultPackage={ consultPackage } required/>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experiences-company' id='experiences-company' consultPackage={ consultPackage } required />
-                                                <div className='flex justify-between content-between items-center px-2'>
-                                                    <div className="pb-2">
-                                                        <FontAwesomeIcon icon={ faCalendar } size="2x" />
+                                <div>
+                                    <button onClick={ () => setXPModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
+                                        <FontAwesomeIcon icon={ faPlus } />
+                                    </button>
+                                    {
+                                        XPModalIsOpen && (
+                                            <FormModal handleClose={ handleCloseModalAddXp } handleConfirm={ handleConfirmAddXp } title='Adicionar Experiência Prévia'>
+                                                <div className='my-2'>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experiences-role' id='experiences-role' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experiences-company' id='experiences-company' consultPackage={ consultPackage } required />
+                                                    <div className='flex justify-between content-between items-center px-2'>
+                                                        <div className="pb-2">
+                                                            <FontAwesomeIcon icon={ faCalendar } size="2x" />
+                                                        </div>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
                                                     </div>
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' id='experiences-description' consultPackage={ consultPackage } required/>
+                                                    {/* titulo / empresa / inicio (mm/aa) / termino(mm/aa) / descricao */}
                                                 </div>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' id='experiences-description' consultPackage={ consultPackage } required/>
-                                                {/* titulo / empresa / inicio (mm/aa) / termino(mm/aa) / descricao */}
-                                            </div>
-                                        </FormModal>
-                                    )
-                                }
+                                            </FormModal>
+                                        )
+                                    }
+                                    <button onClick={ () => flipExclude('experiences') } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
+                                        <FontAwesomeIcon icon={ faTrash } />
+                                    </button>
+                                </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {
-                                    userData.experiences.map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
+                                    userData.experiences.map((card, key) => <UserExperienceCard key={ key } card={ card } exclude={ canExclude.experiences } /> )
                                 }
                             </div>
                         </section>
@@ -322,39 +352,46 @@ const UserEditData : React.FC = () => {
                                 {/* <button className='bg-primary mr-3 w-20 h-12 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                                     <FontAwesomeIcon icon={ faPlusCircle } />
                                 </button>   botao antigo */}
-                                <button onClick={ () => setFormationModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
-                                    <FontAwesomeIcon icon={ faPlus } />
-                                </button>
-                                {
-                                    formationModalIsOpen && (
-                                        <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ handleConfirmAddFormation } title='Adicionar Formação Acadêmica'>
-                                            <div className='my-2'>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' id='formations-name' consultPackage={ consultPackage } required/>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' id='formations-institution' consultPackage={ consultPackage } required/>
-                                                <div className='flex justify-between content-between items-center px-2'>
-                                                    <div className="pb-2">
-                                                        <FontAwesomeIcon icon={ faCalendar } size="2x" />
+                                <div>
+                                    <button onClick={ () => setFormationModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
+                                        <FontAwesomeIcon icon={ faPlus } />
+                                    </button>
+                                    {
+                                        formationModalIsOpen && (
+                                            <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ handleConfirmAddFormation } title='Adicionar Formação Acadêmica'>
+                                                <div className='my-2'>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' id='formations-name' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' id='formations-institution' consultPackage={ consultPackage } required/>
+                                                    <div className='flex justify-between content-between items-center px-2'>
+                                                        <div className="pb-2">
+                                                            <FontAwesomeIcon icon={ faCalendar } size="2x" />
+                                                        </div>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formations-start' id='formations-start' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formations-finish' id='formations-finish' consultPackage={ consultPackage } required/>
                                                     </div>
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formations-start' id='formations-start' consultPackage={ consultPackage } required/>
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formations-finish' id='formations-finish' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' id='formations-description' consultPackage={ consultPackage } required/>
                                                 </div>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' id='formations-description' consultPackage={ consultPackage } required/>
-                                            </div>
-                                        </FormModal>
-                                    )
-                                }
+                                            </FormModal>
+                                        )
+                                    }<button onClick={ () => flipExclude('formations') } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
+                                    <FontAwesomeIcon icon={ faTrash } />
+                                </button>
+                            </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {
-                                    userData.formations.map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
+                                    userData.formations.map((card, key) => <UserExperienceCard key={ key } card={ card } exclude={ canExclude.formations } /> )
                                 }
                             </div>
                         </section>
                         <div className='ml-3 flex justify-end w-full px-5'>
+                            
                             <SecondaryButton text='Cancelar' handleClick= {() => setModalExitIsOpen(true)}/>
                             { modalExitIsOpen && <ConfirmationModal title='Sair da Edição' text='Os dados editados ainda não foram salvos. Você realmente deseja sair da edição?' handleClose={ () => setModalExitIsOpen(false) } handleConfirm={ returnToUserPage } /> }
+                            
                             <div className='mx-5'>
-                                <FormButton text='Salvar' handleClick={updateUserData} />
+                                <FormButton text='Salvar' handleClick= {() => setModalSaveConfirmationIsOpen(true)}/>
+                                { modalSaveConfirmationIsOpen && <ConfirmationModal title='Salvar os dados' text='Você realmente deseja salvar estas modificações?' handleClose={ () => setModalSaveConfirmationIsOpen(false) } handleConfirm={ updateUserData } /> }
                             </div>
                         </div>
                     </div>
