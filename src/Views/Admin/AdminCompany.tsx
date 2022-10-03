@@ -141,7 +141,7 @@ const CompanyForm:React.FC<CompanyFormInterface> = ({ isDisabled, companies, sel
             <form className='mt-2'>
                 <TextInput placeholder='Nome do Titular' type={ InputTypesEnum.text }  consultPackage={ viewConsultPackage } name='holder-name' disabled={ isDisabled }/>
                 <div className='md:flex justify-between w-full'>
-                    <TextInput placeholder='Email' size='extra-large' type={ InputTypesEnum.email }  consultPackage={ viewConsultPackage } name='holder-email' disabled={ isDisabled }/>
+                    <TextInput placeholder='E-mail' size='extra-large' type={ InputTypesEnum.email }  consultPackage={ viewConsultPackage } name='holder-email' disabled={ isDisabled }/>
                     <TextInput placeholder='Telefone' size='normal' type={ InputTypesEnum.tel }  consultPackage={ viewConsultPackage } name='holder-phone' disabled={ isDisabled }/>
                 </div>
             </form>
@@ -154,7 +154,7 @@ const CompanyForm:React.FC<CompanyFormInterface> = ({ isDisabled, companies, sel
                     <TextInput placeholder='Plano' size='normal' type={ InputTypesEnum.text }  consultPackage={ viewConsultPackage } name='plan-selected' disabled={ isDisabled } />
                 </div>
                 <div className='md:flex justify-between w-full'>
-                    <TextInput placeholder='Email' size='extra-large' type={ InputTypesEnum.email }  consultPackage={ viewConsultPackage } name='holder-email' disabled={ isDisabled }/>
+                    <TextInput placeholder='E-mail' size='extra-large' type={ InputTypesEnum.email }  consultPackage={ viewConsultPackage } name='holder-email' disabled={ isDisabled }/>
                     <TextInput placeholder='Telefone' size='normal' type={ InputTypesEnum.tel }  consultPackage={ viewConsultPackage } name='holder-phone' disabled={ isDisabled }/>
                 </div>
                 <TextInput placeholder='Endereço' type={ InputTypesEnum.text }  consultPackage={ viewConsultPackage } name='company-address' disabled={ isDisabled }/>

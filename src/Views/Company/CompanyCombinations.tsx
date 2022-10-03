@@ -1,14 +1,39 @@
 import HighLight from '../../Components/Items/HighLight';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CompanyDefault from './CompanyDefault';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBriefcase, faHeart, faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase, faHeart, faLeftLong, faRightLong, faTrash } from '@fortawesome/free-solid-svg-icons';
+import useCompany from '../../Utils/useCompany';
 
 const CompanyCombinations : React.FC = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Combinação';
     }, []);
+
+    const company = useCompany();
+    const params = useParams();
+
+    const [userInTalentBank, setUserInTalentBank] = useState(false);
+
+    useEffect((): void => {
+        company.getCompanyData().then((company : any) => {
+            setUserInTalentBank(company.data.data.talentBank.includes(params.id));
+        });
+    }, []);
+
+    function alterUserCondition(type : 'ADD' | 'REMOVE') {
+        if(type == 'ADD') {
+            company.addToTalentBank(params.id).then(() => {
+                setUserInTalentBank(true);
+            });
+            return;
+        }
+
+        company.removeFromTalentBank(params.id).then(() => {
+            setUserInTalentBank(false);
+        });
+    }
 
     return (
         <CompanyDefault>
@@ -31,8 +56,23 @@ const CompanyCombinations : React.FC = () => {
                             <img src='https://via.placeholder.com/150' className='rounded-md' />
                         </div>
                         <div>
-                            <FontAwesomeIcon icon={ faBriefcase } className='border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl' />
-                            <FontAwesomeIcon icon={ faHeart } className='ml-3 border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl' />
+                            <FontAwesomeIcon icon={ faBriefcase } className='border-4 border-primary rounded-full px-2 py-2 cursor-pointer text-primary text-3xl' />
+                            {
+                                ! userInTalentBank && (
+                                    <FontAwesomeIcon icon={ faHeart }
+                                        onClick={ () => alterUserCondition('ADD') }
+                                        className='ml-3 border-4 border-primary rounded-full px-2 py-2 cursor-pointer text-primary text-3xl'
+                                    />
+                                )
+                            }
+                            {
+                                userInTalentBank && (
+                                    <FontAwesomeIcon icon={ faTrash }
+                                        onClick={ () => alterUserCondition('REMOVE') }
+                                        className='ml-3 border-4 border-red rounded-full px-2 py-2 cursor-pointer text-red text-3xl'
+                                    />
+                                )
+                            }
                         </div>
                     </div>
                 </section>

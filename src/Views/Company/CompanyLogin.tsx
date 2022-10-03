@@ -58,7 +58,7 @@ const CompanyLogin : React.FC = () => {
             <div className='w-screen min-h-screen flex items-center justify-center'>
                 <form onSubmit={handleSubmit} className='w-full md:w-6/12 lg:w-3/12 p-5'>
                     <h1 className='text-xl font-normal'>Entrar</h1>
-                    <TextInput type={ InputTypesEnum.email } consultPackage={ consultPackage } placeholder='Email' name='email' />
+                    <TextInput type={ InputTypesEnum.email } consultPackage={ consultPackage } placeholder='E-mail' name='email' />
                     <TextInput type={ InputTypesEnum.password } consultPackage={ consultPackage } placeholder='Senha' name='password' />
                     <FormButton text='Entrar'  isFullWidth={ true } />
                 </form>

@@ -121,7 +121,7 @@ const CollaboratorForm : React.FC<CollaboratorFormInterface> = ({ isDisabled, co
             <form className='mt-2'>
                 <TextInput placeholder='Nome' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='name' disabled={ isDisabled }/>
                 <div className='md:flex justify-between w-full'>
-                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='email' disabled={ isDisabled }/>
+                    <TextInput placeholder='E-mail' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='email' disabled={ isDisabled }/>
                     <TextInput placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='phone' disabled={ isDisabled }/>
                 </div>
             </form>

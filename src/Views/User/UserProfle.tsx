@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import UserProfileCard from '../../Components/Cards/UserProfileCard';
 import UserExperienceCard from '../../Components/Cards/UserExperienceCard';
 import InfoModal from '../../Components/Modals/InfoModal';
 import UserDefault from './UserDefault'
