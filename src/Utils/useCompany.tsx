@@ -17,6 +17,9 @@ const useCompany = () => {
         getAllVacancyCandidates,
         createComplaint,
         getUsers,
+        addToTalentBank,
+        removeFromTalentBank,
+        getTalentBank,
         loading,
     } : any = useContext(AuthContext);
 
@@ -35,6 +38,9 @@ const useCompany = () => {
         getAllVacancyCandidates,
         createComplaint,
         getUsers,
+        addToTalentBank,
+        removeFromTalentBank,
+        getTalentBank,
         loading,
     };
 }

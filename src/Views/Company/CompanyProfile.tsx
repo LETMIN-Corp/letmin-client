@@ -211,7 +211,7 @@ const CompanyForm:React.FC<FormInterface> = ({ canEdit, consultPackage, cancelUp
                     <TextInput placeholder='CNPJ' size='medium' useMask={ MaskTypesEnum.cnpj } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' disabled={ !canEdit } />
                 </div>
                 <div className='md:flex justify-between w-full'>
-                    <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' disabled={ !canEdit }/>
+                    <TextInput placeholder='E-mail' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' disabled={ !canEdit }/>
                     <TextInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='company-phone' disabled={ !canEdit }/>
                 </div>
                 <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' disabled={ !canEdit }/>
@@ -239,7 +239,7 @@ const HolderForm:React.FC<FormInterface> = ({ canEdit, consultPackage, cancelUpd
                 <TextInput placeholder='CPF' useMask={ MaskTypesEnum.cpf } type={ InputTypesEnum.text } size='medium' consultPackage={ consultPackage } name='holder-cpf' disabled={ !canEdit }/>
             </div>
             <div className='md:flex justify-between w-full'>
-                <TextInput placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='holder-email' disabled={ !canEdit }/>
+                <TextInput placeholder='E-mail' size='large' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='holder-email' disabled={ !canEdit }/>
                 <TextInput placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='holder-phone' disabled={ !canEdit }/>
             </div>
         </form>

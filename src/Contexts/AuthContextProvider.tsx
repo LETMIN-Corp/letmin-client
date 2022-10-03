@@ -152,8 +152,9 @@ export const AuthState = ({ children } : any) => {
             if (res.data.success && res.status === 201) {
                 dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
             }
-            else
+            else {
                 dispatchError(formatErrors(res.data.message));
+            }
         });
     }
 
@@ -166,6 +167,34 @@ export const AuthState = ({ children } : any) => {
             else
                 dispatchError(formatErrors(res.data.message));
         });
+    }
+
+    const addToTalentBank = async (target : any) => {
+        return axiosRequest(`${API_URL}/api/company/add-to-talent-bank`, 'POST', { target })
+        .then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                dispatchSuccess(res.data.message);
+            }
+            else {
+                dispatchError(formatErrors(res.data.message));
+            }
+        });
+    }
+
+    const removeFromTalentBank = async (target : any) => {
+        return axiosRequest(`${API_URL}/api/company/remove-from-talent-bank`, 'POST', { target })
+        .then((res: any) => {
+            if (res.data.success && res.status === 200) {
+                dispatchSuccess(res.data.message);
+            }
+            else {
+                dispatchError(formatErrors(res.data.message));
+            }
+        });
+    }
+
+    const getTalentBank = async () => {
+        return await axiosRequest(`${API_URL}/api/company/get-talent-bank`, 'GET');
     }
     // End company function
 
@@ -240,6 +269,9 @@ export const AuthState = ({ children } : any) => {
             getCandidate,
             getAllVacancyCandidates,
             createComplaint,
+            addToTalentBank,
+            removeFromTalentBank,
+            getTalentBank,
             // Admin functions
             getAllCompanies,
             blockCompany,
@@ -247,7 +279,7 @@ export const AuthState = ({ children } : any) => {
             blockUser,
             getAllComplaints,
             changeComplaintStatus,
-            removeComplaint
+            removeComplaint,
         }}>
             { children }
         </AuthContext.Provider>

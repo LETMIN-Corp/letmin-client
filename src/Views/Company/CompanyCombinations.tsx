@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import CompanyDefault from './CompanyDefault';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faLeftLong, faRightLong, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faLeftLong, faRightLong, faTriangleExclamation, faTrash, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import FormModal from '../../Components/Modals/FormModal';
 import useCompany from '../../Utils/useCompany';
 import useLoading from '../../Utils/useLoading';
@@ -93,6 +93,27 @@ const CompanyCombinations : React.FC = () => {
         setModalIsOpen(false);
     }
 
+    const [userInTalentBank, setUserInTalentBank] = useState(false);
+
+    useEffect((): void => {
+        company.getCompanyData().then((company : any) => {
+            setUserInTalentBank(company.data.data.talentBank.includes(params.id));
+        });
+    }, []);
+
+    function alterUserCondition(type : 'ADD' | 'REMOVE') {
+        if(type == 'ADD') {
+            company.addToTalentBank(params.id).then(() => {
+                setUserInTalentBank(true);
+            });
+            return;
+        }
+
+        company.removeFromTalentBank(params.id).then(() => {
+            setUserInTalentBank(false);
+        });
+    }
+
     return (
         <CompanyDefault>
             <div className='flex justify-center items-center py-5 lg:py-10 bg-primary'>
@@ -116,8 +137,19 @@ const CompanyCombinations : React.FC = () => {
                                     <img src={candidate.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-md' alt='Use Picture' referrerPolicy='no-referrer' />
                                 </div>
                                 <div>
-                                    <FontAwesomeIcon icon={ faTriangleExclamation } onClick={() => setModalIsOpen(true)} className='border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl' />
-                                    <FontAwesomeIcon icon={ faHeart } className='ml-3 border-4 border-primary rounded-full px-2 py-1 cursor-pointer text-primary text-3xl' />
+                                    <FontAwesomeIcon 
+                                        icon={ faTriangleExclamation } 
+                                        onClick={() => setModalIsOpen(true)} 
+                                        className='border-4 border-primary rounded-full p-2 cursor-pointer text-primary text-3xl'
+                                    />
+                                    <FontAwesomeIcon 
+                                        icon={ userInTalentBank ? faTrash : faHeart }
+                                        onClick={ () => alterUserCondition(userInTalentBank ? 'REMOVE' : 'ADD') }
+                                        className={ userInTalentBank ? 
+                                            'ml-3 border-4 border-red rounded-full p-2 cursor-pointer text-red text-3xl' : 
+                                            'ml-3 border-4 border-primary rounded-full p-2 cursor-pointer text-primary text-3xl'
+                                        }
+                                    />
                                 </div>
                             </div>
                         </section>
@@ -173,7 +205,6 @@ const CompanyCombinations : React.FC = () => {
                         </section>
                     </div>
                 )
-            
             }
             {
                 modalIsOpen && (

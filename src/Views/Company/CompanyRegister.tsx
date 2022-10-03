@@ -148,7 +148,7 @@ const CorpRegister : React.FC = () => {
                                     <TextInput required={ true } placeholder='CNPJ' size='medium' useMask={ MaskTypesEnum.cnpj } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' id='company-cnpj' />
                                 </div>
                                 <div className='md:flex justify-between w-full'>
-                                    <TextInput required={ true } placeholder='Email' size='large' limit={ 64 } type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' id='company-email' />
+                                    <TextInput required={ true } placeholder='E-mail' size='large' limit={ 64 } type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' id='company-email' />
                                     <TextInput required={ true } placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='company-phone' id='company-phone' />
                                 </div>
                                 <TextInput required={ true } placeholder='Endereço' limit={ 128 } type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' id='company-address' />
@@ -162,7 +162,7 @@ const CorpRegister : React.FC = () => {
                                     <TextInput required={ true } placeholder='CPF' type={ InputTypesEnum.text } size='medium' useMask={ MaskTypesEnum.cpf } consultPackage={ consultPackage } name='holder-cpf' id='holder-cpf' />
                                 </div>
                                 <div className='md:flex justify-between w-full'>
-                                    <TextInput required={ true } placeholder='Email' size='large' limit={ 64 } type={ InputTypesEnum.email } consultPackage={ consultPackage } name='holder-email' id='holder-email' />
+                                    <TextInput required={ true } placeholder='E-mail' size='large' limit={ 64 } type={ InputTypesEnum.email } consultPackage={ consultPackage } name='holder-email' id='holder-email' />
                                     <TextInput required={ true } placeholder='Telefone' size='medium' useMask={ MaskTypesEnum.phone } type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='holder-phone' id='holder-phone' />
                                 </div>
                                 <TextInput required={ true } placeholder='Senha' limit={ 128 } type={ InputTypesEnum.password } consultPackage={ consultPackage } name='holder-password' id='holder-password' />
@@ -189,7 +189,7 @@ const CorpRegister : React.FC = () => {
                                                 'Banco de talentos',
                                                 'Lançamento de demandas',
                                                 'Avaliação de perfil de candidato',
-                                                'Envio de emails automatizados',
+                                                'Envio de e-mails automatizados',
                                             ],
                                             type: PlanTypesEnum.semiannual,
                                             handleClick: () => setSelectedPlan(PlanTypesEnum.semiannual),
@@ -203,7 +203,7 @@ const CorpRegister : React.FC = () => {
                                                 'Banco de talentos',
                                                 'Lançamento de demandas',
                                                 'Avaliação de perfil de candidato',
-                                                'Envio de emails automatizados',
+                                                'Envio de e-mails automatizados',
                                             ],
                                             type: PlanTypesEnum.annual,
                                             handleClick: () => setSelectedPlan(PlanTypesEnum.annual),
@@ -246,7 +246,7 @@ const CorpRegister : React.FC = () => {
                                         <TextInput required={ true } placeholder='CNPJ' size='medium' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-cnpj' disabled={ true } />
                                     </div>
                                     <div className='md:flex justify-between w-full'>
-                                        <TextInput required={ true } placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='company-email' disabled={ true }/>
+                                        <TextInput required={ true } placeholder='E-mail' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='company-email' disabled={ true }/>
                                         <TextInput required={ true } placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='company-phone' disabled={ true }/>
                                     </div>
                                     <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ viewConsultPackage } name='company-address' disabled={ true }/>
@@ -259,7 +259,7 @@ const CorpRegister : React.FC = () => {
                                         <TextInput required={ true } placeholder='CPF' type={ InputTypesEnum.text } size='medium' consultPackage={ viewConsultPackage } name='holder-cpf' disabled={ true }/>
                                     </div>
                                     <div className='md:flex justify-between w-full'>
-                                        <TextInput required={ true } placeholder='Email' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='holder-email' disabled={ true }/>
+                                        <TextInput required={ true } placeholder='E-mail' size='large' type={ InputTypesEnum.email } consultPackage={ viewConsultPackage } name='holder-email' disabled={ true }/>
                                         <TextInput required={ true } placeholder='Telefone' size='medium' type={ InputTypesEnum.tel } consultPackage={ viewConsultPackage } name='holder-phone' disabled={ true }/>
                                     </div>
                                 </form>
