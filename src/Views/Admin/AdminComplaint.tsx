@@ -1,4 +1,4 @@
-import { faTriangleExclamation, faMagnifyingGlass, faCheck, faXmark, faArrowRotateLeft, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTriangleExclamation, faMagnifyingGlass, faTrash, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import AdminDefault from './AdminDefault';
@@ -11,22 +11,16 @@ import { Link } from 'react-router-dom';
 interface IComplaint {
     _id: string;
     description: string;
+    reason: string;
     envoy: {
         _id: string;
         name: string;
-        company: {
-            name: string;
-        }
+        role: string;
     }
-    reason: string;
-    envoyType: string;
-    targetType: string;
     target: {
         _id: string;
         name: string;
-        company: {
-            name: string;
-        }
+        role: string;
     }
     pending: boolean;
 }
@@ -41,22 +35,16 @@ const AdminComplaint : React.FC = () => {
         {
             _id: '',
             description: '',
+            reason: '',
             envoy: {
                 _id: '',
                 name: '',
-                company: {
-                    name: '',
-                },
+                role: '',
             },
-            reason: '',
-            envoyType: '',
-            targetType: '',
             target: {
                 _id: '',
                 name: '',
-                company: {
-                    name: '',
-                },
+                role: '',
             },
             pending: false,
         }
@@ -171,22 +159,26 @@ interface TableCardInterface {
 const TableCard: React.FC<TableCardInterface> = ({ complaint, openModal, changeStatus }) => {
     return (
         <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
-            <span className='w-4/12 pr-1'>{ complaint.envoy.name || complaint.envoy.company.name }</span>
+            <span className='w-4/12 pr-1'>{ complaint.envoy.name }</span>
             <span className='w-4/12 pr-1'>{ complaint.reason }</span>
             <Link 
                 className='w-4/12 pr-1 text-dark-purple hover:text-purple-600'
-                to={ complaint.targetType === 'User' ? `/profile/${complaint.target._id}` : `/company/${complaint.target._id}` }
+                to={ complaint.target.role === 'User' ? `/profile/${complaint.target._id}` : `/company/${complaint.target._id}` }
             >
-                { complaint.target.name || complaint.target.company.name }
+                { complaint.target.name }
             </Link>
             <span className='w-8/12 pr-1'>{ complaint.description }</span>
             <span className='w-4/12 pr-1'>{ complaint.pending ? 'Pendente' : 'Resolvida' }</span>
             <span className='w-2/12 pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
-                    <FontAwesomeIcon icon={ faCheck } onClick={ changeStatus } className='text-dark-purple h-6' />
+                    <FontAwesomeIcon 
+                        className='text-dark-purple h-6' 
+                        icon={ complaint.pending ? faCheckCircle : faTimesCircle } 
+                        onClick={ changeStatus } 
+                    />
                 </div>
                 <div className='cursor-pointer' onClick={ openModal }>
-                    { complaint.pending ? <FontAwesomeIcon icon={ faTrash } className='text-dark-purple h-6' /> : <FontAwesomeIcon icon={ faTimes } className='text-dark-purple h-6' /> }
+                    <FontAwesomeIcon icon={ faTrash } className='text-dark-purple h-6' />
                 </div>
             </span>
         </div>
