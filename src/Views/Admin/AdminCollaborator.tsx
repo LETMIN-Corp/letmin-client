@@ -80,9 +80,7 @@ const AdminCollaborator : React.FC = () => {
                 {
                     loading ? <Loading /> : 
                     users.length == 0 ? (
-                        <div className='mt-5'>
-                            <p className='text-center text-xl'>Nenhum usuário encontrado</p>
-                        </div>
+                        <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhum usuário encontrado</div>
                     ) :
                     (
                         <div className='mt-5 break-all'>

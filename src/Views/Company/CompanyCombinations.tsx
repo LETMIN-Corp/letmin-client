@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import CompanyDefault from './CompanyDefault';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faLeftLong, faRightLong, faTriangleExclamation, faTrash, faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faLeftLong, faRightLong, faTriangleExclamation, faTrash, faBriefcase, faHeartBroken } from '@fortawesome/free-solid-svg-icons';
 import FormModal from '../../Components/Modals/FormModal';
 import useCompany from '../../Utils/useCompany';
 import useLoading from '../../Utils/useLoading';
@@ -31,9 +31,9 @@ const CompanyCombinations : React.FC = () => {
     })
 
     const options = [
-        { label: "Conteúdo Inapropriado", value: "Conteúdo Inapropriado" },
+        { label: "Conteúdo inapropriado", value: "Conteúdo inapropriado" },
         { label: "Spam", value: "Spam" },
-        { label: "Outros", value: "Outro" },
+        { label: "Outros", value: "Outros" },
     ];
 
     useEffect((): void => {
@@ -123,15 +123,6 @@ const CompanyCombinations : React.FC = () => {
                 loading ? <Loading /> : (
                     <div className='p-5'>
                         <section className='flex flex-col justify-center items-center py-10'>
-                            <section className='flex flex-row justify-between w-full lg:w-8/12 items-center pb-10 md:py-10'>
-                                <Link to='/company/combinations/'>
-                                    <span className='flex items-center text-dark-purple cursor-pointer'>
-                                        <span className='rounded-full w-1 h-6 bg-dark-purple mr-1'></span>
-                                        <FontAwesomeIcon icon={ faLeftLong } className='text-dark-purple text-4xl' />
-                                    </span>
-                                </Link>
-                                <FontAwesomeIcon icon={ faRightLong } className='text-dark-purple text-4xl cursor-pointer' />
-                            </section>
                             <div className='w-full flex items-center justify-between lg:w-8/12'>
                                 <div>
                                     <img src={candidate.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-md' alt='Use Picture' referrerPolicy='no-referrer' />
@@ -140,14 +131,14 @@ const CompanyCombinations : React.FC = () => {
                                     <FontAwesomeIcon 
                                         icon={ faTriangleExclamation } 
                                         onClick={() => setModalIsOpen(true)} 
-                                        className='border-4 border-primary rounded-full p-2 cursor-pointer text-primary text-3xl'
+                                        className='border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-3xl transition ease-in-out delay-50'
                                     />
                                     <FontAwesomeIcon 
-                                        icon={ userInTalentBank ? faTrash : faHeart }
+                                        icon={ userInTalentBank ? faHeartBroken : faHeart }
                                         onClick={ () => alterUserCondition(userInTalentBank ? 'REMOVE' : 'ADD') }
                                         className={ userInTalentBank ? 
                                             'ml-3 border-4 border-red rounded-full p-2 cursor-pointer text-red text-3xl' : 
-                                            'ml-3 border-4 border-primary rounded-full p-2 cursor-pointer text-primary text-3xl'
+                                            'ml-3 border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-3xl transition ease-in-out delay-50'
                                         }
                                     />
                                 </div>
@@ -194,7 +185,7 @@ const CompanyCombinations : React.FC = () => {
                         </section>
                         <section className='w-full lg:w-8/12 mx-auto py-10'>
                                 <h2 className='text-3xl text-dark-purple md:text-left font-bold mb-4'>Portfólio</h2>
-                                <p className='text-lg md:text-xl text-justify md:w-10/12 lg:w-8/12 my-6'>
+                                <p className='text-lg text-justify md:w-10/12 lg:w-8/12 my-6'>
                                     Lorem ipsum dolor sit amet, consectetur
                                     adipiscing elit, sed do eiusmod tempor
                                     incididunt ut labore et dolore magna aliqua. Ut
@@ -208,30 +199,39 @@ const CompanyCombinations : React.FC = () => {
             }
             {
                 modalIsOpen && (
-                    <FormModal handleClose={ handleCloseModal } handleConfirm={ handleConfirm } title={`Denunciar Usuário ${candidate.name}`}>
-                        <div className='my-2'>
-                            <label className='text-dark-purple text-lg font-bold'>Motivo</label>
-                            {options.map(option => (
-                                <label htmlFor="reason" key={option.value} className='flex items-center'>
-                                    <input 
-                                        className='mr-3 h-5 w-5 cursor-pointer'
-                                        id={option.value}
-                                        name='reason'
-                                        value={option.value}
-                                        onChange={ setCheckboxValue }
-                                        type="radio" 
-                                    />{option.value}
-                                </label>
-                            ))}
-
-                            <TextAreaInput
-                                name='description'
-                                row={5}
-                                id='description'
-                                // @ts-ignore:next-line
-                                consultPackage={ consultPackage }
-                                placeholder='Descreva o motivo da denúncia'
-                            />
+                    <FormModal handleClose={ handleCloseModal } handleConfirm={ handleConfirm } title={`Denunciar`}>
+                        <div className=''>
+                            <div>
+                                <div className='text-dark-purple text-lg mb-1'>Motivo</div>
+                                {
+                                    options.map(option => (
+                                        <div key={option.value} className='flex items-center'>
+                                            <input 
+                                                className='mr-3 h-4 w-4 cursor-pointer'
+                                                id={option.value}
+                                                name='reason'
+                                                value={option.value}
+                                                onChange={ setCheckboxValue }
+                                                type="radio" 
+                                            />
+                                            <label htmlFor={option.value} className='cursor-pointer'>
+                                                {option.value}
+                                            </label>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <div className='mt-2'>
+                                <TextAreaInput
+                                    name='description'
+                                    resize={ false }
+                                    row={ 5 }
+                                    id='description'
+                                    // @ts-ignore:next-line
+                                    consultPackage={ consultPackage }
+                                    placeholder='Descrição'
+                                />
+                            </div>
                         </div>
                     </FormModal>
                 )

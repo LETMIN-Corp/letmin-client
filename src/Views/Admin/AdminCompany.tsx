@@ -72,9 +72,7 @@ const AdminCompany : React.FC = () => {
                 {
                     loading ? <Loading /> : 
                     companies.length == 0 ? (
-                        <div className='mt-5'>
-                            <p className='text-center text-xl'>Nenhuma Empresa encontrada</p>
-                        </div>
+                        <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhuma empresa encontrada</div>
                     ) :
                     (
                         <div className='mt-5 break-all'>

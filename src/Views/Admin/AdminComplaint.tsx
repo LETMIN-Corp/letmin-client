@@ -1,4 +1,4 @@
-import { faTriangleExclamation, faMagnifyingGlass, faTrash, faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTriangleExclamation, faMagnifyingGlass, faTrash, faCheckCircle, faTimesCircle, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import AdminDefault from './AdminDefault';
@@ -7,6 +7,7 @@ import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
 import FormModal from '../../Components/Modals/FormModal';
 import { Link } from 'react-router-dom';
+import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
 
 interface IComplaint {
     _id: string;
@@ -105,9 +106,7 @@ const AdminComplaint : React.FC = () => {
                 {
                     loading ? <Loading /> : 
                     complaints.length == 0 ? (
-                        <div className='mt-5'>
-                            <p className='text-center text-xl'>Nenhuma denúncia encontrada</p>
-                        </div>
+                        <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhuma denúncia encontrada</div>
                     ) :
                     (
                         <div className='mt-5 break-all'>
@@ -140,13 +139,12 @@ const AdminComplaint : React.FC = () => {
             </div>
             {
                 ModalIsOpen && (
-                    <FormModal
+                    <ConfirmationModal
                         title='Excluir Denúncia'
+                        text='Tem certeza que deseja excluir essa denúncia?'
                         handleClose={ () => setModalIsOpen(false) }
                         handleConfirm={ () => handleRemoveComplaint(complaints[currentComplaint]._id) }
-                    >
-                        <p className='text-center'>Tem certeza que deseja excluir essa denúncia?</p>
-                    </FormModal>
+                    />
                 )
             }
         </AdminDefault>
@@ -175,13 +173,17 @@ const TableCard: React.FC<TableCardInterface> = ({ complaint, openModal, changeS
             <span className='w-2/12 pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
                     <FontAwesomeIcon 
-                        className='text-dark-purple h-6' 
-                        icon={ complaint.pending ? faCheckCircle : faTimesCircle } 
+                        className={
+                            complaint.pending ?
+                            'text-green text-center w-6 h-6' :
+                            'text-red text-center w-6 h-6'
+                        }
+                        icon={ complaint.pending ? faCheck : faXmark } 
                         onClick={ changeStatus } 
                     />
                 </div>
                 <div className='cursor-pointer' onClick={ openModal }>
-                    <FontAwesomeIcon icon={ faTrash } className='text-dark-purple h-6' />
+                    <FontAwesomeIcon icon={ faTrash } className='text-bold-purple h-6' />
                 </div>
             </span>
         </div>
