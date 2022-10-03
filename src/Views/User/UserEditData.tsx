@@ -93,12 +93,11 @@ const UserEditData : React.FC = () => {
         user.getUserData()
         .then((res : any) => {
             if (res.status != 200) {
-                navigate('/user/vacancy/search');
+                navigate('/user/profile');
             }
 
             setUserData(res.data.user);
             setUserTypedData(res.data.user);
-
             // let userdata = res.data.user;
             /* 
             userData.experiences = [
@@ -193,8 +192,6 @@ const UserEditData : React.FC = () => {
                 [type]: { ...userTypedData[type], [data]: value }
             });
         }
-        
-        console.log(userData);
     }
 
     function updateUserData(){
@@ -202,9 +199,10 @@ const UserEditData : React.FC = () => {
     }
 
     const handleConfirmAddXp = () => {
+        setXPModalIsOpen(false);
         user.updateUserExperiences(userTypedData);
         getDBUserData();
-        setXPModalIsOpen(false);
+        getDBUserData();
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
@@ -247,6 +245,7 @@ const UserEditData : React.FC = () => {
         setFormationModalIsOpen(false);
         user.updateUserFormations(userTypedData);
         getDBUserData();
+        getDBUserData();
     }
     const handleCloseModalAddFormation = () => {
         setFormationModalIsOpen(false);
@@ -267,7 +266,7 @@ const UserEditData : React.FC = () => {
                         <div className='h-32 bg-lively-purple'></div>
                             <div className='relative md:justify-end mx-5'>
                                 <div className='mt-24 md:mt-5 text-lg flex items-center'>
-                                    <img src={ userData.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-full border-4 border-lively-purple absolute left-0 -top-20 bg-white' />
+                                    <img src={ userData.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-full border-4 border-lively-purple absolute left-0 -top-20 bg-white' referrerPolicy='no-referrer'/>
                                     <FontAwesomeIcon icon={ faPencil } className='rounded-full border-4 border-lively-purple text-white bg-lively-purple ml-28 p-3 z-10' />
                                     <div className='mt-24 md:mt-5 text-lg md:justify-end flex justify-between items-center w-full'>
                                         Usuário desde { new Date(userData.createdAt).toLocaleDateString('pt-BR') }
@@ -295,16 +294,16 @@ const UserEditData : React.FC = () => {
                                     XPModalIsOpen && (
                                         <FormModal handleClose={ handleCloseModalAddXp } handleConfirm={ handleConfirmAddXp } title='Adicionar Experiência Prévia'>
                                             <div className='my-2'>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experiences-role' id='experiences-role' consultPackage={ consultPackage } />
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experiences-company' id='experiences-company' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experiences-role' id='experiences-role' consultPackage={ consultPackage } required/>
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experiences-company' id='experiences-company' consultPackage={ consultPackage } required />
                                                 <div className='flex justify-between content-between items-center px-2'>
                                                     <div className="pb-2">
                                                         <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                     </div>
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='experiences-start' id='experiences-start' consultPackage={ consultPackage } />
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } />
+                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
                                                 </div>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' id='experiences-description' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' id='experiences-description' consultPackage={ consultPackage } required/>
                                                 {/* titulo / empresa / inicio (mm/aa) / termino(mm/aa) / descricao */}
                                             </div>
                                         </FormModal>
@@ -330,16 +329,16 @@ const UserEditData : React.FC = () => {
                                     formationModalIsOpen && (
                                         <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ handleConfirmAddFormation } title='Adicionar Formação Acadêmica'>
                                             <div className='my-2'>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' id='formations-name' consultPackage={ consultPackage } />
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' id='formations-institution' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' id='formations-name' consultPackage={ consultPackage } required/>
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' id='formations-institution' consultPackage={ consultPackage } required/>
                                                 <div className='flex justify-between content-between items-center px-2'>
                                                     <div className="pb-2">
                                                         <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                     </div>
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formations-start' id='formations-start' consultPackage={ consultPackage } />
-                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formations-finish' id='formations-finish' consultPackage={ consultPackage } />
+                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formations-start' id='formations-start' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formations-finish' id='formations-finish' consultPackage={ consultPackage } required/>
                                                 </div>
-                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' id='formations-description' consultPackage={ consultPackage } />
+                                                <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' id='formations-description' consultPackage={ consultPackage } required/>
                                             </div>
                                         </FormModal>
                                     )

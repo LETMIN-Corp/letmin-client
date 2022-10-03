@@ -221,6 +221,7 @@ export const AuthState = ({ children } : any) => {
         .then((res: any) => { console.log(res)
             if (res.status === 200) {
                 dispatchSuccess('Experiências atualizadas com sucesso!');
+                // window.location.reload();
             }
             else
                 dispatchError(formatErrors(res.data.message));
@@ -231,6 +232,7 @@ export const AuthState = ({ children } : any) => {
         .then((res: any) => { console.log(res)
             if (res.status === 200) {
                 dispatchSuccess('Formações atualizadas com sucesso!');
+                // window.location.reload();
             }
             else
                 dispatchError(formatErrors(res.data.message));
