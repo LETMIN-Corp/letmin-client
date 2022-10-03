@@ -1,9 +1,9 @@
 import HighLight from '../../Components/Items/HighLight';
 import { useEffect, useState } from 'react';
 import CompanyDefault from './CompanyDefault';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faLeftLong, faRightLong, faTriangleExclamation, faTrash, faBriefcase, faHeartBroken } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faTriangleExclamation, faHeartBroken } from '@fortawesome/free-solid-svg-icons';
 import FormModal from '../../Components/Modals/FormModal';
 import useCompany from '../../Utils/useCompany';
 import useLoading from '../../Utils/useLoading';
@@ -236,7 +236,7 @@ const CompanyCombinations : React.FC = () => {
                     </FormModal>
                 )
             }
-        </CompanyDefault> 
+        </CompanyDefault>
     );
 }
 

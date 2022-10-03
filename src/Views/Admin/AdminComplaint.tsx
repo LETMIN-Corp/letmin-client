@@ -162,12 +162,13 @@ const TableCard: React.FC<TableCardInterface> = ({ complaint, openModal, changeS
         <div className='text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2'>
             <span className='w-4/12 pr-1'>{ complaint.envoy.name }</span>
             <span className='w-4/12 pr-1'>{ complaint.reason }</span>
-            <Link 
-                className='w-4/12 pr-1 text-dark-purple hover:text-purple-600'
-                to={ complaint.target.role === 'User' ? `/profile/${complaint.target._id}` : `/company/${complaint.target._id}` }
-            >
-                { complaint.target.name }
-            </Link>
+            <span className='w-4/12 pr-1 text-dark-purple hover:text-purple-600'>
+                <Link
+                    to={ `/admin/combinations/${complaint.target._id}` }
+                >
+                    { complaint.target.name }
+                </Link>
+            </span>
             <span className='w-8/12 pr-1'>{ complaint.description }</span>
             <span className='w-4/12 pr-1'>{ complaint.pending ? 'Pendente' : 'Resolvida' }</span>
             <span className='w-2/12 pr-1 flex justify-between'>
