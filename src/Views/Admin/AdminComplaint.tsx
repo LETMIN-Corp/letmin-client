@@ -30,25 +30,11 @@ const AdminComplaint : React.FC = () => {
     const { loading } = useLoading();
     
     const [ModalIsOpen, setModalIsOpen] = useState(false);
+    const [searchComplaint, setSearchComplaint] = useState('');
+    
+    const [allComplaints, setAllComplaints] = useState<IComplaint[]>([]);
+    const [complaints, setComplaints] = useState<IComplaint[]>([])
     const [currentComplaint, setCurrentComplaint] = useState(0);
-    const [complaints, setComplaints] = useState<[IComplaint]>([
-        {
-            _id: '',
-            description: '',
-            reason: '',
-            envoy: {
-                _id: '',
-                name: '',
-                role: '',
-            },
-            target: {
-                _id: '',
-                name: '',
-                role: '',
-            },
-            pending: false,
-        }
-    ])
 
     function handleCheckComplaint(id: string) {
         admin.changeComplaintStatus(id).then((res: any) => {
@@ -77,64 +63,81 @@ const AdminComplaint : React.FC = () => {
         });
     }
 
+    const filterComplaints = (value: string) => {
+        if (value.length === 0) {
+            return setComplaints(allComplaints);
+        }
+
+        let filteredComplaints = allComplaints.filter((complaint) => {
+            return complaint.description.toLowerCase().includes(value.toLowerCase()) 
+                || complaint.reason.toLowerCase().includes(value.toLowerCase());
+        });
+        setComplaints(filteredComplaints);
+    }
     useEffect((): void => {
         window.document.title = 'Letmin - Denúncias';
 
         admin.getAllComplaints().then((res: any) => {
             if (res.data.success && res.status === 200) {
+                setAllComplaints(res.data.complaints);
                 setComplaints(res.data.complaints);
+                return;
             }
+            admin.dispatchError(res.data.message);
         });
     }, []);
+
+    useEffect((): void => {
+        filterComplaints(searchComplaint);
+    }, [searchComplaint]);
+
     return (
         <AdminDefault>
-            {
-                loading ? <Loading /> : (
-                    <div className='p-5 min-h-90'>
-                        <h1 className='text-2xl'>
-                            <FontAwesomeIcon icon={ faTriangleExclamation } className='mr-2' />
-                            Denúncias
-                        </h1>
-                        <div className='max-w-sm w-full relative mt-5'>
-                            <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
-                            <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-2 text-xl text-dark-purple' />
+            <div className='p-5 min-h-90'>
+                <h1 className='text-2xl'>
+                    <FontAwesomeIcon icon={ faTriangleExclamation } className='mr-2' />
+                    Denúncias
+                </h1>
+                <div className='max-w-sm w-full relative mt-5'>
+                    <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' onChange={(e) => setSearchComplaint(e.target.value)} id='search' />
+                    <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-2 text-xl text-dark-purple' />
+                </div>
+                {
+                    loading ? <Loading /> : 
+                    complaints.length == 0 ? (
+                        <div className='mt-5'>
+                            <p className='text-center text-xl'>Nenhuma denúncia encontrada</p>
                         </div>
-                        {
-                            complaints.length > 0 ? (
-                                <div className='mt-5 break-all'>
-                                    <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
-                                        <span className='w-4/12 pr-1'>Emissário</span>
-                                        <span className='w-4/12 pr-1'>Razão Denúncia</span>
-                                        <span className='w-4/12 pr-1'>Alvo</span>
-                                        <span className='w-8/12 pr-1'>Descrição</span>
-                                        <span className='w-4/12 pr-1'>Status</span>
-                                        <span className='w-2/12 pr-1'>Ações</span>
-                                    </div>
-                                    <div>
-                                        {
-                                            complaints.map((complaint, key) => 
-                                                <TableCard 
-                                                    key={ key } 
-                                                    complaint={ complaint } 
-                                                    changeStatus={() => handleCheckComplaint(complaint._id)}
-                                                    openModal={() => {
-                                                        setModalIsOpen(true);
-                                                        setCurrentComplaint(key);
-                                                    }}
-                                                /> 
-                                            )
-                                        }
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className='mt-5'>
-                                    <p className='text-center text-xl'>Nenhuma denúncia encontrada</p>
-                                </div>
-                            )
-                        }
-                    </div>
-                )
-            }
+                    ) :
+                    (
+                        <div className='mt-5 break-all'>
+                            <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
+                                <span className='w-4/12 pr-1'>Emissário</span>
+                                <span className='w-4/12 pr-1'>Razão Denúncia</span>
+                                <span className='w-4/12 pr-1'>Alvo</span>
+                                <span className='w-8/12 pr-1'>Descrição</span>
+                                <span className='w-4/12 pr-1'>Status</span>
+                                <span className='w-2/12 pr-1'>Ações</span>
+                            </div>
+                            <div>
+                                {
+                                    complaints.map((complaint, key) => 
+                                        <TableCard 
+                                            key={ key } 
+                                            complaint={ complaint } 
+                                            changeStatus={() => handleCheckComplaint(complaint._id)}
+                                            openModal={() => {
+                                                setModalIsOpen(true);
+                                                setCurrentComplaint(key);
+                                            }}
+                                        /> 
+                                    )
+                                }
+                            </div>
+                        </div>
+                    )
+                }
+            </div>
             {
                 ModalIsOpen && (
                     <FormModal

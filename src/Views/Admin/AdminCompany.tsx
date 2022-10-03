@@ -7,10 +7,16 @@ import { faBan, faBuilding, faInfo, faUnlock, faMagnifyingGlass } from '@fortawe
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAdmin from '../../Utils/useAdmin';
 import Loading from '../../Components/Items/Loading';
+import useLoading from '../../Utils/useLoading';
 
 const AdminCompany : React.FC = () => {
     const admin = useAdmin();
-    const [companies, setCompanies] = useState([]);
+    const { loading } = useLoading();
+
+    const [searchCompany, setSearchCompany] = useState('');
+
+    const [allCompanies, setAllCompanies] = useState<any[]>([]);
+    const [companies, setCompanies] = useState<any[]>([]);
     const [selectedCompanyKey, setSelectedCompanyKey] = useState(0);
 
     useEffect((): void => {
@@ -18,6 +24,7 @@ const AdminCompany : React.FC = () => {
 
         admin.getAllCompanies().then((res: any) => {
             setCompanies(res.data.companies);
+            setAllCompanies(res.data.companies);
         });
     }, []);
 
@@ -31,8 +38,25 @@ const AdminCompany : React.FC = () => {
     function handleCompanyBlock(id: string) : void {
         admin.blockCompany(id).then((res: any) => {
             setCompanies(res.data.companies);
+            setAllCompanies(res.data.companies);
         });
     }
+
+    const filterCompanies = (search: string) => {
+        if (search == '') {
+            return setCompanies(allCompanies);
+        }
+
+        let filteredCompanies = allCompanies.filter((company: any) => {
+            return company.company.name.toLowerCase().includes(search.toLowerCase());
+        });
+
+        setCompanies(filteredCompanies);
+    }
+
+    useEffect((): void => {
+        filterCompanies(searchCompany);
+    }, [searchCompany]);
 
     return (
         <AdminDefault>
@@ -42,16 +66,17 @@ const AdminCompany : React.FC = () => {
                     Empresas
                 </h1>
                 <div className='max-w-sm w-full relative mt-5'>
-                    <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                    <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' onChange={(e) => setSearchCompany(e.target.value)}  id='search' />
                     <FontAwesomeIcon icon={ faMagnifyingGlass }  className='absolute right-2 top-2 text-xl text-dark-purple' />
                 </div>
                 {
-                    admin.loading && (
-                        <Loading />
-                    )
-                }
-                {
-                    !admin.loading && (
+                    loading ? <Loading /> : 
+                    companies.length == 0 ? (
+                        <div className='mt-5'>
+                            <p className='text-center text-xl'>Nenhuma Empresa encontrada</p>
+                        </div>
+                    ) :
+                    (
                         <div className='mt-5 break-all'>
                             <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
                                 <span className='w-5/12 md:w-7/12 pr-1'>Razão Social</span>
@@ -59,7 +84,7 @@ const AdminCompany : React.FC = () => {
                                 <span className='w-3/12 md:w-12 pr-1'>Ações</span>
                             </div>
                             <div>
-                                {   // @ts-ignore
+                                {
                                     companies.map((company, key) => <TableCard key={ key } companyData={ company } handleOpen={ () => handleOpen(key) } handleCompanyBlock={ () => handleCompanyBlock(company._id) } /> )
                                 }
                             </div>
