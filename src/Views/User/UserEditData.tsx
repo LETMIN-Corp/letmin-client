@@ -265,6 +265,10 @@ const UserEditData : React.FC = () => {
     }
 
     const handleConfirmAddFormation = () => {
+        if(userTypedData.formations.length == 0){
+            //mostrar mensagem de "ain bababa vc tem erro"
+            return;
+        }
         setFormationModalIsOpen(false);
         userData.formations.push(userTypedData.formations)
         userTypedData.formations = [];
@@ -366,7 +370,7 @@ const UserEditData : React.FC = () => {
                                                         <div className="pb-2">
                                                             <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                         </div>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formations-start' id='formations-start' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formations-start' id='formations-start' min={4} max={4} consultPackage={ consultPackage } required/>
                                                         <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formations-finish' id='formations-finish' consultPackage={ consultPackage } required/>
                                                     </div>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' id='formations-description' consultPackage={ consultPackage } required/>

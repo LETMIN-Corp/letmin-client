@@ -18,11 +18,13 @@ interface ComponentInterface {
     name: string,
     value?: string,
     id?: string,
+    min?: number,
+    max?: number,
     disabled?: boolean,
     required?: boolean,
 };
 
-const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, value, useMask, limit = 512, consultPackage, name, id, disabled, required }) => {
+const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, value, useMask, limit = 512, consultPackage, name, id, min, max, disabled, required }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const getInputSize = () => {
@@ -87,6 +89,8 @@ const TextInput : React.FC<ComponentInterface> = ({ type, placeholder, size, val
                 onChange={ setValue }
                 name={ name }
                 id={ id }
+                min= { min }
+                max = { max }
                 className='w-full mt-2 mb-5 md:mt-2 py-2 px-5 border-2 border-dark-purple rounded-md text-md'
                 disabled = { disabled }
                 required = { required }

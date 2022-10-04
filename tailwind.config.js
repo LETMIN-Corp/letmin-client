@@ -33,6 +33,12 @@ module.exports = {
       minWidth: {
         'sm': '115px',
       },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-10deg)' },
+          '50%': { transform: 'rotate(10deg)' },
+        }
+      },
     },
   },
   plugins: [],
