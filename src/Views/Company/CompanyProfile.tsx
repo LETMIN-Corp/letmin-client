@@ -73,7 +73,7 @@ const CompanyProfile = () => {
     }, []);
 
     function getInputValue (name: string): string {
-        const [type, data] = name.split('-'); //company-name  -> company  name
+        const [type, data] = name.split('-');
 
         return companyData[type][data];
     }
@@ -131,8 +131,12 @@ const CompanyProfile = () => {
             ...canEdit,
             [property]: !canEdit[property],
         });
+
+        if(canEdit[property]) {
+            getDBCompanyData();
+        }
     }
-    
+
     return (
         <CompanyDefault>
             <div className='p-5'>
@@ -141,12 +145,7 @@ const CompanyProfile = () => {
                     <span>Meus Dados</span>
                 </h1>
                 {
-                    loading && (
-                        <Loading />
-                    )
-                }
-                {
-                    !loading && (
+                    loading ? <Loading /> : (
                         <div>
                             <CompanyEditCard>
                                 <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>
