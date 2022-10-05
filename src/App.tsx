@@ -29,6 +29,7 @@ import PublicRoutes from './Routes/PublicRoutes';
 import CookiesPopUp from './Components/Items/CookiesPopUp';
 import { ToastLayout } from './Utils/ToastMessages';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminCombinations from './Views/Admin/AdminCombinations';
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
               <Route path='/admin/companies' element={ <AdminCompany/> } />
               <Route path='/admin/collaborators' element={ <AdminCollaborator/> } />
               <Route path='/admin/complaints' element={ <AdminComplaint/> } />
+              <Route path='/admin/combinations/:id' element={ <AdminCombinations /> } />
         </Route>
       </Routes>
       <CookiesPopUp />

@@ -10,6 +10,7 @@ import { faGear } from '@fortawesome/free-solid-svg-icons';
 import useCompany from '../../Utils/useCompany';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
+import { formatErrors } from '../../Utils/ToastMessages';
 
 class Company {
     company: object = {
@@ -72,7 +73,7 @@ const CompanyProfile = () => {
     }, []);
 
     function getInputValue (name: string): string {
-        const [type, data] = name.split('-'); //company-name  -> company  name
+        const [type, data] = name.split('-');
 
         return companyData[type][data];
     }
@@ -90,13 +91,25 @@ const CompanyProfile = () => {
 
     function updateCompanyData()
     {
-        company.updateCompanyData(companyData);
+        company.updateCompanyData(companyData).then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                company.dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
+            }
+            else company.dispatchError(formatErrors(res.data.message));
+        });
+        getDBCompanyData();
         flipEdit('company');
     }
 
     function updateHolderData()
     {
-        company.updateHolderData(companyData);
+        company.updateHolderData(companyData).then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                company.dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
+            }
+            else
+                company.dispatchError(formatErrors(res.data.message));
+        });
         getDBCompanyData();
         flipEdit('holder');
     }
@@ -118,8 +131,12 @@ const CompanyProfile = () => {
             ...canEdit,
             [property]: !canEdit[property],
         });
+
+        if(canEdit[property]) {
+            getDBCompanyData();
+        }
     }
-    
+
     return (
         <CompanyDefault>
             <div className='p-5'>
@@ -128,12 +145,7 @@ const CompanyProfile = () => {
                     <span>Meus Dados</span>
                 </h1>
                 {
-                    loading && (
-                        <Loading />
-                    )
-                }
-                {
-                    !loading && (
+                    loading ? <Loading /> : (
                         <div>
                             <CompanyEditCard>
                                 <h3 className='text-dark-purple text-lg md:text-xl flex items-center w-full justify-between'>

@@ -295,7 +295,7 @@ const UserEditData : React.FC = () => {
                         <div className='h-32 bg-lively-purple'></div>
                             <div className='relative md:justify-end mx-5'>
                                 <div className='mt-24 md:mt-5 text-lg flex items-center'>
-                                    <img src={ userData.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-full border-4 border-lively-purple absolute left-0 -top-20 bg-white' referrerPolicy='no-referrer'/>
+                                    <img src={ userData.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-full border-4 border-lively-purple absolute left-0 -top-20 bg-white' referrerPolicy='no-referrer' />
                                     <FontAwesomeIcon icon={ faPencil } className='rounded-full border-4 border-lively-purple text-white bg-lively-purple ml-28 p-3 z-10' />
                                     <div className='mt-24 md:mt-5 text-lg md:justify-end flex justify-between items-center w-full'>
                                         Usuário desde { new Date(userData.createdAt).toLocaleDateString('pt-BR') }

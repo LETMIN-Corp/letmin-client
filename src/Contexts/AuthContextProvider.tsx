@@ -130,12 +130,20 @@ export const AuthState = ({ children } : any) => {
         return axiosRequest(`${API_URL}/api/company/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
     }
 
+    const getCandidate = async (candidate_id: string) => {
+        return await axiosRequest(`${API_URL}/api/company/get-candidate/${candidate_id}`, 'GET');
+    }
+
     const getAllVacancyCandidates = async (vacancy_id: string) => {
         return axiosRequest(`${API_URL}/api/company/get-all-candidates/${vacancy_id}`, 'GET');
     }
 
     const getUsers = async () => {
         return await axiosRequest(`${API_URL}/api/company/user`, 'GET');
+    }
+
+    const createComplaint = async (complaint: any) => {
+        return await axiosRequest(`${API_URL}/api/create-complaint`, 'POST', complaint);
     }
     
     
@@ -254,6 +262,18 @@ export const AuthState = ({ children } : any) => {
     const blockUser = async (user_id: string) => {
         return axiosRequest(`${API_URL}/api/admin/user-block`, 'PATCH', { user_id });
     }
+    const getAllComplaints = async () => {
+        return axiosRequest(`${API_URL}/api/admin/get-all-complaints`, 'GET');
+    }
+    const changeComplaintStatus = async (complaint_id: string) => {
+        return axiosRequest(`${API_URL}/api/admin/resolve-complaint`, 'PATCH', { complaint_id });
+    }
+    const removeComplaint = async (complaint_id: string) => {
+        return axiosRequest(`${API_URL}/api/admin/remove-complaint`, 'DELETE', { complaint_id });
+    }
+    const getUser = async (user_id: string) => {
+        return axiosRequest(`${API_URL}/api/admin/get-user`, 'POST', { user_id });
+    }
     // End Admin functions
     return (
         <AuthContext.Provider value={{
@@ -288,7 +308,9 @@ export const AuthState = ({ children } : any) => {
             updateUserFormations,
             updateCompanyData,
             updateHolderData,
+            getCandidate,
             getAllVacancyCandidates,
+            createComplaint,
             addToTalentBank,
             removeFromTalentBank,
             getTalentBank,
@@ -297,6 +319,10 @@ export const AuthState = ({ children } : any) => {
             blockCompany,
             getAllUsers,
             blockUser,
+            getAllComplaints,
+            changeComplaintStatus,
+            removeComplaint,
+            getUser,
         }}>
             { children }
         </AuthContext.Provider>

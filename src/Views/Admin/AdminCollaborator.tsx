@@ -7,10 +7,25 @@ import InputTypesEnum from '../../Enums//InputTypesEnum';
 import AdminDefault from './AdminDefault';
 import useAdmin from '../../Utils/useAdmin';
 import Loading from '../../Components/Items/Loading';
+import useLoading from '../../Utils/useLoading';
+import { Link } from 'react-router-dom';
+
+interface ICollaborator {
+    _id: string;
+    name: string;
+    email: string;
+    role: string;
+    blocked: boolean;
+    [key: string]: any;
+}
 
 const AdminCollaborator : React.FC = () => {
     const admin = useAdmin();
-    const [users, setUsers] = useState([]);
+    const { loading } = useLoading();
+    const [searchUser, setSearchUser] = useState('');
+
+    const [allUsers, setAllUsers] = useState<ICollaborator[]>([]);
+    const [users, setUsers] = useState<ICollaborator[]>([]);
     const [selectedUserKey, setSelectedUserKey] = useState(0);
 
     useEffect((): void => {
@@ -18,6 +33,7 @@ const AdminCollaborator : React.FC = () => {
 
         admin.getAllUsers().then((res: any) => {
             setUsers(res.data.users);
+            setAllUsers(res.data.users);
         });
     }, []);
 
@@ -26,6 +42,7 @@ const AdminCollaborator : React.FC = () => {
     function handleUserBlock(id: string) : void {
         admin.blockUser(id).then((res: any) => {
             setUsers(res.data.users);
+            setAllUsers(res.data.users);
         });
     }
 
@@ -33,6 +50,22 @@ const AdminCollaborator : React.FC = () => {
         setSelectedUserKey(key);
         setOpenModal(true);
     }
+
+    const filterCollaborators = (search: string) => {
+        if (search == '') {
+            return setUsers(allUsers);
+        }
+
+        let filteredUsers = allUsers.filter((user: ICollaborator) => {
+            return user.name.toLowerCase().includes(search.toLowerCase());
+        });
+
+        setUsers(filteredUsers);
+    }
+
+    useEffect((): void => {
+        filterCollaborators(searchUser);
+    }, [searchUser]);
 
     return (
         <AdminDefault>
@@ -42,16 +75,15 @@ const AdminCollaborator : React.FC = () => {
                     Colaboradores
                 </h1>
                 <div className='max-w-sm w-full relative mt-5'>
-                    <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' id='search' />
+                    <input type='text' placeholder='Buscar' className='w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md' name='search' onChange={(e) => setSearchUser(e.target.value)} id='search' />
                     <FontAwesomeIcon icon={ faMagnifyingGlass } className='absolute right-2 top-2 text-xl text-dark-purple' />
                 </div>
                 {
-                    admin.loading && (
-                        <Loading />
-                    )
-                }
-                {
-                    !admin.loading && (
+                    loading ? <Loading /> : 
+                    users.length == 0 ? (
+                        <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhum usuário encontrado</div>
+                    ) :
+                    (
                         <div className='mt-5 break-all'>
                             <div className='text-sm md:text-md font-medium flex justify-between w-full px-1'>
                                 <span className='w-5/12 md:w-7/12 pr-1'>Nome</span>
@@ -59,7 +91,7 @@ const AdminCollaborator : React.FC = () => {
                                 <span className='w-3/12 md:w-12 pr-1'>Ações</span>
                             </div>
                             <div>
-                                {   // @ts-ignore
+                                {   
                                     users.map((collaborator, key) => <TableCard key={ key } collaborator={ collaborator } handleOpen={ () => handleOpen(key) } handleUserBlock={ () => handleUserBlock(collaborator._id) } /> )
                                 }
                             </div>
@@ -75,10 +107,7 @@ const AdminCollaborator : React.FC = () => {
 }
 
 interface TableCardInterface {
-    collaborator: {
-        name: string,
-        blocked: boolean,
-    },
+    collaborator: ICollaborator,
     handleOpen: () => void,
     handleUserBlock: () => void,
 };
@@ -86,7 +115,11 @@ interface TableCardInterface {
 const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen, handleUserBlock }) => {
     return (
         <div className='text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2'>
-            <span className='w-5/12 md:w-7/12 pr-1'>{ collaborator.name }</span>
+            <span className='w-5/12 md:w-7/12 pr-1'>
+                <Link className='font-medium text-primary hover:text-bright-purple' to={ `/admin/combinations/${collaborator._id}` }>
+                    { collaborator.name }
+                </Link>
+            </span>
             <span className='w-4/12 pr-1'>{ collaborator.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-2/12 md:w-12 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
@@ -102,7 +135,7 @@ const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen, han
 
 interface CollaboratorFormInterface {
     isDisabled: boolean,
-    collaborators: [] | any,
+    collaborators: ICollaborator[],
     selectedCollaboratorKey: number,
     handleClose: () => void,
 }

@@ -14,7 +14,7 @@ const TalentBankCard : React.FC<ComponentInterface> = ({ user }) => {
     return (
         <Link to={'/company/combinations/' + user._id}>
             <div className='cursor-pointer break-all text-white bg-primary rounded-sm drop-shadow-lg p-3'>
-                <div className='text-center'>{ user.name }</div>
+                <div className='text-center font-medium'>{ user.name }</div>
                 <div className='bg-white h-1 rounded-full opacity-50'></div>
                 <div className='text-sm'>
                     <div className='mt-2 flex items-center'>
