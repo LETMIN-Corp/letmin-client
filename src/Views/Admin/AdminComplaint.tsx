@@ -1,11 +1,10 @@
-import { faTriangleExclamation, faMagnifyingGlass, faTrash, faCheckCircle, faTimesCircle, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faTriangleExclamation, faMagnifyingGlass, faTrash, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import AdminDefault from './AdminDefault';
 import useAdmin from '../../Utils/useAdmin';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
-import FormModal from '../../Components/Modals/FormModal';
 import { Link } from 'react-router-dom';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
 
@@ -71,7 +70,9 @@ const AdminComplaint : React.FC = () => {
 
         let filteredComplaints = allComplaints.filter((complaint) => {
             return complaint.description.toLowerCase().includes(value.toLowerCase()) 
-                || complaint.reason.toLowerCase().includes(value.toLowerCase());
+                || complaint.reason.toLowerCase().includes(value.toLowerCase())
+                || complaint.envoy.name.toLowerCase().includes(value.toLowerCase())
+                || complaint.target.name.toLowerCase().includes(value.toLowerCase());
         });
         setComplaints(filteredComplaints);
     }
@@ -163,9 +164,7 @@ const TableCard: React.FC<TableCardInterface> = ({ complaint, openModal, changeS
             <span className='w-4/12 pr-1'>{ complaint.envoy.name }</span>
             <span className='w-4/12 pr-1'>{ complaint.reason }</span>
             <span className='w-4/12 pr-1 text-dark-purple hover:text-purple-600'>
-                <Link
-                    to={ `/admin/combinations/${complaint.target._id}` }
-                >
+                <Link to={ `/admin/combinations/${complaint.target._id}` }>
                     { complaint.target.name }
                 </Link>
             </span>

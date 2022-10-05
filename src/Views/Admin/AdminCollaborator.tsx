@@ -8,6 +8,7 @@ import AdminDefault from './AdminDefault';
 import useAdmin from '../../Utils/useAdmin';
 import Loading from '../../Components/Items/Loading';
 import useLoading from '../../Utils/useLoading';
+import { Link } from 'react-router-dom';
 
 interface ICollaborator {
     _id: string;
@@ -114,7 +115,11 @@ interface TableCardInterface {
 const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen, handleUserBlock }) => {
     return (
         <div className='text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2'>
-            <span className='w-5/12 md:w-7/12 pr-1'>{ collaborator.name }</span>
+            <span className='w-5/12 md:w-7/12 pr-1 text-dark-purple hover:text-purple-600'>
+                <Link to={ `/admin/combinations/${collaborator._id}` }>
+                    { collaborator.name }
+                </Link>
+            </span>
             <span className='w-4/12 pr-1'>{ collaborator.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-2/12 md:w-12 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>

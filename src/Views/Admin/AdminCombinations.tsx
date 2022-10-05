@@ -1,19 +1,25 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import HighLight from "../../Components/Items/HighLight";
-import Loading from "../../Components/Items/Loading";
-import useCompany from "../../Utils/useCompany";
-import useLoading from "../../Utils/useLoading";
-import AdminDefault from "./AdminDefault";
+import HighLight from '../../Components/Items/HighLight';
+import { useEffect, useState } from 'react';
+import AdminDefault from './AdminDefault';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import FormModal from '../../Components/Modals/FormModal';
+import useLoading from '../../Utils/useLoading';
+import Loading from '../../Components/Items/Loading';
+import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
+import TextAreaInput from '../../Components/Inputs/TextAreaInput';
+import useAdmin from '../../Utils/useAdmin';
 
 const AdminCombinations : React.FC = () => {
-    const company = useCompany();
+    const admin = useAdmin();
     const { loading } = useLoading();
 
     const navigate = useNavigate();
     const params = useParams();
     const id = params.id;
 
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [candidate, setCandidate] = useState({
         _id: '',
         name: '',
@@ -24,15 +30,21 @@ const AdminCombinations : React.FC = () => {
         formations: []
     })
 
+    const options = [
+        { label: "Conteúdo inapropriado", value: "Conteúdo inapropriado" },
+        { label: "Spam", value: "Spam" },
+        { label: "Outros", value: "Outros" },
+    ];
+
     useEffect((): void => {
         window.document.title = 'Letmin - Combinação';
 
         if (id?.length !== 24) {
-            return navigate('/admin/complaints');
+            return navigate('/admin');
         }
 
-        company.getCandidate(id).then((res: any) => {
-            setCandidate(res.data.data);
+        admin.getUser(id).then((res: any) => {
+            setCandidate(res.data.user);
         })
     }, []);
 
@@ -65,6 +77,22 @@ const AdminCombinations : React.FC = () => {
         });
     }
 
+    function handleConfirm () {
+        setModalIsOpen(true);
+        return admin.createComplaint(complaint).then((res: any) => {
+            if(res.data.success) {
+                setModalIsOpen(false);
+                setComplaint(InitialState);
+                return dispatchSuccess(res.data.message);
+            }
+            dispatchError(res.data.message);
+        })
+    }
+
+    const handleCloseModal = () => {
+        setModalIsOpen(false);
+    }
+
     return (
         <AdminDefault>
             <div className='flex justify-center items-center py-5 lg:py-10 bg-primary'>
@@ -75,23 +103,29 @@ const AdminCombinations : React.FC = () => {
                     <div className='p-5'>
                         <section className='flex flex-col justify-center items-center py-10'>
                             <div className='w-full flex items-center justify-between lg:w-8/12'>
-                                {/* <div>
+                                <div>
                                     <img src={candidate.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-md' alt='Use Picture' referrerPolicy='no-referrer' />
-                                </div> */}
-                                <div></div>
+                                </div>
+                                <div>
+                                    <FontAwesomeIcon 
+                                        icon={ faTriangleExclamation } 
+                                        onClick={() => setModalIsOpen(true)} 
+                                        className='border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-3xl transition ease-in-out delay-50'
+                                    />
+                                </div>
                             </div>
                         </section>
                         <section className='flex w-full lg:w-8/12 mx-auto flex-wrap md:text-left'>
-                            {/* <h2 className='w-full text-dark-purple font-bold text-3xl mb-5'>{candidate.name}</h2> */}
+                            <h2 className='w-full text-dark-purple font-bold text-3xl mb-5'>{candidate.name}</h2>
                             <div className='md:w-6/12'>
                                 <div className='md:pr-4'>
                                     <h4 className='text-xl font-bold text-dark-purple'>Habilidades extras:</h4>
                                     <p>
-                                        {/* {
+                                        {
                                             candidate.experiences.map((key) => 
                                                 <p>{key}</p>
                                             )
-                                        } */}
+                                        }
                                         Lorem ipsum dolor sit amet,
                                         consectetur adipiscing elit.
                                     </p>
@@ -132,6 +166,45 @@ const AdminCombinations : React.FC = () => {
                                 </p>
                         </section>
                     </div>
+                )
+            }
+            {
+                modalIsOpen && (
+                    <FormModal handleClose={ handleCloseModal } handleConfirm={ handleConfirm } title={`Denunciar`}>
+                        <div className=''>
+                            <div>
+                                <div className='text-dark-purple text-lg mb-1'>Motivo</div>
+                                {
+                                    options.map(option => (
+                                        <div key={option.value} className='flex items-center'>
+                                            <input 
+                                                className='mr-3 h-4 w-4 cursor-pointer'
+                                                id={option.value}
+                                                name='reason'
+                                                value={option.value}
+                                                onChange={ setCheckboxValue }
+                                                type="radio" 
+                                            />
+                                            <label htmlFor={option.value} className='cursor-pointer'>
+                                                {option.value}
+                                            </label>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <div className='mt-2'>
+                                <TextAreaInput
+                                    name='description'
+                                    resize={ false }
+                                    row={ 5 }
+                                    id='description'
+                                    // @ts-ignore:next-line
+                                    consultPackage={ consultPackage }
+                                    placeholder='Descrição'
+                                />
+                            </div>
+                        </div>
+                    </FormModal>
                 )
             }
         </AdminDefault>

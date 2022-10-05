@@ -235,6 +235,9 @@ export const AuthState = ({ children } : any) => {
     const removeComplaint = async (complaint_id: string) => {
         return axiosRequest(`${API_URL}/api/admin/remove-complaint`, 'DELETE', { complaint_id });
     }
+    const getUser = async (user_id: string) => {
+        return axiosRequest(`${API_URL}/api/admin/get-user`, 'POST', { user_id });
+    }
     // End Admin functions
     return (
         <AuthContext.Provider value={{
@@ -280,6 +283,7 @@ export const AuthState = ({ children } : any) => {
             getAllComplaints,
             changeComplaintStatus,
             removeComplaint,
+            getUser,
         }}>
             { children }
         </AuthContext.Provider>
