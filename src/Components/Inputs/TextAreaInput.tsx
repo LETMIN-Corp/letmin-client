@@ -10,9 +10,10 @@ interface ComponentInterface {
     name: string,
     id?: string,
     disabled?: boolean,
+    resize?: boolean,
 };
 
-const TextAreaInput : React.FC<ComponentInterface> = ({ row, value, placeholder, limit = 512, consultPackage, name, id, disabled }) => {
+const TextAreaInput : React.FC<ComponentInterface> = ({ row, value, resize = true, placeholder, limit = 512, consultPackage, name, id, disabled }) => {
 
     function setValue (e: React.ChangeEvent<HTMLTextAreaElement>) {
 
@@ -32,7 +33,7 @@ const TextAreaInput : React.FC<ComponentInterface> = ({ row, value, placeholder,
                 rows={ row }
                 id={ id }
                 defaultValue={ inputValue || value }
-                className={`w-full mb-5 mt-2 py-3 px-5 border-2 border-dark-purple rounded-md ${ disabled ? 'resize-none' : '' }`}
+                className={`w-full mb-5 mt-2 py-3 px-5 border-2 border-dark-purple rounded-md ${ disabled || ! resize ? 'resize-none' : '' }`}
                 disabled = { disabled }
             ></textarea>
             {

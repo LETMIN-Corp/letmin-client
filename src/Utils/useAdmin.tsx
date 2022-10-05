@@ -7,6 +7,13 @@ const useAdmin = () => {
         blockCompany,
         getAllUsers,
         blockUser,
+        createComplaint,
+        getAllComplaints,
+        changeComplaintStatus,
+        removeComplaint,
+        getUser,
+        dispatchError,
+        dispatchSuccess,
         loading,
     } : any = useContext(AuthContext);
 
@@ -15,6 +22,13 @@ const useAdmin = () => {
         getAllCompanies,
         getAllUsers,
         blockUser,
+        createComplaint,
+        getAllComplaints,
+        changeComplaintStatus,
+        removeComplaint,
+        getUser,
+        dispatchError,
+        dispatchSuccess,
         loading,
     };
 }

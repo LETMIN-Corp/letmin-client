@@ -10,6 +10,7 @@ import { faGear } from '@fortawesome/free-solid-svg-icons';
 import useCompany from '../../Utils/useCompany';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
+import { formatErrors } from '../../Utils/ToastMessages';
 
 class Company {
     company: object = {
@@ -90,13 +91,25 @@ const CompanyProfile = () => {
 
     function updateCompanyData()
     {
-        company.updateCompanyData(companyData);
+        company.updateCompanyData(companyData).then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                company.dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
+            }
+            else company.dispatchError(formatErrors(res.data.message));
+        });
+        getDBCompanyData();
         flipEdit('company');
     }
 
     function updateHolderData()
     {
-        company.updateHolderData(companyData);
+        company.updateHolderData(companyData).then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                company.dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
+            }
+            else
+                company.dispatchError(formatErrors(res.data.message));
+        });
         getDBCompanyData();
         flipEdit('holder');
     }
