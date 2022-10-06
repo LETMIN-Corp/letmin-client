@@ -28,8 +28,9 @@ import CompanyLogin from './Views/Company/CompanyLogin';
 import PublicRoutes from './Routes/PublicRoutes';
 import CookiesPopUp from './Components/Items/CookiesPopUp';
 import { ToastLayout } from './Utils/ToastMessages';
-import 'react-toastify/dist/ReactToastify.css';
 import AdminCombinations from './Views/Admin/AdminCombinations';
+import CompanyRecoverPassword from './Views/Company/CompanyRecoverPassword';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path='/register' element={ <Register /> } />
           <Route path='/register/company' element={ <CompanyRegister /> } />
           <Route path='/company/login' element={ <CompanyLogin /> } />
+          <Route path='/company/recover-password' element={ <CompanyRecoverPassword /> } />
           <Route path='/admin/login' element={ <AdminLogin /> } />
         </Route>
         <Route element={ <PrivateRoutes role={ RoleEnum.company } /> }>
