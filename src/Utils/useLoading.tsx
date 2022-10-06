@@ -4,10 +4,12 @@ import { AuthContext } from "../Contexts/AuthContextProvider";
 const useLoading = () => {
     const { 
         loading,
+        setLoading,
     } : any = useContext(AuthContext);
 
     return { 
         loading,
+        setLoading,
     };
 }
 

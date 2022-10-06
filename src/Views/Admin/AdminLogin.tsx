@@ -52,12 +52,8 @@ const AdminLogin : React.FC = () => {
     return (
         <>
         {
-            loading && (
-                <Loading />
-            )
-        }
-        {
-            !loading && (
+            loading ? <Loading />
+            : (
                 <div className='w-screen min-h-screen flex items-center justify-center bg-primary'>
                     <div className='p-8 rounded-md flex items-center h-screen w-screen sm:h-auto sm:max-w-sm bg-white drop-shadow-xl'>
                         <form className='w-full' onSubmit={handleSubmit}>

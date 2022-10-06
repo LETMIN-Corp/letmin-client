@@ -121,12 +121,8 @@ const CompanyIndicators =  () => {
                     <span>Indicadores</span>
                 </h1>
                 {
-                    loading && (
-                        <Loading />
-                    )
-                }
-                {
-                    !loading && (
+                    loading ? <Loading />
+                    : (
                         <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
                             {
                                 (!data.length) && (

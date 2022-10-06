@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLightbulb, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import useCompany from '../../Utils/useCompany';
 import Loading from '../../Components/Items/Loading';
+import useLoading from '../../Utils/useLoading';
 
 const CompanyTalentSearch = () => {
     useEffect((): void => {
@@ -13,6 +14,8 @@ const CompanyTalentSearch = () => {
     }, []);
 
     const company = useCompany();
+    const { loading } = useLoading();
+
     const [allUsers, setAllUsers] = useState([]);
     const [users, setUsers] = useState([]);
     const [searchUsers, setSearchUsers] = useState('');
@@ -63,12 +66,8 @@ const CompanyTalentSearch = () => {
                     </div>
                 </div>
                 {
-                    company.loading && (
-                        <Loading />
-                    )
-                }
-                {
-                    !company.loading && (
+                    loading ? <Loading />
+                    : (
                         <>      
                             {
                                 !!userCards.length && (
