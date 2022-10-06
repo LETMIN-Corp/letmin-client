@@ -31,6 +31,7 @@ import { ToastLayout } from './Utils/ToastMessages';
 import AdminCombinations from './Views/Admin/AdminCombinations';
 import CompanyRecoverPassword from './Views/Company/CompanyRecoverPassword';
 import 'react-toastify/dist/ReactToastify.css';
+import CompanyPasswordDefinition from './Views/Company/CompanyPasswordDefinition';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path='/register/company' element={ <CompanyRegister /> } />
           <Route path='/company/login' element={ <CompanyLogin /> } />
           <Route path='/company/recover-password' element={ <CompanyRecoverPassword /> } />
+          <Route path='/company/recover-password/:id' element={ <CompanyPasswordDefinition /> } />
           <Route path='/admin/login' element={ <AdminLogin /> } />
         </Route>
         <Route element={ <PrivateRoutes role={ RoleEnum.company } /> }>
