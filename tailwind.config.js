@@ -22,7 +22,8 @@ module.exports = {
           DEFAULT: '#00C853',
           dark: '#009624',
         },
-        'red': '#E83736'
+        'red': '#E83736',
+        'dark-red': '#B91C1C',
       },
       minHeight: {
         '0': '0',

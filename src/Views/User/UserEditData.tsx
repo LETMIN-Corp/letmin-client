@@ -17,7 +17,7 @@ import ImgUserDefault from '../../Assets/user_default.jpg';
 import UserDefault from './UserDefault'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandshake, faInfo, faLink, faPlus, faPencil, faCalendar, faRemove, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faHandshake, faInfo, faLink, faPlus, faPencil, faCalendar, faRemove, faTrash, faTrashAlt, faTrashRestore, faTrashCan, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons';
 import useUser from '../../Utils/useUser';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
@@ -214,14 +214,10 @@ const UserEditData : React.FC = () => {
         setXPModalIsOpen(false);
         userData.experiences.push(userTypedData.experiences)
         userTypedData.experiences = [];
-        // console.log(userData.experiences)
-        // user.updateUserExperiences(userTypedData);
-        // getDBUserData();
-        // getDBUserData();
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
-        getDBUserData();
+        // getDBUserData();
     }
 
     function flipExclude(property: string)
@@ -230,6 +226,18 @@ const UserEditData : React.FC = () => {
             ...canExclude,
             [property]: !canExclude[property],
         });
+    }
+
+    function excludeFormation (id : number) {
+        userData.formations.splice(id, 1);
+        setUserData(userData);
+        console.log(userData);
+    }
+
+    function excludeExperience (id : number) {
+        userData.experiences.splice(id, 1);
+        setUserData(userData);
+        console.log(userData);
     }
 
     const filterExperiences = (value : string) => {
@@ -278,7 +286,7 @@ const UserEditData : React.FC = () => {
     }
     const handleCloseModalAddFormation = () => {
         setFormationModalIsOpen(false);
-        getDBUserData();
+        // getDBUserData();
     }
 
     const consultPackage = {
@@ -314,9 +322,25 @@ const UserEditData : React.FC = () => {
                             </div>
                         </main>
                         <section className='px-5 mt-10'>
-                            <div className='mt-24 md:my-4 text-lg flex justify-between items-center w-full'>
+                            <div className='mt-24 md:my-4 flex justify-between items-center w-full'>
                                 <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
                                 <div>
+                                    
+                                    {
+                                        (canExclude.experiences) && (userData.experiences.length != 0) && (
+                                            <button onClick={ () => flipExclude('experiences') } className='bg-red w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-red ease-out duration-200'>
+                                                {/* <FontAwesomeIcon icon={ faTrashCan } /> */}
+                                                <FontAwesomeIcon icon={ faTrashArrowUp } />
+                                            </button>
+                                        )
+                                    }       
+                                    {
+                                        (!canExclude.experiences) && (userData.experiences.length != 0) && (
+                                            <button onClick={ () => flipExclude('experiences') } className='bg-red w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-red ease-out duration-200'>
+                                                <FontAwesomeIcon icon={ faTrash } />
+                                            </button>
+                                        )
+                                    }
                                     <button onClick={ () => setXPModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                                         <FontAwesomeIcon icon={ faPlus } />
                                     </button>
@@ -330,8 +354,8 @@ const UserEditData : React.FC = () => {
                                                         <div className="pb-2">
                                                             <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                         </div>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" min={ 4 } name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" min={ 4 } name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
                                                     </div>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' id='experiences-description' consultPackage={ consultPackage } required/>
                                                     {/* titulo / empresa / inicio (mm/aa) / termino(mm/aa) / descricao */}
@@ -339,31 +363,44 @@ const UserEditData : React.FC = () => {
                                             </FormModal>
                                         )
                                     }
-                                    <button onClick={ () => flipExclude('experiences') } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
-                                        <FontAwesomeIcon icon={ faTrash } />
-                                    </button>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {
-                                    userData.experiences.map((card, key) => <UserExperienceCard key={ key } card={ card } exclude={ canExclude.experiences } /> )
+                                    userData.experiences.map((card, key) => <UserExperienceCard key={ key } card={ card } canExclude={ canExclude.experiences } exclude={ () => excludeExperience(key) } /> )
                                 }
                             </div>
                         </section>
                         <section className='px-5 my-10'>
-                            <div className='mt-24 md:my-4 text-lg flex justify-between items-center w-full'>
+                            <div className='mt-24 md:my-4 flex justify-between items-center w-full'>
                                 <div className='font-medium text-xl text-dark-purple mb-2'>Formação Acadêmica</div>
                                 {/* <button className='bg-primary mr-3 w-20 h-12 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                                     <FontAwesomeIcon icon={ faPlusCircle } />
                                 </button>   botao antigo */}
                                 <div>
+                                    
+ 						            {
+                                        (canExclude.formations) && (userData.formations.length != 0) && (
+                                            <button onClick={ () => flipExclude('formations') } className='bg-red w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-red ease-out duration-200'>
+                                                <FontAwesomeIcon icon={ faTrashArrowUp } />
+                                            </button>
+                                        )
+                                    }       
+                                    {
+                                        (!canExclude.formations) && (userData.formations.length != 0) && (
+                                            <button onClick={ () => flipExclude('formations') } className='bg-red w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-red ease-out duration-200'>
+                                                <FontAwesomeIcon icon={ faTrash } />
+                                            </button>
+                                        )
+                                    }
+                                    
                                     <button onClick={ () => setFormationModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                                         <FontAwesomeIcon icon={ faPlus } />
                                     </button>
                                     {
                                         formationModalIsOpen && (
                                             <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ handleConfirmAddFormation } title='Adicionar Formação Acadêmica'>
-                                                <div className='my-2'>
+                                                <div className='my-2 w-full'>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' id='formations-name' consultPackage={ consultPackage } required/>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' id='formations-institution' consultPackage={ consultPackage } required/>
                                                     <div className='flex justify-between content-between items-center px-2'>
@@ -371,20 +408,18 @@ const UserEditData : React.FC = () => {
                                                             <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                         </div>
                                                         <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formations-start' id='formations-start' min={4} max={4} consultPackage={ consultPackage } required/>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formations-finish' id='formations-finish' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formations-finish' id='formations-finish' min={4} max={4}  consultPackage={ consultPackage } required/>
                                                     </div>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' id='formations-description' consultPackage={ consultPackage } required/>
                                                 </div>
                                             </FormModal>
                                         )
-                                    }<button onClick={ () => flipExclude('formations') } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
-                                    <FontAwesomeIcon icon={ faTrash } />
-                                </button>
+                                    }
                             </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {
-                                    userData.formations.map((card, key) => <UserExperienceCard key={ key } card={ card } exclude={ canExclude.formations } /> )
+                                    userData.formations.map((card, key) => <UserExperienceCard key={ key } card={ card } canExclude={ canExclude.formations } exclude={ () => excludeFormation(key) }  /> )
                                 }
                             </div>
                         </section>

@@ -147,30 +147,44 @@ const UserProfile : React.FC = () => {
                                 <div className='text-lg text-justify'>Programador WEB!</div>
                             </div>
                         </main>
-                        <section className='px-5 mt-10'>
-                            <div className='font-medium text-xl text-dark-purple'>Quem Sou Eu?</div>
-                            <div className='text-lg text-justify'>{ userData.description || 'Uma pessoa que gosta muito de aprender!'}</div>
-                        </section>
-                        <section className='px-5 mt-10'>
-                            <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {
-                                    [
-                                        ...userData.experiences,
-                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
-                                }
-                            </div>
-                        </section>
-                        <section className='px-5 my-10'>
-                            <div className='font-medium text-xl text-dark-purple mb-2'>Formação Acadêmica</div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {
-                                    [
-                                        ...userData.formations,
-                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
-                                }
-                            </div>
-                        </section>
+
+                        
+                        {
+                            (userData.description.length != 0) && (                        
+                                <section className='px-5 mt-10'>
+                                    <div className='font-medium text-xl text-dark-purple'>Descrição</div>
+                                    <div className='text-lg text-justify'>{ userData.description }</div>
+                                </section>
+                            )
+                        }
+                        {
+                            (userData.experiences.length != 0) && (
+                                <section className='px-5 mt-10'>
+                                    <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                        {
+                                            [
+                                                ...userData.experiences,
+                                            ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
+                                        }
+                                    </div>
+                                </section>
+                            )
+                        }
+                        {
+                            (userData.formations.length != 0) && (
+                                <section className='px-5 my-10'>
+                                    <div className='font-medium text-xl text-dark-purple mb-2'>Formação Acadêmica</div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                        {
+                                            [
+                                                ...userData.formations,
+                                            ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
+                                        }
+                                    </div>
+                                </section>
+                            )
+                        }
                         {
                             openModal && (
                                 <InfoModal title='Informações' handleClose={ () => setOpenModal(false) } >

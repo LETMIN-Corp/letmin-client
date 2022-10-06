@@ -11,19 +11,20 @@ interface ComponentInterface {
         finish: string,
         description: string,
     },
-    exclude ?: boolean,
+    canExclude ?: boolean,
+    exclude?: () => void,
 }
 
 
-const UserExperienceCard: React.FC<ComponentInterface> = ({ card, exclude }) => {
+const UserExperienceCard: React.FC<ComponentInterface> = ({ card, canExclude, exclude }) => {
     return (
-        <div className='text-black bg-slate-200 rounded-md flex-col justify-between drop-shadow-lg shadow-xl'>
+        <div className='text-black bg-slate-200 rounded-md flex-col justify-between drop-shadow-lg shadow-xl'  onClick={ exclude }>
             <div className='text-white bg-bright-purple p-3 flex justify-between rounded-t-md'>
                 <div className='font-medium'>{ card.name || card.role }</div>
                 <div className='font-medium'>{ card.institution || card.company }</div>
                 
                 {
-                    (exclude) && (
+                    (canExclude) && (
                         <div className='font-medium animate-[wiggle_1.5s_ease-in-out_infinite]'> <FontAwesomeIcon icon={ faTrash } /></div>  
                     )
                 }
