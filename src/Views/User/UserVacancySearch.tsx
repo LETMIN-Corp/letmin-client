@@ -74,7 +74,7 @@ const UserVacancySearch = () => {
                             {
                                 !!vacancyCards.length && (
                                     <div className='mt-7'>
-                                        <p className='text-bright-gray font-bold text-sm md:text-md text-md mb-2'>Foram encontrados { vacancyCards.length } resultados</p>
+                                        <p className='text-bright-gray font-bold text-sm md:text-md text-md mb-2'>{ vacancyCards.length } resultados encontrados</p>
                                     </div>
                                 )
                             }

@@ -54,7 +54,7 @@ const Home : React.FC = () => {
                     <h1 className='text-white text-6xl md:text-8xl lg:text-9xl font-black md:w-10/12 lg:w-8/12 md:flex drop-shadow-lg'>LET ME IN</h1>
                 </div>
                 <div className='w-10/12 md:w-4/12 text-center md:text-left'>
-                    <p className='text-white text-xl my-5 font-medium'>Uma forma rápida e fácil de gerenciar seu recrutamento</p>
+                    <p className='text-white text-xl my-5 font-medium'>Uma forma rápida e fácil de gerenciar o processo de recrutamento</p>
                     
                     <SecondaryLink text='Cadastre-se' path='/register' />
                 </div>
@@ -65,7 +65,7 @@ const Home : React.FC = () => {
                     <p className='lg:w-7/12 text-lg text-justify'>
                         Oferecemos um serviço <HighLight>rápido e fácil</HighLight> em sua utilização,
                         onde toda a triagem da mão de obra é feita através do aplicativo.
-                        A vantagem na utilização do App é reduzir o custo e o tempo que a empresa gastaria na seleção de candidatos aptos ao cargo,
+                        A vantagem na utilização do App é <HighLight>reduzir o custo e o tempo</HighLight> que a empresa gastaria na seleção de candidatos aptos ao cargo,
                         e fornecer <HighLight>relatórios sobre o andamento das entrevistas</HighLight> e de cada candidato.
                         A vantagem para os candidatos é a <HighLight>redução no tempo gasto em longas filas de emprego</HighLight>,
                         pois o mesmo tem condições de estar concorrendo a várias vagas de emprego ao mesmo tempo,
@@ -104,10 +104,10 @@ const Home : React.FC = () => {
                 <h2 className='text-4xl text-center text-dark-purple font-bold px-6 mb-4'>Sobre</h2>
                 <p className='text-lg md:text-xl text-justify w-10/12 lg:w-8/12 my-6'>
                     A  <HighLight>LETMIN</HighLight> é um serviço que veio  <HighLight>revolucionar</HighLight> o processo de recrutamento, seleção e gerenciamento de funcionários.
-                    Para isso, oferecemos uma plataforma  <HighLight>acessível</HighLight> que conecta os candidatos com as empresas oferecendo suporte em quase todo o processo
-                    de seleção. Somos um projeto que nasceu de conversas entre programadores e organizações consolidadas no ramo da tecnologia, visando
-                    <HighLight> modernizar e agilizar</HighLight> a área de recursos humanos a partir das verdadeiras necessidades dos usuários.
-                    A partir de ferramentas eficientes e uma interface  <HighLight>intuitiva</HighLight>, buscamos transformar a experiência dos empregados e empregadores durante o recrutamento.
+                    Para isso, oferecemos uma <HighLight>plataforma acessível</HighLight> que conecta os candidatos com as empresas oferecendo suporte em quase todo o processo
+                    de seleção. Sendo um projeto que nasceu de conversas entre programadores e organizações consolidadas no ramo da tecnologia, visando
+                    <HighLight> modernizar e agilizar a área de recursos humanos</HighLight> a partir das verdadeiras necessidades dos usuários.
+                    A partir de <HighLight>ferramentas eficientes</HighLight> e uma <HighLight> interface intuitiva</HighLight>, buscamos transformar a experiência dos empregados e empregadores durante o recrutamento.
                 </p>
             </HomeSection>
             <section className='flex flex-col md:flex-row items-center bg-primary py-10 md:py-3 px-4 md:px-20'>
@@ -132,8 +132,7 @@ const Home : React.FC = () => {
                     <p className='text-lg md:text-xl text-justify mt-8 md:mt-0 md:w-6/12'>
                         Somos uma ideia que surgiu das mentes de jovens empreendedores com o intuito de <HighLight>diminuir a
                         quantidade excessiva de tempo gasto</HighLight> no mercado de trabalho para contratar novos funcionários.
-                        Buscamos a <HighLight>transparência</HighLight>, <HighLight>segurança</HighLight>,
-                        <HighLight> agilidade</HighLight> e <HighLight>praticidade</HighLight> nos processos, para que tanto
+                        Buscamos a <HighLight>transparência, segurança, agilidade e praticidade</HighLight> nos processos, para que tanto
                         a empresa quanto o candidato obtenham satisfação no uso do programa.
                     </p>
                     <div className='w-full md:w-6/12 my-3 md:my-0 md:ml-5 flex justify-center mt-5 lg:mt-0 lg:justify-end'>

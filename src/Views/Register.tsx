@@ -39,39 +39,39 @@ const Register : React.FC = () => {
         <>
             <Menu menuButtons={ menuButtons } />
             <StripTitle text='Cadastro' />
-            <section className='flex flex-col justify-center items-center md:py-10'>
-                <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-2 gap-10 w-10/12 lg:w-8/12  my-6 md:my-10'>
-                    <RegisterCard>
-                        <div className='w-48 h-48 border-4 rounded-full flex items-center justify-center'>
-                            <FontAwesomeIcon icon={ faUser } className='text-9xl' />
-                        </div>
-                        <div className='text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8'>Sou um candidato</div>
-                        
-                        <GoogleOAuthProvider clientId={CLIENT_ID}>
-                            <GoogleLogin
-                                onSuccess={credentialResponse => {
-                                    handleLogin(credentialResponse);
-                                }}
-                            />
-                        </GoogleOAuthProvider>
-                    </RegisterCard>
-                    <RegisterCard>
-                        <div className=' w-48 h-48 border-4 rounded-full flex items-center justify-center'>
-                            <FontAwesomeIcon icon={ faBuilding } className='text-9xl' />
-                        </div>
-                        <div className='text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8'>Sou uma empresa</div>
-                        
-                        <div className='flex flex-col lg:flex-row w-full items-center justify-around'>
-                            <div>
-                                <SecondaryLink text='Cadastrar' path='/register/company' />
+                <section className='flex flex-col justify-center items-center md:py-10'>
+                    <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-2 gap-10 w-10/12 lg:w-8/12  my-6 md:my-10'>
+                        <RegisterCard>
+                            <div className='w-48 h-48 border-4 rounded-full flex items-center justify-center'>
+                                <FontAwesomeIcon icon={ faUser } className='text-9xl' />
                             </div>
-                            <div className='mt-8 lg:mt-0'>
-                                <SecondaryLink text='Entrar' path='/company/login' />
+                            <div className='text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8'>Sou um candidato</div>
+                            
+                            <GoogleOAuthProvider clientId={CLIENT_ID}>
+                                <GoogleLogin
+                                    onSuccess={credentialResponse => {
+                                        handleLogin(credentialResponse);
+                                    }}
+                                />
+                            </GoogleOAuthProvider>
+                        </RegisterCard>
+                        <RegisterCard>
+                            <div className=' w-48 h-48 border-4 rounded-full flex items-center justify-center'>
+                                <FontAwesomeIcon icon={ faBuilding } className='text-9xl' />
                             </div>
-                        </div>
-                    </RegisterCard>
-                </div>
-            </section>
+                            <div className='text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8'>Sou uma empresa</div>
+                            
+                            <div className='flex flex-col lg:flex-row w-full items-center justify-around'>
+                                <div>
+                                    <SecondaryLink text='Cadastrar' path='/register/company' />
+                                </div>
+                                <div className='mt-8 lg:mt-0'>
+                                    <SecondaryLink text='Entrar' path='/company/login' />
+                                </div>
+                            </div>
+                        </RegisterCard>
+                    </div>
+                </section>
             <Footer />
         </>
     );
