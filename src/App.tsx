@@ -42,10 +42,10 @@ function App() {
           <Route path='/' element={ <Home /> } />
           <Route path='/register' element={ <Register /> } />
           <Route path='/register/company' element={ <CompanyRegister /> } />
+          <Route path='/admin/login' element={ <AdminLogin /> } />
           <Route path='/company/login' element={ <CompanyLogin /> } />
           <Route path='/company/recover-password' element={ <CompanyRecoverPassword /> } />
-          <Route path='/company/recover-password/:id' element={ <CompanyPasswordDefinition /> } />
-          <Route path='/admin/login' element={ <AdminLogin /> } />
+          <Route path='/company/new-password' element={ <CompanyPasswordDefinition /> } />
         </Route>
         <Route element={ <PrivateRoutes role={ RoleEnum.company } /> }>
               <Route path='/company/*' element={ <CompanyError /> } />

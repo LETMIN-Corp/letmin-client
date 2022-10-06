@@ -5,9 +5,13 @@ import Footer from "../../Components/Layouts/Footer";
 import Menu from '../../Components/Layouts/Menu';
 import InputTypesEnum from "../../Enums/InputTypesEnum";
 import useAuth from "../../Utils/useAuth";
+import useLoading from "../../Utils/useLoading";
+import Loading from "../../Components/Items/Loading";
 
 const CompanyRecoverPassword : React.FC = () => {
     const auth = useAuth();
+    const { loading } = useLoading();
+    const [emailSent, setEmailSent] = useState(false);
 
     useEffect((): void => {
         window.document.title = 'Letmin - Recuperar senha';
@@ -48,7 +52,15 @@ const CompanyRecoverPassword : React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // return await auth.signIn('company', data)
+        auth.setLoading(true);
+        return await auth.sendRecoveryEmail(data.email).then((res: any) => {
+            if (res.status !== 200) {
+                auth.dispatchError('Erro ao enviar email de recuperação');
+                return;
+            }
+            auth.dispatchSuccess('Email de recuperação enviado com sucesso!');
+            setEmailSent(true);
+        });
     }
 
     return (
@@ -56,9 +68,19 @@ const CompanyRecoverPassword : React.FC = () => {
             <Menu menuButtons={ pageButtons } />
             <div className='w-screen min-h-screen flex flex-col items-center justify-center'>
                 <form onSubmit={ handleSubmit } className='w-full md:w-6/12 lg:w-3/12 p-5'>
-                    <h1 className='text-xl font-normal'>Recuperar senha</h1>
-                    <TextInput type={ InputTypesEnum.email } consultPackage={ consultPackage } placeholder='E-mail' name='email' />
-                    <FormButton text='Enviar'  isFullWidth={ true } />
+                    {
+                        loading && <Loading />
+                    }
+                    {
+                        emailSent ? <p className='text-green-500'>Email de recuperação enviado com sucesso!</p>    
+                        : (
+                            <>
+                                <h1 className='text-xl font-normal'>Recuperar senha</h1>
+                                <TextInput type={ InputTypesEnum.email } consultPackage={ consultPackage } placeholder='E-mail' name='email' />
+                                <FormButton text='Enviar' isFullWidth={ true } />
+                            </>
+                        )
+                    }
                 </form>
             </div>
             <Footer />

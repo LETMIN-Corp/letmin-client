@@ -196,6 +196,16 @@ export const AuthState = ({ children } : any) => {
     const getTalentBank = async () => {
         return await axiosRequest(`${API_URL}/api/company/get-talent-bank`, 'GET');
     }
+
+    const sendRecoveryEmail = async (email: string) => {
+        return axiosRequest(`${API_URL}/api/send-recovery-email`, 'POST', { email });
+    }
+    const checkRecoveryToken = async (selector: string, token: string) => {
+        return axiosRequest(`${API_URL}/api/check-recovery-token`, 'POST', { selector, token });
+    }
+    const setNewPassword = async (selector: string, token: string, password: string) => {
+        return axiosRequest(`${API_URL}/api/new-password`, 'POST', { selector, token, password });
+    }
     // End company function
 
     // User functions
@@ -275,6 +285,9 @@ export const AuthState = ({ children } : any) => {
             addToTalentBank,
             removeFromTalentBank,
             getTalentBank,
+            sendRecoveryEmail,
+            checkRecoveryToken,
+            setNewPassword,
             // Admin functions
             getAllCompanies,
             blockCompany,
