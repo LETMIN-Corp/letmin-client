@@ -91,12 +91,8 @@ const UserVacancyDetail = () => {
                     <h1 className='text-white text-4xl lg:text-5xl font-black mt-4'>Detalhes da Vaga</h1>
                 </div>
                 {
-                    loading && (
-                        <Loading />
-                    )
-                }
-                {
-                    !loading && (
+                    loading ? <Loading />
+                    : (
                         <div className='p-5'>
                             <div className='bg-primary text-center md:text-left'> 
                             </div>

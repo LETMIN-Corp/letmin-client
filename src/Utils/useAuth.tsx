@@ -12,7 +12,11 @@ const useAuth = () => {
         registerCompany,
         setLoading,
         removeLoading,
-        dispatchError
+        dispatchError,
+        dispatchSuccess,
+        sendRecoveryEmail,
+        checkRecoveryToken,
+        setNewPassword,
     } : any = useContext(AuthContext);
 
     return {
@@ -25,7 +29,11 @@ const useAuth = () => {
         registerCompany,
         setLoading,
         removeLoading,
-        dispatchError
+        dispatchError,
+        dispatchSuccess,
+        sendRecoveryEmail,
+        checkRecoveryToken,
+        setNewPassword,
     }
 }
 
