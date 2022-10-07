@@ -9,7 +9,7 @@ const FormModal:React.FC<ComponentInterface> = ({ title, handleClose, handleConf
     <div className='fixed z-50 inset-0 overflow-y-auto z-40 drop-shadow-lg' aria-labelledby='modal-title' role='dialog' aria-modal='true'>
         <div className='fixed inset-0 bg-black bg-opacity-25 transition-opacity' aria-hidden='true'></div>
         <div className='fixed z-10 inset-0 overflow-y-auto flex justify-center items-center'>
-            <div className='flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0'>
+            <div className='flex items-end sm:items-center justify-center min-h-full min-w-[50%] p-4 text-center sm:p-0'>
                 <div className='relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full'>
                     <h3 className='pt-4 px-4 font-medium text-lg md:text-xl text-dark-purple'>{ title }</h3>
                     <div className='px-4'>

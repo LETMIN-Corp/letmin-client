@@ -15,10 +15,15 @@ interface ComponentInterface {
     exclude?: () => void,
 }
 
-
 const UserExperienceCard: React.FC<ComponentInterface> = ({ card, canExclude, exclude }) => {
+    function excludeItem(e : any)
+    {
+        // animation: disappear 1s ease-in-out
+        e.currentTarget.classList.add(`hidden`);
+    }
+
     return (
-        <div className={`text-black bg-slate-200 rounded-md flex-col justify-between drop-shadow-lg shadow-xl` + (canExclude? " animate-[wiggle_1.5s_ease-in-out_infinite] hover:cursor-pointer" : "")}  onClick={ exclude }>
+        <div className={`text-black bg-slate-200 rounded-md flex-col justify-between drop-shadow-lg shadow-xl` + (canExclude? " animate-[wiggle_1.5s_ease-in-out_infinite] hover:cursor-pointer" : "") }  onClick={ (e) => excludeItem(e) }>
             <div className='text-white bg-bright-purple p-3 flex justify-between rounded-t-md'>
                 <div className='font-medium'>{ card.name || card.role }</div>
                 <div className='font-medium'>{ card.institution || card.company }</div>

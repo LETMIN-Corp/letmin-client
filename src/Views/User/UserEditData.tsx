@@ -103,53 +103,6 @@ const UserEditData : React.FC = () => {
             setUserData(res.data.user);
             setUserTypedData(res.data.user);
             // let userdata = res.data.user;
-            /* 
-            userData.experiences = [
-                {
-                    role: 'Dev Junior',
-                    company: 'Firework',
-                    start: '2015',
-                    finish: '2017',
-                    description: 'Desenvolvimento de sites básicos. Aprimoramento de conhecimento front-end e mobile.',
-                },
-                {
-                    role: 'Dev Pleno',
-                    company: 'Paschoalotto',
-                    start: '2017',
-                    finish: '2020',
-                    description: 'Desenvolvimento de sistemas aprofundados para a empresa com Laravel.',
-                },
-                {
-                    role: 'Professor',
-                    company: 'SENAI Bauru',
-                    start: '2021',
-                    finish: '2023',
-                    description: 'Professor para os 1os e 2os anos do curso técnico de Informática.',
-                }
-            ]
-            userData.formations = userData.formations || [
-                {
-                    name: 'Ensino Médio Profissionalizante',
-                    institution: "CTI",
-                    start:'2012',
-                    finish:'2014',
-                    description: 'Ensino Médio Profissionalizante no curso técnico de Informática',
-                },
-                {
-                    name: 'Graduação',
-                    institution: "Unesp Bauru",
-                    start:'2015',
-                    finish:'2020',
-                    description: 'Graduação em Ciências de Computação',
-                },
-                {
-                    name: 'Bacharelado em Ciências da Computação',
-                    institution: "Unesp Bauru",
-                    start:'2021',
-                    finish:'2025',
-                    description: 'Grau superior em Ciências da Computação. Ainda em andamento.',
-                },
-            ] */
             // setUserData(res.data.user);
         });
     }
@@ -229,14 +182,12 @@ const UserEditData : React.FC = () => {
         if (canExclude.formations){
             userData.formations.splice(id, 1);
             setUserData(userData);
-            console.log(userData);
         }
     }
     function excludeExperience (id : number) {
         if (canExclude.experiences){
             userData.experiences.splice(id, 1);
             setUserData(userData);
-            console.log(userData);
         }
     }
 
@@ -397,7 +348,7 @@ const UserEditData : React.FC = () => {
                                     {
                                         formationModalIsOpen && (
                                             <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ handleConfirmAddFormation } title='Adicionar Formação Acadêmica'>
-                                                <div className='my-2 w-full'>
+                                                <div className='my-2'>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' id='formations-name' consultPackage={ consultPackage } required/>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' id='formations-institution' consultPackage={ consultPackage } required/>
                                                     <div className='flex justify-between content-between items-center px-2'>
@@ -420,7 +371,7 @@ const UserEditData : React.FC = () => {
                                 }
                             </div>
                         </section>
-                        <div className='ml-3 flex justify-end w-full px-5'>
+                        <div className='ml-3 my-5 flex justify-end w-full px-5'>
                             
                             <SecondaryButton text='Cancelar' handleClick= {() => setModalExitIsOpen(true)}/>
                             { modalExitIsOpen && <ConfirmationModal title='Sair da Edição' text='Os dados editados ainda não foram salvos. Você realmente deseja sair da edição?' handleClose={ () => setModalExitIsOpen(false) } handleConfirm={ returnToUserPage } /> }

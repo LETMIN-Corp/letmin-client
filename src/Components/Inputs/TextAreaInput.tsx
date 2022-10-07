@@ -29,7 +29,7 @@ const TextAreaInput : React.FC<ComponentInterface> = ({ row, value, resize = tru
             <textarea
                 placeholder={ placeholder }
                 name={ name }
-                onChange={ setValue }
+                onInput={ setValue }
                 rows={ row }
                 id={ id }
                 defaultValue={ inputValue || value }

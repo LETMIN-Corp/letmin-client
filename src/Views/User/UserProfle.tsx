@@ -150,7 +150,7 @@ const UserProfile : React.FC = () => {
 
                         
                         {
-                            (userData.description.length != 0) && (                        
+                            (userData.description != "") && (                        
                                 <section className='px-5 mt-10'>
                                     <div className='font-medium text-xl text-dark-purple'>Descrição</div>
                                     <div className='text-lg text-justify'>{ userData.description }</div>

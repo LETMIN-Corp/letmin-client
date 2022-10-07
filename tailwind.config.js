@@ -47,6 +47,10 @@ module.exports = {
           "80%": { transform: "translate(-1px, -1px);" },
           "90%": { transform: "translate(1px, 1px);" },
           "100%": { transform: "translate(1px, -1px);" },
+        },
+        disappear: {
+          "0%": { display: "block;" },
+          "100%": { display: "hidden;" },
         }
       },
     },
