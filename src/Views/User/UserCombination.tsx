@@ -6,43 +6,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
+import useUser from '../../Utils/useUser';
+// import UserDefault from './UserDefault'
+import UserVacancySearchCard from '../../Components/Cards/UserVacancySearchCard';
+import useAuth from '../../Utils/useAuth';
 
 const UserCombination = () => {
+    const auth = useAuth();
+    const user = useUser();
+    // const [allVacancies, setAllVacancies] = useState([]);
+    const [vacancies, setVacancies] = useState([]);
+    const [searchVacancies, setSearchVacancies] = useState('');
+
     useEffect((): void => {
         window.document.title = 'Letmin - Combinações';
+        user.getVacancies().then((res : any) => {
+            // setAllVacancies(res.data.vacancies);
+            setVacancies(res.data.vacancies);
+        })
     }, []);
-
-    const data = [
-        {
-            name: 'Netflix',
-            vacancy: 'Tipo 1',
-        },
-        {
-            name: 'Nike',
-            vacancy: 'Tipo 2',
-        },
-        {
-            name: 'Puma',
-            vacancy: 'Tipo 3',
-        },
-        {
-            name: 'Disney',
-            vacancy: 'Tipo 4',
-        },
-        {
-            name: 'Adidas',
-            vacancy: 'Tipo 5',
-        },
-        {
-            name: 'Crefisa',
-            vacancy: 'Tipo 6',
-        },
-        {
-            name: 'Samsung',
-            vacancy: 'Tipo 7',
-        },
-    ];
-
     
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -54,7 +36,7 @@ const UserCombination = () => {
                     <span>Combinações</span>
                 </h1>
                 {
-                    data.length > 0 && (
+                    (vacancies) && (
                         <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
                             <div className='flex text-xl font-medium'>
                                 <div className='w-4/12 flex justify-center'>
@@ -69,20 +51,12 @@ const UserCombination = () => {
                             </div>
                             <div>
                                 {
-                                        data.map((row, key) => <CombinationData key={ key } name={ row.name } vacancy={ row.vacancy } handleClick={ () => setModalIsOpen(true) } />)
+                                    vacancies.map((vacancy, key) => <CombinationData user_id={  auth.userData.user_id } vacancy={ vacancy } key={ key } handleClick={ () => setModalIsOpen(true) } />)
                                 }
                             </div>
                         </div>
                     )
                 }
-
-            {
-                modalIsOpen && (
-                    <ConfirmationModal handleClose={ () => setModalIsOpen(false) } handleConfirm={ () => {} } title='Confirmar' text='Deseja confirmar a remoção desta vaga?'>
-                    
-                    </ConfirmationModal>
-                )
-            }
 
                         
 

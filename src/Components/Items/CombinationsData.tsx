@@ -4,29 +4,46 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 interface ComponentInterface {
-    name: string,
-    vacancy: string,
+    vacancy : {
+        _id: string,
+        candidates: Array<any>,
+        role: string,
+        company: {
+            company: {
+                name: string,
+            }
+        }
+        sector: string,
+        region: string,
+        description: string,
+    },
+    user_id: string,
     handleClick: () => void,
-};
+}
 
-const CombinationData : React.FC<ComponentInterface> = ({ name, vacancy, handleClick }) => {
+const CombinationData : React.FC<ComponentInterface> = ({ vacancy, user_id, handleClick }) => {
 
     return (
-        <div className='flex pt-2 text-sm md:text-md'>
-            <div className='w-4/12 flex justify-center items-center text-center'>
-                { name }
-            </div>
-            <div className='w-4/12 flex justify-center items-center text-center'>
-                { vacancy }                
-            </div>
-            <div className='w-4/12 flex justify-center items-center text-center'>
-                <button 
-                onClick={ handleClick }
-                className='text-red font-medium mr-5' 
-                title='Remover'><FontAwesomeIcon icon={ faTrash }/></button>
-                {/* <ConfimationModal></ConfimationModal> */}
-                <Link to='/user/vacancy/detail' className='text-primary font-medium hover:text-bright-purple' title="Ver Vaga"><FontAwesomeIcon icon={ faEye}/></Link>
-            </div>
+        
+        <div>
+            {
+                (vacancy.candidates.includes(user_id)) && (
+                    <>
+                    <div className='flex pt-2 text-sm md:text-md'>
+                        <div className='w-4/12 flex justify-center items-center text-center'>
+                            { vacancy.role }
+                        </div>
+                        <div className='w-4/12 flex justify-center items-center text-center'>
+                            { vacancy.sector }                
+                        </div>
+                        <div className='w-4/12 flex justify-center items-center text-center'>
+                            <Link to={`/user/vacancy/detail/${ vacancy._id }`} className='text-primary font-medium hover:text-bright-purple' title="Ver Vaga"><FontAwesomeIcon icon={ faEye}/></Link>
+                        </div>
+                    </div>
+                    </>
+                )
+            }
+            
         </div>
     );
 }
