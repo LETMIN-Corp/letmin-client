@@ -18,16 +18,10 @@ interface ComponentInterface {
 
 const UserExperienceCard: React.FC<ComponentInterface> = ({ card, canExclude, exclude }) => {
     return (
-        <div className='text-black bg-slate-200 rounded-md flex-col justify-between drop-shadow-lg shadow-xl'  onClick={ exclude }>
+        <div className={`text-black bg-slate-200 rounded-md flex-col justify-between drop-shadow-lg shadow-xl` + (canExclude? " animate-[wiggle_1.5s_ease-in-out_infinite] hover:cursor-pointer" : "")}  onClick={ exclude }>
             <div className='text-white bg-bright-purple p-3 flex justify-between rounded-t-md'>
                 <div className='font-medium'>{ card.name || card.role }</div>
                 <div className='font-medium'>{ card.institution || card.company }</div>
-                
-                {
-                    (canExclude) && (
-                        <div className='font-medium animate-[wiggle_1.5s_ease-in-out_infinite]'> <FontAwesomeIcon icon={ faTrash } /></div>  
-                    )
-                }
                           
             </div>
             <div className='break-words max-h-40 px-3 pb-3 rounded-md overflow-x-hidden overflow-y-auto h-100'>
