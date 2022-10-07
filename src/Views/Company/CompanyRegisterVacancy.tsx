@@ -87,7 +87,7 @@ const CompanyRegisterVacancy = () => {
                                 <TextInput placeholder='Salário' useMask={ MaskTypesEnum.money } limit={ 12 } type='text' size='large' name='salary' id='salary' consultPackage={ consultPackage }/>  
                                 <SelectInput placeholder='Moeda' options={["Real", "Dolar", "Euro"]} size='medium' consultPackage={ consultPackage } name="currency" id="currency"></SelectInput>  
                             </div>
-                            <SelectInput placeholder='Setor' options={["Recursos Humanos", "Tecnologia", "Administrativo", "Financeiro", "Operacional"]} consultPackage={ consultPackage } name="sector" id='sector'></SelectInput>     
+                            <SelectInput placeholder='Setor' options={["Recursos Humanos", "Tecnologia", "Administrativo", "Financeiro", "Operacional", "Comércio", "Serviços", "Saúde", "Industrial", "Construção"]} consultPackage={ consultPackage } name="sector" id='sector'></SelectInput>     
                             <div className='pb-2'>
                                 <div className='text-dark-purple font-medium text-md'>
                                     Tipo de Contratação
