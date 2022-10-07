@@ -171,8 +171,6 @@ const UserEditData : React.FC = () => {
         formations: false,
     });
 
-
-
     function returnToUserPage () {  /* Utilizada pelo botão de retornar */
         navigate('/user/profile');
     }
@@ -188,7 +186,6 @@ const UserEditData : React.FC = () => {
     function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-'); //experience-role  -> experience role
-
         
         if(data == undefined)
         {
@@ -229,15 +226,18 @@ const UserEditData : React.FC = () => {
     }
 
     function excludeFormation (id : number) {
-        userData.formations.splice(id, 1);
-        setUserData(userData);
-        console.log(userData);
+        if (canExclude.formations){
+            userData.formations.splice(id, 1);
+            setUserData(userData);
+            console.log(userData);
+        }
     }
-
     function excludeExperience (id : number) {
-        userData.experiences.splice(id, 1);
-        setUserData(userData);
-        console.log(userData);
+        if (canExclude.experiences){
+            userData.experiences.splice(id, 1);
+            setUserData(userData);
+            console.log(userData);
+        }
     }
 
     const filterExperiences = (value : string) => {
@@ -374,9 +374,6 @@ const UserEditData : React.FC = () => {
                         <section className='px-5 my-10'>
                             <div className='mt-24 md:my-4 flex justify-between items-center w-full'>
                                 <div className='font-medium text-xl text-dark-purple mb-2'>Formação Acadêmica</div>
-                                {/* <button className='bg-primary mr-3 w-20 h-12 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
-                                    <FontAwesomeIcon icon={ faPlusCircle } />
-                                </button>   botao antigo */}
                                 <div>
                                     
  						            {
