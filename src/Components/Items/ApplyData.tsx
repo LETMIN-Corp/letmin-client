@@ -18,34 +18,28 @@ interface ComponentInterface {
         description: string,
     },
     user_id: string,
-    handleClick: () => void,
 }
 
-const CombinationData : React.FC<ComponentInterface> = ({ vacancy, user_id, handleClick }) => {
+const ApplyData : React.FC<ComponentInterface> = ({ vacancy, user_id }) => {
 
     return (
         
         <div>
             {
-                (vacancy.candidates.includes(user_id)) && (
-                    <>
-                    <div className='flex pt-2 text-sm md:text-md'>
+                    <div className='flex pt-2 text-sm md:text-md'>                        
                         <div className='w-4/12 flex justify-center items-center text-center'>
-                            { vacancy.role }
+                            { vacancy.role }                
+                        </div><div className='w-4/12 flex justify-center items-center text-center'>
+                            { vacancy.company.company.name }
                         </div>
                         <div className='w-4/12 flex justify-center items-center text-center'>
-                            { vacancy.sector }                
-                        </div>
-                        <div className='w-4/12 flex justify-center items-center text-center'>
-                            <Link to={`/user/vacancy/detail/${ vacancy._id }`} className='text-primary font-medium hover:text-bright-purple' title="Ver Vaga"><FontAwesomeIcon icon={ faEye}/></Link>
+                            <Link to={`/user/vacancy/detail/${ vacancy._id }`} className='text-primary font-medium hover:text-bright-purple' title="Ver Vaga"><FontAwesomeIcon icon={ faEye } className='text-lg'/></Link>
                         </div>
                     </div>
-                    </>
-                )
             }
             
         </div>
     );
 }
 
-export default CombinationData;
+export default ApplyData;

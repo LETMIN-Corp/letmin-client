@@ -218,6 +218,9 @@ export const AuthState = ({ children } : any) => {
     const getVacancies = async () => {
         return await axiosRequest(`${API_URL}/api/user/vacancy`, 'GET');
     };
+    const getCandidateVacancies = async () => {
+        return await axiosRequest(`${API_URL}/api/user/vacancy-candidate`, 'GET');
+    };
     const applyVacancy = async (vacancy_id: string) => {
         return await axiosRequest(`${API_URL}/api/user/apply-vacancy`, 'POST', { vacancy_id });
     };
@@ -272,6 +275,7 @@ export const AuthState = ({ children } : any) => {
             getUserData,
             getVacancy,
             getVacancies,
+            getCandidateVacancies,
             applyVacancy,
             cancelApplyVacancy,
             // Company functions
