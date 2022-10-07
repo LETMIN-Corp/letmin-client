@@ -21,6 +21,7 @@ const useCompany = () => {
         removeFromTalentBank,
         getTalentBank,
         loading,
+        getCompanyVacancy,
     } : any = useContext(AuthContext);
 
     return { 
@@ -42,6 +43,7 @@ const useCompany = () => {
         removeFromTalentBank,
         getTalentBank,
         loading,
+        getCompanyVacancy,
     };
 }
 

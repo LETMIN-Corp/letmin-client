@@ -4,6 +4,8 @@ interface ComponentInterface {
     curriculum: string,
 };
 
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
 const CandidateData : React.FC<ComponentInterface> = ({ name, compatibility, curriculum }) => {
@@ -17,7 +19,9 @@ const CandidateData : React.FC<ComponentInterface> = ({ name, compatibility, cur
                 { compatibility } %    
             </div>
             <div className='w-4/12 flex justify-center items-center text-center'>
-                <Link to={ `/profile/${curriculum}` } className='text-bright-purple'>Ver Currículo</Link>
+                <Link to={ `/company/combinations/${ curriculum }` } className='text-bright-purple'>
+                    <FontAwesomeIcon className='text-xl' icon={ faEye } />
+                </Link>
             </div>
         </div>
     );

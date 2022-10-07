@@ -136,7 +136,7 @@ const CompanyIndicators =  () => {
                                     <>
                                         <div className='flex md:text-lg font-medium'>
                                             <div className='w-4/12 flex justify-center'>
-                                                Descrição
+                                                Vaga
                                             </div>
                                             <div className='w-4/12 flex justify-center'>
                                                 Candidatos
@@ -151,7 +151,7 @@ const CompanyIndicators =  () => {
                                                     return (
                                                         <div key={ row._id } className={`flex py-2 text-sm ${row.closed ? 'bg-green-light' : ''} md:text-md `}>
                                                             <div className='w-4/12 flex justify-center items-center text-center'>
-                                                                { row.role }
+                                                                <Link to={ `../company/vacancy/${row._id}` } className="text-primary font-medium hover:text-bright-purple">{ row.role }</Link>                
                                                             </div>
                                                             <div className='w-4/12 flex justify-center items-center text-center'>
                                                                 <Link to={ `../company/vacancy/data/${row._id}` } className="text-primary font-medium hover:text-bright-purple">{ row.candidates.length }</Link>                
