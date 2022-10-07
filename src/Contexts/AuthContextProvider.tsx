@@ -108,95 +108,10 @@ export const AuthState = ({ children } : any) => {
         getInitialUserData();
     }, []);
 
-    // Company function
-    const getCompanyData = async () => {
-        return await axiosRequest(`${API_URL}/api/company/company-data`, 'GET');
-    }
-    const registerVacancy = async (vacancy: any) => {
-        return await axiosRequest(`${API_URL}/api/company/register-vacancy`, 'POST', vacancy);
-    }
-
-    const getAllCompanyVacancies = async ()  => {
-        return await axiosRequest(`${API_URL}/api/company/get-all-vacancies`, 'GET');
-    }
-
-    const confirmVacancy = async (vacancy_id: string) => {
-        let company_id = state.userData.user_id;
-        return axiosRequest(`${API_URL}/api/company/confirm-vacancy/${vacancy_id}`, 'PATCH', { company_id,  })
-    }
-
-    const closeVacancy = async (vacancy_id: string) => {
-        let company_id = state.userData.user_id;
-        return axiosRequest(`${API_URL}/api/company/close-vacancy/${vacancy_id}`, 'DELETE', { company_id })
-    }
-
-    const getCandidate = async (candidate_id: string) => {
-        return await axiosRequest(`${API_URL}/api/company/get-candidate/${candidate_id}`, 'GET');
-    }
-
-    const getAllVacancyCandidates = async (vacancy_id: string) => {
-        return axiosRequest(`${API_URL}/api/company/get-all-candidates/${vacancy_id}`, 'GET');
-    }
-
-    const getUsers = async () => {
-        return await axiosRequest(`${API_URL}/api/company/user`, 'GET');
-    }
-
+    // Complaint and recover functions
     const createComplaint = async (complaint: any) => {
         return await axiosRequest(`${API_URL}/api/create-complaint`, 'POST', complaint);
     }
-    
-    const updateCompanyData = async (company: any): Promise<any> => {
-        return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company)
-        .then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
-            }
-            else {
-                dispatchError(formatErrors(res.data.message));
-            }
-        });
-    }
-
-    const updateHolderData = async (company: any): Promise<any> => {
-        return axiosRequest(`${API_URL}/api/company/update-company-holder`, 'POST', company)
-        .then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
-            }
-            else
-                dispatchError(formatErrors(res.data.message));
-        });
-    }
-
-    const addToTalentBank = async (target : any) => {
-        return axiosRequest(`${API_URL}/api/company/add-to-talent-bank`, 'POST', { target })
-        .then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                dispatchSuccess(res.data.message);
-            }
-            else {
-                dispatchError(formatErrors(res.data.message));
-            }
-        });
-    }
-
-    const removeFromTalentBank = async (target : any) => {
-        return axiosRequest(`${API_URL}/api/company/remove-from-talent-bank`, 'POST', { target })
-        .then((res: any) => {
-            if (res.data.success && res.status === 200) {
-                dispatchSuccess(res.data.message);
-            }
-            else {
-                dispatchError(formatErrors(res.data.message));
-            }
-        });
-    }
-
-    const getTalentBank = async () => {
-        return await axiosRequest(`${API_URL}/api/company/get-talent-bank`, 'GET');
-    }
-
     const sendRecoveryEmail = async (email: string) => {
         return axiosRequest(`${API_URL}/api/send-recovery-email`, 'POST', { email });
     }
@@ -206,10 +121,7 @@ export const AuthState = ({ children } : any) => {
     const setNewPassword = async (selector: string, token: string, password: string) => {
         return axiosRequest(`${API_URL}/api/new-password`, 'POST', { selector, token, password });
     }
-    const getCompanyVacancy = async(id: string) => {
-        return axiosRequest(`${API_URL}/api/company/get-vacancy/${id}`, 'GET');
-    };
-    // End company function
+    // End Complaint and recover functions
 
     // User functions
     const getUserData = async () => {
@@ -225,35 +137,10 @@ export const AuthState = ({ children } : any) => {
         return await axiosRequest(`${API_URL}/api/user/apply-vacancy`, 'POST', { vacancy_id });
     }
     // End user functions
-    
-    // Admin functions
-    const getAllCompanies = async () => {
-        return axiosRequest(`${API_URL}/api/admin/get-all-companies`, 'GET');
-    }
-    const blockCompany = async (company_id: string) => {
-        return axiosRequest(`${API_URL}/api/admin/company-block`, 'PATCH', { company_id });
-    }
-    const getAllUsers = async () => {
-        return axiosRequest(`${API_URL}/api/admin/get-all-users`, 'GET');
-    }
-    const blockUser = async (user_id: string) => {
-        return axiosRequest(`${API_URL}/api/admin/user-block`, 'PATCH', { user_id });
-    }
-    const getAllComplaints = async () => {
-        return axiosRequest(`${API_URL}/api/admin/get-all-complaints`, 'GET');
-    }
-    const changeComplaintStatus = async (complaint_id: string) => {
-        return axiosRequest(`${API_URL}/api/admin/resolve-complaint`, 'PATCH', { complaint_id });
-    }
-    const removeComplaint = async (complaint_id: string) => {
-        return axiosRequest(`${API_URL}/api/admin/remove-complaint`, 'DELETE', { complaint_id });
-    }
-    const getUser = async (user_id: string) => {
-        return axiosRequest(`${API_URL}/api/admin/get-user`, 'POST', { user_id });
-    }
-    // End Admin functions
     return (
         <AuthContext.Provider value={{
+            axiosRequest,
+            API_URL,
             // Auth functions
             loading: state.loading,
             isAuthenticated: state.isAuthenticated,
@@ -274,33 +161,10 @@ export const AuthState = ({ children } : any) => {
             getVacancies,
             applyVacancy,
             // Company functions
-            getCompanyData,
-            registerVacancy,
-            getAllCompanyVacancies,
-            confirmVacancy,
-            closeVacancy,
-            getUsers,
-            updateCompanyData,
-            updateHolderData,
-            getCandidate,
-            getAllVacancyCandidates,
             createComplaint,
-            addToTalentBank,
-            removeFromTalentBank,
-            getTalentBank,
             sendRecoveryEmail,
             checkRecoveryToken,
             setNewPassword,
-            getCompanyVacancy,
-            // Admin functions
-            getAllCompanies,
-            blockCompany,
-            getAllUsers,
-            blockUser,
-            getAllComplaints,
-            changeComplaintStatus,
-            removeComplaint,
-            getUser,
         }}>
             { children }
         </AuthContext.Provider>

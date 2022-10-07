@@ -23,6 +23,11 @@ const AdminCompany : React.FC = () => {
         window.document.title = 'Letmin - Empresas';
 
         admin.getAllCompanies().then((res: any) => {
+            if (res.status !== 200) {
+                setCompanies([]);
+                setAllCompanies([]);
+                return;
+            }
             setCompanies(res.data.companies);
             setAllCompanies(res.data.companies);
         });
