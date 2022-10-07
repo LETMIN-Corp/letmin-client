@@ -56,7 +56,7 @@ const UserVacancySearch = () => {
     return (
         <UserDefault>
             <div className='p-5 min-h-90'>
-                <h1 className='text-2xl'>
+                <h1 className='text-2xl text-dark-purple font-medium'>
                     <FontAwesomeIcon icon={ faBullhorn } className='mr-2' />
                     <span>Buscar Vagas</span>
                 </h1>

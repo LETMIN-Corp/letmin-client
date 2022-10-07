@@ -116,7 +116,7 @@ const CompanyIndicators =  () => {
     return (
         <CompanyDefault>
             <div className="p-5 min-h-90">
-                <h1 className='text-2xl'>
+                <h1 className='text-2xl text-dark-purple font-medium'>
                     <FontAwesomeIcon icon={ faChartLine } className='mr-2' />
                     <span>Indicadores</span>
                 </h1>

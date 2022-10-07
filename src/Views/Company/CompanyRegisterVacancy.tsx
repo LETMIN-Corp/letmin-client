@@ -68,13 +68,13 @@ const CompanyRegisterVacancy = () => {
     return (
         <CompanyDefault>
             <form className="p-5 min-h-screen" onSubmit={handleSubmit}>
-                <h1 className='text-2xl'>
+                <h1 className='text-2xl text-dark-purple font-medium'>
                     <FontAwesomeIcon icon={ faBriefcase } className='mr-2' />
                     <span>Cadastro de Vagas</span>
                 </h1>
 
                 <div className='w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5'>
-                    <h1 className='text-xl'>Dados da Vaga</h1>
+                    <h1 className='text-xl text-bold-purple font-medium'>Dados da Vaga</h1>
                     <div className='md:flex md:justify-between'>
                         <div className='md:w-6/12 w-full mr-5'>
                             <TextInput placeholder='Cargo' type='text' name='role' id='role' consultPackage={ consultPackage }/> 
