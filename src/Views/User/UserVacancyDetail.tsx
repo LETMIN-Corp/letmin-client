@@ -91,12 +91,8 @@ const UserVacancyDetail = () => {
                     <h1 className='text-white text-4xl lg:text-5xl font-black mt-4'>Detalhes da Vaga</h1>
                 </div>
                 {
-                    loading && (
-                        <Loading />
-                    )
-                }
-                {
-                    !loading && (
+                    loading ? <Loading />
+                    : (
                         <div className='p-5'>
                             <div className='bg-primary text-center md:text-left'> 
                             </div>
@@ -115,16 +111,17 @@ const UserVacancyDetail = () => {
                                     </h1>
                                     <div className='md:flex md:justify-between'>
                                         <div className='md:w-6/12 w-full mr-5'> 
-                                            <TextInput placeholder='Setor' value='Operacional' type='text' consultPackage={ consultPackage } name="sector" id='sector' disabled/>                                      
-                                            <TextAreaInput name="description" id="description" row={ 8 } consultPackage={ consultPackage } placeholder='Descrição' value={ vacancyData.description } disabled/>  
+                                            <TextInput placeholder='Setor' type='text' consultPackage={ consultPackage } name="sector" id='sector' disabled/>                                      
+                                            <TextAreaInput name="description" id="description" row={ 7 } consultPackage={ consultPackage } placeholder='Descrição' value={ vacancyData.description } disabled/>  
                                         </div>
                                         <div className='md:w-6/12 w-full'>
-                                            <TextInput placeholder='Região' type='text' name='region' id='region' value='Região' consultPackage={ consultPackage } disabled/>           
+                                            <TextInput placeholder='Região' type='text' name='region' id='region' consultPackage={ consultPackage } disabled/>           
                                             <div className="md:flex justify-between">
-                                                <TextInput placeholder='Moeda' type='text' size='medium' name='currency' id='currency' consultPackage={ consultPackage } value='Real' disabled/>
-                                                <TextInput placeholder='Salário' useMask={ MaskTypesEnum.money } limit={ 12 } type='text' size='large' name='salary' id='salary' consultPackage={ consultPackage } value='900,00' disabled/>
+                                                <TextInput placeholder='Moeda' type='text' size='medium' name='currency' id='currency' consultPackage={ consultPackage } disabled/>
+                                                <TextInput placeholder='Salário' useMask={ MaskTypesEnum.money } limit={ 12 } type='text' size='large' name='salary' id='salary' consultPackage={ consultPackage } disabled/>
                                             </div>                                    
-                                            <TextInput placeholder='Carga Horária' type='text' consultPackage={ consultPackage } name="workload" id='workload' value='Integral' disabled/>
+                                            <TextInput placeholder='Carga Horária' type='text' consultPackage={ consultPackage } name="workload" id='workload' disabled/>
+                                            <TextInput placeholder='Tipo de Contratação' type='text' consultPackage={ consultPackage } name="type" id='type' disabled/>
                                         </div>
                                     </div>
                                     {

@@ -7,10 +7,13 @@ import Loading from '../../Components/Items/Loading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault'
 import useAuth from '../../Utils/useAuth';
+import useLoading from '../../Utils/useLoading';
 
 const UserVacancySearch = () => {
     const auth = useAuth();
     const user = useUser();
+    const { loading } = useLoading();
+
     const [allVacancies, setAllVacancies] = useState([]);
     const [vacancies, setVacancies] = useState([]);
     const [searchVacancies, setSearchVacancies] = useState('');
@@ -64,17 +67,13 @@ const UserVacancySearch = () => {
                     </div>
                 </div>
                 {
-                    user.loading && (
-                        <Loading />
-                    )
-                }
-                {
-                    !user.loading && (
+                    loading ? <Loading />
+                    : (
                         <>      
                             {
                                 !!vacancyCards.length && (
                                     <div className='mt-7'>
-                                        <p className='text-bright-gray font-bold text-sm md:text-md text-md mb-2'>Foram encontrados { vacancyCards.length } resultados</p>
+                                        <p className='text-bright-gray font-bold text-sm md:text-md text-md mb-2'>{ vacancyCards.length } resultados encontrados</p>
                                     </div>
                                 )
                             }

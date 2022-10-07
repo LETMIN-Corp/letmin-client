@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import FormButton from "../../Components/Buttons/FormButton";
 import TextInput from "../../Components/Inputs/TextInput";
 import Footer from "../../Components/Layouts/Footer";
 import Menu from '../../Components/Layouts/Menu';
-import InputTypesEnum from "../../Enums//InputTypesEnum";
+import InputTypesEnum from "../../Enums/InputTypesEnum";
 import useAuth from "../../Utils/useAuth";
+import SubmitButton from "../../Components/Buttons/SubmitButton";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 
-const CompanyLogin : React.FC = () => {
+const CompanyRecoverPassword : React.FC = () => {
     const auth = useAuth();
+    const [emailSent, setEmailSent] = useState(false);
+    const navigate = useNavigate();
 
     useEffect((): void => {
-        window.document.title = 'Letmin - Login';
+        window.document.title = 'Letmin - Recuperar senha';
     }, []);
 
     const pageButtons = [
         {
             text: 'Voltar',
-            path: '/register',
+            path: '/company/login',
             isLink: true,
         }
     ];
@@ -28,7 +30,6 @@ const CompanyLogin : React.FC = () => {
     
     const [data, setData] = useState<IRegisterData>({
         email: '',
-        password: '',
     });
 
     function getInputValue (name: string): string {
@@ -50,7 +51,15 @@ const CompanyLogin : React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        return await auth.signIn('company', data)
+        return await auth.sendRecoveryEmail(data.email).then((res: any) => {
+            if (res.status !== 200) {
+                auth.dispatchError('Erro ao enviar email de recuperação');
+                return;
+            }
+            auth.dispatchSuccess('Email de recuperação enviado com sucesso!');
+            setEmailSent(true);
+            navigate('/company/login');
+        });
     }
 
     return (
@@ -58,18 +67,14 @@ const CompanyLogin : React.FC = () => {
             <Menu menuButtons={ pageButtons } />
             <div className='w-screen min-h-screen flex flex-col items-center justify-center'>
                 <form onSubmit={ handleSubmit } className='w-full md:w-6/12 lg:w-3/12 p-5'>
-                    <h1 className='text-xl font-normal'>Entrar</h1>
+                    <h1 className='text-xl font-normal'>Recuperar senha</h1>
                     <TextInput type={ InputTypesEnum.email } consultPackage={ consultPackage } placeholder='E-mail' name='email' />
-                    <TextInput type={ InputTypesEnum.password } consultPackage={ consultPackage } placeholder='Senha' name='password' />
-                    <FormButton text='Entrar'  isFullWidth={ true } />
+                    <SubmitButton text='Enviar' loading={ auth.loading } />
                 </form>
-                <div>
-                    <Link to='/company/recover-password' className='text-primary hover:text-bright-purple drop-shadow-lg'>Esqueci minha senha</Link>
-                </div>
             </div>
             <Footer />
         </>
     );
 }
 
-export default CompanyLogin;
+export default CompanyRecoverPassword;

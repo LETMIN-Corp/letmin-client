@@ -41,6 +41,7 @@ const CompanyRegisterVacancy = () => {
         currency: '',
         workload: '',
         region: '',
+        type: '',
     }
     
     const [vacancyData, setVacancyData] = useState<IVacancyData>(initialState);
@@ -49,7 +50,7 @@ const CompanyRegisterVacancy = () => {
         return vacancyData[name];
     }
 
-    function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
+    function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) : void {
         const { name, value } = e.target;
 
         setVacancyData({
@@ -91,15 +92,22 @@ const CompanyRegisterVacancy = () => {
                                 <div className='text-dark-purple font-medium text-md'>
                                     Tipo de Contratação
                                 </div>
-                                <input type='radio' value="Estágio" id="vagaEstagio" name='type'></input>
-                                <label className='text-lg' htmlFor='vagaEstagio'> Estágio</label><br></br>
-                                <input type='radio' value="Permanente" id='Permanente' name='type'></input>
-                                <label className='text-lg' htmlFor='Permanente'> Permanente</label><br></br>
-                                <input type='radio' value="Temporário" id='Temporario' name='type'></input>
-                                <label className='text-lg' htmlFor='Temporario'> Temporário</label><br></br>
+                                <div>
+                                    <div>
+                                        <input type='radio' onChange={ (e) => setInputValue(e) } className='mr-2 cursor-pointer' value="Estágio" id="internship" name='type'></input>
+                                        <label className='text-lg cursor-pointer' htmlFor='internship'>Estágio</label>
+                                    </div>
+                                    <div>
+                                        <input type='radio' onChange={ (e) => setInputValue(e) } className='mr-2 cursor-pointer' value="Permanente" id='permanent' name='type'></input>
+                                        <label className='text-lg cursor-pointer' htmlFor='permanent'>Permanente</label>
+                                    </div>
+                                    <div>
+                                        <input type='radio' onChange={ (e) => setInputValue(e) } className='mr-2 cursor-pointer' value="Temporário" id='temporary' name='type'></input>
+                                        <label className='text-lg cursor-pointer' htmlFor='temporary'>Temporário</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    
                     </div>        
                 </div>
 
