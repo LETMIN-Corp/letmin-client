@@ -103,7 +103,13 @@ const CompanyCombinations : React.FC = () => {
 
     function alterUserCondition(type : 'ADD' | 'REMOVE') {
         if(type == 'ADD') {
-            company.addToTalentBank(params.id).then(() => {
+            company.addToTalentBank(params.id).then((res: any) => {
+                if (res.data.success && res.status === 201) {
+                    company.dispatchSuccess(res.data.message);
+                }
+                else {
+                    company.dispatchError(company.formatErrors(res.data.message));
+                }
                 setUserInTalentBank(true);
             });
             return;
