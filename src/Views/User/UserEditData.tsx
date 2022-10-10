@@ -280,7 +280,6 @@ const UserEditData : React.FC = () => {
                                     {
                                         (canExclude.experiences) && (userData.experiences.length != 0) && (
                                             <button onClick={ () => flipExclude('experiences') } className='bg-red w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-red ease-out duration-200'>
-                                                {/* <FontAwesomeIcon icon={ faTrashCan } /> */}
                                                 <FontAwesomeIcon icon={ faTrashArrowUp } />
                                             </button>
                                         )
@@ -305,11 +304,10 @@ const UserEditData : React.FC = () => {
                                                         <div className="pb-2">
                                                             <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                         </div>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" min={ 4 } name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" min={ 4 } name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" limit={ 4 } name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" limit={ 4 } name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
                                                     </div>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' id='experiences-description' consultPackage={ consultPackage } required/>
-                                                    {/* titulo / empresa / inicio (mm/aa) / termino(mm/aa) / descricao */}
                                                 </div>
                                             </FormModal>
                                         )
@@ -355,8 +353,8 @@ const UserEditData : React.FC = () => {
                                                         <div className="pb-2">
                                                             <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                         </div>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" name='formations-start' id='formations-start' min={4} max={4} consultPackage={ consultPackage } required/>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" name='formations-finish' id='formations-finish' min={4} max={4}  consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início'limit={ 4 } size="medium" name='formations-start' id='formations-start' min={4} max={4} consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término'limit={ 4 } size="medium" name='formations-finish' id='formations-finish' min={4} max={4}  consultPackage={ consultPackage } required/>
                                                     </div>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' id='formations-description' consultPackage={ consultPackage } required/>
                                                 </div>

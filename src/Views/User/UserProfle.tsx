@@ -142,24 +142,21 @@ const UserProfile : React.FC = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className='mt-5 md:mt-10 mx-5'>
-                                <div className='font-medium text-xl text-dark-purple'>{ userData.name || 'Nome do Usuário' }</div>
-                                <div className='text-lg text-justify'>Programador WEB!</div>
+                            <div className='mt-5 md:mt-10 mb-5 mx-5'>
+                                <div className='font-bold text-2xl text-dark-purple'>{ userData.name || 'Nome do Usuário' }</div>
                             </div>
-                        </main>
-
-                        
+                        </main>                        
                         {
-                            (userData.description != "") && (                        
-                                <section className='px-5 mt-10'>
+                            (userData.description) && (                        
+                                <section className='px-5 mb-5'>
                                     <div className='font-medium text-xl text-dark-purple'>Descrição</div>
                                     <div className='text-lg text-justify'>{ userData.description }</div>
                                 </section>
                             )
                         }
                         {
-                            (userData.experiences.length != 0) && (
-                                <section className='px-5 mt-10'>
+                            (!!userData.experiences.length) && (
+                                <section className='px-5 mb-5'>
                                     <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                         {
@@ -172,8 +169,8 @@ const UserProfile : React.FC = () => {
                             )
                         }
                         {
-                            (userData.formations.length != 0) && (
-                                <section className='px-5 my-10'>
+                            (!!userData.formations.length) && (
+                                <section className='px-5 mb-5'>
                                     <div className='font-medium text-xl text-dark-purple mb-2'>Formação Acadêmica</div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                         {

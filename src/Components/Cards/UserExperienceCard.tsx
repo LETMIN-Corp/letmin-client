@@ -1,4 +1,4 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ComponentInterface {
@@ -23,15 +23,18 @@ const UserExperienceCard: React.FC<ComponentInterface> = ({ card, canExclude, ex
     }
 
     return (
-        <div className={`text-black bg-slate-200 rounded-md flex-col justify-between drop-shadow-lg shadow-xl` + (canExclude? " animate-[wiggle_1.5s_ease-in-out_infinite] hover:cursor-pointer" : "") }  onClick={ (e) => excludeItem(e) }>
-            <div className='text-white bg-bright-purple p-3 flex justify-between rounded-t-md'>
+        <div className={`text-black bg-lilac rounded-md flex-col justify-between drop-shadow-lg` + (canExclude? " animate-[wiggle_1.5s_ease-in-out_infinite] hover:cursor-pointer" : "") }  onClick={ (e) => excludeItem(e) }>
+            <div className='text-white break-all bg-bright-purple p-3 flex justify-between rounded-t-md'>
                 <div className='font-medium'>{ card.name || card.role }</div>
                 <div className='font-medium'>{ card.institution || card.company }</div>
                           
             </div>
             <div className='break-words max-h-40 px-3 pb-3 rounded-md overflow-x-hidden overflow-y-auto h-100'>
-                <p>{ card.start.slice(0,4) } - {card.finish.slice(0,4)}</p>
-                { card.description}
+                <div className='text-dark-purple my-1 flex items-center'>
+                    <FontAwesomeIcon icon={ faClock } className='mr-1' />
+                    { card.start.slice(0,4) } - {card.finish.slice(0,4)}
+                </div>
+                <div className='text-justify text-sm'>{ card.description }</div>
             </div>
         </div>
     );
