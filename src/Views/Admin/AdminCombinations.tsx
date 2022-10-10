@@ -55,9 +55,9 @@ const AdminCombinations : React.FC = () => {
                                     <h4 className='text-xl font-bold text-dark-purple'>Habilidades extras:</h4>
                                     <p>
                                         {
-                                            candidate.experiences.map((key) => 
-                                                <p>{key}</p>
-                                            )
+                                            candidate.experiences.map((experience: any, index: number) => (
+                                                <span key={index} className='text-dark-purple'>{experience.title} - {experience.company}</span>
+                                            ))
                                         }
                                         Lorem ipsum dolor sit amet,
                                         consectetur adipiscing elit.
