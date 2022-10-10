@@ -72,7 +72,7 @@ const CompanyVacancyData = () => {
                                                 Compatibilidade
                                             </div>
                                             <div className='w-4/12 flex justify-center'>
-                                                Currículo
+                                                Perfil
                                             </div>
                                         </div>
                                         <div>

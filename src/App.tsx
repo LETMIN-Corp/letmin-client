@@ -32,6 +32,7 @@ import AdminCombinations from './Views/Admin/AdminCombinations';
 import CompanyRecoverPassword from './Views/Company/CompanyRecoverPassword';
 import 'react-toastify/dist/ReactToastify.css';
 import CompanyPasswordDefinition from './Views/Company/CompanyPasswordDefinition';
+import CompanyVacancyDetail from './Views/Company/CompanyVacancyDetail';
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
               <Route path='/company/indicators' element={ <CompanyIndicators /> } />
               <Route path='/company/talents' element={ <CompanyTalentBank /> } />
               <Route path='/company/talents/search' element={ <CompanyTalentSearch /> } />
+              <Route path='/company/vacancy/:id' element={ <CompanyVacancyDetail /> } />
               <Route path='/company/vacancy/data/:id' element={ <CompanyVacancyData /> } />
               <Route path='/company/combinations' element={ <CompanyMatch />} />
               <Route path='/company/combinations/:id' element={ <CompanyCombinations /> } />

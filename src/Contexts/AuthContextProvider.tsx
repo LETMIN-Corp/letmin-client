@@ -206,6 +206,9 @@ export const AuthState = ({ children } : any) => {
     const setNewPassword = async (selector: string, token: string, password: string) => {
         return axiosRequest(`${API_URL}/api/new-password`, 'POST', { selector, token, password });
     }
+    const getCompanyVacancy = async(id: string) => {
+        return axiosRequest(`${API_URL}/api/company/get-vacancy/${id}`, 'GET');
+    };
     // End company function
 
     // User functions
@@ -296,6 +299,7 @@ export const AuthState = ({ children } : any) => {
             sendRecoveryEmail,
             checkRecoveryToken,
             setNewPassword,
+            getCompanyVacancy,
             // Admin functions
             getAllCompanies,
             blockCompany,
