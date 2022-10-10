@@ -8,7 +8,7 @@ const UserMenu : React.FC = () => {
             isLink: true,
         },
         {
-            text: 'Combinações',
+            text: 'Candidaturas',
             path: '/user/combinations',
             isLink: true,
         },
