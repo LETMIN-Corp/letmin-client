@@ -201,12 +201,11 @@ const CompanyCombinations : React.FC = () => {
             {
                 modalIsOpen && (
                     <FormModal handleClose={ handleCloseModal } handleConfirm={ handleConfirm } title={`Denunciar`}>
-                        <div className=''>
-                            <div>
-                                <div className='text-dark-purple text-lg mb-1'>Motivo</div>
+                        <div>
+                            <div className='mt-2'>
                                 {
                                     options.map(option => (
-                                        <div key={ option.value } className='flex items-center'>
+                                        <div key={ option.value } className='flex items-center '>
                                             <input 
                                                 className='mr-3 h-4 w-4 cursor-pointer'
                                                 id={option.value}
