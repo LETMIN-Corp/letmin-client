@@ -38,7 +38,7 @@ const CompanyTalentBank = () => {
     return (
         <CompanyDefault>
             <div className='p-5 min-h-90'>
-                <h1 className='text-2xl'>
+                <h1 className='text-2xl text-dark-purple font-medium'>
                     <FontAwesomeIcon icon={ faFolderOpen } className='mr-2' />
                     <span>Banco de Talentos</span>
                 </h1>

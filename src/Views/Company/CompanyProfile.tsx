@@ -140,7 +140,7 @@ const CompanyProfile = () => {
     return (
         <CompanyDefault>
             <div className='p-5'>
-                <h1 className='text-2xl'>
+                <h1 className='text-2xl text-dark-purple font-medium'>
                     <FontAwesomeIcon icon={ faAddressCard } className='mr-2' />
                     <span>Meus Dados</span>
                 </h1>

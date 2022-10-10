@@ -49,7 +49,7 @@ const UserCombination = () => {
     return (
         <UserDefault>
             <div className="p-5 min-h-90">
-                <h1 className='text-2xl'>
+                <h1 className='text-2xl text-dark-purple font-medium'>
                     <FontAwesomeIcon icon={ faHandshake } className='mr-2' />
                     <span>Combinações</span>
                 </h1>

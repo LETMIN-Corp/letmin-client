@@ -103,7 +103,13 @@ const CompanyCombinations : React.FC = () => {
 
     function alterUserCondition(type : 'ADD' | 'REMOVE') {
         if(type == 'ADD') {
-            company.addToTalentBank(params.id).then(() => {
+            company.addToTalentBank(params.id).then((res: any) => {
+                if (res.data.success && res.status === 201) {
+                    company.dispatchSuccess(res.data.message);
+                }
+                else {
+                    company.dispatchError(company.formatErrors(res.data.message));
+                }
                 setUserInTalentBank(true);
             });
             return;
@@ -150,11 +156,6 @@ const CompanyCombinations : React.FC = () => {
                                 <div className='md:pr-4'>
                                     <h4 className='text-xl font-bold text-dark-purple'>Habilidades extras:</h4>
                                     <p>
-                                        {
-                                            candidate.experiences.map((key) => 
-                                                <p>{key}</p>
-                                            )
-                                        }
                                         Lorem ipsum dolor sit amet,
                                         consectetur adipiscing elit.
                                     </p>
@@ -205,7 +206,7 @@ const CompanyCombinations : React.FC = () => {
                                 <div className='text-dark-purple text-lg mb-1'>Motivo</div>
                                 {
                                     options.map(option => (
-                                        <div key={option.value} className='flex items-center'>
+                                        <div key={ option.value } className='flex items-center'>
                                             <input 
                                                 className='mr-3 h-4 w-4 cursor-pointer'
                                                 id={option.value}

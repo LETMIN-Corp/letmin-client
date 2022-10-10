@@ -1,41 +1,35 @@
-import { useEffect, useState  } from 'react';
-import UserDefault from './UserDefault'
-import TextInput from '../../Components/Inputs/TextInput';
-import TextAreaInput from '../../Components/Inputs/TextAreaInput';
-import MaskTypesEnum from '../../Enums//MaskTypesEnum';
-import SecondaryButton from '../../Components/Buttons/SecondaryButton';
+import { faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useUser from '../../Utils/useUser';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
-import useLoading from '../../Utils/useLoading';
-import Loading from '../../Components/Items/Loading';
-import useAuth from '../../Utils/useAuth';
+import TextAreaInput from "../../Components/Inputs/TextAreaInput";
+import TextInput from "../../Components/Inputs/TextInput";
+import Loading from "../../Components/Items/Loading";
+import MaskTypesEnum from "../../Enums/MaskTypesEnum";
+import useAuth from "../../Utils/useAuth";
+import useCompany from "../../Utils/useCompany";
+import CompanyDefault from "./CompanyDefault";
 
-const UserVacancyDetail = () => {
+const CompanyVacancyDetail : React.FC = () => {
     const params = useParams();
-    const user = useUser();
+    const company = useCompany();
     const auth = useAuth();
     const navigate = useNavigate();
 
-    const { loading } = useLoading();
     const id = params.id;
-    const [applied, setApplied] = useState(false);
 
     useEffect((): void => {
         window.document.title = 'Letmin - Vaga';
 
         if (id?.length !== 24) {
-            navigate('/user/vacancy/search');
+            navigate('/company');
             return;
         }
 
-        user.getVacancy(id).then((res: any) => {
+        company.getCompanyVacancy(id).then((res: any) => {
             if(!res.data.success || res.data.vacancy.closed) {
-                navigate('/user/vacancy/search');
+                navigate('/company');
             }
-            setApplied(res.data.vacancy.candidates.filter((candidate: any) => candidate._id == auth.userData.user_id ).length > 0)
             setVacancyData(res.data.vacancy);
         })
 
@@ -74,21 +68,11 @@ const UserVacancyDetail = () => {
         setValue: setInputValue, 
     }
 
-    const handleApplyVacancy = () => {
-        user.applyVacancy(id).then((res: any) => {
-            if(res.data.success) {
-                dispatchSuccess(res.data.message);
-                return navigate('/user/vacancy/search');
-            }
-            dispatchError(res.data.message);
-        })
-    }
-
     return (
-        <UserDefault>
+        <CompanyDefault>
             <div className='p-5 min-h-screen'>
                 {
-                    loading ? <Loading />
+                    auth.loading ? <Loading />
                     : (
                         <div>
                             <div className='mt-5'>
@@ -117,28 +101,15 @@ const UserVacancyDetail = () => {
                                             <TextInput placeholder='Carga Horária' type='text' consultPackage={ consultPackage } name="workload" id='workload' disabled/>
                                             <TextInput placeholder='Tipo de Contratação' type='text' consultPackage={ consultPackage } name="type" id='type' disabled/>
                                         </div>
-                                    </div>
-                                    {
-                                        applied && (
-                                            <div className='w-full text-center mt-5'>
-                                                <p className='text-2xl font-bold text-primary'>Você já se candidatou a essa vaga</p>
-                                            </div>
-                                        ) || (
-                                            <div className='w-full flex justify-end'>
-                                                <SecondaryButton handleClick={ handleApplyVacancy } text='Candidatar-se'></SecondaryButton>
-                                            </div>   
-                                        )
-                                    }
-                                          
+                                    </div>   
                                 </div>
-                                
                             </div>
                         </div>
                     )
                 }
             </div>
-        </UserDefault>
+        </CompanyDefault>
     );
 }
 
-export default UserVacancyDetail;
+export default CompanyVacancyDetail;
