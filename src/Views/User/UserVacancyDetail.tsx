@@ -84,6 +84,16 @@ const UserVacancyDetail = () => {
         })
     }
 
+    const handleCancelApplyVacancy = () => {
+        user.cancelApplyVacancy(id).then((res: any) => {
+            if(res.data.success) {
+                dispatchSuccess(res.data.message);
+                return navigate('/user/vacancy/search');
+            }
+            dispatchError(res.data.message);
+        })
+    }
+
     return (
         <UserDefault>
             <div className='p-5 min-h-screen'>
@@ -120,8 +130,9 @@ const UserVacancyDetail = () => {
                                     </div>
                                     {
                                         applied && (
-                                            <div className='w-full text-center mt-5'>
+                                            <div className='w-full text-center mt-5 flex justify-between'>
                                                 <p className='text-2xl font-bold text-primary'>Você já se candidatou a essa vaga</p>
+                                                <SecondaryButton handleClick={ handleCancelApplyVacancy } text='Descandidatar-se'></SecondaryButton>
                                             </div>
                                         ) || (
                                             <div className='w-full flex justify-end'>

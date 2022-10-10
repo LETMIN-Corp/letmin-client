@@ -12,7 +12,7 @@ import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
 import CompanyVacancyData from './Views/Company/CompanyVacancyData';
 import UserProfile from './Views/User/UserProfle';
-import UserCombination from './Views/User/UserCombination';
+import UserApply from './Views/User/UserApply';
 import UserEditData from './Views/User/UserEditData';
 import UserError from './Views/User/UserError';
 import UserVacancySearch from './Views/User/UserVacancySearch';

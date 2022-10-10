@@ -1,9 +1,8 @@
 import UserDefault from './UserDefault';
 import CombinationData from '../../Components/Items/CombinationsData';
-import SecondaryLink from '../../Components/Links/SecondaryLink';
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faHandshake } from '@fortawesome/free-solid-svg-icons';
+import { faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
 
@@ -69,7 +68,7 @@ const UserCombination = () => {
                             </div>
                             <div>
                                 {
-                                        data.map((row, key) => <CombinationData key={ key } name={ row.name } vacancy={ row.vacancy } handleClick={ () => setModalIsOpen(true) } />)
+                                    data.map((row, key) => <CombinationData key={ key } name={ row.name } vacancy={ row.vacancy } handleClick={ () => setModalIsOpen(true) } />)
                                 }
                             </div>
                         </div>
