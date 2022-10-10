@@ -18,6 +18,7 @@ import UserDefault from './UserDefault'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandshake, faInfo, faLink, faPlus, faPencil, faCalendar, faRemove, faTrash, faTrashAlt, faTrashRestore, faTrashCan, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { dispatchError } from '../../Utils/ToastMessages';
 import useUser from '../../Utils/useUser';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
@@ -206,7 +207,6 @@ const UserEditData : React.FC = () => {
             }
         )});
     }
-
     const filterFormations = (value : string) => {
         if(value.length === 0) {
             setUserData({
@@ -224,16 +224,24 @@ const UserEditData : React.FC = () => {
     }
 
     const handleConfirmAddFormation = () => {
-        if(userTypedData.formations.length == 0){
-            //mostrar mensagem de "ain bababa vc tem erro"
-            return;
+        if(userTypedData.formations.name == undefined){
+            dispatchError('A formação precisa de um nome!');
+        } else if(userTypedData.formations.institution == undefined){
+            dispatchError("A formação precisa de uma instituição!");
+        } else if(userTypedData.formations.start == undefined || userTypedData.formations.finish == undefined){
+            dispatchError("A formação precisa de datas corretas de início e fim!");
+        } else if(userTypedData.formations.start.length != 4 || userTypedData.formations.finish.length != 4){
+            dispatchError("A formação precisa de datas corretas de início e fim!");
+        } else if(userTypedData.formations.start > userTypedData.formations.finish){
+            dispatchError("A data de início está depois da data de finalização!");
+        } else if(userTypedData.formations.description == undefined){
+            dispatchError("A descrição está vazia!");
+        } else {
+            setFormationModalIsOpen(false);
+            userData.formations.push(userTypedData.formations)
+            userTypedData.formations = [];
         }
-        setFormationModalIsOpen(false);
-        userData.formations.push(userTypedData.formations)
-        userTypedData.formations = [];
-        // user.updateUserFormations(userTypedData);
-        // getDBUserData();
-        // getDBUserData();
+        return;
     }
     const handleCloseModalAddFormation = () => {
         setFormationModalIsOpen(false);
@@ -369,8 +377,7 @@ const UserEditData : React.FC = () => {
                                 }
                             </div>
                         </section>
-                        <div className='ml-3 my-5 flex justify-end w-full px-5'>
-                            
+                        <div className='ml-3 my-5 flex justify-end w-full px-5'>                            
                             <SecondaryButton text='Cancelar' handleClick= {() => setModalExitIsOpen(true)}/>
                             { modalExitIsOpen && <ConfirmationModal title='Sair da Edição' text='Os dados editados ainda não foram salvos. Você realmente deseja sair da edição?' handleClose={ () => setModalExitIsOpen(false) } handleConfirm={ returnToUserPage } /> }
                             
