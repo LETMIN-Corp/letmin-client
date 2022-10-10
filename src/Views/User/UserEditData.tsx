@@ -192,37 +192,6 @@ const UserEditData : React.FC = () => {
         }
     }
 
-    const filterExperiences = (value : string) => {
-        if(value.length === 0) {
-            setUserData({
-                ...userData,
-                experiences: userData.experiences,
-            });
-            return
-        }
-        setUserData({
-            ...userData,
-            experiences: userData.experiences.filter((experience : any) => {
-                return experience.name.toLowerCase().includes(value.toLowerCase());
-            }
-        )});
-    }
-    const filterFormations = (value : string) => {
-        if(value.length === 0) {
-            setUserData({
-                ...userData,
-                formations: userData.formations,
-            });
-            return;
-        }
-        setUserData({
-            ...userData,
-            formations: userData.formations.filter((formation : any) => {
-                return formation.name.toLowerCase().includes(value.toLowerCase());
-            }
-        )});
-    }
-
     const handleConfirmAddFormation = () => {
         if(userTypedData.formations.name == undefined){
             dispatchError('A formação precisa de um nome!');
@@ -241,6 +210,8 @@ const UserEditData : React.FC = () => {
             userData.formations.push(userTypedData.formations)
             userTypedData.formations = [];
         }
+        
+
         return;
     }
     const handleCloseModalAddFormation = () => {
