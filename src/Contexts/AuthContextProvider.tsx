@@ -25,8 +25,17 @@ export const AuthState = ({ children } : any) => {
     const removeLoading = () => dispatch({ type: ReducerEnum.error });
     const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
     const getRole = () => {
-        // @ts-ignore:next-line
-        return (Cookies.get('token') ? jwtDecode(Cookies.get('token').toString()).role : '');
+        const token: string | undefined = Cookies.get('token');
+
+        return token ? jwtDecode<userToken>(token).role : '';
+    }
+
+    interface userToken {
+        user_id: string;
+        sub?: string;
+        role: string;
+        email: string;
+        exp: string;
     }
     
     // Auth function
