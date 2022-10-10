@@ -18,9 +18,11 @@ interface ComponentInterface {
 const UserExperienceCard: React.FC<ComponentInterface> = ({ card, canExclude, exclude }) => {
     function excludeItem(e : any)
     {
-        // animation: disappear 1s ease-in-out
-        e.currentTarget.classList.add(`hidden`);
-        exclude;
+        if(canExclude)
+        {    // animation: disappear 1s ease-in-out
+            e.currentTarget.classList.add(`hidden`);
+            exclude;
+        }
     }
 
     return (

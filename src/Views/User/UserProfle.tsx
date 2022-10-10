@@ -13,6 +13,7 @@ import Loading from '../../Components/Items/Loading';
 interface IUserData {
     createdAt: string;
     name: string;
+    role: string;
     description: string;
     email: string;
     username: string;
@@ -29,6 +30,7 @@ const UserProfile : React.FC = () => {
     const [userData, setUserData] = useState<IUserData>({
         createdAt: '',
         name: '',
+        role: '',
         description: '',
         email: '',
         username: '',
@@ -144,6 +146,7 @@ const UserProfile : React.FC = () => {
                             </div>
                             <div className='mt-5 md:mt-10 mb-5 mx-5'>
                                 <div className='font-bold text-2xl text-dark-purple'>{ userData.name || 'Nome do Usuário' }</div>
+                                <div className='text-lg text-justify'>{ userData.role }</div>
                             </div>
                         </main>                        
                         {

@@ -13,11 +13,11 @@ const useUser = () => {
     } : any = useContext(AuthContext);
 
     const checkNewFormation = async (data: any) => {
-        return await axiosRequest(`${API_URL}/api/user/check-user-experiences`, 'POST', data);
+        return await axiosRequest(`${API_URL}/api/user/check-user-formations`, 'POST', data);
     }
 
     const checkNewExperience = async (data: any) => {
-        return await axiosRequest(`${API_URL}/api/user/check-user-formations`, 'POST', data);
+        return await axiosRequest(`${API_URL}/api/user/check-user-experiences`, 'POST', data);
     }
 
     // User functions

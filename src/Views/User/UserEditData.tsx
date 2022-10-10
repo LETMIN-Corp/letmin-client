@@ -3,7 +3,6 @@ import FormButton from '../../Components/Buttons/FormButton';
 import FormModal from '../../Components/Modals/FormModal';
 import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 import { useEffect, useState } from 'react';
-import UserProfileCard from '../../Components/Cards/UserProfileCard';
 import UserExperienceCard from '../../Components/Cards/UserExperienceCard';
 import TextInput from '../../Components/Inputs/TextInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
@@ -12,7 +11,7 @@ import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
 import UserDefault from './UserDefault'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandshake, faInfo, faLink, faPlus, faPencil, faCalendar, faRemove, faTrash, faTrashAlt, faTrashRestore, faTrashCan, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPencil, faCalendar, faTrash, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { dispatchError, dispatchSuccess, formatErrors } from '../../Utils/ToastMessages';
 import useUser from '../../Utils/useUser';
 import useLoading from '../../Utils/useLoading';
@@ -26,7 +25,7 @@ interface Iformations {
     description: string;
 }
 
-interface Iexpirences {
+interface Iexperiences {
     role: string;
     company: string;
     start: string;
@@ -37,6 +36,7 @@ interface Iexpirences {
 class UserData {
     createdAt: string = '';
     name: string = '';
+    role: string = '';
     description: string = '';
     email: string = '';
     username: string = '';
@@ -48,7 +48,7 @@ class UserData {
         finish: '',
         description: '',
     }];
-    experiences: Array<Iexpirences> = [{
+    experiences: Array<Iexperiences> = [{
         role: '',
         company: '',
         start: '',
@@ -88,6 +88,8 @@ const UserEditData : React.FC = () => {
     }, []);
 
     const [modalExitIsOpen, setModalExitIsOpen] = useState(false);  /* Modal de confirmar para sair da página */
+    const [modalExcludeExperienceIsOpen, setmodalExcludeExperienceIsOpen] = useState(false);  /* Modal de exclusão de experiências */
+    const [modalExcludeFormationIsOpen, setmodalExcludeFormationIsOpen] = useState(false);  /* Modal de exclusão de formação */
     const [modalSaveConfirmationIsOpen, setModalSaveConfirmationIsOpen] = useState(false);  /* Modal de confirmar para salvar os dados */
     const [XPModalIsOpen, setXPModalIsOpen] = useState(false);  /* Modal de adicionar dados */
     const [formationModalIsOpen, setFormationModalIsOpen] = useState(false);  /* Modal de adicionar dados */
@@ -114,15 +116,13 @@ const UserEditData : React.FC = () => {
         const { name, value } = e.target;
         const [type, data] = name.split('-'); //experience-role  -> experience role
         
-        if(data == undefined)
-        {
+        if(data == undefined) {
             setUserData({
                     ...userData,
                     [name]: value,
                 }
             );
-        }
-        else {          
+        } else {          
             setUserTypedData({
                 ...userTypedData,
                 [type]: { ...userTypedData[type], [data]: value }
@@ -148,13 +148,12 @@ const UserEditData : React.FC = () => {
                 dispatchError(formatErrors(res.data.message));
                 return;
             }
-            userData.experiences.push(userTypedData.experiences)
-            userTypedData.experiences = [];
         });
+        userData.experiences.push(userTypedData.experiences)
+        userTypedData.experiences = [];
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
-        // getDBUserData();
     }
 
     function flipExclude(property: string)
@@ -173,7 +172,7 @@ const UserEditData : React.FC = () => {
         }
     }
     function excludeExperience (id : number) {
-        //console.log(id)
+        
         if (canExclude.experiences){
             userData.experiences.splice(id, 1);
             setUserData(userData);
@@ -181,11 +180,9 @@ const UserEditData : React.FC = () => {
     }
 
     const handleConfirmAddFormation = () => {
-
         setFormationModalIsOpen(false);
         userData.formations.push(userTypedData.formations)
         userTypedData.formations = [];
-
         return;
     }
     const handleCloseModalAddFormation = () => {
@@ -217,8 +214,11 @@ const UserEditData : React.FC = () => {
                             
                             <div className='mt-5 md:mt-10 mx-5 w-2/3'>
                                 <div className='font-medium text-xl text-dark-purple'>Informações do Usuário</div>
-                                <div className='font-medium w-96'>
+                                <div className='font-medium'>
                                     <TextInput placeholder='Nome' type='text' name='name' id='userName' consultPackage={ consultPackage }/> 
+                                </div>
+                                <div className='font-medium'>
+                                    <TextInput placeholder='Cargo' type='text' name='role' id='userRole' consultPackage={ consultPackage }/> 
                                 </div>
                                 <div className='font-medium'>
                                     <TextAreaInput name="description" id="description" row={ 6 } consultPackage={ consultPackage } placeholder='Descrição'/>
@@ -251,8 +251,8 @@ const UserEditData : React.FC = () => {
                                         XPModalIsOpen && (
                                             <FormModal handleClose={ handleCloseModalAddXp } handleConfirm={ handleConfirmAddXp } title='Adicionar Experiência Prévia'>
                                                 <div className='my-2'>
-                                                    <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experiences-role' id='experiences-role' consultPackage={ consultPackage } required/>
-                                                    <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experiences-company' id='experiences-company' consultPackage={ consultPackage } required />
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Nome' name='experiences-role' limit={ 30 } id='experiences-role' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Empresa' name='experiences-company' limit={ 30 } id='experiences-company' consultPackage={ consultPackage } required />
                                                     <div className='flex justify-between content-between items-center px-2'>
                                                         <div className="pb-2">
                                                             <FontAwesomeIcon icon={ faCalendar } size="2x" />
@@ -260,7 +260,7 @@ const UserEditData : React.FC = () => {
                                                         <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" limit={ 4 } name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
                                                         <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" limit={ 4 } name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
                                                     </div>
-                                                    <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' id='experiences-description' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' limit={ 128 } id='experiences-description' consultPackage={ consultPackage } required/>
                                                 </div>
                                             </FormModal>
                                         )
@@ -300,8 +300,8 @@ const UserEditData : React.FC = () => {
                                         formationModalIsOpen && (
                                             <FormModal handleClose={ handleCloseModalAddFormation } handleConfirm={ handleConfirmAddFormation } title='Adicionar Formação Acadêmica'>
                                                 <div className='my-2'>
-                                                    <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' id='formations-name' consultPackage={ consultPackage } required/>
-                                                    <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' id='formations-institution' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Formação' name='formations-name' limit={ 30 } id='formations-name' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Instituição' name='formations-institution' limit={ 30 } id='formations-institution' consultPackage={ consultPackage } required/>
                                                     <div className='flex justify-between content-between items-center px-2'>
                                                         <div className="pb-2">
                                                             <FontAwesomeIcon icon={ faCalendar } size="2x" />
@@ -309,7 +309,7 @@ const UserEditData : React.FC = () => {
                                                         <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início'limit={ 4 } size="medium" name='formations-start' id='formations-start' min={4} max={4} consultPackage={ consultPackage } required/>
                                                         <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término'limit={ 4 } size="medium" name='formations-finish' id='formations-finish' min={4} max={4}  consultPackage={ consultPackage } required/>
                                                     </div>
-                                                    <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' id='formations-description' consultPackage={ consultPackage } required/>
+                                                    <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' limit={ 128 } id='formations-description' consultPackage={ consultPackage } required/>
                                                 </div>
                                             </FormModal>
                                         )
