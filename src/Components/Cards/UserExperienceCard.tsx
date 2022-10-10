@@ -20,6 +20,7 @@ const UserExperienceCard: React.FC<ComponentInterface> = ({ card, canExclude, ex
     {
         // animation: disappear 1s ease-in-out
         e.currentTarget.classList.add(`hidden`);
+        exclude;
     }
 
     return (

@@ -1,37 +1,60 @@
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import FormButton from '../../Components/Buttons/FormButton';
 import FormModal from '../../Components/Modals/FormModal';
-import BigFormModal from '../../Components/Modals/BigFormModal';
-import Menu from '../../Components/Layouts/Menu';
 import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 import { useEffect, useState } from 'react';
 import UserProfileCard from '../../Components/Cards/UserProfileCard';
 import UserExperienceCard from '../../Components/Cards/UserExperienceCard';
-import InfoModal from '../../Components/Modals/InfoModal';
-import SelectInput from '../../Components/Inputs/SelectInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
-import ImgUserDefault from '../../Assets/user_default.jpg';
 import UserDefault from './UserDefault'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandshake, faInfo, faLink, faPlus, faPencil, faCalendar, faRemove, faTrash, faTrashAlt, faTrashRestore, faTrashCan, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { dispatchError } from '../../Utils/ToastMessages';
+import { dispatchError, dispatchSuccess, formatErrors } from '../../Utils/ToastMessages';
 import useUser from '../../Utils/useUser';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
 
-interface IUserData {
-    createdAt: string;
+interface Iformations {
     name: string;
+    institution: string;
+    start: string;
+    finish: string;
     description: string;
-    email: string;
-    username: string;
-    picture: string;
-    formations: Array<any>;
-    experiences: Array<any>;
+}
+
+interface Iexpirences {
+    role: string;
+    company: string;
+    start: string;
+    finish: string;
+    description: string;
+}
+
+class UserData {
+    createdAt: string = '';
+    name: string = '';
+    description: string = '';
+    email: string = '';
+    username: string = '';
+    picture: string = '';
+    formations: Array<Iformations> = [{
+        name : '',
+        institution: '',
+        start: '',
+        finish: '',
+        description: '',
+    }];
+    experiences: Array<Iexpirences> = [{
+        role: '',
+        company: '',
+        start: '',
+        finish: '',
+        description: '',
+    }];
     [key: string]: any;
 }
 
@@ -44,57 +67,10 @@ const UserEditData : React.FC = () => {
     const navigate = useNavigate();
     const user = useUser();
 
-    const [userData, setUserData] = useState<IUserData>({
-        createdAt: '',
-        name: '',
-        description: '',
-        email: '',
-        username: '',
-        picture: '',
-        formations: [{
-            name : '',
-            institution: '',
-            start: '',
-            finish: '',
-            description: '',
-        }],
-        experiences: [{
-            role: '',
-            company: '',
-            start: '',
-            finish: '',
-            description: '',
-        }],
-    });
+    const [userData, setUserData] = useState<UserData>(new UserData);
+    const [userTypedData, setUserTypedData] = useState<UserData>(new UserData);
 
-    const [userTypedData, setUserTypedData] = useState<IUserData>({
-        createdAt: '',
-        name: '',
-        description: '',
-        email: '',
-        username: '',
-        picture: '',
-        formations: [{
-            name : '',
-            institution: '',
-            start: '',
-            finish: '',
-            description: '',
-        }],
-        experiences: [{
-            role: '',
-            company: '',
-            start: '',
-            finish: '',
-            description: '',
-        }],
-    });
-
-    const [searchExperiences, setSearchExperiences] = useState('');
-    const [searchFormations, setSearchFormations] = useState('');
-
-    function getDBUserData()
-    {
+    function getDBUserData() {
         user.getUserData()
         .then((res : any) => {
             if (res.status != 200) {
@@ -103,18 +79,14 @@ const UserEditData : React.FC = () => {
 
             setUserData(res.data.user);
             setUserTypedData(res.data.user);
-            // let userdata = res.data.user;
-            // setUserData(res.data.user);
         });
     }
 
     useEffect((): void => {
         getDBUserData();
         window.document.title = 'Letmin - Perfil';
-
     }, []);
 
-    const [openModal, setOpenModal] = useState(false);    
     const [modalExitIsOpen, setModalExitIsOpen] = useState(false);  /* Modal de confirmar para sair da página */
     const [modalSaveConfirmationIsOpen, setModalSaveConfirmationIsOpen] = useState(false);  /* Modal de confirmar para salvar os dados */
     const [XPModalIsOpen, setXPModalIsOpen] = useState(false);  /* Modal de adicionar dados */
@@ -137,6 +109,7 @@ const UserEditData : React.FC = () => {
         else 
             return userTypedData[type][data];
     }
+
     function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-'); //experience-role  -> experience role
@@ -158,13 +131,26 @@ const UserEditData : React.FC = () => {
     }
 
     function updateUserData(){
-        user.updateUser(userData);
+        user.updateUser(userData).then((res:any) => {
+            if (res.status === 200) {
+                dispatchSuccess('Os dados do usuário foram atualizados com sucesso!');
+                navigate('/user/profile');
+            }
+            else
+                dispatchError(formatErrors(res.data.message));
+        })
     }
 
     const handleConfirmAddXp = () => {
         setXPModalIsOpen(false);
-        userData.experiences.push(userTypedData.experiences)
-        userTypedData.experiences = [];
+        user.checkNewExperience(userTypedData.experiences).then((res:any) => {
+            if (res.status == 400) {
+                dispatchError(formatErrors(res.data.message));
+                return;
+            }
+            userData.experiences.push(userTypedData.experiences)
+            userTypedData.experiences = [];
+        });
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
@@ -179,13 +165,15 @@ const UserEditData : React.FC = () => {
         });
     }
 
-    function excludeFormation (id : number) {
+    function excludeFormation (id: number) {
+        //console.log(id)
         if (canExclude.formations){
             userData.formations.splice(id, 1);
             setUserData(userData);
         }
     }
     function excludeExperience (id : number) {
+        //console.log(id)
         if (canExclude.experiences){
             userData.experiences.splice(id, 1);
             setUserData(userData);
@@ -193,24 +181,10 @@ const UserEditData : React.FC = () => {
     }
 
     const handleConfirmAddFormation = () => {
-        if(userTypedData.formations.name == undefined){
-            dispatchError('A formação precisa de um nome!');
-        } else if(userTypedData.formations.institution == undefined){
-            dispatchError("A formação precisa de uma instituição!");
-        } else if(userTypedData.formations.start == undefined || userTypedData.formations.finish == undefined){
-            dispatchError("A formação precisa de datas corretas de início e fim!");
-        } else if(userTypedData.formations.start.length != 4 || userTypedData.formations.finish.length != 4){
-            dispatchError("A formação precisa de datas corretas de início e fim!");
-        } else if(userTypedData.formations.start > userTypedData.formations.finish){
-            dispatchError("A data de início está depois da data de finalização!");
-        } else if(userTypedData.formations.description == undefined){
-            dispatchError("A descrição está vazia!");
-        } else {
-            setFormationModalIsOpen(false);
-            userData.formations.push(userTypedData.formations)
-            userTypedData.formations = [];
-        }
-        
+
+        setFormationModalIsOpen(false);
+        userData.formations.push(userTypedData.formations)
+        userTypedData.formations = [];
 
         return;
     }
