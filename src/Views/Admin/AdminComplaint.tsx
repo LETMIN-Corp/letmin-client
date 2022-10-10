@@ -80,12 +80,15 @@ const AdminComplaint : React.FC = () => {
         window.document.title = 'Letmin - Denúncias';
 
         admin.getAllComplaints().then((res: any) => {
-            if (res.data.success && res.status === 200) {
-                setAllComplaints(res.data.complaints);
-                setComplaints(res.data.complaints);
-                return;
+            if(res.status !== 200 || !res.data.success) {
+                setAllComplaints([]);
+                setComplaints([]);
+                return admin.dispatchError(res.data.message);
             }
-            admin.dispatchError(res.data.message);
+
+            setAllComplaints(res.data.complaints);
+            setComplaints(res.data.complaints);
+            return;
         });
     }, []);
 

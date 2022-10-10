@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAdmin from '../../Utils/useAdmin';
 import Loading from '../../Components/Items/Loading';
 import useLoading from '../../Utils/useLoading';
+import { Link } from 'react-router-dom';
 
 const AdminCompany : React.FC = () => {
     const admin = useAdmin();
@@ -23,6 +24,11 @@ const AdminCompany : React.FC = () => {
         window.document.title = 'Letmin - Empresas';
 
         admin.getAllCompanies().then((res: any) => {
+            if (res.status !== 200) {
+                setCompanies([]);
+                setAllCompanies([]);
+                return;
+            }
             setCompanies(res.data.companies);
             setAllCompanies(res.data.companies);
         });
@@ -128,7 +134,9 @@ const TableCard: React.FC<TableCardInterface> = ({ companyData, handleOpen, hand
 
     return (
         <div className='text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2'>
-            <span className='w-5/12 md:w-7/12 pr-1'>{ companyData.company.name }</span>
+            <span className='w-5/12 md:w-7/12 pr-1'>
+                <Link to={ `/admin/empresa/${companyData._id}` } className='text-dark-purple font-medium hover:text-purple-600'>{ companyData.company.name }</Link>
+            </span>
             <span className='w-4/12 pr-1'>{ companyData.status.blocked ? 'Bloqueado' : 'Ativo' }</span>
             <span className='w-3/12 md:w-12 md:text-lg pr-1 flex justify-between'>
                 <div className='cursor-pointer'>
