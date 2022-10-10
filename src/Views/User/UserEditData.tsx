@@ -69,6 +69,7 @@ const UserEditData : React.FC = () => {
 
     const [userData, setUserData] = useState<UserData>(new UserData);
     const [userTypedData, setUserTypedData] = useState<UserData>(new UserData);
+    
 
     function getDBUserData() {
         user.getUserData()
@@ -88,8 +89,8 @@ const UserEditData : React.FC = () => {
     }, []);
 
     const [modalExitIsOpen, setModalExitIsOpen] = useState(false);  /* Modal de confirmar para sair da página */
-    const [modalExcludeExperienceIsOpen, setmodalExcludeExperienceIsOpen] = useState(false);  /* Modal de exclusão de experiências */
-    const [modalExcludeFormationIsOpen, setmodalExcludeFormationIsOpen] = useState(false);  /* Modal de exclusão de formação */
+    const [modalExcludeExperienceIsOpen, setModalExcludeExperienceIsOpen] = useState(false);  /* Modal de exclusão de experiências */
+    const [modalExcludeFormationIsOpen, setModalExcludeFormationIsOpen] = useState(false);  /* Modal de exclusão de formação */
     const [modalSaveConfirmationIsOpen, setModalSaveConfirmationIsOpen] = useState(false);  /* Modal de confirmar para salvar os dados */
     const [XPModalIsOpen, setXPModalIsOpen] = useState(false);  /* Modal de adicionar dados */
     const [formationModalIsOpen, setFormationModalIsOpen] = useState(false);  /* Modal de adicionar dados */
@@ -98,6 +99,8 @@ const UserEditData : React.FC = () => {
         experiences: false,
         formations: false,
     });
+
+    const [isExclusionApproved, setExclusionApproval] = useState(false);
 
     function returnToUserPage () {  /* Utilizada pelo botão de retornar */
         navigate('/user/profile');
@@ -142,15 +145,16 @@ const UserEditData : React.FC = () => {
     }
 
     const handleConfirmAddXp = () => {
-        setXPModalIsOpen(false);
         user.checkNewExperience(userTypedData.experiences).then((res:any) => {
             if (res.status == 400) {
                 dispatchError(formatErrors(res.data.message));
+                console.log('erro', res.data)
                 return;
             }
+            setXPModalIsOpen(false);
+            userData.experiences.push(userTypedData.experiences)
+            userTypedData.experiences = [];
         });
-        userData.experiences.push(userTypedData.experiences)
-        userTypedData.experiences = [];
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
@@ -164,6 +168,12 @@ const UserEditData : React.FC = () => {
         });
     }
 
+    function approveExclusion()
+    {
+        setExclusionApproval(true);
+        setModalExcludeExperienceIsOpen(false);
+    }
+
     function excludeFormation (id: number) {
         //console.log(id)
         if (canExclude.formations){
@@ -174,16 +184,30 @@ const UserEditData : React.FC = () => {
     function excludeExperience (id : number) {
         
         if (canExclude.experiences){
-            userData.experiences.splice(id, 1);
-            setUserData(userData);
+            setModalExcludeExperienceIsOpen(true)
+            if(isExclusionApproved)
+            {
+                userData.experiences.splice(id, 1);
+                setUserData(userData);
+                setModalExcludeExperienceIsOpen(false);
+                setExclusionApproval(false);
+            }        
         }
     }
 
     const handleConfirmAddFormation = () => {
-        setFormationModalIsOpen(false);
-        userData.formations.push(userTypedData.formations)
-        userTypedData.formations = [];
-        return;
+        
+        user.checkNewFormation(userTypedData.formations).then((res:any) => {
+            if (res.status == 400) {
+                dispatchError(formatErrors(res.data.message));
+                console.log('erro', res.data)
+                return;
+            }
+            setFormationModalIsOpen(false);
+            userData.formations.push(userTypedData.formations)
+            userTypedData.formations = [];
+        });
+        
     }
     const handleCloseModalAddFormation = () => {
         setFormationModalIsOpen(false);
@@ -244,6 +268,8 @@ const UserEditData : React.FC = () => {
                                             </button>
                                         )
                                     }
+                                { modalExcludeExperienceIsOpen && <ConfirmationModal title='Excluir esta experiência' text='Você realmente excluir esta experiência?' handleClose={ () => setModalExcludeExperienceIsOpen(false) } handleConfirm={ approveExclusion } /> }
+
                                     <button onClick={ () => setXPModalIsOpen(true) } className='bg-primary w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-purple ease-out duration-200'>
                                         <FontAwesomeIcon icon={ faPlus } />
                                     </button>
@@ -257,8 +283,8 @@ const UserEditData : React.FC = () => {
                                                         <div className="pb-2">
                                                             <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                         </div>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início' size="medium" limit={ 4 } name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término' size="medium" limit={ 4 } name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } useMask='year' placeholder='Ano de Início' size="medium" limit={ 4 } name='experiences-start' id='experiences-start' consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } useMask='year' placeholder='Ano de Término' size="medium" limit={ 4 } name='experiences-finish' id='experiences-finish' consultPackage={ consultPackage } required/>
                                                     </div>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='experiences-description' limit={ 128 } id='experiences-description' consultPackage={ consultPackage } required/>
                                                 </div>
@@ -306,8 +332,8 @@ const UserEditData : React.FC = () => {
                                                         <div className="pb-2">
                                                             <FontAwesomeIcon icon={ faCalendar } size="2x" />
                                                         </div>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Início'limit={ 4 } size="medium" name='formations-start' id='formations-start' min={4} max={4} consultPackage={ consultPackage } required/>
-                                                        <TextInput type={ InputTypesEnum.number } placeholder='Ano de Término'limit={ 4 } size="medium" name='formations-finish' id='formations-finish' min={4} max={4}  consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } useMask='year' placeholder='Ano de Início'limit={ 4 } size="medium" name='formations-start' id='formations-start' min={4} max={4} consultPackage={ consultPackage } required/>
+                                                        <TextInput type={ InputTypesEnum.number } useMask='year' placeholder='Ano de Término'limit={ 4 } size="medium" name='formations-finish' id='formations-finish' min={4} max={4}  consultPackage={ consultPackage } required/>
                                                     </div>
                                                     <TextInput type={ InputTypesEnum.text } placeholder='Descrição' name='formations-description' limit={ 128 } id='formations-description' consultPackage={ consultPackage } required/>
                                                 </div>
