@@ -6,9 +6,9 @@ const useUser = () => {
         getUserData,
         getVacancies,
         getVacancy,
-        getCandidateVacancies
+        getCandidateVacancies,
         applyVacancy,
-        cancelApplyVacancy
+        cancelApplyVacancy,
         loading
     } : any = useContext(AuthContext);
 
@@ -16,9 +16,9 @@ const useUser = () => {
         getUserData,
         getVacancies,
         getVacancy,
-        getCandidateVacancies
+        getCandidateVacancies,
         applyVacancy,
-        cancelApplyVacancy
+        cancelApplyVacancy,
         loading
     };
 }
