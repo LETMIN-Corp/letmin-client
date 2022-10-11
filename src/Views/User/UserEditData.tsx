@@ -184,14 +184,14 @@ const UserEditData : React.FC = () => {
     function excludeExperience (id : number) {
         
         if (canExclude.experiences){
-            setModalExcludeExperienceIsOpen(true)
-            if(isExclusionApproved)
-            {
-                userData.experiences.splice(id, 1);
-                setUserData(userData);
-                setModalExcludeExperienceIsOpen(false);
-                setExclusionApproval(false);
-            }        
+            // setModalExcludeExperienceIsOpen(true)
+            // if(isExclusionApproved)
+            // {
+            userData.experiences.splice(id, 1);
+            setUserData(userData);
+            //     setModalExcludeExperienceIsOpen(false);
+            //     setExclusionApproval(false);
+            // }        
         }
     }
 
@@ -253,18 +253,10 @@ const UserEditData : React.FC = () => {
                             <div className='mt-24 md:my-4 flex justify-between items-center w-full'>
                                 <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
                                 <div>
-                                    
                                     {
-                                        (canExclude.experiences) && (userData.experiences.length != 0) && (
+                                        (userData.experiences.length != 0) && (
                                             <button onClick={ () => flipExclude('experiences') } className='bg-red w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-red ease-out duration-200'>
-                                                <FontAwesomeIcon icon={ faTrashArrowUp } />
-                                            </button>
-                                        )
-                                    }       
-                                    {
-                                        (!canExclude.experiences) && (userData.experiences.length != 0) && (
-                                            <button onClick={ () => flipExclude('experiences') } className='bg-red w-10 h-10 mr-3 rounded-md text-white hover:bg-dark-red ease-out duration-200'>
-                                                <FontAwesomeIcon icon={ faTrash } />
+                                                <FontAwesomeIcon icon={ canExclude.experiences ? faTrashArrowUp : faTrash } />
                                             </button>
                                         )
                                     }
