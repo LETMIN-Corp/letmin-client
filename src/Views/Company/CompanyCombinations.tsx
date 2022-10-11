@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react';
 import CompanyDefault from './CompanyDefault';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faTriangleExclamation, faHeartBroken } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faTriangleExclamation, faHeartBroken, faPencil } from '@fortawesome/free-solid-svg-icons';
 import FormModal from '../../Components/Modals/FormModal';
 import useCompany from '../../Utils/useCompany';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
 import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
+import { Link } from 'react-router-dom';
+import CompanyCandidateCard from '../../Components/Cards/CompanyCandidateCard';
 
 const CompanyCombinations : React.FC = () => {
     const company = useCompany();
@@ -23,6 +25,8 @@ const CompanyCombinations : React.FC = () => {
     const [candidate, setCandidate] = useState({
         _id: '',
         name: '',
+        role: '',
+        description: '',
         picture: '',
         email: '',
         phone: '',
@@ -122,78 +126,60 @@ const CompanyCombinations : React.FC = () => {
 
     return (
         <CompanyDefault>
-            <div className='flex justify-center items-center py-5 lg:py-10 bg-primary'>
+            {/* <div className='flex justify-center items-center py-5 lg:py-10 bg-primary'>
                 <h1 className='text-white text-4xl lg:text-5xl font-black mt-4'>Combinação</h1>
-            </div>
+            </div> */}
             {
                 loading ? <Loading /> : (
-                    <div className='p-5'>
-                        <section className='flex flex-col justify-center items-center py-10'>
-                            <div className='w-full flex items-center justify-between lg:w-8/12'>
-                                <div>
-                                    <img src={candidate.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-md' alt='Use Picture' referrerPolicy='no-referrer' />
-                                </div>
-                                <div>
+                    <div>
+                        <main>
+                            <div className='h-32 bg-lively-purple'></div>
+                            <div className='relative flex md:justify-end mx-5'>
+                                <img src={ candidate.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'} className='rounded-full bg-white border-4 border-lively-purple absolute left-0 -top-20' referrerPolicy='no-referrer' />
+                                <div className='mt-5 text-lg justify-end flex items-center w-full'>
                                     <FontAwesomeIcon 
                                         icon={ faTriangleExclamation } 
                                         onClick={() => setModalIsOpen(true)} 
-                                        className='border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-3xl transition ease-in-out delay-50'
+                                        className='border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-xl md:text-3xl transition ease-in-out delay-50'
                                     />
                                     <FontAwesomeIcon 
                                         icon={ userInTalentBank ? faHeartBroken : faHeart }
                                         onClick={ () => alterUserCondition(userInTalentBank ? 'REMOVE' : 'ADD') }
                                         className={ userInTalentBank ? 
-                                            'ml-3 border-4 border-red rounded-full p-2 cursor-pointer text-red text-3xl' : 
-                                            'ml-3 border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-3xl transition ease-in-out delay-50'
+                                            'ml-3 border-4 border-red rounded-full p-2 cursor-pointer text-red text-xl md:text-3xl' : 
+                                            'ml-3 border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-xl md:text-3xl transition ease-in-out delay-50'
                                         }
                                     />
                                 </div>
                             </div>
-                        </section>
-                        <section className='flex w-full lg:w-8/12 mx-auto flex-wrap md:text-left'>
-                            <h2 className='w-full text-dark-purple font-bold text-3xl mb-5'>{candidate.name}</h2>
-                            <div className='md:w-6/12'>
-                                <div className='md:pr-4'>
-                                    <h4 className='text-xl font-bold text-dark-purple'>Habilidades extras:</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        consectetur adipiscing elit.
-                                    </p>
-                                </div>
-                                <div className='md:pr-4'>
-                                    <h4 className='text-xl font-bold text-dark-purple'>Observações:</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        consectetur adipiscing elit.
-                                    </p>
-                                </div>
+                            <div className='mt-10 mx-5'>
+                                <div className='font-medium text-2xl md:text-3xl text-dark-purple'>{ candidate.name }</div>
+                                <div className='text-lg md:text-xl text-justify text-dark-grey'>{ candidate.role }</div>
                             </div>
-                            <div className='md:w-6/12'>
-                                <div className='md:pr-4'>
-                                    <h4 className='text-xl font-bold text-dark-purple'>Pontos de atenção:</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet,
-                                        consectetur adipiscing elit.
-                                    </p>
-                                </div>
-                                <div className='md:pr-4'>
-                                <h4 className='text-xl font-bold text-dark-purple'>Média empregado:</h4>
-                                <p>
-                                    Há mais de <HighLight>2 anos</HighLight>
-                                </p>
-                                </div>
+                        </main>
+                        <section className='px-5 mt-10'>
+                            <div className='font-medium md:text-2xl text-xl text-dark-purple'>Descrição</div>
+                            <div className='text-lg md:text-xl text-justify'>{ candidate.description }</div>
+                        </section>
+                        <section className='px-5 mt-10'>
+                            <div className='font-medium md:text-2xl text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                {
+                                    [
+                                        ...candidate.experiences,
+                                    ].map((card, key) => <CompanyCandidateCard key={ key } card={ card } /> )
+                                }
                             </div>
                         </section>
-                        <section className='w-full lg:w-8/12 mx-auto py-10'>
-                                <h2 className='text-3xl text-dark-purple md:text-left font-bold mb-4'>Portfólio</h2>
-                                <p className='text-lg text-justify md:w-10/12 lg:w-8/12 my-6'>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut
-                                    enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo consequat
-                                </p>
+                        <section className='px-5 my-10'>
+                            <div className='font-medium md:text-2xl text-xl text-dark-purple mb-2'>Formação Acadêmica</div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                {
+                                    [
+                                        ...candidate.formations,
+                                    ].map((card, key) => <CompanyCandidateCard key={ key } card={ card } /> )
+                                }
+                            </div>
                         </section>
                     </div>
                 )
