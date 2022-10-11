@@ -35,44 +35,28 @@ const useCompany = () => {
 
     const getCandidate = async (candidate_id: string) => {
         return await axiosRequest(`${API_URL}/api/company/get-candidate/${candidate_id}`, 'GET');
-    }
+    };
     const getAllVacancyCandidates = async (vacancy_id: string) => {
         return axiosRequest(`${API_URL}/api/company/get-all-candidates/${vacancy_id}`, 'GET');
-    }
+    };
 
     const getUsers = async () => {
         return await axiosRequest(`${API_URL}/api/company/user`, 'GET');
-    }
+    };
 
     const updateCompanyData = async (company: any): Promise<any> => {
-        return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company)
-        .then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
-            }
-            else {
-                dispatchError(formatErrors(res.data.message));
-            }
-        });
-    }
-
+        return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company);
+    };
     const updateHolderData = async (company: any): Promise<any> => {
-        return axiosRequest(`${API_URL}/api/company/update-company-holder`, 'POST', company)
-        .then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
-            }
-            else
-                dispatchError(formatErrors(res.data.message));
-        });
-    }
+        return axiosRequest(`${API_URL}/api/company/update-company-holder`, 'POST', company);
+    };
 
     const addToTalentBank = async (target : any) => {
         return axiosRequest(`${API_URL}/api/company/add-to-talent-bank`, 'POST', { target })
-    }
+    };
     const getTalentBank = async () => {
         return await axiosRequest(`${API_URL}/api/company/get-talent-bank`, 'GET');
-    }
+    };
     const removeFromTalentBank = async (target : any) => {
         return axiosRequest(`${API_URL}/api/company/remove-from-talent-bank`, 'POST', { target })
         .then((res: any) => {
@@ -83,7 +67,11 @@ const useCompany = () => {
                 dispatchError(formatErrors(res.data.message));
             }
         });
-    }
+    };
+
+    const updateVacancy = async (vacancy: any) => {
+        return axiosRequest(`${API_URL}/api/company/update-vacancy`, 'PATCH', vacancy);
+    };
 
     return { 
         userData,
@@ -106,6 +94,7 @@ const useCompany = () => {
         dispatchSuccess,
         loading,
         getCompanyVacancy,
+        updateVacancy,
     };
 }
 

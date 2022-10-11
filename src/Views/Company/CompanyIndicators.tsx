@@ -1,7 +1,7 @@
 import CompanyDefault from './CompanyDefault';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faCheck, faDoorOpen, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faCheck, faDoorOpen, faPencil, faXmark } from '@fortawesome/free-solid-svg-icons';
 import useCompany from '../../Utils/useCompany';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
 import { Link } from 'react-router-dom';
@@ -125,14 +125,11 @@ const CompanyIndicators =  () => {
                     : (
                         <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
                             {
-                                (!data.length) && (
+                                !data.length ? (
                                     <div className='text-center'>
                                         <p className='text-xl'>Nenhuma vaga cadastrada</p>
                                     </div>
-                                )
-                            }
-                            {
-                                !!data.length && (
+                                ) : (
                                     <>
                                         <div className='flex md:text-lg font-medium'>
                                             <div className='w-4/12 flex justify-center'>
@@ -150,14 +147,26 @@ const CompanyIndicators =  () => {
                                                 data.map((row) => {
                                                     return (
                                                         <div key={ row._id } className={`flex py-2 text-sm ${row.closed ? 'bg-green-light' : ''} md:text-md `}>
-                                                            <div className='w-4/12 flex justify-center items-center text-center'>
-                                                                <Link to={ `../company/vacancy/${row._id}` } className="text-primary font-medium hover:text-bright-purple">{ row.role }</Link>                
+                                                            <div className='w-4/12 flex justify-center items-center text-center group'>
+                                                                <FontAwesomeIcon icon={ faCheck } className={ `text-green mr-2 ${row.closed && row.candidates.length ? '' : 'hidden'}` } />
+                                                                <Link to={ `../company/vacancy/${row._id}` } className={ row.closed? 'text-slate-800 font-medium' : 'text-primary font-medium hover:text-bright-purple'}>
+                                                                    { row.role }
+                                                                    <FontAwesomeIcon icon={ faPencil } className='hidden ml-2 group-hover:inline-block' />
+                                                                </Link>
                                                             </div>
                                                             <div className='w-4/12 flex justify-center items-center text-center'>
-                                                                <Link to={ `../company/vacancy/data/${row._id}` } className="text-primary font-medium hover:text-bright-purple">{ row.candidates.length }</Link>                
+                                                                {
+                                                                    row.candidates.length == 0 ? (
+                                                                        <span className='text-slate-800 font-medium'>0</span>
+                                                                    ) : (
+                                                                        <Link to={ `../company/vacancy/data/${row._id}` } className="text-primary font-medium hover:text-bright-purple">
+                                                                            { row.candidates.length }
+                                                                        </Link>
+                                                                    )
+                                                                }
                                                             </div>
                                                             <div className='w-4/12 flex justify-center items-center text-center'>
-                                                            {
+                                                                {
                                                                     row.closed && (
                                                                         <button className='py-2 px-3 flex items-center jusitfy-center bg-green text-white rounded-md mr-3' onClick={ () => openModalWithType(row._id, 'OPEN') }>
                                                                             <span className='mr-1 hidden lg:flex'>Reabrir</span>

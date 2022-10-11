@@ -122,29 +122,6 @@ export const AuthState = ({ children } : any) => {
         return await axiosRequest(`${API_URL}/api/create-complaint`, 'POST', complaint);
     }
 
-    const updateCompanyData = async (company: any): Promise<any> => {
-        return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company)
-        .then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
-            }
-            else {
-                dispatchError(formatErrors(res.data.message));
-            }
-        });
-    }
-
-    const updateHolderData = async (company: any): Promise<any> => {
-        return axiosRequest(`${API_URL}/api/company/update-company-holder`, 'POST', company)
-        .then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
-            }
-            else
-                dispatchError(formatErrors(res.data.message));
-        });
-    }
-
     const sendRecoveryEmail = async (email: string) => {
         return axiosRequest(`${API_URL}/api/send-recovery-email`, 'POST', { email });
     }
@@ -159,6 +136,7 @@ export const AuthState = ({ children } : any) => {
         <AuthContext.Provider value={{
             axiosRequest,
             API_URL,
+            formatErrors,
             // Auth functions
             loading: state.loading,
             isAuthenticated: state.isAuthenticated,
@@ -175,8 +153,6 @@ export const AuthState = ({ children } : any) => {
             setUserData,
             // User functions
             // Company functions
-            updateCompanyData,
-            updateHolderData,
             createComplaint,
             sendRecoveryEmail,
             checkRecoveryToken,

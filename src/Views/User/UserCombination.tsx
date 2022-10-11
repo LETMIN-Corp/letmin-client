@@ -1,5 +1,5 @@
 import UserDefault from './UserDefault';
-import CombinationData from '../../Components/Items/CombinationsData';
+//import CombinationData from '../../Components/Items/CombinationsData';
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandshake } from '@fortawesome/free-solid-svg-icons';
@@ -68,7 +68,7 @@ const UserCombination = () => {
                             </div>
                             <div>
                                 {
-                                    data.map((row, key) => <CombinationData key={ key } name={ row.name } vacancy={ row.vacancy } handleClick={ () => setModalIsOpen(true) } />)
+                                    //data.map((row, key) => <CombinationData key={ key } name={ row.name } vacancy={ row.vacancy } handleClick={ () => setModalIsOpen(true) } />)
                                 }
                             </div>
                         </div>

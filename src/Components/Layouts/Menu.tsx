@@ -1,12 +1,13 @@
 import LogoImage from '../../Assets/logo.svg';
 import { useState } from 'react';
 import PrimaryLink from '../Links/PrimaryLink';
-import { Link } from 'react-router-dom';
+import { Link, matchRoutes, useLocation } from 'react-router-dom';
 import MenuLink from '../Links/MenuLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../../Utils/useAuth';
-
+// const location = useLocation();
+// console.log(location);
 interface ButtonsInterface {
     text: string,
     path: string,

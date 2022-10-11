@@ -8,7 +8,7 @@ import FormModal from '../../Components/Modals/FormModal';
 import useCompany from '../../Utils/useCompany';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
-import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
+import { dispatchError, dispatchSuccess, formatErrors } from '../../Utils/ToastMessages';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 
 const CompanyCombinations : React.FC = () => {
@@ -31,10 +31,8 @@ const CompanyCombinations : React.FC = () => {
     })
 
     const options = [
-        { label: "Conteúdo inapropriado", value: "Conteúdo inapropriado" },
-        { label: "Spam", value: "Spam" },
-        { label: "Outros", value: "Outros" },
-    ];
+        'Conteúdo Inapropriado', 'Spam', 'Outro'
+    ]
 
     useEffect((): void => {
         window.document.title = 'Letmin - Combinação';
@@ -85,7 +83,7 @@ const CompanyCombinations : React.FC = () => {
                 setComplaint(InitialState);
                 return dispatchSuccess(res.data.message);
             }
-            dispatchError(res.data.message);
+            dispatchError(formatErrors(res.data.message));
         })
     }
 
@@ -205,17 +203,17 @@ const CompanyCombinations : React.FC = () => {
                             <div className='mt-2'>
                                 {
                                     options.map(option => (
-                                        <div key={ option.value } className='flex items-center '>
+                                        <div key={ option } className='flex items-center '>
                                             <input 
                                                 className='mr-3 h-4 w-4 cursor-pointer'
-                                                id={option.value}
+                                                id={option}
                                                 name='reason'
-                                                value={option.value}
+                                                value={option}
                                                 onChange={ setCheckboxValue }
                                                 type="radio" 
                                             />
-                                            <label htmlFor={option.value} className='cursor-pointer'>
-                                                {option.value}
+                                            <label htmlFor={option} className='cursor-pointer'>
+                                                {option}
                                             </label>
                                         </div>
                                     ))
