@@ -18,7 +18,7 @@ module.exports = {
         'bright-gray':  '#9ca3af',
         'black': '#000002',
         'green': {
-          light: '#90ee90',
+          light: '#cafdca',
           DEFAULT: '#00C853',
           dark: '#009624',
         },

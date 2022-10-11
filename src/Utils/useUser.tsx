@@ -8,8 +8,10 @@ const useUser = () => {
         userData,
         dispatchError,
         dispatchSuccess,
+        getCandidateVacancies,
+        cancelApplyVacancy,
         formatErrors,
-        loading,
+        loading
     } : any = useContext(AuthContext);
 
     const checkNewFormation = async (data: any) => {
@@ -39,15 +41,19 @@ const useUser = () => {
     }
 
     return {
+        userData,
         getUserData,
         updateUser,
         getVacancies,
         getVacancy,
+        getCandidateVacancies,
         applyVacancy,
         checkNewFormation,
         checkNewExperience,
+        cancelApplyVacancy,
         dispatchError,
         dispatchSuccess,
+        formatErrors,
         loading,
     };
 }
