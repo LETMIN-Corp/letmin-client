@@ -22,7 +22,8 @@ module.exports = {
           DEFAULT: '#00C853',
           dark: '#009624',
         },
-        'red': '#E83736'
+        'red': '#E83736',
+        'dark-red': '#B91C1C',
       },
       minHeight: {
         '0': '0',
@@ -32,6 +33,25 @@ module.exports = {
       },
       minWidth: {
         'sm': '115px',
+      },
+      keyframes: {
+        wiggle: {
+          "0%": { transform: "translate(1px, 1px);" },
+          "10%": { transform: "translate(-1px, -2px);" },
+          "20%": { transform: "translate(-1px, 0px);" },
+          "30%": { transform: "translate(1px, 1px);" },
+          "40%": { transform: "translate(1px, -1px);" },
+          "50%": { transform: "translate(-1px, 1px);" },
+          "60%": { transform: "translate(-1px, 1px);" },
+          "70%": { transform: "translate(1px, 1px);" },
+          "80%": { transform: "translate(-1px, -1px);" },
+          "90%": { transform: "translate(1px, 1px);" },
+          "100%": { transform: "translate(1px, -1px);" },
+        },
+        disappear: {
+          "0%": { display: "block;" },
+          "100%": { display: "hidden;" },
+        }
       },
     },
   },

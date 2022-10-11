@@ -7,70 +7,57 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import useUser from '../../Utils/useUser';
 import useLoading from '../../Utils/useLoading';
+import { dispatchError } from '../../Utils/ToastMessages';
 import Loading from '../../Components/Items/Loading';
+
+interface IUserData {
+    createdAt: string;
+    name: string;
+    role: string;
+    description: string;
+    email: string;
+    username: string;
+    picture: string;
+    formations: Array<any>;
+    experiences: Array<any>;
+    [key: string]: any;
+}
 
 const UserProfile : React.FC = () => {
     const { loading } = useLoading();
     const user = useUser();
 
-    const [userData, setUserData] = useState({
+    const [userData, setUserData] = useState<IUserData>({
         createdAt: '',
-        email: '',
         name: '',
+        role: '',
+        description: '',
+        email: '',
+        username: '',
         picture: '',
-        formations: [],
-        experiences: [],
+        formations: [{
+            name : '',
+            institution: '',
+            start: '',
+            finish: '',
+            description: '',
+        }],
+        experiences: [{
+            role: '',
+            company: '',
+            start: '',
+            finish: '',
+            description: '',
+        }],
     });
 
     useEffect((): void => {
-        user.getUserData().then((res : any) => {
-            let userdata = res.data.user;
-            userdata.formations = [
-                {
-                    name: 'Dev Junior',
-                    institution: 'Firework',
-                    start: '2015',
-                    finish: '2017',
-                    description: 'Desenvolvimento de sites básicos. Aprimoramento de conhecimento front-end e mobile.',
-                },
-                {
-                    name: 'Dev Pleno',
-                    institution: 'Paschoalotto',
-                    start: '2017',
-                    finish: '2020',
-                    description: 'Desenvolvimento de sistemas aprofundados para a empresa com Laravel.',
-                },
-                {
-                    name: 'Professor',
-                    institution: 'SENAI Bauru',
-                    start: '2021',
-                    finish: '2023',
-                    description: 'Professor para os 1os e 2os anos do curso técnico de Informática.',
-                }
-            ]
-            userdata.experiences = [
-                {
-                    name: 'Ensino Médio Profissionalizante',
-                    institution: "CTI",
-                    start:'2012',
-                    finish:'2014',
-                    description: 'Ensino Médio Profissionalizante no curso técnico de Informática',
-                },
-                {
-                    name: 'Graduação',
-                    institution: "Unesp Bauru",
-                    start:'2015',
-                    finish:'2020',
-                    description: 'Graduação em Ciências de Computação',
-                },
-                {
-                    name: 'Bacharelado em Ciências da Computação',
-                    institution: "Unesp Bauru",
-                    start:'2021',
-                    finish:'2025',
-                    description: 'Grau superior em Ciências da Computação. Ainda em andamento.',
-                },
-            ]
+        user.getUserData()
+        .then((res : any) => {
+            if (res.status != 200) {
+                dispatchError('Não foi possível carregar seus dados.');
+            }
+
             setUserData(res.data.user);
         });
         window.document.title = 'Letmin - Perfil';
@@ -157,35 +144,47 @@ const UserProfile : React.FC = () => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className='mt-5 md:mt-10 mx-5'>
-                                <div className='font-medium text-xl text-dark-purple'>{ userData.name || 'Nome do Usuário' }</div>
-                                <div className='text-lg text-justify'>Programador WEB!</div>
+                            <div className='mt-5 md:mt-10 mb-5 mx-5'>
+                                <div className='font-bold text-2xl text-dark-purple'>{ userData.name || 'Nome do Usuário' }</div>
+                                <div className='text-lg text-justify'>{ userData.role }</div>
                             </div>
-                        </main>
-                        <section className='px-5 mt-10'>
-                            <div className='font-medium text-xl text-dark-purple'>Quem Sou Eu?</div>
-                            <div className='text-lg text-justify'>Uma pessoa que gosta muito de aprender e é muito próxima da tecnologia! Sou um desenvolver WEB backend, no qual trabalho mais com NODE e PHP</div>
-                        </section>
-                        <section className='px-5 mt-10'>
-                            <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {
-                                    [
-                                        ...userData.experiences,
-                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
-                                }
-                            </div>
-                        </section>
-                        <section className='px-5 my-10'>
-                            <div className='font-medium text-xl text-dark-purple mb-2'>Formação Acadêmica</div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {
-                                    [
-                                        ...userData.formations,
-                                    ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
-                                }
-                            </div>
-                        </section>
+                        </main>                        
+                        {
+                            (userData.description) && (                        
+                                <section className='px-5 mb-5'>
+                                    <div className='font-medium text-xl text-dark-purple'>Descrição</div>
+                                    <div className='text-lg text-justify'>{ userData.description }</div>
+                                </section>
+                            )
+                        }
+                        {
+                            (!!userData.experiences.length) && (
+                                <section className='px-5 mb-5'>
+                                    <div className='font-medium text-xl text-dark-purple mb-2'>Experiências Profissionais</div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                        {
+                                            [
+                                                ...userData.experiences,
+                                            ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
+                                        }
+                                    </div>
+                                </section>
+                            )
+                        }
+                        {
+                            (!!userData.formations.length) && (
+                                <section className='px-5 mb-5'>
+                                    <div className='font-medium text-xl text-dark-purple mb-2'>Formação Acadêmica</div>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                        {
+                                            [
+                                                ...userData.formations,
+                                            ].map((card, key) => <UserExperienceCard key={ key } card={ card } /> )
+                                        }
+                                    </div>
+                                </section>
+                            )
+                        }
                         {
                             openModal && (
                                 <InfoModal title='Informações' handleClose={ () => setOpenModal(false) } >

@@ -121,6 +121,30 @@ export const AuthState = ({ children } : any) => {
     const createComplaint = async (complaint: any) => {
         return await axiosRequest(`${API_URL}/api/create-complaint`, 'POST', complaint);
     }
+
+    const updateCompanyData = async (company: any): Promise<any> => {
+        return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company)
+        .then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
+            }
+            else {
+                dispatchError(formatErrors(res.data.message));
+            }
+        });
+    }
+
+    const updateHolderData = async (company: any): Promise<any> => {
+        return axiosRequest(`${API_URL}/api/company/update-company-holder`, 'POST', company)
+        .then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
+            }
+            else
+                dispatchError(formatErrors(res.data.message));
+        });
+    }
+
     const sendRecoveryEmail = async (email: string) => {
         return axiosRequest(`${API_URL}/api/send-recovery-email`, 'POST', { email });
     }
@@ -131,27 +155,6 @@ export const AuthState = ({ children } : any) => {
         return axiosRequest(`${API_URL}/api/new-password`, 'POST', { selector, token, password });
     }
     // End Complaint and recover functions
-
-    // User functions
-    const getUserData = async () => {
-        return await axiosRequest(`${API_URL}/api/user/get-user`, 'GET');
-    }
-    const getVacancy = async(id: string) => {
-        return axiosRequest(`${API_URL}/api/user/get-vacancy/${id}`, 'GET');
-    };
-    const getVacancies = async () => {
-        return await axiosRequest(`${API_URL}/api/user/vacancy`, 'GET');
-    };
-    const getCandidateVacancies = async () => {
-        return await axiosRequest(`${API_URL}/api/user/vacancy-candidate`, 'GET');
-    };
-    const applyVacancy = async (vacancy_id: string) => {
-        return await axiosRequest(`${API_URL}/api/user/apply-vacancy`, 'POST', { vacancy_id });
-    };
-    const cancelApplyVacancy = async (vacancy_id: string) => {
-        return await axiosRequest(`${API_URL}/api/user/cancel-apply-vacancy`, 'POST', { vacancy_id });
-    }
-    // End user functions
     return (
         <AuthContext.Provider value={{
             axiosRequest,
@@ -171,13 +174,9 @@ export const AuthState = ({ children } : any) => {
             getInitialUserData,
             setUserData,
             // User functions
-            getUserData,
-            getVacancy,
-            getVacancies,
-            getCandidateVacancies,
-            applyVacancy,
-            cancelApplyVacancy,
             // Company functions
+            updateCompanyData,
+            updateHolderData,
             createComplaint,
             sendRecoveryEmail,
             checkRecoveryToken,

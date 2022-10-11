@@ -1,7 +1,7 @@
 const Footer : React.FC = () => {
     return (
         <>
-            <footer className='w-full bg-primary font-medium text-white flex justify-between items-center py-3 px-5 md:px-20 flex-col-reverse md:flex-row'>
+            <footer className='w-full bg-primary font-medium text-white flex justify-between items-center mt-6 py-3 px-5 md:px-20 flex-col-reverse md:flex-row'>
                 <div className='text-sm my-3 md:text-base'>
                     &copy; 2022 - Letmin Corporation
                 </div>
