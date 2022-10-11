@@ -79,6 +79,7 @@ const UserEditData : React.FC = () => {
             }
 
             setUserData(res.data.user);
+            console.log(res.data.user);
             setUserTypedData(res.data.user);
         });
     }
@@ -145,16 +146,17 @@ const UserEditData : React.FC = () => {
     }
 
     const handleConfirmAddXp = () => {
+        console.log('aaaa', userTypedData.experiences);
         user.checkNewExperience(userTypedData.experiences).then((res:any) => {
             if (res.status == 400) {
                 dispatchError(formatErrors(res.data.message));
                 console.log('erro', res.data)
                 return;
             }
-            setXPModalIsOpen(false);
-            userData.experiences.push(userTypedData.experiences)
-            userTypedData.experiences = [];
         });
+        setXPModalIsOpen(false);
+        userData.experiences.push(userTypedData.experiences)
+        userTypedData.experiences = [];
     }
     const handleCloseModalAddXp = () => {
         setXPModalIsOpen(false);
