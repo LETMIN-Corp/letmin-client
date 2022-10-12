@@ -2,7 +2,7 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-      "ecmaVersion": 2020,
+      "ecmaVersion": 2021,
       "sourceType": "module",
       "ecmaFeatures": {
         "jsx": true
@@ -29,7 +29,7 @@
     "env": {
       "browser": true,
       "amd": true,
-      "node": true
+      "node": false
     },
     "extends": [
       "eslint:recommended",
@@ -53,7 +53,10 @@
       "react/react-in-jsx-scope": "off",
       "jsx-a11y/accessible-emoji": "off",
       "react/prop-types": "off",
+      "react/no-unescaped-entities": "off",
       "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-explicit-any": ["off"],
+      "@typescript-eslint/no-non-null-assertion": ["off"],
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
       "jsx-a11y/anchor-is-valid": [

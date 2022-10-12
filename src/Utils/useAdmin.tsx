@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { AuthContext } from "../Contexts/AuthContextProvider";
+import { useContext } from 'react';
+
+import { AuthContext } from '../Contexts/AuthContextProvider';
 
 const useAdmin = () => {
     const {
@@ -9,36 +10,42 @@ const useAdmin = () => {
         dispatchError,
         dispatchSuccess,
         loading,
-    } : any = useContext(AuthContext);
+    }: any = useContext(AuthContext);
 
     // Admin functions
     const getAllCompanies = async () => {
         return axiosRequest(`${API_URL}/api/admin/get-all-companies`, 'GET');
-    }
+    };
     const blockCompany = async (company_id: string) => {
-        return axiosRequest(`${API_URL}/api/admin/company-block`, 'PATCH', { company_id });
-    }
+        return axiosRequest(`${API_URL}/api/admin/company-block`, 'PATCH', {
+            company_id,
+        });
+    };
     const getAllUsers = async () => {
         return axiosRequest(`${API_URL}/api/admin/get-all-users`, 'GET');
-    }
+    };
     const getUser = async (user_id: string) => {
         return axiosRequest(`${API_URL}/api/admin/get-user`, 'POST', { user_id });
-    }
+    };
     const blockUser = async (user_id: string) => {
         return axiosRequest(`${API_URL}/api/admin/user-block`, 'PATCH', { user_id });
-    }
+    };
     const getAllComplaints = async () => {
         return axiosRequest(`${API_URL}/api/admin/get-all-complaints`, 'GET');
-    }
+    };
     const changeComplaintStatus = async (complaint_id: string) => {
-        return axiosRequest(`${API_URL}/api/admin/resolve-complaint`, 'PATCH', { complaint_id });
-    }
+        return axiosRequest(`${API_URL}/api/admin/resolve-complaint`, 'PATCH', {
+            complaint_id,
+        });
+    };
     const removeComplaint = async (complaint_id: string) => {
-        return axiosRequest(`${API_URL}/api/admin/remove-complaint`, 'DELETE', { complaint_id });
-    }
+        return axiosRequest(`${API_URL}/api/admin/remove-complaint`, 'DELETE', {
+            complaint_id,
+        });
+    };
     // End Admin functions
 
-    return { 
+    return {
         blockCompany,
         getAllCompanies,
         getAllUsers,
@@ -53,6 +60,6 @@ const useAdmin = () => {
         dispatchSuccess,
         loading,
     };
-}
+};
 
 export default useAdmin;

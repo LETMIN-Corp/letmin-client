@@ -1,6 +1,6 @@
 import Menu from '../../Components/Layouts/Menu';
 
-const AdminMenu : React.FC = () => {
+const AdminMenu: React.FC = () => {
     const menuButtons = [
         {
             text: 'Empresas',
@@ -19,9 +19,7 @@ const AdminMenu : React.FC = () => {
         },
     ];
 
-    return (
-        <Menu menuButtons={ menuButtons } showMenu={ true } />
-    );
-}
+    return <Menu menuButtons={menuButtons} showMenu={true} />;
+};
 
 export default AdminMenu;
