@@ -84,7 +84,7 @@ const UserVacancyDetail = () => {
     }
 
     const handleCancelApplyVacancy = () => {
-        user.cancelApplyVacancy(id).then((res: any) => {
+        user.cancelApplyVacancy(id!).then((res: any) => {
             if(res.data.success) {
                 dispatchSuccess(res.data.message);
                 return navigate('/user/vacancy/search');

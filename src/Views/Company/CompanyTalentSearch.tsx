@@ -78,12 +78,9 @@ const CompanyTalentSearch = () => {
                             }
                             <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-1 gap-7 w-full md:mb-5'>
                                 {
-                                    !!userCards.length && (                                
+                                    userCards.length > 0 ? (                                
                                         <List data={ userCards } itemsPerPage={ 10 }></List>
-                                    )
-                                }
-                                {
-                                    !userCards.length && (
+                                    ) : (
                                         <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhum item encontrado</div>
                                     )
                                 }
