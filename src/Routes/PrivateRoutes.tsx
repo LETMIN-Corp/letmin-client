@@ -1,24 +1,21 @@
-import { Outlet, Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom';
+
 import useAuth from '../Utils/useAuth';
 
 interface Props {
-    roles: Array<any>
+    roles: Array<any>;
 }
 
 const PrivateRoutes = ({ roles }: Props) => {
     const auth = useAuth();
 
-    let userRole = auth.getRole();
+    const userRole = auth.getRole();
 
     if (userRole != undefined && userRole != '' && roles.includes(userRole)) {
-        return (
-            <Outlet />
-        );
+        return <Outlet />;
     }
 
-    return (
-        <Navigate to="/"/>
-    );
-}
+    return <Navigate to="/" />;
+};
 
-export default PrivateRoutes
+export default PrivateRoutes;

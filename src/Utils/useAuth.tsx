@@ -1,8 +1,9 @@
-import { useContext } from "react";
-import { AuthContext } from "../Contexts/AuthContextProvider";
+import { useContext } from 'react';
+
+import { AuthContext } from '../Contexts/AuthContextProvider';
 
 const useAuth = () => {
-    const { 
+    const {
         isAuthenticated,
         userData,
         signOut,
@@ -17,7 +18,7 @@ const useAuth = () => {
         sendRecoveryEmail,
         checkRecoveryToken,
         setNewPassword,
-    } : any = useContext(AuthContext);
+    }: any = useContext(AuthContext);
 
     return {
         isAuthenticated,
@@ -34,7 +35,7 @@ const useAuth = () => {
         sendRecoveryEmail,
         checkRecoveryToken,
         setNewPassword,
-    }
-}
+    };
+};
 
-export default useAuth;    
+export default useAuth;

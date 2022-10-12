@@ -1,6 +1,6 @@
 import Menu from '../../Components/Layouts/Menu';
 
-const UserMenu : React.FC = () => {
+const UserMenu: React.FC = () => {
     const menuButtons = [
         {
             text: 'Perfil',
@@ -19,9 +19,7 @@ const UserMenu : React.FC = () => {
         },
     ];
 
-    return (
-        <Menu menuButtons={ menuButtons } showMenu={ true } />
-    );
-}
+    return <Menu menuButtons={menuButtons} showMenu={true} />;
+};
 
 export default UserMenu;
