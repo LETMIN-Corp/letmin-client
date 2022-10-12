@@ -3,7 +3,11 @@ import { useEffect } from 'react';
 import CompanyMenu from '../../Components/Layouts/CompanyMenu';
 import Footer from '../../Components/Layouts/Footer';
 
-const CompanyDefault: React.FC = ({ children }) => {
+interface ComponentInterface {
+    children: React.ReactNode;
+}
+
+const CompanyDefault: React.FC<ComponentInterface> = ({ children }) => {
     useEffect(() => {
         document.documentElement.scrollTop = 0;
     }, []);

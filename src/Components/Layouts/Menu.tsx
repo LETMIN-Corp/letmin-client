@@ -1,7 +1,7 @@
 import { faBars, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { Link, matchRoutes, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import LogoImage from '../../Assets/logo.svg';
 import useAuth from '../../Utils/useAuth';

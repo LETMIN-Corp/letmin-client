@@ -17,9 +17,9 @@ const CompanyTalentSearch = () => {
     const company = useCompany();
     const { loading } = useLoading();
 
-    const [allUsers, setAllUsers] = useState([]);
-    const [users, setUsers] = useState([]);
-    const [searchUsers, setSearchUsers] = useState('');
+    const [allUsers, setAllUsers] = useState<any[]>([]);
+    const [users, setUsers] = useState<any[]>([]);
+    const [searchUsers, setSearchUsers] = useState<string>('');
 
     useEffect(() => {
         company.getUsers().then((res: any) => {
@@ -30,7 +30,6 @@ const CompanyTalentSearch = () => {
 
     const [userCards, setUserCards] = useState([]);
     useEffect(() => {
-        // @ts-ignore:next-line
         const cards = users.map((user) => (
             <CompanyTalentSearchCard user={user} key={user._id} />
         ));

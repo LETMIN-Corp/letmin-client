@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ComponentInterface {
     title: string;
+    children: React.ReactNode;
     handleClose: () => void;
     showIcon?: boolean;
 }

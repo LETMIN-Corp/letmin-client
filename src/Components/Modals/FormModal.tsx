@@ -1,7 +1,10 @@
+import { ReactNode } from "react";
+
 interface ComponentInterface {
     title: string;
     handleClose: () => void;
     handleConfirm: () => void;
+    children: ReactNode;
 }
 
 const FormModal: React.FC<ComponentInterface> = ({

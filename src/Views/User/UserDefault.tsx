@@ -3,7 +3,11 @@ import { useEffect } from 'react';
 import Footer from '../../Components/Layouts/Footer';
 import UserMenu from '../../Components/Layouts/UserMenu';
 
-const UserDefault: React.FC = ({ children }) => {
+interface ComponentInterface {
+    children: React.ReactNode;
+}
+
+const UserDefault: React.FC<ComponentInterface> = ({ children }) => {
     useEffect(() => {
         document.documentElement.scrollTop = 0;
     }, []);

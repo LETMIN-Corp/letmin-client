@@ -1,12 +1,9 @@
-import { ReactNode } from 'react';
-
 interface ComponentInterface {
-    url: ReactNode;
+    url: string;
 }
 
 const PartnerImage: React.FC<ComponentInterface> = ({ url }) => {
     return (
-        // @ts-ignore:next-line
         <img
             src={url}
             className="m-auto"

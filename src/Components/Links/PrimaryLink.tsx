@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 interface ComponentInterface {
     text: string;
     path: string;
+    children: React.ReactNode;
 }
 
 const PrimaryLink: React.FC<ComponentInterface> = ({ text, path }) => {

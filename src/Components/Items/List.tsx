@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ReactNode, useEffect, useState } from 'react';
 
 interface ListButtonInterface {
+    children: React.ReactNode;
     isCurrent?: boolean;
     handleClick: () => void;
 }
@@ -25,7 +26,7 @@ const ListButton: React.FC<ListButtonInterface> = ({
 };
 
 interface ListInterface {
-    data: ReactNode[];
+    data: any;
     itemsPerPage: number;
 }
 
