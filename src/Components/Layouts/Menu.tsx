@@ -1,7 +1,7 @@
 import LogoImage from '../../Assets/logo.svg';
 import { useState } from 'react';
 import PrimaryLink from '../Links/PrimaryLink';
-import { Link, matchRoutes, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MenuLink from '../Links/MenuLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
@@ -29,7 +29,6 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                 <Link to='/'>
                     <img src={ LogoImage } className='w-12 md:w-16' />
                 </Link>
-
                 <div className={`${[showMenu ? 'md:hidden' : '']} block`}>
                     {
                         (menuButtons) && (
