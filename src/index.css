@@ -19,6 +19,30 @@ p {
   line-height: 35px !important;
 }
 
+/* Route active */
+a.active {
+  color: #FFFEFF !important;
+  font-weight: bold;
+}
+
+a.active span {
+  color: #FFFEFF !important;
+  font-weight: bold;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 770px) {
+  a.active {
+    color: #47196B !important;
+    font-weight: bold;
+  }
+  
+  a.active span {
+    display: hidden;
+  }
+}
+/* End Route active */
+
 @keyframes up {
   from { 
     top: 25px;
