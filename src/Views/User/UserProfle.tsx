@@ -166,12 +166,12 @@ const UserProfile: React.FC = () => {
                                     <FontAwesomeIcon icon={faPencil} className="ml-2" />
                                 </Link>
                             </div>
-                            <div className='mt-5 md:mt-10 mb-5 mx-5'>
-                                <div className='font-bold text-2xl text-dark-purple'>
-                                    { userData.name || 'Nome do Usuário' }
+                            <div className="mt-5 md:mt-10 mb-5 mx-5">
+                                <div className="font-bold text-2xl text-dark-purple">
+                                    {userData.name || 'Nome do Usuário'}
                                 </div>
-                                <div className='text-lg text-justify text-dark-gray'>
-                                    { userData.role }
+                                <div className="text-lg text-justify text-dark-gray">
+                                    {userData.role}
                                 </div>
                             </div>
                             <div className="text-lg text-justify">{userData.role}</div>

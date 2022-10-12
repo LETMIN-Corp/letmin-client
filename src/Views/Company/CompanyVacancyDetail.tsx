@@ -1,7 +1,7 @@
-import { faBuilding, faGear } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { faBuilding, faGear } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
@@ -188,14 +188,22 @@ const CompanyVacancyDetail: React.FC = () => {
                                             disabled={!canEdit}
                                         />
                                     </div>
-                                    {
-                                        canEdit && (
-                                            <div className='flex justify-between md:justify-end w-full'>
-                                                <button onClick={ getDBVacancyData } className='bg-gray text-black w-2/12 min-w-sm py-2 rounded-md'>Cancelar</button>
-                                                <button onClick={ updateVacancyData } className='bg-primary text-white w-2/12 min-w-sm py-2 rounded-md ml-2'>Salvar</button>
-                                            </div>
-                                        )
-                                    }
+                                    {canEdit && (
+                                        <div className="flex justify-between md:justify-end w-full">
+                                            <button
+                                                onClick={getDBVacancyData}
+                                                className="bg-gray text-black w-2/12 min-w-sm py-2 rounded-md"
+                                            >
+                                                Cancelar
+                                            </button>
+                                            <button
+                                                onClick={updateVacancyData}
+                                                className="bg-primary text-white w-2/12 min-w-sm py-2 rounded-md ml-2"
+                                            >
+                                                Salvar
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                                 {canEdit && (
                                     <>
