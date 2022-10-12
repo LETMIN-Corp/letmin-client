@@ -4,7 +4,7 @@ enum ReducerEnum {
     error = 'ERROR',
     set_user_data = 'SET_USER_DATA',
     forgot_password = 'FORGOT_PASSWORD',
-    logout = 'LOGOUT'
+    logout = 'LOGOUT',
 }
 
 export default ReducerEnum;

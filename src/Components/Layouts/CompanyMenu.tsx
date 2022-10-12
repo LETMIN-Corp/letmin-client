@@ -1,7 +1,6 @@
-
 import Menu from './Menu';
 
-const CompanyMenu : React.FC = () => {
+const CompanyMenu: React.FC = () => {
     const menuButtons = [
         {
             text: 'Indicadores',
@@ -35,9 +34,7 @@ const CompanyMenu : React.FC = () => {
         },
     ];
 
-    return (
-        <Menu menuButtons={ menuButtons } showMenu={ true } />
-    );
-}
+    return <Menu menuButtons={menuButtons} showMenu={true} />;
+};
 
 export default CompanyMenu;
