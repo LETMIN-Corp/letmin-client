@@ -19,6 +19,18 @@ p {
   line-height: 35px !important;
 }
 
+a.active {
+  color: #ffffff !important;
+  font-weight: bold
+}
+
+a.active span {
+  color: #ffffff !important;
+  font-weight: bold;
+  display: inline-block;
+}
+
+
 @keyframes up {
   from { 
     top: 25px;
