@@ -96,12 +96,12 @@ const CompanyVacancyDetail : React.FC = () => {
                             <div className='mt-5'>
                                 <div className='flex items-center'>
                                     <FontAwesomeIcon icon={ faBuilding } className='text-8xl' />
-                                    <div>
-                                        <span className="flex">
-                                            <h1 className='text-2xl ml-5 w-full font-bold text-primary'>{ vacancyData.role }</h1>
+                                    <div className="w-full">
+                                        <span className="flex justify-between">
+                                            <h1 className='text-2xl ml-5 font-bold text-primary'>{ vacancyData.role }</h1>
                                             <FontAwesomeIcon
                                                 onClick={ () => setCanEdit(!canEdit) }
-                                                className='cursor-pointer h-8 text-primary ml-5'
+                                                className='cursor-pointer h-8 text-primary mr-4'
                                                 icon={ faGear }
                                             />
                                         </span>

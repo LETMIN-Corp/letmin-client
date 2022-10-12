@@ -30,9 +30,7 @@ const CompanyCombinations : React.FC = () => {
         formations: []
     })
 
-    const options = [
-        'Conteúdo Inapropriado', 'Spam', 'Outro'
-    ]
+    const options = ['Conteúdo Inapropriado', 'Spam', 'Outro']
 
     useEffect((): void => {
         window.document.title = 'Letmin - Combinação';
@@ -99,22 +97,22 @@ const CompanyCombinations : React.FC = () => {
         });
     }, []);
 
-    function alterUserCondition(type : 'ADD' | 'REMOVE') {
-        if(type == 'ADD') {
-            company.addToTalentBank(params.id).then((res: any) => {
-                if (res.data.success && res.status === 201) {
-                    company.dispatchSuccess(res.data.message);
-                }
-                else {
-                    company.dispatchError(company.formatErrors(res.data.message));
-                }
-                setUserInTalentBank(true);
+    function alterUserCondition() {
+        if (userInTalentBank) {
+            company.removeFromTalentBank(params.id).then(() => {
+                setUserInTalentBank(false);
             });
             return;
         }
 
-        company.removeFromTalentBank(params.id).then(() => {
-            setUserInTalentBank(false);
+        company.addToTalentBank(params.id).then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                company.dispatchSuccess(res.data.message);
+            }
+            else {
+                company.dispatchError(company.formatErrors(res.data.message));
+            }
+            setUserInTalentBank(true);
         });
     }
 
@@ -139,7 +137,7 @@ const CompanyCombinations : React.FC = () => {
                                     />
                                     <FontAwesomeIcon 
                                         icon={ userInTalentBank ? faHeartBroken : faHeart }
-                                        onClick={ () => alterUserCondition(userInTalentBank ? 'REMOVE' : 'ADD') }
+                                        onClick={ () => alterUserCondition() }
                                         className={ userInTalentBank ? 
                                             'ml-3 border-4 border-red rounded-full p-2 cursor-pointer text-red text-3xl' : 
                                             'ml-3 border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-3xl transition ease-in-out delay-50'
