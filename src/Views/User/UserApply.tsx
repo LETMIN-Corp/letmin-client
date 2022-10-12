@@ -19,7 +19,7 @@ const UserApply = () => {
     useEffect((): void => {
         window.document.title = 'Letmin - Candidaturas';
         user.getCandidateVacancies().then((res : any) => {
-            setVacancies(res.data.vacancies);
+            if (res.data.success) setVacancies(res.data.vacancies);
         })
     }, []);
 
