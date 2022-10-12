@@ -29,7 +29,6 @@ const Header : React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                 <Link to='/'>
                     <img src={ LogoImage } className='w-12 md:w-16' />
                 </Link>
-
                 <div className={`${[showMenu ? 'md:hidden' : '']} block`}>
                     {
                         (menuButtons) && (

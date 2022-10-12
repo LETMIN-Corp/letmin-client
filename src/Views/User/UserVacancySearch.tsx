@@ -6,34 +6,45 @@ import List from '../../Components/Items/List';
 import Loading from '../../Components/Items/Loading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault'
-import useAuth from '../../Utils/useAuth';
 import useLoading from '../../Utils/useLoading';
 
 const UserVacancySearch = () => {
-    const auth = useAuth();
     const user = useUser();
     const { loading } = useLoading();
 
-    const [allVacancies, setAllVacancies] = useState([]);
-    const [vacancies, setVacancies] = useState([]);
+    interface VacancyInterface {
+        _id: string,
+        candidates: number,
+        role: string,
+        company: {
+            _id: string,
+            name: string,
+        }
+        user_applied: boolean,
+        sector: string,
+        region: string,
+        description: string,
+        curency: string,
+        salary: number,
+        views: number,
+    }
+
+    const [vacancies, setVacancies] = useState<VacancyInterface[]>([]);
+    const [allVacancies, setAllVacancies] = useState<VacancyInterface[]>([]);
     const [searchVacancies, setSearchVacancies] = useState('');
+    const [vacancyCards, setVacancyCards] = useState<VacancyInterface[]>([]);
 
     useEffect((): void => {
         window.document.title = 'Letmin - Buscar Vagas';
-    }, []);
 
-    useEffect(() => {
         user.getVacancies().then((res : any) => {
             setAllVacancies(res.data.vacancies);
             setVacancies(res.data.vacancies)
         })
     }, []);
 
-    const [vacancyCards, setVacancyCards] = useState([]);
     useEffect(() => {
-        // @ts-ignore:next-line
-        const cards = vacancies.map((vacancy) => <UserVacancySearchCard user_id={  auth.userData.user_id } vacancy={ vacancy } key={ vacancy._id } />);
-        // @ts-ignore:next-line
+        const cards: any[] = vacancies.map((vacancy) => <UserVacancySearchCard vacancy={ vacancy } key={ vacancy._id } />);
         setVacancyCards(cards);
     }, [vacancies]);
 
@@ -44,7 +55,7 @@ const UserVacancySearch = () => {
         }
 
         let filteredVacancies = allVacancies.filter((vacancy : { role : string }) => {
-            return vacancy.role.toLowerCase().includes(value.toLowerCase());
+            return vacancy.role.toLowerCase().includes(value.toLowerCase()) || vacancy.role.toLowerCase().includes(value.toLowerCase());
         });
         setVacancies(filteredVacancies);
     }
@@ -79,12 +90,9 @@ const UserVacancySearch = () => {
                             }
                             <div className='grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-1 gap-7 w-full md:mb-5'>
                                 {
-                                    !!vacancyCards.length && (                                
+                                    vacancyCards.length > 0 ? (                                
                                         <List data={ vacancyCards } itemsPerPage={ 10 }></List>
-                                    )
-                                }
-                                {
-                                    !vacancyCards.length && (
+                                    ) : (
                                         <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Nenhum item encontrado</div>
                                     )
                                 }

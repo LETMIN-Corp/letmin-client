@@ -5,24 +5,23 @@ import { Link } from 'react-router-dom';
 interface ComponentInterface {
     vacancy : {
         _id: string,
-        candidates: Array<any>,
+        candidates: number,
         role: string,
         company: {
-            company: {
-                name: string,
-            }
+            _id: string,
+            name: string,
         }
+        user_applied: boolean,
         sector: string,
         region: string,
         description: string,
+        curency: string,
+        salary: number,
+        views: number,
     },
-    user_id: string,
 }
 
-const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy, user_id }) => {
-    // check if user already applied to this vacancy
-    const applied = vacancy.candidates.filter((candidate_id: any) => candidate_id == user_id ).length > 0;
-    
+const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy }) => {
     return (
         <div className='w-full bg-lilac rounded-md mx-auto text-justify text-8x1 drop-shadow-lg px-5 pt-5 md:py-2 md:mr-5 flex flex-col md:flex-row items-center justify-between'>
             <div className='flex xl:w-32 xl:h-32 lg:w-28 lg:h-28 w-24 h-24 border-4 rounded-full items-center justify-center'>
@@ -44,14 +43,14 @@ const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy, user_id 
                     <p className='text-md'>
                         <FontAwesomeIcon className='xl:ml-3 mr-1' icon={ faBuilding } />
                         <span>
-                            { vacancy.company.company.name }
+                            { vacancy.company.name }
                         </span>
                     </p>
                 </div>
                 <p className='text-sm md:text-md'>{ vacancy.description }</p>
                 <div className='flex flex-col justify-center'>
                     {
-                        applied && (
+                        vacancy.user_applied && (
                             <div className='mt-5 md:text-left text-dark-purple text-lg font-medium'>Você já se candidatou a esta vaga.</div>
                         )
                     }

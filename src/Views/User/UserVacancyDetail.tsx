@@ -23,15 +23,14 @@ const UserVacancyDetail = () => {
     const id = params.id;
     const [applied, setApplied] = useState(false);
 
+    if (id?.length !== 24) {
+        navigate('/user/vacancy/search');
+    }
+
     useEffect((): void => {
         window.document.title = 'Letmin - Vaga';
 
-        if (id?.length !== 24) {
-            navigate('/user/vacancy/search');
-            return;
-        }
-
-        user.getVacancy(id).then((res: any) => {
+        user.getVacancy(id!).then((res: any) => {
             if(!res.data.success || res.data.vacancy.closed) {
                 navigate('/user/vacancy/search');
             }
@@ -75,7 +74,7 @@ const UserVacancyDetail = () => {
     }
 
     const handleApplyVacancy = () => {
-        user.applyVacancy(id).then((res: any) => {
+        user.applyVacancy(id!).then((res: any) => {
             if(res.data.success) {
                 dispatchSuccess(res.data.message);
                 return navigate('/user/vacancy/search');
@@ -85,7 +84,7 @@ const UserVacancyDetail = () => {
     }
 
     const handleCancelApplyVacancy = () => {
-        user.cancelApplyVacancy(id).then((res: any) => {
+        user.cancelApplyVacancy(id!).then((res: any) => {
             if(res.data.success) {
                 dispatchSuccess(res.data.message);
                 return navigate('/user/vacancy/search');

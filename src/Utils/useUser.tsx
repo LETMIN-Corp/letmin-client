@@ -8,8 +8,6 @@ const useUser = () => {
         userData,
         dispatchError,
         dispatchSuccess,
-        getCandidateVacancies,
-        cancelApplyVacancy,
         formatErrors,
         loading
     } : any = useContext(AuthContext);
@@ -38,6 +36,14 @@ const useUser = () => {
 
     const updateUser = async (user: any): Promise<any> => {
         return axiosRequest(`${API_URL}/api/user/update-user`, 'POST', user);
+    }
+
+    const getCandidateVacancies = async () => {
+        return axiosRequest(`${API_URL}/api/user/get-candidate-applications`, 'GET');
+    }
+
+    const cancelApplyVacancy = async (vacancy_id: string) => {
+        return axiosRequest(`${API_URL}/api/user/cancel-apply-vacancy`, 'POST', { vacancy_id });
     }
 
     return {

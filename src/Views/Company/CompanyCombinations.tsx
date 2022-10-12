@@ -8,7 +8,7 @@ import FormModal from '../../Components/Modals/FormModal';
 import useCompany from '../../Utils/useCompany';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
-import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
+import { dispatchError, dispatchSuccess, formatErrors } from '../../Utils/ToastMessages';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import { Link } from 'react-router-dom';
 import CompanyCandidateCard from '../../Components/Cards/CompanyCandidateCard';
@@ -34,11 +34,7 @@ const CompanyCombinations : React.FC = () => {
         formations: []
     })
 
-    const options = [
-        { label: "Conteúdo inapropriado", value: "Conteúdo inapropriado" },
-        { label: "Spam", value: "Spam" },
-        { label: "Outros", value: "Outros" },
-    ];
+    const options = ['Conteúdo Inapropriado', 'Spam', 'Outro']
 
     useEffect((): void => {
         window.document.title = 'Letmin - Combinação';
@@ -89,7 +85,7 @@ const CompanyCombinations : React.FC = () => {
                 setComplaint(InitialState);
                 return dispatchSuccess(res.data.message);
             }
-            dispatchError(res.data.message);
+            dispatchError(formatErrors(res.data.message));
         })
     }
 
@@ -105,22 +101,22 @@ const CompanyCombinations : React.FC = () => {
         });
     }, []);
 
-    function alterUserCondition(type : 'ADD' | 'REMOVE') {
-        if(type == 'ADD') {
-            company.addToTalentBank(params.id).then((res: any) => {
-                if (res.data.success && res.status === 201) {
-                    company.dispatchSuccess(res.data.message);
-                }
-                else {
-                    company.dispatchError(company.formatErrors(res.data.message));
-                }
-                setUserInTalentBank(true);
+    function alterUserCondition() {
+        if (userInTalentBank) {
+            company.removeFromTalentBank(params.id).then(() => {
+                setUserInTalentBank(false);
             });
             return;
         }
 
-        company.removeFromTalentBank(params.id).then(() => {
-            setUserInTalentBank(false);
+        company.addToTalentBank(params.id).then((res: any) => {
+            if (res.data.success && res.status === 201) {
+                company.dispatchSuccess(res.data.message);
+            }
+            else {
+                company.dispatchError(company.formatErrors(res.data.message));
+            }
+            setUserInTalentBank(true);
         });
     }
 
@@ -144,7 +140,7 @@ const CompanyCombinations : React.FC = () => {
                                     />
                                     <FontAwesomeIcon 
                                         icon={ userInTalentBank ? faHeartBroken : faHeart }
-                                        onClick={ () => alterUserCondition(userInTalentBank ? 'REMOVE' : 'ADD') }
+                                        onClick={ () => alterUserCondition() }
                                         className={ userInTalentBank ? 
                                             'ml-3 border-4 border-red rounded-full p-2 cursor-pointer text-red text-xl md:text-3xl' : 
                                             'ml-3 border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-xl md:text-3xl transition ease-in-out delay-50'
@@ -191,17 +187,17 @@ const CompanyCombinations : React.FC = () => {
                             <div className='mt-2'>
                                 {
                                     options.map(option => (
-                                        <div key={ option.value } className='flex items-center '>
+                                        <div key={ option } className='flex items-center '>
                                             <input 
                                                 className='mr-3 h-4 w-4 cursor-pointer'
-                                                id={option.value}
+                                                id={option}
                                                 name='reason'
-                                                value={option.value}
+                                                value={option}
                                                 onChange={ setCheckboxValue }
                                                 type="radio" 
                                             />
-                                            <label htmlFor={option.value} className='cursor-pointer'>
-                                                {option.value}
+                                            <label htmlFor={option} className='cursor-pointer'>
+                                                {option}
                                             </label>
                                         </div>
                                     ))
