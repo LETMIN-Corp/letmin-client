@@ -2,6 +2,7 @@ import { faBuilding, faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import SelectInput from "../../Components/Inputs/SelectInput";
 import TextAreaInput from "../../Components/Inputs/TextAreaInput";
 import TextInput from "../../Components/Inputs/TextInput";
 import Loading from "../../Components/Items/Loading";
@@ -95,17 +96,17 @@ const CompanyVacancyDetail : React.FC = () => {
                         <div>
                             <div className='mt-5'>
                                 <div className='flex items-center'>
-                                    <FontAwesomeIcon icon={ faBuilding } className='text-8xl' />
-                                    <div className="w-full">
+                                    <FontAwesomeIcon icon={ faBuilding } className='hidden md:flex text-8xl' />
+                                    <div className="w-full md:ml-5">
                                         <span className="flex justify-between">
-                                            <h1 className='text-2xl ml-5 font-bold text-primary'>{ vacancyData.role }</h1>
+                                            <h1 className='text-2xl font-bold text-primary'>{ vacancyData.role }</h1>
                                             <FontAwesomeIcon
                                                 onClick={ () => setCanEdit(!canEdit) }
-                                                className='cursor-pointer h-8 text-primary mr-4'
+                                                className='cursor-pointer h-8 text-primary hover:text-bright-purple ease-out duration-200'
                                                 icon={ faGear }
                                             />
                                         </span>
-                                        <p className='text-xl ml-5 w-full font-medium text-dark-purple'>{ vacancyData.company.company.name }</p>
+                                        <p className='text-xl w-full font-medium text-dark-purple'>{ vacancyData.company.company.name }</p>
                                     </div>
                                 </div>
                                 <div className='w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5'>
@@ -114,27 +115,25 @@ const CompanyVacancyDetail : React.FC = () => {
                                     </h2>
                                     <div className='md:flex md:justify-between'>
                                         <div className='md:w-6/12 w-full mr-5'> 
-                                            <TextInput placeholder='Setor' type='text' consultPackage={ consultPackage } name="sector" id='sector' disabled={ !canEdit }/>                                      
-                                            <TextAreaInput name="description" id="description" row={ 7 } consultPackage={ consultPackage } placeholder='Descrição' value={ vacancyData.description } disabled={ !canEdit }/>  
+                                            <SelectInput placeholder='Setor' options={["Recursos Humanos", "Tecnologia", "Administrativo", "Financeiro", "Operacional", "Comércio", "Serviços", "Saúde", "Industrial", "Construção"]} consultPackage={ consultPackage } name="sector" id='sector' disabled={ !canEdit } />
+                                            <TextAreaInput name="description" id="description" row={ 7 } consultPackage={ consultPackage } placeholder='Descrição' value={ vacancyData.description } disabled={ !canEdit } />  
                                         </div>
                                         <div className='md:w-6/12 w-full'>
-                                            <TextInput placeholder='Região' type='text' name='region' id='region' consultPackage={ consultPackage } disabled={ !canEdit }/>           
+                                            <SelectInput placeholder='Região' options={["Sul", "Sudeste", "Centro-Oeste", "Norte", "Nordeste"]} name='region' id='region' consultPackage={ consultPackage } disabled={ !canEdit } />                   
                                             <div className="md:flex justify-between">
-                                                <TextInput placeholder='Moeda' type='text' size='medium' name='currency' id='currency' consultPackage={ consultPackage } disabled={ !canEdit }/>
+                                                <SelectInput placeholder='Moeda' options={["Real", "Dolar", "Euro"]} size='medium' consultPackage={ consultPackage } name="currency" id="currency" disabled={ !canEdit } />  
                                                 <TextInput placeholder='Salário' useMask={ MaskTypesEnum.money } limit={ 12 } type='text' size='large' name='salary' id='salary' consultPackage={ consultPackage } disabled={ !canEdit }/>
-                                            </div>                                    
-                                            <TextInput placeholder='Carga Horária' type='text' consultPackage={ consultPackage } name="workload" id='workload' disabled={ !canEdit }/>
-                                            <TextInput placeholder='Tipo de Contratação' type='text' consultPackage={ consultPackage } name="type" id='type' disabled={ !canEdit }/>
+                                            </div>
+                                            <SelectInput placeholder='Carga Horária' options={["Integral", "Meio Período", "Home Office"]} consultPackage={ consultPackage } name="workload" id='workload' disabled={ !canEdit } />
+                                            <SelectInput placeholder='Tipo de Contratação' options={["Estágio", "Permanente", "Temporário"]} consultPackage={ consultPackage } name="type" id='type' disabled={ !canEdit } />
                                         </div>
                                     </div>
                                     {
                                         canEdit && (
-                                            <>
-                                            <div className='flex justify-end w-full'>
+                                            <div className='flex justify-between md:justify-end w-full'>
                                                 <button onClick={ getDBVacancyData } className='bg-gray text-black w-2/12 min-w-sm py-2 rounded-md'>Cancelar</button>
                                                 <button onClick={ updateVacancyData } className='bg-primary text-white w-2/12 min-w-sm py-2 rounded-md ml-2'>Salvar</button>
                                             </div>
-                                            </>
                                         )
                                     }
                                 </div>
