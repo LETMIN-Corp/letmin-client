@@ -6,8 +6,7 @@ import MenuLink from '../Links/MenuLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../../Utils/useAuth';
-// const location = useLocation();
-// console.log(location);
+
 interface ButtonsInterface {
     text: string,
     path: string,

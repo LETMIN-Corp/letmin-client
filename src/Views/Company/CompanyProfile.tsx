@@ -92,7 +92,6 @@ const CompanyProfile = () => {
     function updateCompanyData()
     {
         company.updateCompanyData(companyData).then((res: any) => {
-            console.log(res);
             if (res.data.success && res.status === 201) {
                 company.dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
             }

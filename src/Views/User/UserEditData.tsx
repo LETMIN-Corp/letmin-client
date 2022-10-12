@@ -79,7 +79,6 @@ const UserEditData : React.FC = () => {
             }
 
             setUserData(res.data.user);
-            console.log(res.data.user);
             setUserTypedData(res.data.user);
         });
     }
@@ -146,11 +145,9 @@ const UserEditData : React.FC = () => {
     }
 
     const handleConfirmAddXp = () => {
-        console.log('aaaa', userTypedData.experiences);
         user.checkNewExperience(userTypedData.experiences).then((res:any) => {
             if (res.status == 400) {
                 dispatchError(formatErrors(res.data.message));
-                console.log('erro', res.data)
                 return;
             }
         });
@@ -177,7 +174,6 @@ const UserEditData : React.FC = () => {
     }
 
     function excludeFormation (id: number) {
-        //console.log(id)
         if (canExclude.formations){
             userData.formations.splice(id, 1);
             setUserData(userData);
@@ -202,7 +198,6 @@ const UserEditData : React.FC = () => {
         user.checkNewFormation(userTypedData.formations).then((res:any) => {
             if (res.status == 400) {
                 dispatchError(formatErrors(res.data.message));
-                console.log('erro', res.data)
                 return;
             }
             setFormationModalIsOpen(false);
