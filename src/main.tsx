@@ -7,9 +7,9 @@ import App from './App';
 import { AuthState } from './Contexts/AuthContextProvider';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<BrowserRouter>
-		<AuthState>
-			<App />
-		</AuthState>
-	</BrowserRouter>,
+    <BrowserRouter>
+        <AuthState>
+            <App />
+        </AuthState>
+    </BrowserRouter>,
 );
