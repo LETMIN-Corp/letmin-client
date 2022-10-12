@@ -2,16 +2,6 @@ import { faBuilding, faGear } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SelectInput from "../../Components/Inputs/SelectInput";
-import TextAreaInput from "../../Components/Inputs/TextAreaInput";
-import TextInput from "../../Components/Inputs/TextInput";
-import Loading from "../../Components/Items/Loading";
-import MaskTypesEnum from "../../Enums/MaskTypesEnum";
-import { formatErrors } from "../../Utils/ToastMessages";
-import useAuth from "../../Utils/useAuth";
-import useCompany from "../../Utils/useCompany";
-import CompanyDefault from "./CompanyDefault";
-
 
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
