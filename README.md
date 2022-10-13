@@ -4,6 +4,17 @@
 
 # Letmin Client
 
+## Objetivo
+A LETMIN é um serviço que veio para revolucionar o processo de recrutamento, seleção e gerenciamento de funcionários ao oferecer plataforma acessível que conecta os candidatos com as empresas de acordo com suas necessidades. Sendo um projeto que nasceu de conversas entre programadores e organizações consolidadas no ramo da tecnologia, visando modernizar e agilizar a área de recursos humanos a partir das verdadeiras necessidades dos usuários. Com uso de ferramentas eficientes e uma interface intuitiva, buscando transformar a experiência dos empregados e empregadores durante o recrutamento.
+
+## Tecnologias Usadas
+O sistema foi desenvolvido em serviços, com um Cliente interagindo diretamente como uma API, assim ambos podem ser dockerizados e dispostos em multiplos serviços e abre-se a possibilidade de clientes multiplataforma.
+O Cliente da aplicação foi desenvolvido em Typescript, baseado na biblioteca React e com o empacotador de modulos Vite para sua transpilação em HTML e Javascript comum para ter um site leve e rápido para o cliente.
+A API foi desenvolvida em Javascript, baseada no framework Express e a biblioteca Mongoose para interação com o banco de dados não relacional MongoDB, e autentica os usuário a partir de tokens JWT e usuários comuns com o uso da API do google.
+
+## Instalação
+Tanto o Cliente como a API rodam em cima do runtime para Javascript [Node](https://nodejs.org/pt-br/) e do instalador de pacotes NPM embutido nele durante a instalação, que pode ser visualizado [aqui](resources/how-to-install.md)
+
 Para iniciar o desenvolvimento do projeto em sua máquina é necessário rodar os seguintes comandos:
 
 ```
