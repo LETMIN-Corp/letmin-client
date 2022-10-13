@@ -188,14 +188,6 @@ const CompanyVacancyDetail: React.FC = () => {
                                             disabled={!canEdit}
                                         />
                                     </div>
-                                    {
-                                        canEdit && (
-                                            <div className='flex justify-between md:justify-end w-full'>
-                                                <button onClick={ getDBVacancyData } className='bg-gray text-black w-2/12 min-w-sm py-2 rounded-md'>Cancelar</button>
-                                                <button onClick={ updateVacancyData } className='bg-primary text-white w-2/12 min-w-sm py-2 rounded-md ml-2'>Salvar</button>
-                                            </div>
-                                        )
-                                    }
                                 </div>
                                 {canEdit && (
                                     <>
