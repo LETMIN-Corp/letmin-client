@@ -1,7 +1,8 @@
-import { faBuilding, faGear } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { faBuilding, faGear } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import SelectInput from "../../Components/Inputs/SelectInput";
 
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
@@ -84,6 +85,7 @@ const CompanyVacancyDetail: React.FC = () => {
             if (res.data.success) {
                 company.dispatchSuccess(res.data.message);
                 getDBVacancyData();
+                setCanEdit(false);
             } else {
                 company.dispatchError(formatErrors(res.data.message));
             }
@@ -122,14 +124,7 @@ const CompanyVacancyDetail: React.FC = () => {
                                 </h2>
                                 <div className="md:flex md:justify-between">
                                     <div className="md:w-6/12 w-full mr-5">
-                                        <TextInput
-                                            placeholder="Setor"
-                                            type="text"
-                                            consultPackage={consultPackage}
-                                            name="sector"
-                                            id="sector"
-                                            disabled={!canEdit}
-                                        />
+                                    <SelectInput placeholder='Setor' options={["Recursos Humanos", "Tecnologia", "Administrativo", "Financeiro", "Operacional", "Comércio", "Serviços", "Saúde", "Industrial", "Construção"]} consultPackage={ consultPackage } name="sector" id='sector' disabled={ !canEdit } />
                                         <TextAreaInput
                                             name="description"
                                             id="description"
@@ -141,24 +136,9 @@ const CompanyVacancyDetail: React.FC = () => {
                                         />
                                     </div>
                                     <div className="md:w-6/12 w-full">
-                                        <TextInput
-                                            placeholder="Região"
-                                            type="text"
-                                            name="region"
-                                            id="region"
-                                            consultPackage={consultPackage}
-                                            disabled={!canEdit}
-                                        />
+                                    <SelectInput placeholder='Região' options={["Sul", "Sudeste", "Centro-Oeste", "Norte", "Nordeste"]} name='region' id='region' consultPackage={ consultPackage } disabled={ !canEdit } /> 
                                         <div className="md:flex justify-between">
-                                            <TextInput
-                                                placeholder="Moeda"
-                                                type="text"
-                                                size="medium"
-                                                name="currency"
-                                                id="currency"
-                                                consultPackage={consultPackage}
-                                                disabled={!canEdit}
-                                            />
+                                        <SelectInput placeholder='Moeda' options={["Real", "Dolar", "Euro"]} size='medium' consultPackage={ consultPackage } name="currency" id="currency" disabled={ !canEdit } />
                                             <TextInput
                                                 placeholder="Salário"
                                                 useMask={MaskTypesEnum.money}
@@ -171,39 +151,9 @@ const CompanyVacancyDetail: React.FC = () => {
                                                 disabled={!canEdit}
                                             />
                                         </div>
-                                        <TextInput
-                                            placeholder="Carga Horária"
-                                            type="text"
-                                            consultPackage={consultPackage}
-                                            name="workload"
-                                            id="workload"
-                                            disabled={!canEdit}
-                                        />
-                                        <TextInput
-                                            placeholder="Tipo de Contratação"
-                                            type="text"
-                                            consultPackage={consultPackage}
-                                            name="type"
-                                            id="type"
-                                            disabled={!canEdit}
-                                        />
+                                        <SelectInput placeholder='Carga Horária' options={["Integral", "Meio Período", "Home Office"]} consultPackage={ consultPackage } name="workload" id='workload' disabled={ !canEdit } />
+                                        <SelectInput placeholder='Tipo de Contratação' options={["Estágio", "Permanente", "Temporário"]} consultPackage={ consultPackage } name="type" id='type' disabled={ !canEdit } />
                                     </div>
-                                    {canEdit && (
-                                        <div className="flex justify-between md:justify-end w-full">
-                                            <button
-                                                onClick={getDBVacancyData}
-                                                className="bg-gray text-black w-2/12 min-w-sm py-2 rounded-md"
-                                            >
-                                                Cancelar
-                                            </button>
-                                            <button
-                                                onClick={updateVacancyData}
-                                                className="bg-primary text-white w-2/12 min-w-sm py-2 rounded-md ml-2"
-                                            >
-                                                Salvar
-                                            </button>
-                                        </div>
-                                    )}
                                 </div>
                                 {canEdit && (
                                     <>
