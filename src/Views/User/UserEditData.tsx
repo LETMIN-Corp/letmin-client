@@ -21,78 +21,47 @@ import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
 
-interface Iformation {
-    name: string;
-    institution: string;
-    start: string;
-    finish: string;
-    description: string;
+class Iformation {
+    name: string = '';
+    institution: string = '';
+    start: string = '';
+    finish: string = '';
+    description: string = '';
 }
 
-interface Iexperience {
-    role: string;
-    company: string;
-    start: string;
-    finish: string;
-    description: string;
+class Iexperience {
+    role: string = '';
+    company: string = '';
+    start: string = '';
+    finish: string = '';
+    description: string = '';
 }
 
-class UserTypedData {
-    createdAt = '';
-    name = '';
-    role = '';
-    description = '';
-    email = '';
-    username = '';
-    picture = '';
-    experience: Iexperience = {
-        role: '',
-            company: '',
-            start: '',
-            finish: '',
-            description: '',
-    };
-    formation: Iformation = {
-        name: '',
-        institution: '',
-        start: '',
-        finish: '',
-        description: '',
-    };
-    //[key: string]: any;
+class BasicUserData {
+    createdAt: string = '';
+    name: string = '';
+    role: string = '';
+    description: string = '';
+    email: string = '';
+    username: string = '';
+    picture: string = '';
 }
 
-class UserData {
-    createdAt = '';
-    name = '';
-    role = '';
-    description = '';
-    email = '';
-    username = '';
-    picture = '';
-    experiences: Array<Iexperience> = [
-        {
-            role: '',
-            company: '',
-            start: '',
-            finish: '',
-            description: '',
-        }
-    ];
-    formations: Array<Iformation> = [
-        {
-            name: '',
-            institution: '',
-            start: '',
-            finish: '',
-            description: '',
-        }
-    ];
-    //[key: string]: any;
+class UserTypedData extends BasicUserData {
+    experience: Iexperience = new Iexperience();
+    formation: Iformation = new Iformation();
+    [key: string]: any;
+}
+
+class UserData extends BasicUserData {
+    experiences: Array<Iexperience> = [ new Iexperience() ];
+    formations: Array<Iformation> = [ new Iformation() ];
+    [key: string]: any;
 }
 
 interface CanExclude {
-    [key: string]: boolean;
+    experiences: boolean;
+    formations: boolean;
 }
 
 const UserEditData: React.FC = () => {
@@ -103,19 +72,12 @@ const UserEditData: React.FC = () => {
     const [userData, setUserData] = useState<UserData>(new UserData());
     const [userTypedData, setUserTypedData] = useState<UserTypedData>(new UserTypedData());
 
-    useEffect(() => {
-        //userTypedData.experience = {} as Iexperience;
-        //userTypedData.formation = {} as Iformation;
-    }, []);
-
     function getDBUserData() {
         user.getUserData().then((res: any) => {
             if (res.status != 200) {
                 navigate('/user/profile');
             }
-
             setUserData(res.data.user);
-            setUserTypedData(res.data.user);
         });
     }
 
@@ -128,7 +90,7 @@ const UserEditData: React.FC = () => {
         useState(false); /* Modal de confirmar para sair da página */
     const [modalSaveConfirmationIsOpen, setModalSaveConfirmationIsOpen] =
         useState(false); /* Modal de confirmar para salvar os dados */
-    const [XPModalIsOpen, setXPModalIsOpen] =
+    const [ExpModalIsOpen, setExpModalIsOpen] =
         useState(false); /* Modal de adicionar dados */
     const [formationModalIsOpen, setFormationModalIsOpen] =
         useState(false); /* Modal de adicionar dados */
@@ -155,16 +117,16 @@ const UserEditData: React.FC = () => {
     ): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-'); //experience-role  -> experience role
-
         if (data == undefined) {
-            setUserData({
-                ...userData,
-                [name]: value,
-            });
+            setUserData({ ...userData, [name]: value, });
+            setUserTypedData({ ...userTypedData, [name]: value, });
         } else {
             setUserTypedData({
                 ...userTypedData,
-                [type]: { ...userTypedData[type], [data]: value },
+                [type]: {
+                    ...userTypedData[type],
+                    [data]: value,
+                },
             });
         }
     }
@@ -172,67 +134,72 @@ const UserEditData: React.FC = () => {
     function updateUserData() {
         user.updateUser(userData).then((res: any) => {
             if (res.status === 200) {
-                dispatchSuccess('Os dados do usuário foram atualizados com sucesso!');
+                dispatchSuccess(res.data.message);
                 navigate('/user/profile');
             } else dispatchError(formatErrors(res.data.message));
         });
     }
 
-    const handleConfirmAddXp = () => {
-        console.log('z', userTypedData.experience)
+    const checkExperienceData = () => {
         user.checkNewExperience(userTypedData.experience).then((res: any) => {
             if (res.status == 200) {
-                userData.experiences.push(userTypedData.experience);
-                userTypedData.experience = {} as Iexperience;
-                return setXPModalIsOpen(false);
+                setUserData({
+                    ...userData,
+                    experiences: [...userData.experiences, userTypedData.experience],
+                })
+                setUserTypedData({
+                    ...userTypedData,
+                    experience: new Iexperience(),
+                });
+                
+                return setExpModalIsOpen(false);
             }
-            dispatchError(formatErrors(res.data.message));
-            console.log('erro', res.data);
-            return;
+            return dispatchError(formatErrors(res.data.message));
         });
         
-    };
-
-    const handleCloseModalAddXp = () => {
-        setXPModalIsOpen(false);
     };
 
     function flipExclude(property: string) {
         setCanExclude({
             ...canExclude,
-            [property]: !canExclude[property],
+            [property]: !canExclude[property as keyof CanExclude],
         });
     }
 
     function excludeFormation(id: number) {
         if (canExclude.formations) {
-            userData.formations.splice(id, 1);
-            setUserData(userData);
+            setUserData({
+                ...userData,
+                formations: userData.formations.filter((formation, index) => index != id),
+            });
         }
     }
 
     function excludeExperience(id: number) {
         if (canExclude.experiences) {
-            userData.experiences.splice(id, 1);
-            setUserData(userData);
+            setUserData({
+                ...userData,
+                experiences: userData.experiences.filter((experience, index) => index != id),
+            });
         }
     }
 
-    const handleConfirmAddFormation = () => {
+    const checkFormationData = () => {
         user.checkNewFormation(userTypedData.formation).then((res: any) => {
             if (res.status == 200) {
-                userData.formations.push(userTypedData.formation);
-                userTypedData.formation = {} as Iformation;   
+                setUserData({
+                    ...userData,
+                    formations: [...userData.formations, userTypedData.formation],
+                })
+                setUserTypedData({
+                    ...userTypedData,
+                    formation: new Iformation(),
+                });
+
                 return setFormationModalIsOpen(false);
             }
-            dispatchError(formatErrors(res.data.message));
-            console.log('erro', res.data);
-            return;
+            return dispatchError(formatErrors(res.data.message));
         });
-    };
-
-    const handleCloseModalAddFormation = () => {
-        setFormationModalIsOpen(false);
     };
 
     const consultPackage = {
@@ -329,15 +296,15 @@ const UserEditData: React.FC = () => {
                                     />
                                 </button>
                                 <button
-                                    onClick={() => setXPModalIsOpen(true)}
+                                    onClick={() => setExpModalIsOpen(true)}
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={faPlus} />
                                 </button>
-                                {XPModalIsOpen && (
+                                {ExpModalIsOpen && (
                                     <FormModal
-                                        handleClose={handleCloseModalAddXp}
-                                        handleConfirm={handleConfirmAddXp}
+                                        handleClose={ () => setExpModalIsOpen(!ExpModalIsOpen) }
+                                        handleConfirm={checkExperienceData}
                                         title="Adicionar Experiência Prévia"
                                     >
                                         <div className="my-2">
@@ -348,7 +315,6 @@ const UserEditData: React.FC = () => {
                                                 limit={30}
                                                 id="experience-role"
                                                 consultPackage={consultPackage}
-                                                required
                                             />
                                             <TextInput
                                                 type={InputTypesEnum.text}
@@ -357,7 +323,6 @@ const UserEditData: React.FC = () => {
                                                 limit={30}
                                                 id="experience-company"
                                                 consultPackage={consultPackage}
-                                                required
                                             />
                                             <div className="block md:flex justify-between">
                                                 <TextInput
@@ -366,10 +331,11 @@ const UserEditData: React.FC = () => {
                                                     placeholder="Ano de Início"
                                                     size="medium"
                                                     limit={4}
+                                                    min={1900}
+                                                    max={new Date().getFullYear()}
                                                     name="experience-start"
                                                     id="experience-start"
                                                     consultPackage={consultPackage}
-                                                    required
                                                 />
                                                 <TextInput
                                                     type={InputTypesEnum.number}
@@ -377,10 +343,11 @@ const UserEditData: React.FC = () => {
                                                     placeholder="Ano de Término"
                                                     size="medium"
                                                     limit={4}
+                                                    min={1900}
+                                                    max={new Date().getFullYear()}
                                                     name="experience-finish"
                                                     id="experience-finish"
                                                     consultPackage={consultPackage}
-                                                    required
                                                 />
                                             </div>
                                             <TextInput
@@ -390,7 +357,6 @@ const UserEditData: React.FC = () => {
                                                 limit={128}
                                                 id="experience-description"
                                                 consultPackage={consultPackage}
-                                                required
                                             />
                                         </div>
                                     </FormModal>
@@ -434,8 +400,8 @@ const UserEditData: React.FC = () => {
                                 </button>
                                 {formationModalIsOpen && (
                                     <FormModal
-                                        handleClose={handleCloseModalAddFormation}
-                                        handleConfirm={handleConfirmAddFormation}
+                                        handleClose={() => setFormationModalIsOpen(!formationModalIsOpen)}
+                                        handleConfirm={checkFormationData}
                                         title="Adicionar Formação Acadêmica"
                                     >
                                         <div className="my-2">
@@ -446,7 +412,6 @@ const UserEditData: React.FC = () => {
                                                 limit={30}
                                                 id="formation-name"
                                                 consultPackage={consultPackage}
-                                                required
                                             />
                                             <TextInput
                                                 type={InputTypesEnum.text}
@@ -455,7 +420,6 @@ const UserEditData: React.FC = () => {
                                                 limit={30}
                                                 id="formation-institution"
                                                 consultPackage={consultPackage}
-                                                required
                                             />
                                             <div className="block md:flex justify-between">
                                                 <TextInput
@@ -469,7 +433,6 @@ const UserEditData: React.FC = () => {
                                                     min={4}
                                                     max={4}
                                                     consultPackage={consultPackage}
-                                                    required
                                                 />
                                                 <TextInput
                                                     type={InputTypesEnum.number}
@@ -482,7 +445,6 @@ const UserEditData: React.FC = () => {
                                                     min={4}
                                                     max={4}
                                                     consultPackage={consultPackage}
-                                                    required
                                                 />
                                             </div>
                                             <TextInput
@@ -492,7 +454,6 @@ const UserEditData: React.FC = () => {
                                                 limit={128}
                                                 id="formation-description"
                                                 consultPackage={consultPackage}
-                                                required
                                             />
                                         </div>
                                     </FormModal>

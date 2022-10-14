@@ -26,7 +26,6 @@ const UserExperienceCard: React.FC<ComponentInterface> = ({
             exclude();
         }
     }
-    console.log(card);
     return (
         <div
             className={
