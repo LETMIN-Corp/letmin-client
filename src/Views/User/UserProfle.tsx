@@ -1,4 +1,4 @@
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -11,16 +11,35 @@ import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
 
-interface IUserData {
-    createdAt: string;
-    name: string;
-    role: string;
-    description: string;
-    email: string;
-    username: string;
-    picture: string;
-    formations: Array<any>;
-    experiences: Array<any>;
+class Iformation {
+    name: string = '';
+    institution: string = '';
+    start: string = '';
+    finish: string = '';
+    description: string = '';
+}
+
+class Iexperience {
+    role: string = '';
+    company: string = '';
+    start: string = '';
+    finish: string = '';
+    description: string = '';
+}
+
+class BasicUserData {
+    createdAt: string = '';
+    name: string = '';
+    role: string = '';
+    description: string = '';
+    email: string = '';
+    username: string = '';
+    picture: string = '';
+}
+
+class IUserData extends BasicUserData {
+    experiences: Array<Iexperience> = [ new Iexperience() ];
+    formations: Array<Iformation> = [ new Iformation() ];
     [key: string]: any;
 }
 
@@ -28,33 +47,7 @@ const UserProfile: React.FC = () => {
     const { loading } = useLoading();
     const user = useUser();
 
-    const [userData, setUserData] = useState<IUserData>({
-        createdAt: '',
-        name: '',
-        role: '',
-        description: '',
-        email: '',
-        username: '',
-        picture: '',
-        formations: [
-            {
-                name: '',
-                institution: '',
-                start: '',
-                finish: '',
-                description: '',
-            },
-        ],
-        experiences: [
-            {
-                role: '',
-                company: '',
-                start: '',
-                finish: '',
-                description: '',
-            },
-        ],
-    });
+    const [userData, setUserData] = useState<IUserData>(new IUserData());
 
     useEffect((): void => {
         user.getUserData().then((res: any) => {
@@ -68,76 +61,6 @@ const UserProfile: React.FC = () => {
     }, []);
 
     const [openModal, setOpenModal] = useState(false);
-
-    interface XPInterface {
-        [key: number]: {
-            name: string;
-            institution: string;
-            start: string;
-            finish: string;
-            description: string;
-        };
-        [Symbol.iterator]: () => IterableIterator<{
-            name: string;
-            institution: string;
-            start: string;
-            finish: string;
-            description: string;
-        }>;
-        length: number;
-
-        filter(
-            arg0: (experience: { title: string }) => boolean,
-        ): import('react').SetStateAction<XPInterface>;
-    }
-    const [searchExperiences, setSearchExperiences] = useState('');
-    const [allExperiences, setAllExperiences] = useState<XPInterface>([]);
-    const [experiences, setExperiences] = useState<XPInterface>([]);
-
-    const filterExperiences = (value: string) => {
-        if (value.length === 0) {
-            setExperiences(allExperiences);
-            return;
-        }
-
-        setExperiences(
-            allExperiences.filter((folder: { title: string }) =>
-                folder.title.toLowerCase().includes(value.toLowerCase()),
-            ),
-        );
-    };
-    useEffect((): void => {
-        filterExperiences(searchExperiences);
-    }, [searchExperiences]);
-
-    interface FormationInterface {
-        [key: number]: {
-            name: string;
-            institution: string;
-            start: string;
-            finish: string;
-            description: string;
-        };
-        [Symbol.iterator]: () => IterableIterator<{
-            name: string;
-            institution: string;
-            start: string;
-            finish: string;
-            description: string;
-        }>;
-        length: number;
-
-        filter(
-            arg0: (experience: { title: string }) => boolean,
-        ): import('react').SetStateAction<FormationInterface>;
-    }
-    const [searchFormations, setSearchFormations] = useState('');
-
-    const filterFormations = (value: string) => {
-        if (value.length === 0) {
-            return;
-        }
-    };
 
     return (
         <UserDefault>
@@ -169,58 +92,88 @@ const UserProfile: React.FC = () => {
                         </div>
                         <div className="mt-5 md:mt-10 mb-5 mx-5">
                             <div className="font-bold text-2xl text-dark-purple">
-                                {userData.name || 'Nome do Usuário'}
+                                { userData.name || 'Nome do Usuário' }
                             </div>
-                            <div className="text-lg text-justify">{userData.role}</div>
+                            <div className="text-lg text-justify text-dark-gray">
+                                { userData.role }
+                            </div>
                         </div>
                     </main>
-                    {userData.description && (
-                        <section className="px-5 mb-5">
-                            <div className="font-medium text-xl text-dark-purple">
-                                Descrição
+                    {
+                        !userData.description && !userData.experiences.length && !userData.formations.length && (
+                            <div className='px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl'>
+                                <FontAwesomeIcon icon={ faWarning } className='mr-2 text-5xl' />
+                                <span className='text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1'>Você ainda não tem dados cadastrados!</span>
                             </div>
-                            <div className="text-lg text-justify">
-                                {userData.description}
-                            </div>
-                        </section>
-                    )}
-                    {!!userData.experiences.length && (
-                        <section className="px-5 mb-5">
-                            <div className="font-medium text-xl text-dark-purple mb-2">
-                                Experiências Profissionais
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {[...userData.experiences].map((card, key) => (
-                                    <UserExperienceCard key={key} card={card} />
-                                ))}
-                            </div>
-                        </section>
-                    )}
-                    {!!userData.formations.length && (
-                        <section className="px-5 mb-5">
-                            <div className="font-medium text-xl text-dark-purple mb-2">
-                                Formação Acadêmica
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {[...userData.formations].map((card, key) => (
-                                    <UserExperienceCard key={key} card={card} />
-                                ))}
-                            </div>
-                        </section>
-                    )}
-                    {openModal && (
-                        <InfoModal
-                            title="Informações"
-                            handleClose={() => setOpenModal(false)}
-                        >
-                            <span className="text-justify">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Eos nemo nulla soluta rem maxime perferendis laborum quia
-                                fugiat, inventore minus nisi incidunt doloremque id
-                                impedit necessitatibus hic voluptas expedita. Nemo!
-                            </span>
-                        </InfoModal>
-                    )}
+                        )
+                    }
+                    {
+                        userData.description && (
+                            <section className="px-5 mb-5">
+                                <div className="font-medium text-xl text-dark-purple">
+                                    Descrição
+                                </div>
+                                <div className="text-lg text-justify">
+                                    {userData.description}
+                                </div>
+                            </section>
+                        )
+                    }
+                    {
+                        !!userData.experiences.length && (
+                            <section className="px-5 mb-5">
+                                <div className="font-medium text-xl text-dark-purple mb-2">
+                                    Experiências Profissionais
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {
+                                        userData.experiences.map((card, key) => (
+                                            <UserExperienceCard key={key} card={card} />
+                                        ))
+                                    }
+                                </div>
+                            </section>
+                        )
+                    }
+                    {
+                        !!userData.formations.length && (
+                            <section className="px-5 mb-5">
+                                <div className="font-medium text-xl text-dark-purple mb-2">
+                                    Formação Acadêmica
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {
+                                    userData.formations.map((card, key) => (
+                                        <UserExperienceCard key={key} card={card} />
+                                        ))
+                                    }
+                                </div>
+                            </section>
+                        )
+                    }
+                    <div className="px-5 text-sm md:text-md text-dark-gray">
+                        <span className='mr-1'>Usuário desde</span>
+                        {
+                            new Date(userData.createdAt).toLocaleDateString(
+                                'pt-BR',
+                            )
+                        }
+                    </div>
+                    {
+                        openModal && (
+                            <InfoModal
+                                title="Informações"
+                                handleClose={() => setOpenModal(false)}
+                            >
+                                <span className="text-justify">
+                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                    Eos nemo nulla soluta rem maxime perferendis laborum quia
+                                    fugiat, inventore minus nisi incidunt doloremque id
+                                    impedit necessitatibus hic voluptas expedita. Nemo!
+                                </span>
+                            </InfoModal>
+                        )
+                    }
                 </div>
             )}
         </UserDefault>
