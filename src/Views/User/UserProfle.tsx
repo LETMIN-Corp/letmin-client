@@ -11,16 +11,35 @@ import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
 
-interface IUserData {
-    createdAt: string;
-    name: string;
-    role: string;
-    description: string;
-    email: string;
-    username: string;
-    picture: string;
-    formations: Array<any>;
-    experiences: Array<any>;
+class Iformation {
+    name: string = '';
+    institution: string = '';
+    start: string = '';
+    finish: string = '';
+    description: string = '';
+}
+
+class Iexperience {
+    role: string = '';
+    company: string = '';
+    start: string = '';
+    finish: string = '';
+    description: string = '';
+}
+
+class BasicUserData {
+    createdAt: string = '';
+    name: string = '';
+    role: string = '';
+    description: string = '';
+    email: string = '';
+    username: string = '';
+    picture: string = '';
+}
+
+class IUserData extends BasicUserData {
+    experiences: Array<Iexperience> = [ new Iexperience() ];
+    formations: Array<Iformation> = [ new Iformation() ];
     [key: string]: any;
 }
 
@@ -28,33 +47,7 @@ const UserProfile: React.FC = () => {
     const { loading } = useLoading();
     const user = useUser();
 
-    const [userData, setUserData] = useState<IUserData>({
-        createdAt: '',
-        name: '',
-        role: '',
-        description: '',
-        email: '',
-        username: '',
-        picture: '',
-        formations: [
-            {
-                name: '',
-                institution: '',
-                start: '',
-                finish: '',
-                description: '',
-            },
-        ],
-        experiences: [
-            {
-                role: '',
-                company: '',
-                start: '',
-                finish: '',
-                description: '',
-            },
-        ],
-    });
+    const [userData, setUserData] = useState<IUserData>(new IUserData());
 
     useEffect((): void => {
         user.getUserData().then((res: any) => {
@@ -68,76 +61,6 @@ const UserProfile: React.FC = () => {
     }, []);
 
     const [openModal, setOpenModal] = useState(false);
-
-    interface XPInterface {
-        [key: number]: {
-            name: string;
-            institution: string;
-            start: string;
-            finish: string;
-            description: string;
-        };
-        [Symbol.iterator]: () => IterableIterator<{
-            name: string;
-            institution: string;
-            start: string;
-            finish: string;
-            description: string;
-        }>;
-        length: number;
-
-        filter(
-            arg0: (experience: { title: string }) => boolean,
-        ): import('react').SetStateAction<XPInterface>;
-    }
-    const [searchExperiences, setSearchExperiences] = useState('');
-    const [allExperiences, setAllExperiences] = useState<XPInterface>([]);
-    const [experiences, setExperiences] = useState<XPInterface>([]);
-
-    const filterExperiences = (value: string) => {
-        if (value.length === 0) {
-            setExperiences(allExperiences);
-            return;
-        }
-
-        setExperiences(
-            allExperiences.filter((folder: { title: string }) =>
-                folder.title.toLowerCase().includes(value.toLowerCase()),
-            ),
-        );
-    };
-    useEffect((): void => {
-        filterExperiences(searchExperiences);
-    }, [searchExperiences]);
-
-    interface FormationInterface {
-        [key: number]: {
-            name: string;
-            institution: string;
-            start: string;
-            finish: string;
-            description: string;
-        };
-        [Symbol.iterator]: () => IterableIterator<{
-            name: string;
-            institution: string;
-            start: string;
-            finish: string;
-            description: string;
-        }>;
-        length: number;
-
-        filter(
-            arg0: (experience: { title: string }) => boolean,
-        ): import('react').SetStateAction<FormationInterface>;
-    }
-    const [searchFormations, setSearchFormations] = useState('');
-
-    const filterFormations = (value: string) => {
-        if (value.length === 0) {
-            return;
-        }
-    };
 
     return (
         <UserDefault>
