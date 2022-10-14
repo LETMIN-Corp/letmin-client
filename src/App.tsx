@@ -94,7 +94,7 @@ function App() {
                         path="/user/vacancy/detail/:id"
                         element={<UserVacancyDetail />}
                     />
-                    <Route path="/user/combinations" element={<UserApply />} />
+                    <Route path="/user/applied" element={<UserApply />} />
                 </Route>
                 <Route element={<PrivateRoutes roles={[RoleEnum.Admin]} />}>
                     <Route path="/admin/*" element={<AdminError />} />

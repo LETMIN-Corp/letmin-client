@@ -9,7 +9,7 @@ const UserMenu: React.FC = () => {
         },
         {
             text: 'Candidaturas',
-            path: '/user/combinations',
+            path: '/user/applied',
             isLink: true,
         },
         {
