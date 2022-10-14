@@ -1,4 +1,4 @@
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -176,53 +176,81 @@ const UserProfile: React.FC = () => {
                             </div>
                         </div>
                     </main>
-                    {userData.description && (
-                        <section className="px-5 mb-5">
-                            <div className="font-medium text-xl text-dark-purple">
-                                Descrição
+                    {
+                        !userData.description && !userData.experiences.length && !userData.formations.length && (
+                            <div className='px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl'>
+                                <FontAwesomeIcon icon={ faWarning } className='mr-2 text-5xl' />
+                                <span className='text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1'>Você ainda não tem dados cadastrados!</span>
                             </div>
-                            <div className="text-lg text-justify">
-                                {userData.description}
-                            </div>
-                        </section>
-                    )}
-                    {!!userData.experiences.length && (
-                        <section className="px-5 mb-5">
-                            <div className="font-medium text-xl text-dark-purple mb-2">
-                                Experiências Profissionais
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {[...userData.experiences].map((card, key) => (
-                                    <UserExperienceCard key={key} card={card} />
-                                ))}
-                            </div>
-                        </section>
-                    )}
-                    {!!userData.formations.length && (
-                        <section className="px-5 mb-5">
-                            <div className="font-medium text-xl text-dark-purple mb-2">
-                                Formação Acadêmica
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {[...userData.formations].map((card, key) => (
-                                    <UserExperienceCard key={key} card={card} />
-                                ))}
-                            </div>
-                        </section>
-                    )}
-                    {openModal && (
-                        <InfoModal
-                            title="Informações"
-                            handleClose={() => setOpenModal(false)}
-                        >
-                            <span className="text-justify">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                Eos nemo nulla soluta rem maxime perferendis laborum quia
-                                fugiat, inventore minus nisi incidunt doloremque id
-                                impedit necessitatibus hic voluptas expedita. Nemo!
-                            </span>
-                        </InfoModal>
-                    )}
+                        )
+                    }
+                    {
+                        userData.description && (
+                            <section className="px-5 mb-5">
+                                <div className="font-medium text-xl text-dark-purple">
+                                    Descrição
+                                </div>
+                                <div className="text-lg text-justify">
+                                    {userData.description}
+                                </div>
+                            </section>
+                        )
+                    }
+                    {
+                        !!userData.experiences.length && (
+                            <section className="px-5 mb-5">
+                                <div className="font-medium text-xl text-dark-purple mb-2">
+                                    Experiências Profissionais
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {
+                                        userData.experiences.map((card, key) => (
+                                            <UserExperienceCard key={key} card={card} />
+                                        ))
+                                    }
+                                </div>
+                            </section>
+                        )
+                    }
+                    {
+                        !!userData.formations.length && (
+                            <section className="px-5 mb-5">
+                                <div className="font-medium text-xl text-dark-purple mb-2">
+                                    Formação Acadêmica
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {
+                                    userData.formations.map((card, key) => (
+                                        <UserExperienceCard key={key} card={card} />
+                                        ))
+                                    }
+                                </div>
+                            </section>
+                        )
+                    }
+                    <div className="px-5 text-sm md:text-md text-dark-gray">
+                        <span className='mr-1'>Usuário desde</span>
+                        {
+                            new Date(userData.createdAt).toLocaleDateString(
+                                'pt-BR',
+                            )
+                        }
+                    </div>
+                    {
+                        openModal && (
+                            <InfoModal
+                                title="Informações"
+                                handleClose={() => setOpenModal(false)}
+                            >
+                                <span className="text-justify">
+                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                    Eos nemo nulla soluta rem maxime perferendis laborum quia
+                                    fugiat, inventore minus nisi incidunt doloremque id
+                                    impedit necessitatibus hic voluptas expedita. Nemo!
+                                </span>
+                            </InfoModal>
+                        )
+                    }
                 </div>
             )}
         </UserDefault>
