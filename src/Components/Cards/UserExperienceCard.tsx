@@ -26,7 +26,7 @@ const UserExperienceCard: React.FC<ComponentInterface> = ({
             exclude();
         }
     }
-
+    console.log(card);
     return (
         <div
             className={
@@ -37,7 +37,7 @@ const UserExperienceCard: React.FC<ComponentInterface> = ({
             }
             onClick={(e) => excludeItem(e)}
         >
-            <div className="text-white break-all bg-bright-purple p-3 flex justify-between rounded-t-md">
+            <div className="text-white break-all text-sm bg-bright-purple p-3 flex justify-between rounded-t-md">
                 <div className="font-medium">{card.name || card.role}</div>
                 <div className="font-medium">{card.institution || card.company}</div>
             </div>
