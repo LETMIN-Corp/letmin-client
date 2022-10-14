@@ -90,7 +90,9 @@ const UserEditData: React.FC = () => {
         useState(false); /* Modal de confirmar para sair da página */
     const [modalSaveConfirmationIsOpen, setModalSaveConfirmationIsOpen] =
         useState(false); /* Modal de confirmar para salvar os dados */
-    const [ExpModalIsOpen, setExpModalIsOpen] =
+    const [skillModalIsOpen, setSkillModalIsOpen] =
+        useState(false); /* Modal de adicionar dados */
+        const [ExpModalIsOpen, setExpModalIsOpen] =
         useState(false); /* Modal de adicionar dados */
     const [formationModalIsOpen, setFormationModalIsOpen] =
         useState(false); /* Modal de adicionar dados */
@@ -279,6 +281,111 @@ const UserEditData: React.FC = () => {
                             </div>
                         </div>
                     </main>
+                    <section className="px-5 my-10">
+                        <div className="mt-24 md:my-4 flex justify-between items-center w-full mb-2">
+                            <div className="font-medium md:text-xl text-dark-purple">
+                                Habilidades
+                            </div>
+                            <div>
+                                <button
+                                    onClick={ () => flipExclude('formations') }
+                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                >
+                                    <FontAwesomeIcon
+                                        icon={
+                                            canExclude.formations
+                                                ? faTrashArrowUp
+                                                : faTrash
+                                        }
+                                    />
+                                </button>
+                                <button
+                                    onClick={ () => setSkillModalIsOpen(true) }
+                                    className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
+                                >
+                                    <FontAwesomeIcon icon={ faPlus } />
+                                </button>
+                                {skillModalIsOpen && (
+                                    <FormModal
+                                        handleClose={() => setSkillModalIsOpen(!skillModalIsOpen)}
+                                        handleConfirm={checkFormationData}
+                                        title="Adicionar Habilidade"
+                                    >
+                                        <div className="my-2">
+                                            <TextInput
+                                                type={ InputTypesEnum.text }
+                                                placeholder="Nome"
+                                                name="name"
+                                                limit={ 30 }
+                                                id="name"
+                                                consultPackage={ consultPackage }
+                                            />
+                                            <div>
+                                                <div>
+                                                    <input
+                                                        type="radio"
+                                                        onChange={(e) => setInputValue(e)}
+                                                        className="mr-2 cursor-pointer"
+                                                        value="Iniciante"
+                                                        id="starter"
+                                                        name="level"
+                                                    ></input>
+                                                    <label
+                                                        className="text-lg cursor-pointer"
+                                                        htmlFor="starter"
+                                                    >
+                                                        Iniciante
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input
+                                                        type="radio"
+                                                        onChange={(e) => setInputValue(e)}
+                                                        className="mr-2 cursor-pointer"
+                                                        value="Intermediário"
+                                                        id="intermediate"
+                                                        name="level"
+                                                    ></input>
+                                                    <label
+                                                        className="text-lg cursor-pointer"
+                                                        htmlFor="intermediate"
+                                                    >
+                                                        Intermediário
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <input
+                                                        type="radio"
+                                                        onChange={(e) => setInputValue(e)}
+                                                        className="mr-2 cursor-pointer"
+                                                        value="Avançado"
+                                                        id="advanced"
+                                                        name="level"
+                                                    ></input>
+                                                    <label
+                                                        className="text-lg cursor-pointer"
+                                                        htmlFor="advanced"
+                                                    >
+                                                        Avançado
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </FormModal>
+                                )}
+                            </div>
+                        </div>
+                        <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {userData.formations.map((card, key) => (
+                                <UserExperienceCard
+                                    key={key}
+                                    card={card}
+                                    canExclude={canExclude.formations}
+                                    exclude={() => excludeFormation(key)}
+                                />
+                            ))}
+                        </div>
+                    </section>
                     <section className="px-5 mt-10">
                         <div className="mt-24 md:my-4 flex justify-between items-center w-full mb-2">
                             <div className="font-medium md:text-xl text-dark-purple">
@@ -365,6 +472,11 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
+                        {/* {
+                            !!userData.experiences.length && (
+                                <div>Você não tem experiências cadastradas</div>
+                            )
+                        } */}
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {
                                 userData.experiences.map((card, key) => (
