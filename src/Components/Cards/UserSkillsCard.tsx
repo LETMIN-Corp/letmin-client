@@ -25,7 +25,7 @@ const UserSkillCard: React.FC<ComponentInterface> = ({
             }
             onClick={ exclude }
         >
-            <div className="text-white break-all text-sm bg-bright-purple p-3 flex justify-between rounded mr-2 mb-2">
+            <div className="text-white break-all text-sm bg-bright-purple p-3 flex justify-between rounded">
                 <div className="font-medium">{card.name} - {card.level}</div>
             </div>
         </div>
