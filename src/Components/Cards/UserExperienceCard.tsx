@@ -12,7 +12,7 @@ interface ComponentInterface {
         description: string;
     };
     canExclude?: boolean;
-    exclude: () => void;
+    exclude?: () => void;
 }
 
 const UserExperienceCard: React.FC<ComponentInterface> = ({

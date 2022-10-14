@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import UserExperienceCard from '../../Components/Cards/UserExperienceCard';
+import UserSkillCard from '../../Components/Cards/UserSkillsCard';
 import Loading from '../../Components/Items/Loading';
 import InfoModal from '../../Components/Modals/InfoModal';
 import { dispatchError } from '../../Utils/ToastMessages';
@@ -11,37 +12,12 @@ import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
 
-class Iformation {
-    name: string = '';
-    institution: string = '';
-    start: string = '';
-    finish: string = '';
-    description: string = '';
-}
-
-class Iexperience {
-    role: string = '';
-    company: string = '';
-    start: string = '';
-    finish: string = '';
-    description: string = '';
-}
-
-class BasicUserData {
-    createdAt: string = '';
-    name: string = '';
-    role: string = '';
-    description: string = '';
-    email: string = '';
-    username: string = '';
-    picture: string = '';
-}
-
-class IUserData extends BasicUserData {
-    experiences: Array<Iexperience> = [ new Iexperience() ];
-    formations: Array<Iformation> = [ new Iformation() ];
-    [key: string]: any;
-}
+import {
+    IUserData,
+    Iexperience,
+    Iformation,
+    Iskill,
+} from '../../Interfaces/UserInterfaces';
 
 const UserProfile: React.FC = () => {
     const { loading } = useLoading();
@@ -59,8 +35,6 @@ const UserProfile: React.FC = () => {
         });
         window.document.title = 'Letmin - Perfil';
     }, []);
-
-    const [openModal, setOpenModal] = useState(false);
 
     return (
         <UserDefault>
@@ -94,6 +68,9 @@ const UserProfile: React.FC = () => {
                             <div className="font-bold text-2xl text-dark-purple">
                                 { userData.name || 'Nome do Usuário' }
                             </div>
+                            <div className="text-sm text-dark-purple">
+                                @{ userData.username }
+                            </div>
                             <div className="text-lg text-justify text-dark-gray">
                                 { userData.role }
                             </div>
@@ -120,6 +97,23 @@ const UserProfile: React.FC = () => {
                         )
                     }
                     {
+                        !!userData.skills.length && (
+                            <section className="px-5 mb-5">
+                                <div className="font-medium text-xl text-dark-purple">
+                                    Habilidades
+                                </div>
+                                <div className="flex flex-wrap">
+                                    {
+                                        userData.skills.map((card: Iskill, index: number) => (
+                                            <UserSkillCard key={index} card={card} />
+                                        ))
+                                    }
+                                </div>
+                            </section>
+                        )
+
+                    }
+                    {
                         !!userData.experiences.length && (
                             <section className="px-5 mb-5">
                                 <div className="font-medium text-xl text-dark-purple mb-2">
@@ -127,7 +121,7 @@ const UserProfile: React.FC = () => {
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                     {
-                                        userData.experiences.map((card, key) => (
+                                        userData.experiences.map((card: Iexperience, key) => (
                                             <UserExperienceCard key={key} card={card} />
                                         ))
                                     }
@@ -143,7 +137,7 @@ const UserProfile: React.FC = () => {
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                     {
-                                    userData.formations.map((card, key) => (
+                                    userData.formations.map((card: Iformation, key) => (
                                         <UserExperienceCard key={key} card={card} />
                                         ))
                                     }
@@ -159,21 +153,6 @@ const UserProfile: React.FC = () => {
                             )
                         }
                     </div>
-                    {
-                        openModal && (
-                            <InfoModal
-                                title="Informações"
-                                handleClose={() => setOpenModal(false)}
-                            >
-                                <span className="text-justify">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                    Eos nemo nulla soluta rem maxime perferendis laborum quia
-                                    fugiat, inventore minus nisi incidunt doloremque id
-                                    impedit necessitatibus hic voluptas expedita. Nemo!
-                                </span>
-                            </InfoModal>
-                        )
-                    }
                 </div>
             )}
         </UserDefault>

@@ -13,19 +13,27 @@ const useUser = () => {
         loading,
     }: any = useContext(AuthContext);
 
-    const checkNewFormation = async (data: any) => {
+    const checkNewSkill = async (skill: any) => {
+        return await axiosRequest(
+            `${API_URL}/api/user/check-user-skills`,
+            'POST',
+            skill
+        )
+    }
+
+    const checkNewFormation = async (formation: any) => {
         return await axiosRequest(
             `${API_URL}/api/user/check-user-formations`,
             'POST',
-            data,
+            formation,
         );
     };
 
-    const checkNewExperience = async (data: any) => {
+    const checkNewExperience = async (formation: any) => {
         return await axiosRequest(
             `${API_URL}/api/user/check-user-experiences`,
             'POST',
-            data,
+            formation,
         );
     };
 
@@ -67,6 +75,7 @@ const useUser = () => {
         getVacancy,
         getCandidateVacancies,
         applyVacancy,
+        checkNewSkill,
         checkNewFormation,
         checkNewExperience,
         cancelApplyVacancy,

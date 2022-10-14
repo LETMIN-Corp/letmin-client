@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 import FormButton from '../../Components/Buttons/FormButton';
 import UserExperienceCard from '../../Components/Cards/UserExperienceCard';
+import UserSkillCard from '../../Components/Cards/UserSkillsCard';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
@@ -21,47 +22,19 @@ import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
 
-class Iformation {
-    name: string = '';
-    institution: string = '';
-    start: string = '';
-    finish: string = '';
-    description: string = '';
-}
+import {
+    IUserData,
+    UserTypedData,
+    Iexperience,
+    Iformation,
+    Iskill,
+} from '../../Interfaces/UserInterfaces';
 
-class Iexperience {
-    role: string = '';
-    company: string = '';
-    start: string = '';
-    finish: string = '';
-    description: string = '';
-}
-
-class BasicUserData {
-    createdAt: string = '';
-    name: string = '';
-    role: string = '';
-    description: string = '';
-    email: string = '';
-    username: string = '';
-    picture: string = '';
-}
-
-class UserTypedData extends BasicUserData {
-    experience: Iexperience = new Iexperience();
-    formation: Iformation = new Iformation();
-    [key: string]: any;
-}
-
-class UserData extends BasicUserData {
-    experiences: Array<Iexperience> = [ new Iexperience() ];
-    formations: Array<Iformation> = [ new Iformation() ];
-    [key: string]: any;
-}
 
 interface CanExclude {
     experiences: boolean;
     formations: boolean;
+    skills: boolean;
 }
 
 const UserEditData: React.FC = () => {
@@ -69,7 +42,7 @@ const UserEditData: React.FC = () => {
     const navigate = useNavigate();
     const user = useUser();
 
-    const [userData, setUserData] = useState<UserData>(new UserData());
+    const [userData, setUserData] = useState<IUserData>(new IUserData());
     const [userTypedData, setUserTypedData] = useState<UserTypedData>(new UserTypedData());
 
     function getDBUserData() {
@@ -92,7 +65,7 @@ const UserEditData: React.FC = () => {
         useState(false); /* Modal de confirmar para salvar os dados */
     const [skillModalIsOpen, setSkillModalIsOpen] =
         useState(false); /* Modal de adicionar dados */
-        const [ExpModalIsOpen, setExpModalIsOpen] =
+    const [ExpModalIsOpen, setExpModalIsOpen] =
         useState(false); /* Modal de adicionar dados */
     const [formationModalIsOpen, setFormationModalIsOpen] =
         useState(false); /* Modal de adicionar dados */
@@ -100,6 +73,7 @@ const UserEditData: React.FC = () => {
     const [canExclude, setCanExclude] = useState<CanExclude>({
         experiences: false,
         formations: false,
+        skills: false,
     });
 
     /* Utilizada pelo botão de retornar */
@@ -118,7 +92,7 @@ const UserEditData: React.FC = () => {
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
     ): void {
         const { name, value } = e.target;
-        const [type, data] = name.split('-'); //experience-role  -> experience role
+        const [type, data] = name.split('-'); //experience-role -> experience role
         if (data == undefined) {
             setUserData({ ...userData, [name]: value, });
             setUserTypedData({ ...userTypedData, [name]: value, });
@@ -141,24 +115,61 @@ const UserEditData: React.FC = () => {
             } else dispatchError(formatErrors(res.data.message));
         });
     }
+    
+    const checkSkillData = () => {
+        user.checkNewSkill(userTypedData.skill).then((res: any) => {
+            if (res.status !== 200) {
+                dispatchError(formatErrors(res.data.message));
+                return;
+            }
+            setUserData({
+                ...userData,
+                skills: [...userData.skills, userTypedData.skill],
+            })
+            setUserTypedData({
+                ...userTypedData,
+                skill: new Iskill(),
+            });
+
+            return setFormationModalIsOpen(false);
+        });
+    };
 
     const checkExperienceData = () => {
         user.checkNewExperience(userTypedData.experience).then((res: any) => {
-            if (res.status == 200) {
-                setUserData({
-                    ...userData,
-                    experiences: [...userData.experiences, userTypedData.experience],
-                })
-                setUserTypedData({
-                    ...userTypedData,
-                    experience: new Iexperience(),
-                });
-                
-                return setExpModalIsOpen(false);
+            if (res.status !== 200) {
+                return dispatchError(formatErrors(res.data.message));
             }
-            return dispatchError(formatErrors(res.data.message));
+
+            setUserData({
+                ...userData,
+                experiences: [...userData.experiences, userTypedData.experience],
+            })
+            setUserTypedData({
+                ...userTypedData,
+                experience: new Iexperience(),
+            });
+            
+            return setExpModalIsOpen(false);
         });
-        
+    };
+
+    const checkFormationData = () => {
+        user.checkNewFormation(userTypedData.formation).then((res: any) => {
+            if (res.status !== 200) {
+                return dispatchError(formatErrors(res.data.message));
+            }
+            setUserData({
+                ...userData,
+                formations: [...userData.formations, userTypedData.formation],
+            })
+            setUserTypedData({
+                ...userTypedData,
+                formation: new Iformation(),
+            });
+
+            return setFormationModalIsOpen(false);
+        });
     };
 
     function flipExclude(property: string) {
@@ -166,6 +177,15 @@ const UserEditData: React.FC = () => {
             ...canExclude,
             [property]: !canExclude[property as keyof CanExclude],
         });
+    }
+
+    function excludeSkill(id: number) {
+        if (canExclude.skills) {
+            setUserData({
+                ...userData,
+                skills: userData.skills.filter((skill, index) => index != id),
+            });
+        }
     }
 
     function excludeFormation(id: number) {
@@ -185,24 +205,6 @@ const UserEditData: React.FC = () => {
             });
         }
     }
-
-    const checkFormationData = () => {
-        user.checkNewFormation(userTypedData.formation).then((res: any) => {
-            if (res.status == 200) {
-                setUserData({
-                    ...userData,
-                    formations: [...userData.formations, userTypedData.formation],
-                })
-                setUserTypedData({
-                    ...userTypedData,
-                    formation: new Iformation(),
-                });
-
-                return setFormationModalIsOpen(false);
-            }
-            return dispatchError(formatErrors(res.data.message));
-        });
-    };
 
     const consultPackage = {
         getValue: getInputValue,
@@ -288,7 +290,7 @@ const UserEditData: React.FC = () => {
                             </div>
                             <div>
                                 <button
-                                    onClick={ () => flipExclude('formations') }
+                                    onClick={ () => flipExclude('skills') }
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
                                     <FontAwesomeIcon
@@ -308,14 +310,14 @@ const UserEditData: React.FC = () => {
                                 {skillModalIsOpen && (
                                     <FormModal
                                         handleClose={() => setSkillModalIsOpen(!skillModalIsOpen)}
-                                        handleConfirm={checkFormationData}
+                                        handleConfirm={checkSkillData}
                                         title="Adicionar Habilidade"
                                     >
                                         <div className="my-2">
                                             <TextInput
                                                 type={ InputTypesEnum.text }
                                                 placeholder="Nome"
-                                                name="name"
+                                                name="skill-name"
                                                 limit={ 30 }
                                                 id="name"
                                                 consultPackage={ consultPackage }
@@ -328,7 +330,7 @@ const UserEditData: React.FC = () => {
                                                         className="mr-2 cursor-pointer"
                                                         value="Iniciante"
                                                         id="starter"
-                                                        name="level"
+                                                        name="skill-level"
                                                     ></input>
                                                     <label
                                                         className="text-lg cursor-pointer"
@@ -344,7 +346,7 @@ const UserEditData: React.FC = () => {
                                                         className="mr-2 cursor-pointer"
                                                         value="Intermediário"
                                                         id="intermediate"
-                                                        name="level"
+                                                        name="skill-level"
                                                     ></input>
                                                     <label
                                                         className="text-lg cursor-pointer"
@@ -360,7 +362,7 @@ const UserEditData: React.FC = () => {
                                                         className="mr-2 cursor-pointer"
                                                         value="Avançado"
                                                         id="advanced"
-                                                        name="level"
+                                                        name="skill-level"
                                                     ></input>
                                                     <label
                                                         className="text-lg cursor-pointer"
@@ -376,12 +378,12 @@ const UserEditData: React.FC = () => {
                             </div>
                         </div>
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                            {userData.formations.map((card, key) => (
-                                <UserExperienceCard
+                            {userData.skills.map((card, key) => (
+                                <UserSkillCard
                                     key={key}
                                     card={card}
-                                    canExclude={canExclude.formations}
-                                    exclude={() => excludeFormation(key)}
+                                    canExclude={canExclude.skills}
+                                    exclude={() => excludeSkill(key)}
                                 />
                             ))}
                         </div>
