@@ -12,7 +12,7 @@ interface ComponentInterface {
         description: string;
     };
     canExclude?: boolean;
-    exclude?: () => void;
+    exclude: () => void;
 }
 
 const UserExperienceCard: React.FC<ComponentInterface> = ({
@@ -20,12 +20,6 @@ const UserExperienceCard: React.FC<ComponentInterface> = ({
     canExclude,
     exclude,
 }) => {
-    function excludeItem(e: any) {
-        if (canExclude && exclude) {
-            e.currentTarget.classList.add(`hidden`);
-            exclude();
-        }
-    }
     return (
         <div
             className={
@@ -34,7 +28,7 @@ const UserExperienceCard: React.FC<ComponentInterface> = ({
                     ? ' animate-[wiggle_1.5s_ease-in-out_infinite] hover:cursor-pointer'
                     : '')
             }
-            onClick={(e) => excludeItem(e)}
+            onClick={ exclude }
         >
             <div className="text-white break-all text-sm bg-bright-purple p-3 flex justify-between rounded-t-md">
                 <div className="font-medium">{card.name || card.role}</div>

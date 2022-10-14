@@ -229,7 +229,7 @@ const UserEditData: React.FC = () => {
                                     <div className="flex items-center text-dark-purple">
                                         <FontAwesomeIcon
                                             className="mr-2"
-                                            icon={faPencil}
+                                            icon={ faPencil }
                                         />
                                         <h1 className="text-xl font-medium">Editar</h1>
                                     </div>
@@ -256,7 +256,7 @@ const UserEditData: React.FC = () => {
                                         type="text"
                                         name="name"
                                         id="userName"
-                                        consultPackage={consultPackage}
+                                        consultPackage={ consultPackage }
                                     />
                                     <TextInput
                                         size="medium"
@@ -264,15 +264,15 @@ const UserEditData: React.FC = () => {
                                         type="text"
                                         name="role"
                                         id="userRole"
-                                        consultPackage={consultPackage}
+                                        consultPackage={ consultPackage }
                                     />
                                 </div>
                                 <div>
                                     <TextAreaInput
                                         name="description"
                                         id="description"
-                                        row={6}
-                                        consultPackage={consultPackage}
+                                        row={ 6 }
+                                        consultPackage={ consultPackage }
                                         placeholder="Descrição"
                                     />
                                 </div>
@@ -286,7 +286,7 @@ const UserEditData: React.FC = () => {
                             </div>
                             <div>
                                 <button
-                                    onClick={() => flipExclude('experiences')}
+                                    onClick={ () => flipExclude('experiences') }
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
                                     <FontAwesomeIcon
@@ -298,7 +298,7 @@ const UserEditData: React.FC = () => {
                                     />
                                 </button>
                                 <button
-                                    onClick={() => setExpModalIsOpen(true)}
+                                    onClick={ () => setExpModalIsOpen(true) }
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={faPlus} />
@@ -306,25 +306,25 @@ const UserEditData: React.FC = () => {
                                 {ExpModalIsOpen && (
                                     <FormModal
                                         handleClose={ () => setExpModalIsOpen(!ExpModalIsOpen) }
-                                        handleConfirm={checkExperienceData}
+                                        handleConfirm={ checkExperienceData }
                                         title="Adicionar Experiência Prévia"
                                     >
                                         <div className="my-2">
                                             <TextInput
-                                                type={InputTypesEnum.text}
+                                                type={ InputTypesEnum.text }
                                                 placeholder="Nome"
                                                 name="experience-role"
-                                                limit={30}
+                                                limit={ 30 }
                                                 id="experience-role"
-                                                consultPackage={consultPackage}
+                                                consultPackage={ consultPackage }
                                             />
                                             <TextInput
-                                                type={InputTypesEnum.text}
+                                                type={ InputTypesEnum.text }
                                                 placeholder="Empresa"
                                                 name="experience-company"
-                                                limit={30}
+                                                limit={ 30 }
                                                 id="experience-company"
-                                                consultPackage={consultPackage}
+                                                consultPackage={ consultPackage }
                                             />
                                             <div className="block md:flex justify-between">
                                                 <TextInput
@@ -366,14 +366,16 @@ const UserEditData: React.FC = () => {
                             </div>
                         </div>
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                            {userData.experiences.map((card, key) => (
-                                <UserExperienceCard
-                                    key={key}
-                                    card={card}
-                                    canExclude={canExclude.experiences}
-                                    exclude={() => excludeExperience(key)}
-                                />
-                            ))}
+                            {
+                                userData.experiences.map((card, key) => (
+                                    <UserExperienceCard
+                                        key={ key }
+                                        card={ card }
+                                        canExclude= { canExclude.experiences }
+                                        exclude={ () => excludeExperience(key) }
+                                    />
+                                ))
+                            }
                         </div>
                     </section>
                     <section className="px-5 my-10">
@@ -398,7 +400,7 @@ const UserEditData: React.FC = () => {
                                     onClick={() => setFormationModalIsOpen(true)}
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
-                                    <FontAwesomeIcon icon={faPlus} />
+                                    <FontAwesomeIcon icon={ faPlus } />
                                 </button>
                                 {formationModalIsOpen && (
                                     <FormModal
