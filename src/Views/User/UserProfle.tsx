@@ -77,7 +77,10 @@ const UserProfile: React.FC = () => {
                         </div>
                     </main>
                     {
-                        !userData.description && !userData.experiences.length && !userData.formations.length && (
+                        !userData.description && 
+                        !userData.experiences.length && 
+                        !userData.formations.length &&
+                        !userData.skills.length && (
                             <div className='px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl'>
                                 <FontAwesomeIcon icon={ faWarning } className='mr-2 text-5xl' />
                                 <span className='text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1'>Você ainda não tem dados cadastrados!</span>

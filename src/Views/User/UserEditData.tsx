@@ -180,31 +180,11 @@ const UserEditData: React.FC = () => {
         });
     }
 
-    function excludeSkill(id: number) {
-        if (canExclude.skills) {
-            setUserData({
-                ...userData,
-                skills: userData.skills.filter((skill, index) => index != id),
-            });
-        }
-    }
-
-    function excludeFormation(id: number) {
-        if (canExclude.formations) {
-            setUserData({
-                ...userData,
-                formations: userData.formations.filter((formation, index) => index != id),
-            });
-        }
-    }
-
-    function excludeExperience(id: number) {
-        if (canExclude.experiences) {
-            setUserData({
-                ...userData,
-                experiences: userData.experiences.filter((experience, index) => index != id),
-            });
-        }
+    function excludeFromUser(property: string, id: number): void {
+        const data:Array<Iskill | Iexperience | Iformation> = userData[property as keyof IUserData];
+        if (data == undefined) return;
+        data.splice(id, 1);
+        setUserData({ ...userData, [property]: data });
     }
 
     const consultPackage = {
@@ -384,7 +364,7 @@ const UserEditData: React.FC = () => {
                                     key={key}
                                     card={card}
                                     canExclude={canExclude.skills}
-                                    exclude={() => excludeSkill(key)}
+                                    exclude={() => excludeFromUser('skills', key)}
                                 />
                             ))}
                         </div>
@@ -487,7 +467,7 @@ const UserEditData: React.FC = () => {
                                         key={ key }
                                         card={ card }
                                         canExclude= { canExclude.experiences }
-                                        exclude={ () => excludeExperience(key) }
+                                        exclude={ () => excludeFromUser('experiences', key) }
                                     />
                                 ))
                             }
@@ -585,7 +565,7 @@ const UserEditData: React.FC = () => {
                                     key={key}
                                     card={card}
                                     canExclude={canExclude.formations}
-                                    exclude={() => excludeFormation(key)}
+                                    exclude={() => excludeFromUser('formations', key)}
                                 />
                             ))}
                         </div>
