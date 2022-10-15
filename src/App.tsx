@@ -16,6 +16,8 @@ import UserApply from './Views/User/UserApply';
 import UserEditData from './Views/User/UserEditData';
 import UserError from './Views/User/UserError';
 import UserVacancySearch from './Views/User/UserVacancySearch';
+import UserCompanySearch from './Views/User/UserCompanySearch';
+import UserCompanyDetail from './Views/User/UserCompanyDetail';
 import AdminLogin from './Views/Admin/AdminLogin';
 import AdminCompany from './Views/Admin/AdminCompany';
 import AdminError from './Views/Admin/AdminError';
@@ -64,6 +66,8 @@ function App() {
 			<Route element={ <PrivateRoutes roles={[ RoleEnum.User ]} /> }>
 				<Route path='/user/*' element={ <UserError /> } />
 				<Route path='/user/' element={ <UserProfile /> } />
+				<Route path='/user/company/search' element={ <UserCompanySearch /> } />
+				<Route path='/user/company/detail/:id' element={ <UserCompanyDetail /> } />  
 				<Route path='/user/profile' element={ <UserProfile /> } />
 				<Route path='/user/profile/edit' element={ <UserEditData /> } />
 				<Route path='/user/vacancy/search' element={ <UserVacancySearch /> } />

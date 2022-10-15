@@ -17,6 +17,11 @@ const UserMenu : React.FC = () => {
             path: '/user/vacancy/search',
             isLink: true,
         },
+        {
+            text: 'Buscar Empresas',
+            path: '/user/company/search',
+            isLink: true,
+        },
     ];
 
     return (

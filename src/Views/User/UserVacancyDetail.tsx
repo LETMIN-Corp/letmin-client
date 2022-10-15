@@ -12,6 +12,7 @@ import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
 import useLoading from '../../Utils/useLoading';
 import Loading from '../../Components/Items/Loading';
 import useAuth from '../../Utils/useAuth';
+import { Link } from 'react-router-dom';
 
 const UserVacancyDetail = () => {
     const params = useParams();
@@ -106,7 +107,7 @@ const UserVacancyDetail = () => {
                                     <FontAwesomeIcon icon={ faBuilding } className='text-8xl' />
                                     <div>
                                         <h1 className='text-2xl ml-5 w-full font-bold text-primary'>{ vacancyData.role }</h1>
-                                        <p className='text-xl ml-5 w-full font-medium text-dark-purple'>{ vacancyData.company.company.name }</p>
+                                        <Link to='/user/company' className='text-xl ml-5 w-full font-medium text-dark-purple hover:underline'>{ vacancyData.company.company.name }</Link>
                                     </div>
                                 </div>
                                 <div className='w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5'>

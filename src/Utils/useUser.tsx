@@ -31,7 +31,14 @@ const useUser = () => {
     };
     const getVacancies = async () => {
         return await axiosRequest(`${API_URL}/api/user/vacancy`, 'GET');
+    };    
+    const getCompany = async(id: string) => {
+        return axiosRequest(`${API_URL}/api/user/get-company/${id}`, 'GET');
     };
+    const getCompanies = async () => {
+        return axiosRequest(`${API_URL}/api/user/company`, 'GET');
+    };
+
     const applyVacancy = async (vacancy_id: string) => {
         return await axiosRequest(`${API_URL}/api/user/apply-vacancy`, 'POST', { vacancy_id });
     }
@@ -40,16 +47,20 @@ const useUser = () => {
         return axiosRequest(`${API_URL}/api/user/update-user`, 'POST', user);
     }
 
+    
+
     return {
         userData,
         getUserData,
         updateUser,
         getVacancies,
         getVacancy,
+        getCompany,
         getCandidateVacancies,
         applyVacancy,
         checkNewFormation,
         checkNewExperience,
+        getCompanies,
         cancelApplyVacancy,
         dispatchError,
         dispatchSuccess,
