@@ -1,5 +1,5 @@
 class wantedSkillsData {
-    skill: string = '';
+    name: string = '';
     level: string = '';
 }
 
@@ -12,7 +12,7 @@ class VacancyData {
     workload: string = '';
     region: string = '';
     type: string = '';
-    wantedSkills: Array<wantedSkillsData> = [ new wantedSkillsData() ];
+    wantedSkills: Array<wantedSkillsData> = [];
     yearsOfExperience: number = 0;
     [key: string]: any;
 }
