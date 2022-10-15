@@ -28,14 +28,9 @@ import {
     Iexperience,
     Iformation,
     Iskill,
+    UserCanExclude,
+    UserEditModals,
 } from '../../Interfaces/UserInterfaces';
-
-
-interface CanExclude {
-    experiences: boolean;
-    formations: boolean;
-    skills: boolean;
-}
 
 const UserEditData: React.FC = () => {
     const { loading } = useLoading();
@@ -44,12 +39,23 @@ const UserEditData: React.FC = () => {
 
     const [userData, setUserData] = useState<IUserData>(new IUserData());
     const [userTypedData, setUserTypedData] = useState<UserTypedData>(new UserTypedData());
+    const [modalIsOpen, setModalIsOpen] = useState<UserEditModals>(new UserEditModals());
+    const [canExclude, setCanExclude] = useState<UserCanExclude>(new UserCanExclude());
+
+    function flipModal(modal: string) {
+        setModalIsOpen({ ...modalIsOpen, [modal]: !modalIsOpen[modal as keyof UserEditModals] });
+    }
+
+    function flipExclude(property: string) {
+        setCanExclude({
+            ...canExclude,
+            [property]: !canExclude[property as keyof UserCanExclude],
+        });
+    }
 
     function getDBUserData() {
         user.getUserData().then((res: any) => {
-            if (res.status != 200) {
-                navigate('/user/profile');
-            }
+            if (res.status != 200) navigate('/user/profile');
             setUserData(res.data.user);
         });
     }
@@ -58,24 +64,6 @@ const UserEditData: React.FC = () => {
         getDBUserData();
         window.document.title = 'Letmin - Perfil';
     }, []);
-
-    const [modalExitIsOpen, setModalExitIsOpen] =
-        useState(false); /* Modal de confirmar para sair da página */
-    const [modalSaveConfirmationIsOpen, setModalSaveConfirmationIsOpen] =
-        useState(false); /* Modal de confirmar para salvar os dados */
-    const [skillModalIsOpen, setSkillModalIsOpen] =
-        useState(false); /* Modal de adicionar dados */
-    const [ExpModalIsOpen, setExpModalIsOpen] =
-        useState(false); /* Modal de adicionar dados */
-    const [formationModalIsOpen, setFormationModalIsOpen] =
-        useState(false); /* Modal de adicionar dados */
-    const [deleteAccountModalIsOpen, setDeleteAccountModalIsOpen] = useState(false);
-
-    const [canExclude, setCanExclude] = useState<CanExclude>({
-        experiences: false,
-        formations: false,
-        skills: false,
-    });
 
     /* Utilizada pelo botão de retornar */
     function returnToUserPage() {
@@ -132,7 +120,7 @@ const UserEditData: React.FC = () => {
                 skill: new Iskill(),
             });
 
-            return setSkillModalIsOpen(false);
+            return flipModal('skill');
         });
     };
 
@@ -151,7 +139,7 @@ const UserEditData: React.FC = () => {
                 experience: new Iexperience(),
             });
             
-            return setExpModalIsOpen(false);
+            return flipModal('experience');
         });
     };
 
@@ -169,16 +157,9 @@ const UserEditData: React.FC = () => {
                 formation: new Iformation(),
             });
 
-            return setFormationModalIsOpen(false);
+            return flipModal('formation');
         });
     };
-
-    function flipExclude(property: string) {
-        setCanExclude({
-            ...canExclude,
-            [property]: !canExclude[property as keyof CanExclude],
-        });
-    }
 
     function excludeFromUser(property: string, id: number): void {
         const data:Array<Iskill | Iexperience | Iformation> = userData[property as keyof IUserData];
@@ -238,7 +219,7 @@ const UserEditData: React.FC = () => {
                                     <TextInput
                                         size="large"
                                         placeholder="Nome"
-                                        type="text"
+                                        type={ InputTypesEnum.text }
                                         name="name"
                                         id="userName"
                                         consultPackage={ consultPackage }
@@ -246,7 +227,7 @@ const UserEditData: React.FC = () => {
                                     <TextInput
                                         size="medium"
                                         placeholder="Cargo"
-                                        type="text"
+                                        type={ InputTypesEnum.text }
                                         name="role"
                                         id="userRole"
                                         consultPackage={ consultPackage }
@@ -271,7 +252,7 @@ const UserEditData: React.FC = () => {
                             </div>
                             <div>
                                 <button
-                                    onClick={ () => flipExclude('skills') }
+                                    onClick={ () => flipExclude('skill') }
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
                                     <FontAwesomeIcon
@@ -283,14 +264,14 @@ const UserEditData: React.FC = () => {
                                     />
                                 </button>
                                 <button
-                                    onClick={ () => setSkillModalIsOpen(true) }
+                                    onClick={ () => flipModal('skill') }
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={ faPlus } />
                                 </button>
-                                {skillModalIsOpen && (
+                                {modalIsOpen.skill && (
                                     <FormModal
-                                        handleClose={() => setSkillModalIsOpen(!skillModalIsOpen)}
+                                        handleClose={() => flipModal('skill')}
                                         handleConfirm={checkSkillData}
                                         title="Adicionar Habilidade"
                                     >
@@ -306,7 +287,7 @@ const UserEditData: React.FC = () => {
                                             <div>
                                                 <div>
                                                     <input
-                                                        type="radio"
+                                                        type={ InputTypesEnum.radio }
                                                         onChange={(e) => setInputValue(e)}
                                                         className="mr-2 cursor-pointer"
                                                         value="Iniciante"
@@ -322,7 +303,7 @@ const UserEditData: React.FC = () => {
                                                 </div>
                                                 <div>
                                                     <input
-                                                        type="radio"
+                                                        type={ InputTypesEnum.radio }
                                                         onChange={(e) => setInputValue(e)}
                                                         className="mr-2 cursor-pointer"
                                                         value="Intermediário"
@@ -338,7 +319,7 @@ const UserEditData: React.FC = () => {
                                                 </div>
                                                 <div>
                                                     <input
-                                                        type="radio"
+                                                        type={ InputTypesEnum.radio }
                                                         onChange={(e) => setInputValue(e)}
                                                         className="mr-2 cursor-pointer"
                                                         value="Avançado"
@@ -369,7 +350,7 @@ const UserEditData: React.FC = () => {
                                     key={key}
                                     card={card}
                                     canExclude={canExclude.skills}
-                                    exclude={() => excludeFromUser('skills', key)}
+                                    exclude={() => excludeFromUser('skill', key)}
                                 />
                             ))}
                         </div>
@@ -381,7 +362,7 @@ const UserEditData: React.FC = () => {
                             </div>
                             <div>
                                 <button
-                                    onClick={ () => flipExclude('experiences') }
+                                    onClick={ () => flipExclude('experience') }
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
                                     <FontAwesomeIcon
@@ -393,14 +374,14 @@ const UserEditData: React.FC = () => {
                                     />
                                 </button>
                                 <button
-                                    onClick={ () => setExpModalIsOpen(true) }
+                                    onClick={ () => flipModal('experience') }
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={faPlus} />
                                 </button>
-                                {ExpModalIsOpen && (
+                                {modalIsOpen.experience && (
                                     <FormModal
-                                        handleClose={ () => setExpModalIsOpen(!ExpModalIsOpen) }
+                                        handleClose={ () => flipModal('experience') }
                                         handleConfirm={ checkExperienceData }
                                         title="Adicionar Experiência Prévia"
                                     >
@@ -472,7 +453,7 @@ const UserEditData: React.FC = () => {
                                         key={ key }
                                         card={ card }
                                         canExclude= { canExclude.experiences }
-                                        exclude={ () => excludeFromUser('experiences', key) }
+                                        exclude={ () => excludeFromUser('experience', key) }
                                     />
                                 ))
                             }
@@ -485,7 +466,7 @@ const UserEditData: React.FC = () => {
                             </div>
                             <div>
                                 <button
-                                    onClick={() => flipExclude('formations')}
+                                    onClick={() => flipExclude('formation')}
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
                                     <FontAwesomeIcon
@@ -497,14 +478,14 @@ const UserEditData: React.FC = () => {
                                     />
                                 </button>
                                 <button
-                                    onClick={() => setFormationModalIsOpen(true)}
+                                    onClick={() => flipModal('formation') }
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={ faPlus } />
                                 </button>
-                                {formationModalIsOpen && (
+                                {modalIsOpen.formation && (
                                     <FormModal
-                                        handleClose={() => setFormationModalIsOpen(!formationModalIsOpen)}
+                                        handleClose={() => flipModal('formation') }
                                         handleConfirm={checkFormationData}
                                         title="Adicionar Formação Acadêmica"
                                     >
@@ -586,12 +567,12 @@ const UserEditData: React.FC = () => {
                                 <FormButton
                                     isDanger={ true }
                                     text="Cancelar"
-                                    handleClick={() => setModalExitIsOpen(true)}
+                                    handleClick={() => flipModal('exit')}
                                 />
                             </div>
                             <FormButton
                                 text="Salvar"
-                                handleClick={() => setModalSaveConfirmationIsOpen(true)}
+                                handleClick={() => flipModal('save')}
                             />
                         </div>
                         <div className='md:w-4/12'>
@@ -599,32 +580,32 @@ const UserEditData: React.FC = () => {
                                 isDanger={ true }
                                 text="Excluir Conta"
                                 isFullWidth={ true }
-                                handleClick={() => setDeleteAccountModalIsOpen(true)}
+                                handleClick={() => flipModal('delete')}
                             />
                         </div>
                     </div>
-                    {modalExitIsOpen && (
+                    {modalIsOpen.exit && (
                         <ConfirmationModal
                             title="Sair da Edição"
                             text="Os dados editados ainda não foram salvos. Você realmente deseja sair da edição?"
-                            handleClose={() => setModalExitIsOpen(false)}
+                            handleClose={() => flipModal('exit')}
                             handleConfirm={returnToUserPage}
                         />
                     )}
-                    {modalSaveConfirmationIsOpen && (
+                    {modalIsOpen.save && (
                         <ConfirmationModal
                             title="Salvar os dados"
                             text="Você realmente deseja salvar estas modificações?"
-                            handleClose={() => setModalSaveConfirmationIsOpen(false)}
+                            handleClose={() => flipModal('save')}
                             handleConfirm={updateUserData}
                         />
                     )}
                     {
-                        deleteAccountModalIsOpen && (
+                        modalIsOpen.delete && (
                             <ConfirmationModal
                                 title="Excluir conta"
                                 text="Você realmente deseja excluir sua conta? Esta ação não poderá ser desfeita."
-                                handleClose={() => setDeleteAccountModalIsOpen(false)}
+                                handleClose={() => flipModal('delete')}
                                 handleConfirm={user.deleteAccount}
                             />
                         )

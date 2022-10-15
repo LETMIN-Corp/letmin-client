@@ -43,6 +43,21 @@ class UserTypedData extends BasicUserData {
     [key: string]: any;
 }
 
+class UserCanExclude {
+    experiences: boolean = false;
+    formations: boolean = false;
+    skills: boolean = false;
+}
+
+class UserEditModals {
+    experience: boolean = false;
+    formation: boolean = false;
+    skill: boolean = false;
+    exit: boolean = false;
+    save: boolean = false;
+    delete: boolean = false; 
+}
+
 export {
     IUserData,
     UserTypedData,
@@ -50,4 +65,6 @@ export {
     Iformation,
     Iskill,
     BasicUserData,
+    UserCanExclude,
+    UserEditModals,
 };
