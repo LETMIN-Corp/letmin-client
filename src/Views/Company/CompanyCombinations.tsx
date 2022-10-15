@@ -1,18 +1,15 @@
 import {
     faHeart,
     faHeartBroken,
-    faPencil,
     faTriangleExclamation,
     faWarning,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import CompanyCandidateCard from '../../Components/Cards/CompanyCandidateCard';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
-import HighLight from '../../Components/Items/HighLight';
 import Loading from '../../Components/Items/Loading';
 import FormModal from '../../Components/Modals/FormModal';
 import { dispatchError, dispatchSuccess, formatErrors } from '../../Utils/ToastMessages';
@@ -37,6 +34,8 @@ const CompanyCombinations: React.FC = () => {
         picture: '',
         email: '',
         phone: '',
+        username: '',
+        createdAt: '',
         experiences: [],
         formations: [],
     });
@@ -162,7 +161,7 @@ const CompanyCombinations: React.FC = () => {
                                 </div>
                             </div>
                             <div className="mt-10 mx-5">
-                                <div className="font-medium text-2xl md:text-3xl text-dark-purple">
+                                <div className="font-bold text-2xl text-dark-purple">
                                     { candidate.name }
                                 </div>
                                 <div className="text-lg md:text-xl text-justify text-dark-gray">
@@ -170,56 +169,66 @@ const CompanyCombinations: React.FC = () => {
                                 </div>
                             </div>
                         </main>
-                        {
-                            !candidate.description && !candidate.experiences.length && !candidate.formations.length && (
-                                <div className='px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl'>
-                                    <FontAwesomeIcon icon={ faWarning } className='mr-2 text-5xl' />
-                                    <span className='text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1'>O usuário ainda não tem dados cadastrados!</span>
-                                </div>
-                            )
-                        }
-                        {
-                            candidate.description && (
-                                <section className="px-5 mt-10">
-                                    <div className="font-medium md:text-2xl text-xl text-dark-purple">
-                                        Descrição
+                        <div className='min-h-80'>
+                            {
+                                !candidate.description && !candidate.experiences.length && !candidate.formations.length && (
+                                    <div className='px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl'>
+                                        <FontAwesomeIcon icon={ faWarning } className='mr-2 text-5xl' />
+                                        <span className='text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1'>O usuário ainda não tem dados cadastrados!</span>
                                     </div>
-                                    <div className="text-lg md:text-xl text-justify">
-                                        { candidate.description }
-                                    </div>
-                                </section>
-                            )
-                        }
-                        {
-                            !!candidate.experiences.length && (
-                                <section className="px-5 mt-10">
-                                    <div className="font-medium md:text-2xl text-xl text-dark-purple mb-2">
-                                        Experiências Profissionais
-                                    </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                        {
-                                            candidate.experiences.map((card, key) => (
+                                )
+                            }
+                            {
+                                candidate.description && (
+                                    <section className="px-5 mt-10">
+                                        <div className="font-medium text-xl text-dark-purple">
+                                            Descrição
+                                        </div>
+                                        <div className="text-lg md:text-xl text-justify">
+                                            { candidate.description }
+                                        </div>
+                                    </section>
+                                )
+                            }
+                            {
+                                !!candidate.experiences.length && (
+                                    <section className="px-5 mt-10">
+                                        <div className="font-medium text-xl text-dark-purple mb-2">
+                                            Experiências Profissionais
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                            {
+                                                candidate.experiences.map((card, key) => (
+                                                    <CompanyCandidateCard key={ key } card={ card } />
+                                                ))
+                                            }
+                                        </div>
+                                    </section>
+                                )
+                            }
+                            {
+                                !!candidate.formations.length && (
+                                    <section className="px-5 my-10">
+                                        <div className="font-medium text-xl text-dark-purple mb-2">
+                                            Formação Acadêmica
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                            {candidate.formations.map((card, key) => (
                                                 <CompanyCandidateCard key={ key } card={ card } />
-                                            ))
-                                        }
-                                    </div>
-                                </section>
-                            )
-                        }
-                        {
-                            !!candidate.formations.length && (
-                                <section className="px-5 my-10">
-                                    <div className="font-medium md:text-2xl text-xl text-dark-purple mb-2">
-                                        Formação Acadêmica
-                                    </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                        {candidate.formations.map((card, key) => (
-                                            <CompanyCandidateCard key={ key } card={ card } />
-                                        ))}
-                                    </div>
-                                </section>
-                            )
-                        }
+                                            ))}
+                                        </div>
+                                    </section>
+                                )
+                            }
+                            <div className="px-5 mt-2 text-sm md:text-md text-dark-gray font-medium">
+                                <span className='mr-1'>Usuário @{ candidate.username }, desde</span>
+                                {
+                                    new Date(candidate.createdAt).toLocaleDateString(
+                                        'pt-BR',
+                                    )
+                                }
+                            </div>
+                        </div>
                     </div>
                 )}
                 {
