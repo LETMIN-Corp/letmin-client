@@ -1,15 +1,16 @@
-import { useEffect, useReducer, createContext } from 'react';
-import { AuthReducer } from "../Reducers/AuthReducer";
-import ReducerEnum from "../Enums//ReducerEnum";
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
+import { createContext, useEffect, useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import ReducerEnum from '../Enums//ReducerEnum';
+import { AuthReducer } from '../Reducers/AuthReducer';
 import { dispatchError, dispatchSuccess, formatErrors } from '../Utils/ToastMessages';
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
-const InitialState : any = {
+const InitialState: any = {
     loading: false,
     userData: Cookies.get('token') ? jwtDecode(Cookies.get('token')!) : { role: '' },
     isAuthenticated: false,
@@ -17,18 +18,19 @@ const InitialState : any = {
 
 export const AuthContext = createContext(InitialState);
 
-export const AuthState = ({ children } : any) => {
+export const AuthState = ({ children }: any) => {
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(AuthReducer, InitialState);
 
     const setLoading = () => dispatch({ type: ReducerEnum.set_loading });
     const removeLoading = () => dispatch({ type: ReducerEnum.error });
-    const setUserData = (data:any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
+    const setUserData = (data: any) =>
+        dispatch({ type: ReducerEnum.set_user_data, payload: data });
     const getRole = () => {
         const token: string | undefined = Cookies.get('token');
 
         return token ? jwtDecode<userToken>(token).role : '';
-    }
+    };
 
     interface userToken {
         user_id: string;
@@ -37,12 +39,12 @@ export const AuthState = ({ children } : any) => {
         email: string;
         exp: string;
     }
-    
+
     // Auth function
     const getInitialUserData = async () => {
         const token = Cookies.get('token');
         if (token) {
-            const decodedToken:any = jwtDecode(token);
+            const decodedToken: any = jwtDecode(token);
             if (decodedToken.exp * 1000 < Date.now()) {
                 signOut();
             } else {
@@ -58,41 +60,45 @@ export const AuthState = ({ children } : any) => {
             url,
             data,
             headers: {
-                'Authorization': `Bearer ${Cookies.get('token')}`,
+                Authorization: `Bearer ${Cookies.get('token')}`,
                 'Access-Control-Allow-Origin': '*',
-            }
+            },
         })
-        .then((res) => {
-            removeLoading();
-            return res;
-        })
-        .catch((err) => {
-            removeLoading();
-            return err.response;
-        })
-    }
+            .then((res) => {
+                removeLoading();
+                return res;
+            })
+            .catch((err) => {
+                removeLoading();
+                return err.response;
+            });
+    };
 
     async function signIn(role: string, userCredentials: any): Promise<any> {
         if (!userCredentials) return;
         return await axiosRequest(`${API_URL}/api/${role}/login`, 'POST', userCredentials)
-        .then((res: any) => {
-            if (res.status === (200 || 201)) {
-                Cookies.set('token', res.headers.authorization);
-                setUserData(res.data);
-                return navigate(`/${role}`);
-            }       
+            .then((res: any) => {
+                if (res.status === (200 || 201)) {
+                    Cookies.set('token', res.headers.authorization);
+                    setUserData(res.data);
+                    return navigate(`/${role}`);
+                }
 
-            dispatchError(formatErrors(res.data.message));
-        }).catch((err: any) => {
-            dispatchError(`Erro no login: ${err}`);
-        });
+                dispatchError(formatErrors(res.data.message));
+            })
+            .catch((err: any) => {
+                dispatchError(`Erro no login: ${err}`);
+            });
     }
 
     const registerCompany = async (userCredentials: any): Promise<any> => {
         if (!userCredentials) return;
 
-        return axiosRequest(`${API_URL}/api/company/register`, 'POST', userCredentials)
-        .then((res: any) => {
+        return axiosRequest(
+            `${API_URL}/api/company/register`,
+            'POST',
+            userCredentials,
+        ).then((res: any) => {
             if (res.data.success && res.status === 201) {
                 dispatchSuccess('Empresa cadastrada com sucesso!');
 
@@ -103,7 +109,7 @@ export const AuthState = ({ children } : any) => {
 
             dispatchError(formatErrors(res.data.message));
         });
-    }
+    };
 
     async function signOut(): Promise<void> {
         Cookies.remove('token');
@@ -120,70 +126,54 @@ export const AuthState = ({ children } : any) => {
     // Complaint and recover functions
     const createComplaint = async (complaint: any) => {
         return await axiosRequest(`${API_URL}/api/create-complaint`, 'POST', complaint);
-    }
-
-    const updateCompanyData = async (company: any): Promise<any> => {
-        return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company)
-        .then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
-            }
-            else {
-                dispatchError(formatErrors(res.data.message));
-            }
-        });
-    }
-
-    const updateHolderData = async (company: any): Promise<any> => {
-        return axiosRequest(`${API_URL}/api/company/update-company-holder`, 'POST', company)
-        .then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
-            }
-            else
-                dispatchError(formatErrors(res.data.message));
-        });
-    }
+    };
 
     const sendRecoveryEmail = async (email: string) => {
         return axiosRequest(`${API_URL}/api/send-recovery-email`, 'POST', { email });
-    }
+    };
     const checkRecoveryToken = async (selector: string, token: string) => {
-        return axiosRequest(`${API_URL}/api/check-recovery-token`, 'POST', { selector, token });
-    }
+        return axiosRequest(`${API_URL}/api/check-recovery-token`, 'POST', {
+            selector,
+            token,
+        });
+    };
     const setNewPassword = async (selector: string, token: string, password: string) => {
-        return axiosRequest(`${API_URL}/api/new-password`, 'POST', { selector, token, password });
-    }
+        return axiosRequest(`${API_URL}/api/new-password`, 'POST', {
+            selector,
+            token,
+            password,
+        });
+    };
     // End Complaint and recover functions
     return (
-        <AuthContext.Provider value={{
-            axiosRequest,
-            API_URL,
-            // Auth functions
-            loading: state.loading,
-            isAuthenticated: state.isAuthenticated,
-            userData: state.userData,
-            dispatchError,
-            dispatchSuccess,
-            setLoading,
-            removeLoading,
-            getRole,
-            signIn,
-            signOut,
-            registerCompany,
-            getInitialUserData,
-            setUserData,
-            // User functions
-            // Company functions
-            updateCompanyData,
-            updateHolderData,
-            createComplaint,
-            sendRecoveryEmail,
-            checkRecoveryToken,
-            setNewPassword,
-        }}>
-            { children }
+        <AuthContext.Provider
+            value={{
+                axiosRequest,
+                API_URL,
+                formatErrors,
+                // Auth functions
+                loading: state.loading,
+                isAuthenticated: state.isAuthenticated,
+                userData: state.userData,
+                dispatchError,
+                dispatchSuccess,
+                setLoading,
+                removeLoading,
+                getRole,
+                signIn,
+                signOut,
+                registerCompany,
+                getInitialUserData,
+                setUserData,
+                // User functions
+                // Company functions
+                createComplaint,
+                sendRecoveryEmail,
+                checkRecoveryToken,
+                setNewPassword,
+            }}
+        >
+            {children}
         </AuthContext.Provider>
-    )
-
+    );
 };

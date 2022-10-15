@@ -1,4 +1,4 @@
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const ToastLayout = () => {
     return (
@@ -14,11 +14,11 @@ const ToastLayout = () => {
             pauseOnHover
         />
     );
-}
+};
 
-function dispatchError(text : string) {
+function dispatchError(text: string) {
     toast.error(text, {
-        position: "top-center",
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -28,9 +28,9 @@ function dispatchError(text : string) {
     });
 }
 
-function dispatchSuccess(text : string) {
+function dispatchSuccess(text: string) {
     toast.success(text, {
-        position: "top-center",
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -41,26 +41,26 @@ function dispatchSuccess(text : string) {
 }
 
 interface IError {
-    [key: string]: string,
-    map: any,
+    [key: string]: string;
+    map: any;
 }
 
 /**
  * This function formats the errors from the backend from an object to a string
-    * @param errors
-    * @returns string
-*/
-function formatErrors(errors : any): string {
+ * @param errors
+ * @returns string
+ */
+function formatErrors(errors: any): string {
     if (typeof errors === 'string') {
         return errors;
     }
-    
+
     let errorString = '';
-    for (let key in errors) {
+    for (const key in errors) {
         errorString += errors[key] + '. ';
     }
-    
+
     return errorString;
 }
 
-export { ToastLayout, formatErrors, dispatchError, dispatchSuccess };
+export { dispatchError, dispatchSuccess, formatErrors, ToastLayout };

@@ -1,10 +1,11 @@
-import UserDefault from './UserDefault';
-import CombinationData from '../../Components/Items/CombinationsData';
-import { useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandshake } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//import CombinationData from '../../Components/Items/CombinationsData';
+import { useEffect } from 'react';
 import { useState } from 'react';
+
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
+import UserDefault from './UserDefault';
 
 const UserCombination = () => {
     useEffect((): void => {
@@ -42,52 +43,43 @@ const UserCombination = () => {
         },
     ];
 
-    
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     return (
         <UserDefault>
             <div className="p-5 min-h-90">
-                <h1 className='text-2xl text-dark-purple font-medium'>
-                    <FontAwesomeIcon icon={ faHandshake } className='mr-2' />
+                <h1 className="text-2xl text-dark-purple font-medium">
+                    <FontAwesomeIcon icon={faHandshake} className="mr-2" />
                     <span>Combinações</span>
                 </h1>
-                {
-                    data.length > 0 && (
-                        <div className='bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg'>
-                            <div className='flex text-xl font-medium'>
-                                <div className='w-4/12 flex justify-center'>
-                                    Empresas
-                                </div>
-                                <div className='w-4/12 flex justify-center text-center'>
-                                    Tipos de Vaga
-                                </div>
-                                <div className='w-4/12 flex justify-center'>
-                                    Ações
-                                </div>
+                {data.length > 0 && (
+                    <div className="bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg">
+                        <div className="flex text-xl font-medium">
+                            <div className="w-4/12 flex justify-center">Empresas</div>
+                            <div className="w-4/12 flex justify-center text-center">
+                                Tipos de Vaga
                             </div>
-                            <div>
-                                {
-                                    data.map((row, key) => <CombinationData key={ key } name={ row.name } vacancy={ row.vacancy } handleClick={ () => setModalIsOpen(true) } />)
-                                }
-                            </div>
+                            <div className="w-4/12 flex justify-center">Ações</div>
                         </div>
-                    )
-                }
+                        <div>
+                            {
+                                //data.map((row, key) => <CombinationData key={ key } name={ row.name } vacancy={ row.vacancy } handleClick={ () => setModalIsOpen(true) } />)
+                            }
+                        </div>
+                    </div>
+                )}
 
-            {
-                modalIsOpen && (
-                    <ConfirmationModal handleClose={ () => setModalIsOpen(false) } handleConfirm={ () => {} } title='Confirmar' text='Deseja confirmar a remoção desta vaga?'>
-                    
-                    </ConfirmationModal>
-                )
-            }
-
-                        
-
+                {modalIsOpen && (
+                    <ConfirmationModal
+                        handleClose={() => setModalIsOpen(false)}
+                        handleConfirm={() => {}}
+                        title="Confirmar"
+                        text="Deseja confirmar a remoção desta vaga?"
+                    ></ConfirmationModal>
+                )}
             </div>
         </UserDefault>
     );
-}
+};
 
 export default UserCombination;
