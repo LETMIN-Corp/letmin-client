@@ -58,7 +58,52 @@ Após o Download do Node, um Wizard com configurações especiais abrirá para r
 
 ### 13 - Janela do PowerShell aberta após o usuário confirmar o procedimento anterior.  
 
-![image](https://user-images.githubusercontent.com/70043907/195833177-06fe7fd3-b9e8-4b88-b2c9-8b9c246385c6.png)
+![image](https://user-images.githubusercontent.com/70043907/195833177-06fe7fd3-b9e8-4b88-b2c9-8b9c246385c6.png)  
+
+
+## Adquirindo o projeto
+Os códigos do projeto estão separados em [Client](https://github.com/LETMIN-Corp/letmin-client) e [API](https://github.com/LETMIN-Corp/letmin-api), disponíveis em seus respectivos repositórios.  
+Para adquirí-los em sua máquina é necessário clonar os arquivos, podendo ser feito de duas maneiras:  
+- Baixando o repositório em um .zip e extraindo seus arquivos:  
+![image](https://user-images.githubusercontent.com/70043907/195992245-72c60926-7d57-46cc-bcca-1d423fdfba51.png)
+- Puxando o projeto diretamente pelo Github Desktop:  
+![image](https://user-images.githubusercontent.com/70043907/195993198-aa45d5d2-c934-4185-a5d9-d2ac94322301.png)  
+- Clonando o repositório pelo GIT através de uma das três opções oferecidas pelo Github (HTTPS, Chave SSH, ou CLI).  
+![image](https://user-images.githubusercontent.com/70043907/195992593-d5e50e55-25d0-4a3e-b1c7-eb79a2946990.png)  
+
+Com o projeto em mãos, é necessário ajustar suas variáveis de ambiente.
+
+
+
 
 ## Inicialização do Node
-Após devidamente instalado e configurado, o Node pode ser
+Além de rodar sobre o runtime para Javascript [Node](https://nodejs.org/pt-br/), tanto o Cliente como a API precisam do instalador de pacotes NPM embutido nele durante a instalação, que pode ser visualizado [aqui](resources/how-to-install.md). Com isso, após ter o Node devidamente instalado e configurado, para iniciar o desenvolvimento do projeto em sua máquina é necessário rodar os seguintes comandos:
+
+```
+    npm install
+```
+
+- Esse comando instalará as dependências necessárias para o funcionamento do projeto principal.
+
+```
+    npm run dev
+```
+
+- Acesse `https://localhost:3001` para verificar se o projeto está funcionando.
+
+
+## Conexão com a API
+
+Após realizar a instalação da [API](https://github.com/LETMIN-Corp/letmin-api) é necessário configurar os arquivos `.env` com suas devidas variáveis de ambiente de ambos os projetos e servir as duas aplicações.
+Para garantir o bom funcionamento da comunicação da API com o Client da aplicação, é importante seguir o seguinte exemplo:
+
+```
+VITE_APP_API_URL=<APP_API_URL>
+VITE_APP_GOOGLE_CLIENT_ID=<GOOGLE_CLIENT_ID>
+```
+
+## Autenticação
+
+Após a Autenticação ser feita, o token JWT de autenticação será armazenado no localStorage do navegador com o nome `token`, para que o usuário possa ser autenticado em todas as requisições.
+Alguns dados basicos do usuário serão armazenados na aplicação como um contexto global do react.
+Para a revogação do token, basta acessar o endpoint `API_URL/api/users/logout` e remover o token do localStorage.
