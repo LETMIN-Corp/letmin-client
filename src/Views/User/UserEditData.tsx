@@ -358,6 +358,11 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
+                        {
+                            !userData.skills.length && (
+                                <div>Você não tem Habilidades cadastradas</div>
+                            )
+                        }
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {userData.skills.map((card, key) => (
                                 <UserSkillCard
@@ -455,11 +460,11 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
-                        {/* {
-                            !!userData.experiences.length && (
+                        {
+                            !userData.experiences.length && (
                                 <div>Você não tem experiências cadastradas</div>
                             )
-                        } */}
+                        }
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {
                                 userData.experiences.map((card, key) => (
@@ -559,6 +564,11 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
+                        {
+                            !userData.formations.length && (
+                                <div>Você não nenhuma Formação cadastradas</div>
+                            )
+                        }
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {userData.formations.map((card, key) => (
                                 <UserExperienceCard
