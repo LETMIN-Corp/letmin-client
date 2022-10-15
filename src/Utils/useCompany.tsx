@@ -41,7 +41,7 @@ const useCompany = () => {
         return await axiosRequest(`${API_URL}/api/company/get-all-vacancies`, 'GET');
     };
     const getCompanyVacancy = async (id: string) => {
-        return axiosRequest(`${API_URL}/api/company/get-vacancy/${id}`, 'GET');
+        return await axiosRequest(`${API_URL}/api/company/get-vacancy/${id}`, 'GET');
     };
 
     const getCandidate = async (candidate_id: string) => {

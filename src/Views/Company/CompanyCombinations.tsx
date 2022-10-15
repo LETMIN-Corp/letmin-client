@@ -51,6 +51,10 @@ const CompanyCombinations: React.FC = () => {
         }
 
         company.getCandidate(id).then((res: any) => {
+            if (res.status != 200) {
+                dispatchError(res.data.message);
+                return navigate('/company/indicators');
+            }
             setCandidate(res.data.data);
         });
     }, []);

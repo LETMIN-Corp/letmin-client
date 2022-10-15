@@ -29,9 +29,9 @@ const CompanyVacancyDetail: React.FC = () => {
 
     function getDBVacancyData() {
         company.getCompanyVacancy(id!).then((res: any) => {
-            if (!res.data.success) {
+            if (res.status != 200) {
                 company.dispatchError('Erro ao carregar dados');
-                return navigate('/company');
+                navigate('/company/indicators');
             }
             setVacancyData(res.data.vacancy);
         });

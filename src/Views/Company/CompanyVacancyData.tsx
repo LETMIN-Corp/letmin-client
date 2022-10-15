@@ -32,6 +32,7 @@ const CompanyVacancyData = () => {
 
         company.getAllVacancyCandidates(id).then((res: any) => {
             if (!res.data.success) {
+                company.dispatchError(res.data.message);
                 return navigate('/company/indicators');
             }
 
