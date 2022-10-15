@@ -132,7 +132,7 @@ const UserEditData: React.FC = () => {
                 skill: new Iskill(),
             });
 
-            return setFormationModalIsOpen(false);
+            return setSkillModalIsOpen(false);
         });
     };
 
@@ -570,23 +570,28 @@ const UserEditData: React.FC = () => {
                             ))}
                         </div>
                     </section>
-                    <div className="md:ml-3 my-5 flex justify-between md:justify-end w-full px-5">
-                    <FormButton
-                                isDanger={true}
-                                text="Deletar Conta"
-                                handleClick={() => setDeleteAccountModalIsOpen(true)}
-                            />
-                        <div className="mr-2">
+                    <div className='md:flex jusify-between flex-row-reverse items-center px-5'>
+                        <div className="md:ml-3 my-5 flex justify-between md:justify-end w-full">
+                            <div className="mr-2">
+                                <FormButton
+                                    isDanger={ true }
+                                    text="Cancelar"
+                                    handleClick={() => setModalExitIsOpen(true)}
+                                />
+                            </div>
                             <FormButton
-                                isDanger={true}
-                                text="Cancelar"
-                                handleClick={() => setModalExitIsOpen(true)}
+                                text="Salvar"
+                                handleClick={() => setModalSaveConfirmationIsOpen(true)}
                             />
                         </div>
-                        <FormButton
-                            text="Salvar"
-                            handleClick={() => setModalSaveConfirmationIsOpen(true)}
-                        />
+                        <div className='md:w-4/12'>
+                            <FormButton
+                                isDanger={ true }
+                                text="Excluir Conta"
+                                isFullWidth={ true }
+                                handleClick={() => setDeleteAccountModalIsOpen(true)}
+                            />
+                        </div>
                     </div>
                     {modalExitIsOpen && (
                         <ConfirmationModal

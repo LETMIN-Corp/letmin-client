@@ -105,7 +105,7 @@ const UserProfile: React.FC = () => {
                                 <div className="font-medium text-xl text-dark-purple">
                                     Habilidades
                                 </div>
-                                <div className="text-sm md:text-md grid sm:grid-cols-1 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                                <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                     {
                                         userData.skills.map((card: Iskill, index: number) => (
                                             <UserSkillCard key={index} card={card} />

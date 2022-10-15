@@ -129,7 +129,7 @@ export const AuthState = ({ children }: any) => {
                 return dispatchError(formatErrors(res.data.message));
             },
         ).catch((err: any) => {
-            dispatchError(`Erro ao deletar conta: ${err}`);
+            dispatchError(`Erro ao excluir conta: ${err}`);
         });
     }
     // End auth functions
