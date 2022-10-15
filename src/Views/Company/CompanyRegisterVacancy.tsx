@@ -152,7 +152,7 @@ const CompanyRegisterVacancy = () => {
                                 </div>
                                 <div>
                                     {
-                                        vacancyData.wantedSkills.map((card:any, index) => 
+                                        vacancyData.wantedSkills.map((card: wantedSkillsData, index) => 
                                             <UserSkillCard 
                                                 card={card} 
                                                 canExclude={canExcludeSkills}
