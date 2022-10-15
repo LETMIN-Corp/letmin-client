@@ -151,8 +151,8 @@ const UserProfile: React.FC = () => {
                             </section>
                         )
                     }
-                    <div className="px-5 text-sm md:text-md text-dark-gray">
-                        <span className='mr-1'>Usuário desde</span>
+                    <div className="px-5 text-sm md:text-md text-dark-gray font-medium">
+                        <span className='mr-1'>Usuário @{ userData.username }, desde</span>
                         {
                             new Date(userData.createdAt).toLocaleDateString(
                                 'pt-BR',
