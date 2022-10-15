@@ -7,6 +7,7 @@ const useUser = () => {
         axiosRequest,
         API_URL,
         userData,
+        deleteAccount,
         dispatchError,
         dispatchSuccess,
         formatErrors,
@@ -69,6 +70,7 @@ const useUser = () => {
 
     return {
         userData,
+        deleteAccount,
         getUserData,
         updateUser,
         getVacancies,

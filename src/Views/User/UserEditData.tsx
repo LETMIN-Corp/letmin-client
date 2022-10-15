@@ -69,6 +69,7 @@ const UserEditData: React.FC = () => {
         useState(false); /* Modal de adicionar dados */
     const [formationModalIsOpen, setFormationModalIsOpen] =
         useState(false); /* Modal de adicionar dados */
+    const [deleteAccountModalIsOpen, setDeleteAccountModalIsOpen] = useState(false);
 
     const [canExclude, setCanExclude] = useState<CanExclude>({
         experiences: false,
@@ -590,6 +591,11 @@ const UserEditData: React.FC = () => {
                         </div>
                     </section>
                     <div className="md:ml-3 my-5 flex justify-between md:justify-end w-full px-5">
+                    <FormButton
+                                isDanger={true}
+                                text="Deletar Conta"
+                                handleClick={() => setDeleteAccountModalIsOpen(true)}
+                            />
                         <div className="mr-2">
                             <FormButton
                                 isDanger={true}
@@ -618,6 +624,16 @@ const UserEditData: React.FC = () => {
                             handleConfirm={updateUserData}
                         />
                     )}
+                    {
+                        deleteAccountModalIsOpen && (
+                            <ConfirmationModal
+                                title="Excluir conta"
+                                text="Você realmente deseja excluir sua conta? Esta ação não poderá ser desfeita."
+                                handleClose={() => setDeleteAccountModalIsOpen(false)}
+                                handleConfirm={user.deleteAccount}
+                            />
+                        )
+                    }
                 </div>
             )}
         </UserDefault>

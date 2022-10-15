@@ -117,6 +117,21 @@ export const AuthState = ({ children }: any) => {
         navigate('/');
         return Promise.resolve();
     }
+
+    async function deleteAccount(): Promise<void> {
+        axiosRequest(`${API_URL}/api/user/delete-account`, 'DELETE').then(
+            (res: any) => {
+                if (res.status === 200) {
+                    signOut();
+                    dispatchSuccess(res.data.message);
+                    return;
+                }
+                return dispatchError(formatErrors(res.data.message));
+            },
+        ).catch((err: any) => {
+            dispatchError(`Erro ao deletar conta: ${err}`);
+        });
+    }
     // End auth functions
 
     useEffect(() => {
@@ -162,6 +177,7 @@ export const AuthState = ({ children }: any) => {
                 getRole,
                 signIn,
                 signOut,
+                deleteAccount,
                 registerCompany,
                 getInitialUserData,
                 setUserData,
