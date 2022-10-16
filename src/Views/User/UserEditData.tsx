@@ -31,6 +31,7 @@ import {
     UserCanExclude,
     UserEditModals,
 } from '../../Interfaces/UserInterfaces';
+import RadioInput from '../../Components/Inputs/RadioInput';
 
 const UserEditData: React.FC = () => {
     const { loading } = useLoading();
@@ -162,7 +163,8 @@ const UserEditData: React.FC = () => {
     };
 
     function excludeFromUser(property: string, id: number): void {
-        const data:Array<Iskill | Iexperience | Iformation> = userData[property as keyof IUserData];
+        if (!canExclude[property as keyof UserCanExclude]) return;
+        const data: Array<Iskill | Iexperience | Iformation> = userData[property as keyof IUserData];
         if (data == undefined) return;
         data.splice(id, 1);
         setUserData({ ...userData, [property]: data });
@@ -252,7 +254,7 @@ const UserEditData: React.FC = () => {
                             </div>
                             <div>
                                 <button
-                                    onClick={ () => flipExclude('skill') }
+                                    onClick={ () => flipExclude('skills') }
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
                                     <FontAwesomeIcon
@@ -284,56 +286,17 @@ const UserEditData: React.FC = () => {
                                                 id="name"
                                                 consultPackage={ consultPackage }
                                             />
-                                            <div>
-                                                <div>
-                                                    <input
-                                                        type={ InputTypesEnum.radio }
-                                                        onChange={(e) => setInputValue(e)}
-                                                        className="mr-2 cursor-pointer"
-                                                        value="Iniciante"
-                                                        id="starter"
-                                                        name="skill-level"
-                                                    ></input>
-                                                    <label
-                                                        className="text-lg cursor-pointer"
-                                                        htmlFor="starter"
-                                                    >
-                                                        Iniciante
-                                                    </label>
-                                                </div>
-                                                <div>
-                                                    <input
-                                                        type={ InputTypesEnum.radio }
-                                                        onChange={(e) => setInputValue(e)}
-                                                        className="mr-2 cursor-pointer"
-                                                        value="Intermediário"
-                                                        id="intermediate"
-                                                        name="skill-level"
-                                                    ></input>
-                                                    <label
-                                                        className="text-lg cursor-pointer"
-                                                        htmlFor="intermediate"
-                                                    >
-                                                        Intermediário
-                                                    </label>
-                                                </div>
-                                                <div>
-                                                    <input
-                                                        type={ InputTypesEnum.radio }
-                                                        onChange={(e) => setInputValue(e)}
-                                                        className="mr-2 cursor-pointer"
-                                                        value="Avançado"
-                                                        id="advanced"
-                                                        name="skill-level"
-                                                    ></input>
-                                                    <label
-                                                        className="text-lg cursor-pointer"
-                                                        htmlFor="advanced"
-                                                    >
-                                                        Avançado
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            <RadioInput
+                                                name="skill-level"
+                                                id="level"
+                                                labelClass="text-lg"
+                                                options={[
+                                                    'Iniciante',
+                                                    'Intermediário',
+                                                    'Avançado',
+                                                ]}
+                                                consultPackage={ consultPackage }
+                                            />
                                         </div>
                                     </FormModal>
                                 )}
@@ -350,7 +313,7 @@ const UserEditData: React.FC = () => {
                                     key={key}
                                     card={card}
                                     canExclude={canExclude.skills}
-                                    exclude={() => excludeFromUser('skill', key)}
+                                    exclude={() => excludeFromUser('skills', key)}
                                 />
                             ))}
                         </div>
@@ -362,7 +325,7 @@ const UserEditData: React.FC = () => {
                             </div>
                             <div>
                                 <button
-                                    onClick={ () => flipExclude('experience') }
+                                    onClick={ () => flipExclude('experiences') }
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
                                     <FontAwesomeIcon
@@ -453,7 +416,7 @@ const UserEditData: React.FC = () => {
                                         key={ key }
                                         card={ card }
                                         canExclude= { canExclude.experiences }
-                                        exclude={ () => excludeFromUser('experience', key) }
+                                        exclude={ () => excludeFromUser('experiences', key) }
                                     />
                                 ))
                             }
@@ -466,7 +429,7 @@ const UserEditData: React.FC = () => {
                             </div>
                             <div>
                                 <button
-                                    onClick={() => flipExclude('formation')}
+                                    onClick={() => flipExclude('formations')}
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
                                     <FontAwesomeIcon

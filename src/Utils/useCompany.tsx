@@ -58,7 +58,7 @@ const useCompany = () => {
     };
 
     const getUsers = async () => {
-        return await axiosRequest(`${API_URL}/api/company/user`, 'GET');
+        return await axiosRequest(`${API_URL}/api/company/search-users`, 'GET');
     };
 
     const updateCompanyData = async (company: any): Promise<any> => {

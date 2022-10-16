@@ -1,3 +1,4 @@
+// Vacancy Interfaces
 class wantedSkillsData {
     name: string = '';
     level: string = '';
@@ -13,8 +14,13 @@ class VacancyData {
     region: string = '';
     type: string = '';
     wantedSkills: Array<wantedSkillsData> = [];
-    yearsOfExperience: number = 0;
+    yearsOfExperience: number | string = '';
     [key: string]: any;
+}
+
+// Users cards interfaces
+class UserCardData {
+    name: string = '';
 }
 
 export {

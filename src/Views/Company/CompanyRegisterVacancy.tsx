@@ -18,6 +18,7 @@ import {
     wantedSkillsData
 } from '../../Interfaces/CompanyInterfaces';
 import { formatErrors } from '../../Utils/ToastMessages';
+import RadioInput from '../../Components/Inputs/RadioInput';
 
 const CompanyRegisterVacancy = () => {
     const company = useCompany();
@@ -143,24 +144,24 @@ const CompanyRegisterVacancy = () => {
                                     />
                                 </button>
                                     <div 
-                                        className='bg-primary text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple  ease-out duration-200'
+                                        className='bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200'
                                         onClick={() => setSkillModalIsOpen(true)}
                                     >
                                         <FontAwesomeIcon icon={faPlus} />
                                     </div>
-                                    
                                 </div>
                                 <div>
                                     {
                                         vacancyData.wantedSkills.map((card: wantedSkillsData, index) => 
-                                            <UserSkillCard 
-                                                card={card} 
-                                                canExclude={canExcludeSkills}
-                                                exclude={() => excludeSkill(index)}
-                                                key={index} />
+                                            <div className='mt-2' key={index} >
+                                                <UserSkillCard 
+                                                    card={card} 
+                                                    canExclude={canExcludeSkills}
+                                                    exclude={() => excludeSkill(index)}
+                                                />
+                                            </div>
                                         )
                                     }
-                                    
                                 </div>
                             </div>
                         </div>
@@ -215,65 +216,28 @@ const CompanyRegisterVacancy = () => {
                                     Tipo de Contratação
                                 </div>
                                 <div>
-                                    <div>
-                                        <input
-                                            type={ InputTypesEnum.radio }
-                                            onChange={(e) => setInputValue(e)}
-                                            className="mr-2 cursor-pointer"
-                                            value="Estágio"
-                                            id="internship"
-                                            name="type"
-                                        ></input>
-                                        <label
-                                            className="text-lg cursor-pointer"
-                                            htmlFor="internship"
-                                        >
-                                            Estágio
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <input
-                                            type={ InputTypesEnum.radio }
-                                            onChange={(e) => setInputValue(e)}
-                                            className="mr-2 cursor-pointer"
-                                            value="Permanente"
-                                            id="permanent"
-                                            name="type"
-                                        ></input>
-                                        <label
-                                            className="text-lg cursor-pointer"
-                                            htmlFor="permanent"
-                                        >
-                                            Permanente
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <input
-                                            type={ InputTypesEnum.radio }
-                                            onChange={(e) => setInputValue(e)}
-                                            className="mr-2 cursor-pointer"
-                                            value="Temporário"
-                                            id="temporary"
-                                            name="type"
-                                        ></input>
-                                        <label
-                                            className="text-lg cursor-pointer"
-                                            htmlFor="temporary"
-                                        >
-                                            Temporário
-                                        </label>
-                                    </div>
+                                    <RadioInput
+                                        name="type"
+                                        id="worktype"
+                                        options={[
+                                            'Estágio',
+                                            'Permanente',
+                                            'Temporário',
+                                        ]}
+                                        labelClass="text-lg"
+                                        consultPackage={consultPackage}
+                                    />
                                 </div>
                             </div>
                             <TextInput
-                                    placeholder="Anos desejados"
-                                    limit={12}
-                                    type={InputTypesEnum.number}
-                                    size="large"
-                                    name="yearsOfExperience"
-                                    id="yearsOfExperience"
-                                    consultPackage={consultPackage}
-                                />
+                                placeholder="Anos desejados"
+                                limit={2}
+                                type={InputTypesEnum.number}
+                                size="large"
+                                name="yearsOfExperience"
+                                id="yearsOfExperience"
+                                consultPackage={consultPackage}
+                            />
                         </div>
                     </div>
                 </div>
@@ -293,56 +257,13 @@ const CompanyRegisterVacancy = () => {
                                 id="name"
                                 consultPackage={ consultPackage }
                             />
-                            <div>
-                                <div>
-                                    <input
-                                        type={ InputTypesEnum.radio }
-                                        onChange={(e) => setInputValue(e)}
-                                        className="mr-2 cursor-pointer"
-                                        value="Iniciante"
-                                        id="starter"
-                                        name="wantedSkills-level"
-                                    ></input>
-                                    <label
-                                        className="text-lg cursor-pointer"
-                                        htmlFor="starter"
-                                    >
-                                        Iniciante
-                                    </label>
-                                </div>
-                                <div>
-                                    <input
-                                        type={ InputTypesEnum.radio }
-                                        onChange={(e) => setInputValue(e)}
-                                        className="mr-2 cursor-pointer"
-                                        value="Intermediário"
-                                        id="intermediate"
-                                        name="wantedSkills-level"
-                                    ></input>
-                                    <label
-                                        className="text-lg cursor-pointer"
-                                        htmlFor="intermediate"
-                                    >
-                                        Intermediário
-                                    </label>
-                                </div>
-                                <div>
-                                    <input
-                                        type={ InputTypesEnum.radio }
-                                        onChange={(e) => setInputValue(e)}
-                                        className="mr-2 cursor-pointer"
-                                        value="Avançado"
-                                        id="advanced"
-                                        name="wantedSkills-level"
-                                    ></input>
-                                    <label
-                                        className="text-lg cursor-pointer"
-                                        htmlFor="advanced"
-                                    >
-                                        Avançado
-                                    </label>
-                                </div>
-                            </div>
+                            <RadioInput
+                                name="wantedSkills-level"
+                                id="wantedSkills"
+                                options={['Iniciante', 'Intermediário', 'Avançado']}
+                                labelClass="text-lg"
+                                consultPackage={consultPackage}
+                            />
                         </div>
                     </FormModal>
                 )}
