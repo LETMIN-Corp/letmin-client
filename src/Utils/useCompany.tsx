@@ -52,7 +52,7 @@ const useCompany = () => {
     };
     const getAllVacancyCandidates = async (vacancy_id: string) => {
         return axiosRequest(
-            `${API_URL}/api/company/get-all-candidates/${vacancy_id}`,
+            `${API_URL}/api/company/get-vacancy-candidates/${vacancy_id}`,
             'GET',
         );
     };
@@ -100,6 +100,14 @@ const useCompany = () => {
         return axiosRequest(`${API_URL}/api/company/update-vacancy`, 'PATCH', vacancy);
     };
 
+    const checkNewSkill = async (skill: any) => {
+        return await axiosRequest(
+            `${API_URL}/api/company/check-vacancy-skills`,
+            'POST',
+            skill
+        )
+    }
+
     return {
         userData,
         getCompanyData,
@@ -122,6 +130,7 @@ const useCompany = () => {
         loading,
         getCompanyVacancy,
         updateVacancy,
+        checkNewSkill,
     };
 };
 

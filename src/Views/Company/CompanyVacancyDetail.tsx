@@ -85,9 +85,16 @@ const CompanyVacancyDetail: React.FC = () => {
     };
 
     const checkSkillData = () => {
-        setVacancyData({
-            ...vacancyData,
-            wantedSkills: [...vacancyData.wantedSkills, skillData]
+        company.checkNewSkill(skillData).then((res: any) => {
+            if (res.status !== 200) {
+                company.dispatchError(formatErrors(res.data.message));
+                return;
+            }
+
+            setVacancyData({
+                ...vacancyData,
+                wantedSkills: [...vacancyData.wantedSkills, skillData]
+            });
         });
     };
 
@@ -229,6 +236,16 @@ const CompanyVacancyDetail: React.FC = () => {
                                         </div>
                                         <SelectInput placeholder='Carga Horária' options={["Integral", "Meio Período", "Home Office"]} consultPackage={ consultPackage } name="workload" id='workload' disabled={ !canEdit } />
                                         <SelectInput placeholder='Tipo de Contratação' options={["Estágio", "Permanente", "Temporário"]} consultPackage={ consultPackage } name="type" id='type' disabled={ !canEdit } />
+                                        <TextInput
+                                            placeholder="Anos de experiência"
+                                            limit={2}
+                                            type={InputTypesEnum.number}
+                                            size="large"
+                                            name="yearsOfExperience"
+                                            id="yearsOfExperience"
+                                            disabled={!canEdit}
+                                            consultPackage={consultPackage}
+                                        />
                                     </div>
                                 </div>
                                 {

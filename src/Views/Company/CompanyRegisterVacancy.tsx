@@ -44,9 +44,16 @@ const CompanyRegisterVacancy = () => {
     };
 
     const checkSkillData = () => {
-        setVacancyData({
-            ...vacancyData,
-            wantedSkills: [...vacancyData.wantedSkills, skillData]
+        company.checkNewSkill(skillData).then((res: any) => {
+            if (res.status !== 200) {
+                company.dispatchError(formatErrors(res.data.message));
+                return;
+            }
+
+            setVacancyData({
+                ...vacancyData,
+                wantedSkills: [...vacancyData.wantedSkills, skillData]
+            });
         });
     };
 
@@ -231,7 +238,7 @@ const CompanyRegisterVacancy = () => {
                                 </div>
                             </div>
                             <TextInput
-                                placeholder="Anos desejados"
+                                placeholder="Anos de experiência"
                                 limit={2}
                                 type={InputTypesEnum.number}
                                 size="large"
