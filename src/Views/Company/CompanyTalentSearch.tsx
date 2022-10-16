@@ -10,25 +10,23 @@ import useLoading from '../../Utils/useLoading';
 import CompanyDefault from './CompanyDefault';
 
 const CompanyTalentSearch = () => {
-    useEffect((): void => {
-        window.document.title = 'Letmin - Buscar Talentos';
-    }, []);
-
     const company = useCompany();
     const { loading } = useLoading();
 
-    const [allUsers, setAllUsers] = useState<any[]>([]);
-    const [users, setUsers] = useState<any[]>([]);
-    const [searchUsers, setSearchUsers] = useState<string>('');
+    useEffect((): void => {
+        window.document.title = 'Letmin - Buscar Talentos';
 
-    useEffect(() => {
         company.getUsers().then((res: any) => {
             setAllUsers(res.data.users);
             setUsers(res.data.users);
         });
     }, []);
 
+    const [allUsers, setAllUsers] = useState<any[]>([]);
+    const [users, setUsers] = useState<any[]>([]);
+    const [searchUsers, setSearchUsers] = useState<string>('');
     const [userCards, setUserCards] = useState([]);
+
     useEffect(() => {
         const cards = users.map((user) => (
             <CompanyTalentSearchCard user={user} key={user._id} />
