@@ -18,6 +18,18 @@ class VacancyData {
     [key: string]: any;
 }
 
+interface Company {
+    _id: string;
+    name: string;
+}
+
+class EditVacancyData extends VacancyData {
+    company: Company = {
+        _id: '',
+        name: '',
+    };
+}
+
 // Users cards interfaces
 class UserCardData {
     name: string = '';
@@ -25,5 +37,6 @@ class UserCardData {
 
 export {
     VacancyData,
+    EditVacancyData,
     wantedSkillsData,
 }

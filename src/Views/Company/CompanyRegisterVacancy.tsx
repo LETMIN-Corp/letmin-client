@@ -17,6 +17,7 @@ import {
     VacancyData,
     wantedSkillsData
 } from '../../Interfaces/CompanyInterfaces';
+
 import { formatErrors } from '../../Utils/ToastMessages';
 import RadioInput from '../../Components/Inputs/RadioInput';
 
@@ -132,17 +133,17 @@ const CompanyRegisterVacancy = () => {
                                 <div className="text-dark-purple flex font-medium text-md">
                                     <span className='mr-2'>Habilidades Desejadas</span>
                                     <button
-                                    onClick={ () => setCanExcludeSkills(!canExcludeSkills) }
-                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
-                                >
-                                    <FontAwesomeIcon
-                                        icon={
-                                            canExcludeSkills
-                                                ? faTrashArrowUp
-                                                : faTrash
-                                        }
-                                    />
-                                </button>
+                                        onClick={ () => setCanExcludeSkills(!canExcludeSkills) }
+                                        className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={
+                                                canExcludeSkills
+                                                    ? faTrashArrowUp
+                                                    : faTrash
+                                            }
+                                        />
+                                    </button>
                                     <div 
                                         className='bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200'
                                         onClick={() => setSkillModalIsOpen(true)}
