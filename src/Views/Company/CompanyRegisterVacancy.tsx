@@ -54,6 +54,8 @@ const CompanyRegisterVacancy = () => {
                 ...vacancyData,
                 wantedSkills: [...vacancyData.wantedSkills, skillData]
             });
+            setSkillModalIsOpen(false);
+            setSkillData(new wantedSkillsData());
         });
     };
 
@@ -67,7 +69,7 @@ const CompanyRegisterVacancy = () => {
     };
 
     function getInputValue(name: string): any {
-        const [type, data] = name.split('-'); //experience-role  -> experience role
+        const [type, data] = name.split('-');
 
         if (data == undefined) return vacancyData[name as keyof VacancyData];
         else return skillData[data as keyof wantedSkillsData];
@@ -77,7 +79,7 @@ const CompanyRegisterVacancy = () => {
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
     ): void {
         const { name, value } = e.target;
-        const [type, data] = name.split('-'); //experience-role -> experience role
+        const [type, data] = name.split('-');
         if (data == undefined) {
             return setVacancyData({
                 ...vacancyData,
@@ -136,42 +138,14 @@ const CompanyRegisterVacancy = () => {
                                 consultPackage={consultPackage}
                                 placeholder="Descrição"
                             />
-                            <div className="pb-2">
-                                <div className="text-dark-purple flex font-medium text-md">
-                                    <span className='mr-2'>Habilidades Desejadas</span>
-                                    <button
-                                        onClick={ () => setCanExcludeSkills(!canExcludeSkills) }
-                                        className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
-                                    >
-                                        <FontAwesomeIcon
-                                            icon={
-                                                canExcludeSkills
-                                                    ? faTrashArrowUp
-                                                    : faTrash
-                                            }
-                                        />
-                                    </button>
-                                    <div 
-                                        className='bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200'
-                                        onClick={() => setSkillModalIsOpen(true)}
-                                    >
-                                        <FontAwesomeIcon icon={faPlus} />
-                                    </div>
-                                </div>
-                                <div>
-                                    {
-                                        vacancyData.wantedSkills.map((card: wantedSkillsData, index) => 
-                                            <div className='mt-2' key={index} >
-                                                <UserSkillCard 
-                                                    card={card} 
-                                                    canExclude={canExcludeSkills}
-                                                    exclude={() => excludeSkill(index)}
-                                                />
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            </div>
+                            <TextInput
+                                placeholder="Anos de experiência"
+                                limit={2}
+                                type={InputTypesEnum.number}
+                                name="yearsOfExperience"
+                                id="yearsOfExperience"
+                                consultPackage={consultPackage}
+                            />
                         </div>
                         <div className="md:w-6/12 w-full md:mt-1">
                             <SelectInput
@@ -237,15 +211,44 @@ const CompanyRegisterVacancy = () => {
                                     />
                                 </div>
                             </div>
-                            <TextInput
-                                placeholder="Anos de experiência"
-                                limit={2}
-                                type={InputTypesEnum.number}
-                                size="large"
-                                name="yearsOfExperience"
-                                id="yearsOfExperience"
-                                consultPackage={consultPackage}
-                            />
+                        </div>
+                    </div>
+                    <div className="pb-5">
+                        <div className="text-dark-purple flex justify-between items-center font-medium text-md">
+                            <div className='mr-2 font-medium text-lg'>Habilidades Desejadas</div>
+                            <div className='flex'>
+                                <button
+                                    onClick={ () => setCanExcludeSkills(!canExcludeSkills) }
+                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                >
+                                    <FontAwesomeIcon
+                                        icon={
+                                            canExcludeSkills
+                                                ? faTrashArrowUp
+                                                : faTrash
+                                        }
+                                    />
+                                </button>
+                                <button 
+                                    className='bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200'
+                                    onClick={() => setSkillModalIsOpen(true)}
+                                >
+                                    <FontAwesomeIcon icon={faPlus} />
+                                </button>
+                            </div>
+                        </div>
+                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+                            {
+                                vacancyData.wantedSkills.map((card: wantedSkillsData, index) => 
+                                    <div className='mt-2' key={index} >
+                                        <UserSkillCard 
+                                            card={card} 
+                                            canExclude={canExcludeSkills}
+                                            exclude={() => excludeSkill(index)}
+                                        />
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
@@ -253,7 +256,7 @@ const CompanyRegisterVacancy = () => {
                     skillModalIsOpen && (
                     <FormModal
                         handleClose={() => setSkillModalIsOpen(!skillModalIsOpen)}
-                        handleConfirm={checkSkillData}
+                        handleConfirm={ checkSkillData }
                         title="Adicionar Habilidade"
                     >
                         <div className="my-2">

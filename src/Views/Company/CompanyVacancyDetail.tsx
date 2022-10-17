@@ -50,6 +50,11 @@ const CompanyVacancyDetail: React.FC = () => {
         });
     }
 
+    function cancel() {
+        getDBVacancyData();
+        setCanEdit(false);
+    }
+
     useEffect((): void => {
         window.document.title = 'Letmin - Vaga';
         getDBVacancyData();
@@ -175,48 +180,15 @@ const CompanyVacancyDetail: React.FC = () => {
                                             value={vacancyData.description}
                                             disabled={!canEdit}
                                         />
-                                        <div className="pb-2">
-                                <div className="text-dark-purple flex font-medium text-md">
-                                    <span className='mr-2'>Habilidades Desejadas</span>
-                                    {
-                                        canEdit && (
-                                        <>
-                                            <button
-                                                onClick={ () => setCanExcludeSkills(!canExcludeSkills) }
-                                                className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={
-                                                        canExcludeSkills
-                                                            ? faTrashArrowUp
-                                                            : faTrash
-                                                    }
-                                                />
-                                            </button>
-                                            <div 
-                                                className='bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200'
-                                                onClick={() => setSkillModalIsOpen(true)}
-                                            >
-                                                <FontAwesomeIcon icon={faPlus} />
-                                            </div>
-                                        </>
-                                        )
-                                    }
-                                </div>
-                                <div>
-                                    {
-                                        vacancyData.wantedSkills.map((card: wantedSkillsData, index) => 
-                                            <div className='mt-2' key={index} >
-                                                <UserSkillCard
-                                                    card={card} 
-                                                    canExclude={canExcludeSkills}
-                                                    exclude={() => excludeSkill(index)}
-                                                />
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            </div>
+                                        <TextInput
+                                            placeholder="Anos de experiência"
+                                            limit={2}
+                                            type={InputTypesEnum.number}
+                                            name="yearsOfExperience"
+                                            id="yearsOfExperience"
+                                            disabled={!canEdit}
+                                            consultPackage={consultPackage}
+                                        />
                                     </div>
                                     <div className="md:w-6/12 w-full">
                                         <SelectInput placeholder='Região' options={["Sul", "Sudeste", "Centro-Oeste", "Norte", "Nordeste"]} name='region' id='region' consultPackage={ consultPackage } disabled={ !canEdit } /> 
@@ -236,16 +208,48 @@ const CompanyVacancyDetail: React.FC = () => {
                                         </div>
                                         <SelectInput placeholder='Carga Horária' options={["Integral", "Meio Período", "Home Office"]} consultPackage={ consultPackage } name="workload" id='workload' disabled={ !canEdit } />
                                         <SelectInput placeholder='Tipo de Contratação' options={["Estágio", "Permanente", "Temporário"]} consultPackage={ consultPackage } name="type" id='type' disabled={ !canEdit } />
-                                        <TextInput
-                                            placeholder="Anos de experiência"
-                                            limit={2}
-                                            type={InputTypesEnum.number}
-                                            size="large"
-                                            name="yearsOfExperience"
-                                            id="yearsOfExperience"
-                                            disabled={!canEdit}
-                                            consultPackage={consultPackage}
-                                        />
+                                    </div>
+                                </div>
+                                <div className="pb-5">
+                                    <div className="text-dark-purple flex justify-between items-center font-medium text-md">
+                                        <div className='mr-2 font-medium text-lg'>Habilidades Desejadas</div>
+                                        {
+                                            canEdit && (
+                                                <div className='flex'>
+                                                    <button
+                                                        onClick={ () => setCanExcludeSkills(!canExcludeSkills) }
+                                                        className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                                    >
+                                                        <FontAwesomeIcon
+                                                            icon={
+                                                                canExcludeSkills
+                                                                    ? faTrashArrowUp
+                                                                    : faTrash
+                                                            }
+                                                        />
+                                                    </button>
+                                                    <button 
+                                                        className='bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200'
+                                                        onClick={() => setSkillModalIsOpen(true)}
+                                                    >
+                                                        <FontAwesomeIcon icon={faPlus} />
+                                                    </button>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
+                                        {
+                                            vacancyData.wantedSkills.map((card: wantedSkillsData, index) => 
+                                                <div className='mt-2' key={index} >
+                                                    <UserSkillCard 
+                                                        card={card} 
+                                                        canExclude={canExcludeSkills}
+                                                        exclude={() => excludeSkill(index)}
+                                                    />
+                                                </div>
+                                            )
+                                        }
                                     </div>
                                 </div>
                                 {
@@ -278,7 +282,7 @@ const CompanyVacancyDetail: React.FC = () => {
                                     <>
                                         <div className="flex justify-end w-full">
                                             <button
-                                                onClick={getDBVacancyData}
+                                                onClick={cancel}
                                                 className="bg-gray text-black w-2/12 min-w-sm py-2 rounded-md"
                                             >
                                                 Cancelar

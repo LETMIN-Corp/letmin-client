@@ -524,7 +524,15 @@ const UserEditData: React.FC = () => {
                             ))}
                         </div>
                     </section>
-                    <div className='md:flex jusify-between flex-row-reverse items-center px-5'>
+                    <div className='md:flex jusify-between items-center px-5'>
+                        <div className='md:w-4/12'>
+                            <FormButton
+                                isDanger={ true }
+                                text="Excluir Conta"
+                                isFullWidth={ true }
+                                handleClick={() => flipModal('delete')}
+                            />
+                        </div>
                         <div className="md:ml-3 my-5 flex justify-between md:justify-end w-full">
                             <div className="mr-2">
                                 <FormButton
@@ -536,14 +544,6 @@ const UserEditData: React.FC = () => {
                             <FormButton
                                 text="Salvar"
                                 handleClick={() => flipModal('save')}
-                            />
-                        </div>
-                        <div className='md:w-4/12'>
-                            <FormButton
-                                isDanger={ true }
-                                text="Excluir Conta"
-                                isFullWidth={ true }
-                                handleClick={() => flipModal('delete')}
                             />
                         </div>
                     </div>
