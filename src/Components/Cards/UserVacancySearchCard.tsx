@@ -26,7 +26,6 @@ interface ComponentInterface {
 }
 
 const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy }) => {
-    console.log(vacancy)
     return (
         <div className="w-full bg-lilac rounded-md mx-auto text-justify text-8x1 drop-shadow-lg px-5 pt-5 md:py-2 md:mr-5 flex flex-col md:flex-row items-center justify-between">
             <div className="flex xl:w-32 xl:h-32 lg:w-28 lg:h-28 w-24 h-24 border-4 rounded-full items-center justify-center">
