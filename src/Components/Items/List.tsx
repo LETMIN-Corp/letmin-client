@@ -28,9 +28,10 @@ const ListButton: React.FC<ListButtonInterface> = ({
 interface ListInterface {
     data: any;
     itemsPerPage: number;
+    style?: string;
 }
 
-const List: React.FC<ListInterface> = ({ data, itemsPerPage }) => {
+const List: React.FC<ListInterface> = ({ data, itemsPerPage, style }) => {
     const [maxPage, setMaxPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const [displayNodes, setDisplayNodes] = useState<ReactNode[]>([]);
@@ -83,7 +84,15 @@ const List: React.FC<ListInterface> = ({ data, itemsPerPage }) => {
 
     return (
         <>
-            {displayNodes}
+            { !!style?.length && (
+                <>
+                <div className={ style }> { displayNodes} </div>
+                </>
+            )
+            }
+            {
+                !!!style?.length && (displayNodes)
+            }
             <div className="flex justify-center w-full my-10 mr-40">
                 {!!buttons.length && (
                     <>

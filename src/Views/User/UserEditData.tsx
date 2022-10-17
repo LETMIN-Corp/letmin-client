@@ -201,8 +201,8 @@ const UserEditData: React.FC = () => {
                                         />
                                         <h1 className="text-xl font-medium">Editar</h1>
                                     </div>
-                                    <div className="text-sm md:text-md text-dark-gray">
-                                        <span className='mr-1'>Usuário desde</span>
+                                    <div className="text-sm md:text-md text-dark-gray font-medium">
+                                        <span className='mr-1'>Usuário @{ userData.username }, desde</span>
                                         {
                                             new Date(userData.createdAt).toLocaleDateString(
                                                 'pt-BR',

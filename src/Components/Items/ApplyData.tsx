@@ -8,10 +8,10 @@ interface ComponentInterface {
         _id: string;
         candidates: Array<any>;
         role: string;
-        company: {
+        company:{
             _id: string;
             name: string;
-        };
+        }
         sector: string;
         region: string;
         description: string;
