@@ -1,5 +1,5 @@
 interface ComponentInterface {
-    text: string;
+    text: string | React.ReactNode;
     handleClick?: () => void;
     isDisabled?: boolean;
     isFullWidth?: boolean;

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 import FormButton from '../../Components/Buttons/FormButton';
 import UserExperienceCard from '../../Components/Cards/UserExperienceCard';
+import UserSkillCard from '../../Components/Cards/UserSkillsCard';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
@@ -21,62 +22,41 @@ import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
 
-class Iformation {
-    name: string = '';
-    institution: string = '';
-    start: string = '';
-    finish: string = '';
-    description: string = '';
-}
-
-class Iexperience {
-    role: string = '';
-    company: string = '';
-    start: string = '';
-    finish: string = '';
-    description: string = '';
-}
-
-class BasicUserData {
-    createdAt: string = '';
-    name: string = '';
-    role: string = '';
-    description: string = '';
-    email: string = '';
-    username: string = '';
-    picture: string = '';
-}
-
-class UserTypedData extends BasicUserData {
-    experience: Iexperience = new Iexperience();
-    formation: Iformation = new Iformation();
-    [key: string]: any;
-}
-
-class UserData extends BasicUserData {
-    experiences: Array<Iexperience> = [ new Iexperience() ];
-    formations: Array<Iformation> = [ new Iformation() ];
-    [key: string]: any;
-}
-
-interface CanExclude {
-    experiences: boolean;
-    formations: boolean;
-}
+import {
+    IUserData,
+    UserTypedData,
+    Iexperience,
+    Iformation,
+    Iskill,
+    UserCanExclude,
+    UserEditModals,
+} from '../../Interfaces/UserInterfaces';
+import RadioInput from '../../Components/Inputs/RadioInput';
 
 const UserEditData: React.FC = () => {
     const { loading } = useLoading();
     const navigate = useNavigate();
     const user = useUser();
 
-    const [userData, setUserData] = useState<UserData>(new UserData());
+    const [userData, setUserData] = useState<IUserData>(new IUserData());
     const [userTypedData, setUserTypedData] = useState<UserTypedData>(new UserTypedData());
+    const [modalIsOpen, setModalIsOpen] = useState<UserEditModals>(new UserEditModals());
+    const [canExclude, setCanExclude] = useState<UserCanExclude>(new UserCanExclude());
+
+    function flipModal(modal: string) {
+        setModalIsOpen({ ...modalIsOpen, [modal]: !modalIsOpen[modal as keyof UserEditModals] });
+    }
+
+    function flipExclude(property: string) {
+        setCanExclude({
+            ...canExclude,
+            [property]: !canExclude[property as keyof UserCanExclude],
+        });
+    }
 
     function getDBUserData() {
         user.getUserData().then((res: any) => {
-            if (res.status != 200) {
-                navigate('/user/profile');
-            }
+            if (res.status != 200) navigate('/user/profile');
             setUserData(res.data.user);
         });
     }
@@ -85,20 +65,6 @@ const UserEditData: React.FC = () => {
         getDBUserData();
         window.document.title = 'Letmin - Perfil';
     }, []);
-
-    const [modalExitIsOpen, setModalExitIsOpen] =
-        useState(false); /* Modal de confirmar para sair da página */
-    const [modalSaveConfirmationIsOpen, setModalSaveConfirmationIsOpen] =
-        useState(false); /* Modal de confirmar para salvar os dados */
-    const [ExpModalIsOpen, setExpModalIsOpen] =
-        useState(false); /* Modal de adicionar dados */
-    const [formationModalIsOpen, setFormationModalIsOpen] =
-        useState(false); /* Modal de adicionar dados */
-
-    const [canExclude, setCanExclude] = useState<CanExclude>({
-        experiences: false,
-        formations: false,
-    });
 
     /* Utilizada pelo botão de retornar */
     function returnToUserPage() {
@@ -116,7 +82,7 @@ const UserEditData: React.FC = () => {
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
     ): void {
         const { name, value } = e.target;
-        const [type, data] = name.split('-'); //experience-role  -> experience role
+        const [type, data] = name.split('-'); //experience-role -> experience role
         if (data == undefined) {
             setUserData({ ...userData, [name]: value, });
             setUserTypedData({ ...userTypedData, [name]: value, });
@@ -139,68 +105,70 @@ const UserEditData: React.FC = () => {
             } else dispatchError(formatErrors(res.data.message));
         });
     }
+    
+    const checkSkillData = () => {
+        user.checkNewSkill(userTypedData.skill).then((res: any) => {
+            if (res.status !== 200) {
+                dispatchError(formatErrors(res.data.message));
+                return;
+            }
+            setUserData({
+                ...userData,
+                skills: [...userData.skills, userTypedData.skill],
+            })
+            setUserTypedData({
+                ...userTypedData,
+                skill: new Iskill(),
+            });
+
+            return flipModal('skill');
+        });
+    };
 
     const checkExperienceData = () => {
         user.checkNewExperience(userTypedData.experience).then((res: any) => {
-            if (res.status == 200) {
-                setUserData({
-                    ...userData,
-                    experiences: [...userData.experiences, userTypedData.experience],
-                })
-                setUserTypedData({
-                    ...userTypedData,
-                    experience: new Iexperience(),
-                });
-                
-                return setExpModalIsOpen(false);
+            if (res.status !== 200) {
+                return dispatchError(formatErrors(res.data.message));
             }
-            return dispatchError(formatErrors(res.data.message));
+
+            setUserData({
+                ...userData,
+                experiences: [...userData.experiences, userTypedData.experience],
+            })
+            setUserTypedData({
+                ...userTypedData,
+                experience: new Iexperience(),
+            });
+            
+            return flipModal('experience');
         });
-        
     };
-
-    function flipExclude(property: string) {
-        setCanExclude({
-            ...canExclude,
-            [property]: !canExclude[property as keyof CanExclude],
-        });
-    }
-
-    function excludeFormation(id: number) {
-        if (canExclude.formations) {
-            setUserData({
-                ...userData,
-                formations: userData.formations.filter((formation, index) => index != id),
-            });
-        }
-    }
-
-    function excludeExperience(id: number) {
-        if (canExclude.experiences) {
-            setUserData({
-                ...userData,
-                experiences: userData.experiences.filter((experience, index) => index != id),
-            });
-        }
-    }
 
     const checkFormationData = () => {
         user.checkNewFormation(userTypedData.formation).then((res: any) => {
-            if (res.status == 200) {
-                setUserData({
-                    ...userData,
-                    formations: [...userData.formations, userTypedData.formation],
-                })
-                setUserTypedData({
-                    ...userTypedData,
-                    formation: new Iformation(),
-                });
-
-                return setFormationModalIsOpen(false);
+            if (res.status !== 200) {
+                return dispatchError(formatErrors(res.data.message));
             }
-            return dispatchError(formatErrors(res.data.message));
+            setUserData({
+                ...userData,
+                formations: [...userData.formations, userTypedData.formation],
+            })
+            setUserTypedData({
+                ...userTypedData,
+                formation: new Iformation(),
+            });
+
+            return flipModal('formation');
         });
     };
+
+    function excludeFromUser(property: string, id: number): void {
+        if (!canExclude[property as keyof UserCanExclude]) return;
+        const data: Array<Iskill | Iexperience | Iformation> = userData[property as keyof IUserData];
+        if (data == undefined) return;
+        data.splice(id, 1);
+        setUserData({ ...userData, [property]: data });
+    }
 
     const consultPackage = {
         getValue: getInputValue,
@@ -253,7 +221,7 @@ const UserEditData: React.FC = () => {
                                     <TextInput
                                         size="large"
                                         placeholder="Nome"
-                                        type="text"
+                                        type={ InputTypesEnum.text }
                                         name="name"
                                         id="userName"
                                         consultPackage={ consultPackage }
@@ -261,7 +229,7 @@ const UserEditData: React.FC = () => {
                                     <TextInput
                                         size="medium"
                                         placeholder="Cargo"
-                                        type="text"
+                                        type={ InputTypesEnum.text }
                                         name="role"
                                         id="userRole"
                                         consultPackage={ consultPackage }
@@ -279,6 +247,77 @@ const UserEditData: React.FC = () => {
                             </div>
                         </div>
                     </main>
+                    <section className="px-5 my-10">
+                        <div className="mt-24 md:my-4 flex justify-between items-center w-full mb-2">
+                            <div className="font-medium md:text-xl text-dark-purple">
+                                Habilidades
+                            </div>
+                            <div>
+                                <button
+                                    onClick={ () => flipExclude('skills') }
+                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                >
+                                    <FontAwesomeIcon
+                                        icon={
+                                            canExclude.formations
+                                                ? faTrashArrowUp
+                                                : faTrash
+                                        }
+                                    />
+                                </button>
+                                <button
+                                    onClick={ () => flipModal('skill') }
+                                    className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
+                                >
+                                    <FontAwesomeIcon icon={ faPlus } />
+                                </button>
+                                {modalIsOpen.skill && (
+                                    <FormModal
+                                        handleClose={() => flipModal('skill')}
+                                        handleConfirm={checkSkillData}
+                                        title="Adicionar Habilidade"
+                                    >
+                                        <div className="my-2">
+                                            <TextInput
+                                                type={ InputTypesEnum.text }
+                                                placeholder="Nome"
+                                                name="skill-name"
+                                                limit={ 30 }
+                                                id="name"
+                                                consultPackage={ consultPackage }
+                                            />
+                                            <RadioInput
+                                                name="skill-level"
+                                                id="level"
+                                                labelClass="text-lg"
+                                                options={[
+                                                    'Iniciante',
+                                                    'Intermediário',
+                                                    'Avançado',
+                                                ]}
+                                                consultPackage={ consultPackage }
+                                            />
+                                        </div>
+                                    </FormModal>
+                                )}
+                            </div>
+                        </div>
+                        {
+                            !userData.skills.length && (
+                                <div>Você não tem Habilidades cadastradas</div>
+                            )
+                        }
+                        <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {userData.skills.map((card, key) => (
+                                <UserSkillCard
+                                    key={key}
+                                    card={card}
+                                    canExclude={canExclude.skills}
+                                    exclude={() => excludeFromUser('skills', key)}
+                                />
+                            ))}
+                        </div>
+                    </section>
                     <section className="px-5 mt-10">
                         <div className="mt-24 md:my-4 flex justify-between items-center w-full mb-2">
                             <div className="font-medium md:text-xl text-dark-purple">
@@ -298,14 +337,14 @@ const UserEditData: React.FC = () => {
                                     />
                                 </button>
                                 <button
-                                    onClick={ () => setExpModalIsOpen(true) }
+                                    onClick={ () => flipModal('experience') }
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={faPlus} />
                                 </button>
-                                {ExpModalIsOpen && (
+                                {modalIsOpen.experience && (
                                     <FormModal
-                                        handleClose={ () => setExpModalIsOpen(!ExpModalIsOpen) }
+                                        handleClose={ () => flipModal('experience') }
                                         handleConfirm={ checkExperienceData }
                                         title="Adicionar Experiência Prévia"
                                     >
@@ -365,6 +404,11 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
+                        {
+                            !userData.experiences.length && (
+                                <div>Você não tem experiências cadastradas</div>
+                            )
+                        }
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {
                                 userData.experiences.map((card, key) => (
@@ -372,7 +416,7 @@ const UserEditData: React.FC = () => {
                                         key={ key }
                                         card={ card }
                                         canExclude= { canExclude.experiences }
-                                        exclude={ () => excludeExperience(key) }
+                                        exclude={ () => excludeFromUser('experiences', key) }
                                     />
                                 ))
                             }
@@ -397,14 +441,14 @@ const UserEditData: React.FC = () => {
                                     />
                                 </button>
                                 <button
-                                    onClick={() => setFormationModalIsOpen(true)}
+                                    onClick={() => flipModal('formation') }
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={ faPlus } />
                                 </button>
-                                {formationModalIsOpen && (
+                                {modalIsOpen.formation && (
                                     <FormModal
-                                        handleClose={() => setFormationModalIsOpen(!formationModalIsOpen)}
+                                        handleClose={() => flipModal('formation') }
                                         handleConfirm={checkFormationData}
                                         title="Adicionar Formação Acadêmica"
                                     >
@@ -464,46 +508,71 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
+                        {
+                            !userData.formations.length && (
+                                <div>Você não nenhuma Formação cadastradas</div>
+                            )
+                        }
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {userData.formations.map((card, key) => (
                                 <UserExperienceCard
                                     key={key}
                                     card={card}
                                     canExclude={canExclude.formations}
-                                    exclude={() => excludeFormation(key)}
+                                    exclude={() => excludeFromUser('formations', key)}
                                 />
                             ))}
                         </div>
                     </section>
-                    <div className="md:ml-3 my-5 flex justify-between md:justify-end w-full px-5">
-                        <div className="mr-2">
+                    <div className='md:flex jusify-between items-center px-5'>
+                        <div className='md:w-4/12'>
                             <FormButton
-                                isDanger={true}
-                                text="Cancelar"
-                                handleClick={() => setModalExitIsOpen(true)}
+                                isDanger={ true }
+                                text="Excluir Conta"
+                                isFullWidth={ true }
+                                handleClick={() => flipModal('delete')}
                             />
                         </div>
-                        <FormButton
-                            text="Salvar"
-                            handleClick={() => setModalSaveConfirmationIsOpen(true)}
-                        />
+                        <div className="md:ml-3 my-5 flex justify-between md:justify-end w-full">
+                            <div className="mr-2">
+                                <FormButton
+                                    isDanger={ true }
+                                    text="Cancelar"
+                                    handleClick={() => flipModal('exit')}
+                                />
+                            </div>
+                            <FormButton
+                                text="Salvar"
+                                handleClick={() => flipModal('save')}
+                            />
+                        </div>
                     </div>
-                    {modalExitIsOpen && (
+                    {modalIsOpen.exit && (
                         <ConfirmationModal
                             title="Sair da Edição"
                             text="Os dados editados ainda não foram salvos. Você realmente deseja sair da edição?"
-                            handleClose={() => setModalExitIsOpen(false)}
+                            handleClose={() => flipModal('exit')}
                             handleConfirm={returnToUserPage}
                         />
                     )}
-                    {modalSaveConfirmationIsOpen && (
+                    {modalIsOpen.save && (
                         <ConfirmationModal
                             title="Salvar os dados"
                             text="Você realmente deseja salvar estas modificações?"
-                            handleClose={() => setModalSaveConfirmationIsOpen(false)}
+                            handleClose={() => flipModal('save')}
                             handleConfirm={updateUserData}
                         />
                     )}
+                    {
+                        modalIsOpen.delete && (
+                            <ConfirmationModal
+                                title="Excluir conta"
+                                text="Você realmente deseja excluir sua conta? Esta ação não poderá ser desfeita."
+                                handleClose={() => flipModal('delete')}
+                                handleConfirm={user.deleteAccount}
+                            />
+                        )
+                    }
                 </div>
             )}
         </UserDefault>

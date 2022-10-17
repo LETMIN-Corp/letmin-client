@@ -3,6 +3,7 @@ enum InputTypesEnum {
     password = 'password',
     email = 'email',
     number = 'number',
+    radio = 'radio',
     date = 'date',
     tel = 'tel',
 }

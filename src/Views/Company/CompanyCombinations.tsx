@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import CompanyCandidateCard from '../../Components/Cards/CompanyCandidateCard';
+import RadioInput from '../../Components/Inputs/RadioInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import Loading from '../../Components/Items/Loading';
 import FormModal from '../../Components/Modals/FormModal';
@@ -50,6 +51,10 @@ const CompanyCombinations: React.FC = () => {
         }
 
         company.getCandidate(id).then((res: any) => {
+            if (res.status != 200) {
+                dispatchError(res.data.message);
+                return navigate('/company/indicators');
+            }
             setCandidate(res.data.data);
         });
     }, []);
@@ -68,7 +73,7 @@ const CompanyCombinations: React.FC = () => {
 
     const consultPackage = {
         getValue: getComplaintValue,
-        setValue: (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
             setComplaint({
                 ...complaint,
                 [e.target.name]: e.target.value,
@@ -240,21 +245,13 @@ const CompanyCombinations: React.FC = () => {
                         >
                             <div>
                                 <div className="mt-2">
-                                    {options.map((option) => (
-                                        <div key={option} className="flex items-center ">
-                                            <input
-                                                className="mr-3 h-4 w-4 cursor-pointer"
-                                                id={option}
-                                                name="reason"
-                                                value={option}
-                                                onChange={setCheckboxValue}
-                                                type="radio"
-                                            />
-                                            <label htmlFor={option} className="cursor-pointer">
-                                                {option}
-                                            </label>
-                                        </div>
-                                    ))}
+                                    <RadioInput
+                                        name='reason'
+                                        id='reason'
+                                        options={options}
+                                        size='medium'
+                                        consultPackage={consultPackage}
+                                    />
                                 </div>
                                 <div className="mt-2">
                                     <TextAreaInput
@@ -262,7 +259,6 @@ const CompanyCombinations: React.FC = () => {
                                         resize={false}
                                         row={5}
                                         id="description"
-                                        // @ts-ignore:next-line
                                         consultPackage={consultPackage}
                                         placeholder="Descrição"
                                     />
