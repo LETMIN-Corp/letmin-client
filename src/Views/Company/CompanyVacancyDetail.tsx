@@ -85,6 +85,7 @@ const CompanyVacancyDetail: React.FC = () => {
             if (res.data.success) {
                 company.dispatchSuccess(res.data.message);
                 getDBVacancyData();
+                setCanEdit(false);
             } else {
                 company.dispatchError(formatErrors(res.data.message));
             }
