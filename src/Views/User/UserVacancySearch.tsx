@@ -18,10 +18,8 @@ const UserVacancySearch = () => {
         candidates: number;
         role: string;
         company:{
-            company: {
-                _id: string;
-                name: string;
-            };
+            _id: string;
+            name: string;
         };
         user_applied: boolean;
         sector: string;

@@ -12,10 +12,8 @@ interface ComponentInterface {
         candidates: number;
         role: string;
         company:{
-            company: {
-                _id: string;
-                name: string;
-            };
+            _id: string;
+            name: string;
         };
         user_applied: boolean;
         sector: string;
@@ -50,7 +48,7 @@ const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy }) => {
                     </p>
                     <p className="text-md">
                         <FontAwesomeIcon className="xl:ml-3 mr-1" icon={faBuilding} />
-                        <span>{vacancy.company.company.name}</span>
+                        <span>{vacancy.company.name}</span>
                     </p>
                 </div>
                 <p className="text-sm md:text-md">{vacancy.description}</p>
