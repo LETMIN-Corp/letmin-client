@@ -14,6 +14,8 @@ import Loading from '../../Components/Items/Loading';
 import useAuth from '../../Utils/useAuth';
 import { Link } from 'react-router-dom';
 import InputTypesEnum from '../../Enums/InputTypesEnum';
+import UserCompanyVacancyCard from '../../Components/Cards/UserCompanyVacancyCard';
+import List from '../../Components/Items/List';
 
 const UserCompanyDetail = () => {
     const params = useParams();
@@ -23,10 +25,40 @@ const UserCompanyDetail = () => {
 
     const { loading } = useLoading();
     const id = params.id;
-    const [applied, setApplied] = useState(false);
+
+    interface ICompanyData {
+        [key: string]: any
+    }
+
+    const [companyData, setCompanyData] = useState<ICompanyData>({
+        company: {
+            name: '',
+            cnpj: '',
+            email: '',
+            phone: '',
+            address: '',
+        },
+        holder: {
+            name: '',
+            cpf: '',
+            email: '',
+            phone: '',
+        },
+        vacancies: {
+            role: '',
+            sector: '',
+            description: '',
+            currency: '',
+            salary: 0,
+        },
+    });
+
+    const [vacancyCards, setVacancyCards] = useState<ICompanyData>({
+
+    });
 
     useEffect((): void => {
-        window.document.title = 'Letmin - Vaga';
+        window.document.title = 'Letmin - Empresa';
 
         if (id?.length !== 24) {
             navigate('/user/company/search');
@@ -34,47 +66,40 @@ const UserCompanyDetail = () => {
         }
 
         user.getCompany(id).then((res: any) => {
-            if(!res.data.success || res.data.vacancy.closed) {
+            if(!res.data.success) {
                 navigate('/user/company/search');
             }
-            setApplied(res.data.vacancy.candidates.filter((candidate: any) => candidate._id == auth.userData.user_id ).length > 0)
-            setVacancyData(res.data.vacancy);
+            setCompanyData(res.data.data);
+            const cards: any[] = res.data.data.vacancies.map((vacancy: any) => (
+                <UserCompanyVacancyCard vacancy={vacancy} key={vacancy._id} />
+            ));
+            setVacancyCards(cards);
         })
 
     }, []);
 
-    interface IVacancyData {
-        [key: string]: any
-    }
+    function setInputValue(e: React.ChangeEvent<HTMLInputElement>): void {
+        const { name, value } = e.target;
+        const [type, data] = name.split('-');
 
-    const [vacancyData, setVacancyData] = useState<IVacancyData>({
-        _id: '',
-        role: '',
-        sector: '',
-        description: '',
-        company: {
-            company: {
-                name: '',
-            }
-        },
-        salary: '',
-        currency: '',
-        workload: '',
-        region: '',
-        vacancyType: '',
-    });
-
-    function setInputValue (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
-        setVacancyData({
-            ...vacancyData,
-            [e.target.name]: e.target.value
+        setCompanyData({
+            ...companyData,
+            [type]: { ...companyData[type], [data]: value },
         });
     }
 
+    function getInputValue(name: string): string {
+        const [type, data] = name.split('-');
+
+        return companyData[type][data];
+    }
+
     const consultPackage = {
-        getValue: (key: string) => { return vacancyData[key]; },
+        getValue: getInputValue,
         setValue: setInputValue, 
     }
+
+    
 
     return (
         <UserDefault>
@@ -86,13 +111,13 @@ const UserCompanyDetail = () => {
                             <div className='flex items-center'>
                                 <FontAwesomeIcon icon={ faBuilding } className='text-8xl' />
                                 <div>
-                                    <h1 className='text-2xl ml-5 w-full font-bold text-primary'>Nome{ vacancyData.role }</h1>
-                                    <div className='text-xl ml-5 w-full font-medium text-dark-purple'>Representante Legal{ vacancyData.company.company.name }</div>
+                                    <h1 className='text-2xl ml-5 w-full font-bold text-primary'>{ companyData.company.name }</h1>
+                                    <div className='text-xl ml-5 w-full font-medium text-dark-purple'>{ companyData.holder.name }</div>
                                 </div>
                             </div>
                             <h3 className='text-lg font-bold my-5 text-dark-purple lg:mx-auto'>Informações da Empresa</h3>
                             <div>
-                                <div className='flex justify-between'>
+                                <div className='md:flex md:justify-between'>
                                     <div className='md:w-6/12 w-full mr-5'>
                                         <TextInput required={ true } placeholder='Razão Social' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-name' disabled={ true } />
                                         <TextInput required={ true } placeholder='CNPJ' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' disabled={ true } />
@@ -106,11 +131,26 @@ const UserCompanyDetail = () => {
                             </div>
 
                             <h3 className='text-lg font-bold my-5 text-dark-purple lg:mx-auto'>Vagas Disponíveis</h3>
+                            <div>
+                                {
+                                    !!vacancyCards.length && (                                
+                                        <List data={ vacancyCards } itemsPerPage={ 6 } style='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5' ></List>
+                                    )
+                                }
+                                {
+                                    !vacancyCards.length && (
+                                        <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Não há vagas disponíveis</div>
+                                    )
+                                }
+                            </div>
+
 
                         </div>
                     )
                 }
+                
             </div>
+            
         </UserDefault>
     );
 }

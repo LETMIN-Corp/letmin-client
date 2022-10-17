@@ -10,10 +10,10 @@ import Loading from '../../Components/Items/Loading';
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
 import useAuth from '../../Utils/useAuth';
-import { Link } from 'react-router-dom';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
+import { Link } from 'react-router-dom';
 
 const UserVacancyDetail = () => {
     const params = useParams();
@@ -26,6 +26,7 @@ const UserVacancyDetail = () => {
     const [applied, setApplied] = useState(false);
 
     if (id?.length !== 24) {
+        alert('oiii')
         navigate('/user/vacancy/search');
     }
 
@@ -116,7 +117,7 @@ const UserVacancyDetail = () => {
                                     <h1 className="text-2xl ml-5 w-full font-bold text-primary">
                                         {vacancyData.role}
                                     </h1>
-                                    <Link to={`user/company/detail/${vacancyData.company._id}`} className="text-xl ml-5 w-full font-medium text-dark-purple hover:underline">
+                                    <Link to={`/user/company/detail/${ vacancyData.company._id }`} className="text-xl ml-5 w-full font-medium text-dark-purple hover:underline">
                                         {vacancyData.company.company.name}
                                     </Link>
                                 </div>

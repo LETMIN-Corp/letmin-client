@@ -11,9 +11,11 @@ interface ComponentInterface {
         _id: string;
         candidates: number;
         role: string;
-        company: {
-            _id: string;
-            name: string;
+        company:{
+            company: {
+                _id: string;
+                name: string;
+            };
         };
         user_applied: boolean;
         sector: string;
@@ -26,6 +28,7 @@ interface ComponentInterface {
 }
 
 const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy }) => {
+    console.log(vacancy)
     return (
         <div className="w-full bg-lilac rounded-md mx-auto text-justify text-8x1 drop-shadow-lg px-5 pt-5 md:py-2 md:mr-5 flex flex-col md:flex-row items-center justify-between">
             <div className="flex xl:w-32 xl:h-32 lg:w-28 lg:h-28 w-24 h-24 border-4 rounded-full items-center justify-center">
@@ -47,7 +50,7 @@ const UserVacancySearchCard: React.FC<ComponentInterface> = ({ vacancy }) => {
                     </p>
                     <p className="text-md">
                         <FontAwesomeIcon className="xl:ml-3 mr-1" icon={faBuilding} />
-                        <span>{vacancy.company.name}</span>
+                        <span>{vacancy.company.company.name}</span>
                     </p>
                 </div>
                 <p className="text-sm md:text-md">{vacancy.description}</p>

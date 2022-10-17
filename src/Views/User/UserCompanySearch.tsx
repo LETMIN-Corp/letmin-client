@@ -26,7 +26,6 @@ const UserCompanySearch = () => {
         user.getCompanies().then((res : any) => {
             setAllCompanies(res.data.companies);
             setCompanies(res.data.companies);
-            console.log(res.data.companies);
         })
         
     }, []);
@@ -45,8 +44,11 @@ const UserCompanySearch = () => {
             return;
         }
 
-        let filteredCompanies = allCompanies.filter((company : { 'company.name' : string }) => {
-            return company['company.name'].toLowerCase().includes(value.toLowerCase());
+    let filteredCompanies = allCompanies.filter((company : { company : { name: string, address: string } }) => {
+            return (
+                company.company.name.toLowerCase().includes(value.toLowerCase()) ||
+                company.company.address.toLowerCase().includes(value.toLowerCase())                
+            );
         });
         setCompanies(filteredCompanies);
     }
