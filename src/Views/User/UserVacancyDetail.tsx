@@ -13,6 +13,7 @@ import useAuth from '../../Utils/useAuth';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
+import { Link } from 'react-router-dom';
 
 const UserVacancyDetail = () => {
     const params = useParams();
@@ -25,6 +26,7 @@ const UserVacancyDetail = () => {
     const [applied, setApplied] = useState(false);
 
     if (id?.length !== 24) {
+        alert('oiii')
         navigate('/user/vacancy/search');
     }
 
@@ -115,9 +117,9 @@ const UserVacancyDetail = () => {
                                     <h1 className="text-2xl ml-5 w-full font-bold text-primary">
                                         {vacancyData.role}
                                     </h1>
-                                    <p className="text-xl ml-5 w-full font-medium text-dark-purple">
+                                    <Link to={`/user/company/detail/${ vacancyData.company._id }`} className="text-xl ml-5 w-full font-medium hover:text-bold text-dark-purple">
                                         {vacancyData.company.company.name}
-                                    </p>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5">
