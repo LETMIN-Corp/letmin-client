@@ -4,7 +4,7 @@
 O Node pode ser baixado a partir de seu [site oficial](https://nodejs.org/pt-br/) para Windows e MacOS
 A versão utilizada durante o desenvolvimento do projeto e recomendada é v16.14 (aceitando versões mais recentes) com o instalador de pacotes incluído NPM 8.14 (também funcionando em versões maiores).  
 
-### 1 - Site oficial do Node  
+### 1 - Site oficial do Node (https://nodejs.org/pt-br/)  
 
 ![image](https://user-images.githubusercontent.com/70043907/195831753-a3011c28-7889-4300-b0cc-693e068c63fc.png)
 
@@ -12,7 +12,7 @@ A versão utilizada durante o desenvolvimento do projeto e recomendada é v16.14
 
 ![image](https://user-images.githubusercontent.com/70043907/195835329-00c863b0-195a-4176-ba4b-20767d95a993.png)
 
-### 3 - Arquivo ao ser executado  
+### 3 - Arquivo ao ser clicado - pede permissão para ser executado  
 
 ![image](https://user-images.githubusercontent.com/70043907/195835445-7e0dc80b-919e-4db4-ab20-5eb8ab077c5d.png)
 
@@ -20,7 +20,7 @@ A versão utilizada durante o desenvolvimento do projeto e recomendada é v16.14
 ## Instalação e Setup
 Após o Download do Node, um Wizard com configurações especiais abrirá para realizar o setup do programa. Ele o fará a partir da sequência:  
 
-### 4 - Início do Wizard  
+### 4 - Início do Wizard. A qualquer momento, o usuário pode fechar a janela para cancelar a instalação.  
 
 ![image](https://user-images.githubusercontent.com/70043907/195832427-363be3ef-7fc1-476a-930d-7fdb2202a277.png)  
 
@@ -44,11 +44,11 @@ Após o Download do Node, um Wizard com configurações especiais abrirá para r
 
 ![image](https://user-images.githubusercontent.com/70043907/195832903-765d308f-875a-4d74-bece-65e6267bf8cc.png)
 
-### 10 - Processo de instalação  
+### 10 - Processo de instalação. Pode demorar um pouco até que seja completamente baixado.  
 
 ![image](https://user-images.githubusercontent.com/70043907/195832992-3ff4be13-b380-4746-b54c-77f8729f7a70.png)
 
-### 11 - Mensagem de confirmação da instalação do Node  
+### 11 - Mensagem de confirmação da instalação do Node. A partir daqui, ele já pode ser executado sem comprometimentos.  
 
 ![image](https://user-images.githubusercontent.com/70043907/195833050-99e2f17f-482d-4bf0-b775-09ddabd8702a.png)
 
@@ -71,8 +71,19 @@ Para adquirí-los em sua máquina é necessário clonar os arquivos, podendo ser
 - Clonando o repositório pelo GIT através de uma das três opções oferecidas pelo Github (HTTPS, Chave SSH, ou CLI).  
 ![image](https://user-images.githubusercontent.com/70043907/195992593-d5e50e55-25d0-4a3e-b1c7-eb79a2946990.png)  
 
-Com o projeto em mãos, é necessário ajustar suas variáveis de ambiente.
+Com o projeto em mãos, é necessário ajustar suas variáveis de ambiente, explicado na próxima seção.  
 
+
+
+## Variáveis de Ambiente e conexão com a API
+
+Após realizar a instalação da [API](https://github.com/LETMIN-Corp/letmin-api) é necessário configurar os arquivos `.env` com suas devidas variáveis de ambiente de ambos os projetos e servir as duas aplicações.
+Para garantir o bom funcionamento da comunicação da API com o Client da aplicação, é importante seguir o seguinte exemplo:
+
+```
+VITE_APP_API_URL=<APP_API_URL>
+VITE_APP_GOOGLE_CLIENT_ID=<GOOGLE_CLIENT_ID>
+```  
 
 
 
@@ -89,18 +100,10 @@ Além de rodar sobre o runtime para Javascript [Node](https://nodejs.org/pt-br/)
     npm run dev
 ```
 
-- Acesse `https://localhost:3001` para verificar se o projeto está funcionando.
+- Acesse `https://localhost:3001` para verificar se o projeto está funcionando.  
 
 
-## Conexão com a API
 
-Após realizar a instalação da [API](https://github.com/LETMIN-Corp/letmin-api) é necessário configurar os arquivos `.env` com suas devidas variáveis de ambiente de ambos os projetos e servir as duas aplicações.
-Para garantir o bom funcionamento da comunicação da API com o Client da aplicação, é importante seguir o seguinte exemplo:
-
-```
-VITE_APP_API_URL=<APP_API_URL>
-VITE_APP_GOOGLE_CLIENT_ID=<GOOGLE_CLIENT_ID>
-```
 
 ## Autenticação
 
