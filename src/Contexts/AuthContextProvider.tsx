@@ -69,7 +69,7 @@ export const AuthState = ({ children }: any) => {
             })
             .catch((err) => {
                 removeLoading();
-                return err.response;
+                return err;
             });
     };
 
@@ -81,6 +81,9 @@ export const AuthState = ({ children }: any) => {
                     Cookies.set('token', res.headers.authorization);
                     setUserData(res.data);
                     return navigate(`/${role}`);
+                }
+                if (!res.data) {
+                    return dispatchError('Erro de rede: conexão com a API não pôde ser feita');
                 }
 
                 dispatchError(formatErrors(res.data.message));
