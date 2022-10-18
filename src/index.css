@@ -4,89 +4,89 @@
 @tailwind utilities;
 
 * {
-  font-family: 'Libre Franklin', sans-serif;
+    font-family: 'Libre Franklin', sans-serif;
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 p {
-  line-height: 35px !important;
+    line-height: 35px !important;
 }
 
 /* Route active */
 a.active {
-  color: #FFFEFF !important;
-  font-weight: bold;
+    color: #fffeff !important;
+    font-weight: bold;
 }
 
 a.active span {
-  color: #FFFEFF !important;
-  font-weight: bold;
-  display: inline-block;
+    color: #fffeff !important;
+    font-weight: bold;
+    display: inline-block;
 }
 
 @media only screen and (max-width: 770px) {
-  a.active {
-    color: #47196B !important;
-    font-weight: bold;
-  }
-  
-  a.active span {
-    display: hidden;
-  }
+    a.active {
+        color: #47196b !important;
+        font-weight: bold;
+    }
+
+    a.active span {
+        display: hidden;
+    }
 }
 /* End Route active */
 
 @keyframes up {
-  from { 
-    top: 25px;
-  }
-  to {
-    top: 0;
-  }
+    from {
+        top: 25px;
+    }
+    to {
+        top: 0;
+    }
 }
 
 .input-up-animation {
-  animation-name: up;
-  animation-duration: .3s;
-  position: absolute;
-  top: -2px;
-  left: 10px;
+    animation-name: up;
+    animation-duration: 0.3s;
+    position: absolute;
+    top: -2px;
+    left: 10px;
 }
 
 @keyframes growth {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.05);
-  }
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.05);
+    }
 }
 
 .growth-animation {
-  animation-name: growth;
-  animation-duration: .4s;
-  transform: scale(1.05);
-  box-shadow: #48196b44 0px 3px 8px;
+    animation-name: growth;
+    animation-duration: 0.4s;
+    transform: scale(1.05);
+    box-shadow: #48196b44 0px 3px 8px;
 }
 
 /* ScrollBar dos sites */
 ::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 10px;
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: darkorchid;
-  border-radius: 10px;
+    background: darkorchid;
+    border-radius: 10px;
 }
