@@ -181,6 +181,7 @@ const UserEditData: React.FC = () => {
                                     src={
                                         userData.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'
                                     }
+                                    alt="Foto de perfil"
                                     className="rounded-full border-4 border-lively-purple absolute left-0 -top-20 bg-white"
                                     referrerPolicy="no-referrer"
                                 />

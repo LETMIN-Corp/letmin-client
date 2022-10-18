@@ -1,9 +1,5 @@
 import {
-    faBuilding,
-    faBuildingCircleArrowRight,
-    faBuildingColumns,
     faBuildingUser,
-    faBullhorn,
     faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,37 +8,32 @@ import { useEffect, useState } from 'react';
 import UserCompanySearchCard from '../../Components/Cards/UserCompanySearchCard';
 import List from '../../Components/Items/List';
 import Loading from '../../Components/Items/Loading';
-import useAuth from '../../Utils/useAuth';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
+import { ICompanie } from '../../Interfaces/CompanyInterfaces'
 
 const UserCompanySearch = () => {
-    const auth = useAuth();
     const user = useUser();
     const { loading } = useLoading();
 
-    const [allCompanies, setAllCompanies] = useState([]);
-    const [companies, setCompanies] = useState([]);
-    const [searchCompanies, setSearchCompanies] = useState('');
+    const [allCompanies, setAllCompanies] = useState<ICompanie[]>([ new ICompanie() ]);
+    const [companies, setCompanies] = useState<ICompanie[]>([ new ICompanie() ]);
+    const [searchCompanies, setSearchCompanies] = useState<string>('');
+    const [companyCards, setCompanyCards] = useState([]);
 
     useEffect((): void => {
         window.document.title = 'Letmin - Buscar Vagas';
-    }, []);
 
-    useEffect(() => {
         user.getCompanies().then((res: any) => {
             setAllCompanies(res.data.companies);
             setCompanies(res.data.companies);
         });
     }, []);
 
-    const [companyCards, setVacancyCards] = useState([]);
     useEffect(() => {
-        // @ts-ignore:next-line
-        const cards = companies.map((company) => <UserCompanySearchCard company={company} key={company._id} />);
-        // @ts-ignore:next-line
-        setVacancyCards(cards);
+        const cards: any = companies.map((company) => <UserCompanySearchCard company={company} key={company._id} />);
+        setCompanyCards(cards);
     }, [companies]);
 
     const filterCompanies = (value: string) => {
@@ -69,7 +60,6 @@ const UserCompanySearch = () => {
             <div className="p-5 min-h-90">
                 <h1 className="text-2xl text-dark-purple font-medium">
                     <FontAwesomeIcon icon={faBuildingUser} className="mr-2" />
-                    {/* <FontAwesomeIcon icon={ faBullhorn } className='mr-2' /> */}
                     <span>Buscar Empresas</span>
                 </h1>
                 <div className="mt-5 flex flex-wrap">

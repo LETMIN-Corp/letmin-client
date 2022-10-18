@@ -18,21 +18,24 @@ class VacancyData {
     [key: string]: any;
 }
 
-interface Company {
-    _id: string;
-    name: string;
+class Company {
+    _id: string = '';
+    name: string = '';
+    address: string = '';
 }
+
 
 class EditVacancyData extends VacancyData {
-    company: Company = {
-        _id: '',
-        name: '',
-    };
+    company: Company = new Company();
 }
 
+class ICompanie {
+    company: Company = new Company();
+    _id: string = '';
+}
 // Users cards interfaces
 class UserCardData {
     name = '';
 }
 
-export { EditVacancyData, VacancyData, wantedSkillsData };
+export { Company, ICompanie, EditVacancyData, VacancyData, wantedSkillsData };

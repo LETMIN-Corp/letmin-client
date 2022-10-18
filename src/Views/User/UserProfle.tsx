@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import UserExperienceCard from '../../Components/Cards/UserExperienceCard';
 import UserSkillCard from '../../Components/Cards/UserSkillsCard';
 import Loading from '../../Components/Items/Loading';
-import InfoModal from '../../Components/Modals/InfoModal';
 import { Iexperience, Iformation, Iskill, IUserData } from '../../Interfaces/UserInterfaces';
 import { dispatchError } from '../../Utils/ToastMessages';
 import useLoading from '../../Utils/useLoading';
