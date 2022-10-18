@@ -16,23 +16,13 @@ const useCompany = () => {
 
     // Company Functions
     const registerVacancy = async (vacancy: any) => {
-        return await axiosRequest(
-            `${API_URL}/api/company/register-vacancy`,
-            'POST',
-            vacancy,
-        );
+        return await axiosRequest(`${API_URL}/api/company/register-vacancy`, 'POST', vacancy);
     };
     const confirmVacancy = async (vacancy_id: string) => {
-        return axiosRequest(
-            `${API_URL}/api/company/confirm-vacancy/${vacancy_id}`,
-            'PATCH',
-        );
+        return axiosRequest(`${API_URL}/api/company/confirm-vacancy/${vacancy_id}`, 'PATCH');
     };
     const closeVacancy = async (vacancy_id: string) => {
-        return axiosRequest(
-            `${API_URL}/api/company/close-vacancy/${vacancy_id}`,
-            'DELETE',
-        );
+        return axiosRequest(`${API_URL}/api/company/close-vacancy/${vacancy_id}`, 'DELETE');
     };
     const getCompanyData = async () => {
         return await axiosRequest(`${API_URL}/api/company/company-data`, 'GET');
@@ -45,16 +35,10 @@ const useCompany = () => {
     };
 
     const getCandidate = async (candidate_id: string) => {
-        return await axiosRequest(
-            `${API_URL}/api/company/get-candidate/${candidate_id}`,
-            'GET',
-        );
+        return await axiosRequest(`${API_URL}/api/company/get-candidate/${candidate_id}`, 'GET');
     };
     const getAllVacancyCandidates = async (vacancy_id: string) => {
-        return axiosRequest(
-            `${API_URL}/api/company/get-vacancy-candidates/${vacancy_id}`,
-            'GET',
-        );
+        return axiosRequest(`${API_URL}/api/company/get-vacancy-candidates/${vacancy_id}`, 'GET');
     };
 
     const getUsers = async () => {
@@ -62,18 +46,10 @@ const useCompany = () => {
     };
 
     const updateCompanyData = async (company: any): Promise<any> => {
-        return axiosRequest(
-            `${API_URL}/api/company/update-company-company`,
-            'POST',
-            company,
-        );
+        return axiosRequest(`${API_URL}/api/company/update-company-company`, 'POST', company);
     };
     const updateHolderData = async (company: any): Promise<any> => {
-        return axiosRequest(
-            `${API_URL}/api/company/update-company-holder`,
-            'POST',
-            company,
-        );
+        return axiosRequest(`${API_URL}/api/company/update-company-holder`, 'POST', company);
     };
 
     const addToTalentBank = async (target: any) => {
@@ -101,12 +77,8 @@ const useCompany = () => {
     };
 
     const checkNewSkill = async (skill: any) => {
-        return await axiosRequest(
-            `${API_URL}/api/company/check-vacancy-skills`,
-            'POST',
-            skill
-        )
-    }
+        return await axiosRequest(`${API_URL}/api/company/check-vacancy-skills`, 'POST', skill);
+    };
 
     return {
         userData,

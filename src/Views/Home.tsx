@@ -50,10 +50,7 @@ const Home: React.FC = () => {
     return (
         <>
             <Menu menuButtons={menuButtons} />
-            <main
-                id="main"
-                className="min-h-90 flex flex-col md:flex-row justify-center items-center bg-primary"
-            >
+            <main id="main" className="min-h-90 flex flex-col md:flex-row justify-center items-center bg-primary">
                 <div className="w-8/12 md:w-6/12 text-center md:text-left mb-8">
                     <h1 className="text-white text-6xl md:text-8xl lg:text-9xl font-black md:w-10/12 lg:w-8/12 md:flex drop-shadow-lg">
                         LET ME IN
@@ -68,33 +65,20 @@ const Home: React.FC = () => {
                 </div>
             </main>
             <HomeSection id="differential">
-                <h2 className="text-4xl text-center text-dark-purple font-bold px-6 mb-4">
-                    Nada parecido no mercado
-                </h2>
+                <h2 className="text-4xl text-center text-dark-purple font-bold px-6 mb-4">Nada parecido no mercado</h2>
                 <div className="px-5 md:w-10/12 my-6 md:my-10 flex flex-wrap">
                     <p className="lg:w-7/12 text-lg text-justify">
-                        Oferecemos um serviço <HighLight>rápido e fácil</HighLight> em sua
-                        utilização, onde toda a triagem da mão de obra é feita através do
-                        aplicativo. A vantagem na utilização do App é{' '}
-                        <HighLight>reduzir o custo e o tempo</HighLight> que a empresa
-                        gastaria na seleção de candidatos aptos ao cargo, e fornecer{' '}
-                        <HighLight>
-                            relatórios sobre o andamento das entrevistas
-                        </HighLight>{' '}
-                        e de cada candidato. A vantagem para os candidatos é a{' '}
-                        <HighLight>
-                            redução no tempo gasto em longas filas de emprego
-                        </HighLight>
-                        , pois o mesmo tem condições de estar concorrendo a várias vagas
-                        de emprego ao mesmo tempo, através do currículo e perfil
-                        cadastrado na aplicação.
+                        Oferecemos um serviço <HighLight>rápido e fácil</HighLight> em sua utilização, onde toda a
+                        triagem da mão de obra é feita através do aplicativo. A vantagem na utilização do App é{' '}
+                        <HighLight>reduzir o custo e o tempo</HighLight> que a empresa gastaria na seleção de candidatos
+                        aptos ao cargo, e fornecer <HighLight>relatórios sobre o andamento das entrevistas</HighLight> e
+                        de cada candidato. A vantagem para os candidatos é a{' '}
+                        <HighLight>redução no tempo gasto em longas filas de emprego</HighLight>, pois o mesmo tem
+                        condições de estar concorrendo a várias vagas de emprego ao mesmo tempo, através do currículo e
+                        perfil cadastrado na aplicação.
                     </p>
                     <p className="w-full lg:w-5/12 flex justify-center mt-5 lg:mt-0 lg:justify-end">
-                        <img
-                            src={ImgMatch}
-                            className="w-10/12 md:max-w-sm md:h-80"
-                            alt=""
-                        />
+                        <img src={ImgMatch} className="w-10/12 md:max-w-sm md:h-80" alt="" />
                     </p>
                 </div>
             </HomeSection>
@@ -123,25 +107,17 @@ const Home: React.FC = () => {
                 </div>
             </section>
             <HomeSection id="about">
-                <h2 className="text-4xl text-center text-dark-purple font-bold px-6 mb-4">
-                    Sobre
-                </h2>
+                <h2 className="text-4xl text-center text-dark-purple font-bold px-6 mb-4">Sobre</h2>
                 <p className="text-lg md:text-xl text-justify w-10/12 lg:w-8/12 my-6">
-                    A <HighLight>LETMIN</HighLight> é um serviço que veio{' '}
-                    <HighLight>revolucionar</HighLight> o processo de recrutamento,
-                    seleção e gerenciamento de funcionários. Para isso, oferecemos uma{' '}
-                    <HighLight>plataforma acessível</HighLight> que conecta os candidatos
-                    com as empresas oferecendo suporte em quase todo o processo de
-                    seleção. Sendo um projeto que nasceu de conversas entre programadores
-                    e organizações consolidadas no ramo da tecnologia, visando
-                    <HighLight>
-                        {' '}
-                        modernizar e agilizar a área de recursos humanos
-                    </HighLight>{' '}
-                    a partir das verdadeiras necessidades dos usuários. A partir de{' '}
-                    <HighLight>ferramentas eficientes</HighLight> e uma{' '}
-                    <HighLight> interface intuitiva</HighLight>, buscamos transformar a
-                    experiência dos empregados e empregadores durante o recrutamento.
+                    A <HighLight>LETMIN</HighLight> é um serviço que veio <HighLight>revolucionar</HighLight> o processo
+                    de recrutamento, seleção e gerenciamento de funcionários. Para isso, oferecemos uma{' '}
+                    <HighLight>plataforma acessível</HighLight> que conecta os candidatos com as empresas oferecendo
+                    suporte em quase todo o processo de seleção. Sendo um projeto que nasceu de conversas entre
+                    programadores e organizações consolidadas no ramo da tecnologia, visando
+                    <HighLight> modernizar e agilizar a área de recursos humanos</HighLight> a partir das verdadeiras
+                    necessidades dos usuários. A partir de <HighLight>ferramentas eficientes</HighLight> e uma{' '}
+                    <HighLight> interface intuitiva</HighLight>, buscamos transformar a experiência dos empregados e
+                    empregadores durante o recrutamento.
                 </p>
             </HomeSection>
             <section className="flex flex-col md:flex-row items-center bg-primary py-10 md:py-3 px-4 md:px-20">
@@ -156,55 +132,34 @@ const Home: React.FC = () => {
                 </span>
             </section>
             <HomeSection id="who-we-are">
-                <h2 className="text-4xl text-center text-dark-purple font-bold px-6">
-                    Quem somos
-                </h2>
+                <h2 className="text-4xl text-center text-dark-purple font-bold px-6">Quem somos</h2>
                 <div className="flex flex-col md:flex-row px-6 md:pt-6 max-w-4xl">
                     <p className="text-lg md:text-xl text-justify mt-8 md:mt-0 md:w-6/12">
-                        Somos uma ideia que surgiu das mentes de jovens empreendedores com
-                        o intuito de{' '}
-                        <HighLight>
-                            diminuir a quantidade excessiva de tempo gasto
-                        </HighLight>{' '}
-                        no mercado de trabalho para contratar novos funcionários. Buscamos
-                        a{' '}
-                        <HighLight>
-                            transparência, segurança, agilidade e praticidade
-                        </HighLight>{' '}
-                        nos processos, para que tanto a empresa quanto o candidato
-                        obtenham satisfação no uso do programa.
+                        Somos uma ideia que surgiu das mentes de jovens empreendedores com o intuito de{' '}
+                        <HighLight>diminuir a quantidade excessiva de tempo gasto</HighLight> no mercado de trabalho
+                        para contratar novos funcionários. Buscamos a{' '}
+                        <HighLight>transparência, segurança, agilidade e praticidade</HighLight> nos processos, para que
+                        tanto a empresa quanto o candidato obtenham satisfação no uso do programa.
                     </p>
                     <div className="w-full md:w-6/12 my-3 md:my-0 md:ml-5 flex justify-center mt-5 lg:mt-0 lg:justify-end">
-                        <img
-                            src={ImgComemoration}
-                            className="w-10/12 md:max-w-sm md:h-80"
-                            alt=""
-                        />
+                        <img src={ImgComemoration} className="w-10/12 md:max-w-sm md:h-80" alt="" />
                     </div>
                 </div>
                 <div className="flex flex-col-reverse md:flex-row px-6 md:pt-6 max-w-4xl">
                     <div className="w-full md:w-6/12 my-3 md:my-0 md:mr-5 flex justify-center mt-5 lg:mt-0 lg:justify-start">
-                        <img
-                            src={ImgTeam}
-                            className="w-10/12 md:max-w-sm md:h-80"
-                            alt=""
-                        />
+                        <img src={ImgTeam} className="w-10/12 md:max-w-sm md:h-80" alt="" />
                     </div>
                     <p className="text-lg md:text-xl text-justify mt-8 md:mt-0 md:w-6/12">
-                        Nós da <HighLight>LETMIN</HighLight> prezamos pela integração de
-                        novas tecnologias ao mercado de trabalho, almejando{' '}
-                        <HighLight>modernizar os recursos humanos</HighLight>, a fim de{' '}
-                        <HighLight>potencializar seu impacto</HighLight> nas atividades
-                        relacionadas ao lado mais pessoal das empresas.
+                        Nós da <HighLight>LETMIN</HighLight> prezamos pela integração de novas tecnologias ao mercado de
+                        trabalho, almejando <HighLight>modernizar os recursos humanos</HighLight>, a fim de{' '}
+                        <HighLight>potencializar seu impacto</HighLight> nas atividades relacionadas ao lado mais
+                        pessoal das empresas.
                     </p>
                 </div>
             </HomeSection>
             <div className="block text-center">
                 <a href="#main">
-                    <FontAwesomeIcon
-                        icon={faCircleArrowUp}
-                        className="text-2xl mb-5 mx-auto text-primary"
-                    />
+                    <FontAwesomeIcon icon={faCircleArrowUp} className="text-2xl mb-5 mx-auto text-primary" />
                 </a>
             </div>
             <Footer />

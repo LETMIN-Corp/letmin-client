@@ -1,4 +1,4 @@
-import InputTypesEnum from "../../Enums/InputTypesEnum";
+import InputTypesEnum from '../../Enums/InputTypesEnum';
 
 interface ComponentInterface {
     options: Array<string>;
@@ -13,7 +13,15 @@ interface ComponentInterface {
     disabled?: boolean;
 }
 
-const RadioInput: React.FC<ComponentInterface> = ({ options, size, consultPackage, name, id, labelClass = '', disabled }) => {
+const RadioInput: React.FC<ComponentInterface> = ({
+    options,
+    size,
+    consultPackage,
+    name,
+    id,
+    labelClass = '',
+    disabled,
+}) => {
     const getInputSize = () => {
         switch (size) {
             case 'small':
@@ -24,7 +32,6 @@ const RadioInput: React.FC<ComponentInterface> = ({ options, size, consultPackag
                 return 'md:w-6/12';
             case 'full':
                 return 'w-full';
-
         }
     };
 
@@ -34,7 +41,7 @@ const RadioInput: React.FC<ComponentInterface> = ({ options, size, consultPackag
 
     const inputValue = consultPackage.getValue(name);
 
-    const classes = "cursor-pointer " + labelClass;
+    const classes = 'cursor-pointer ' + labelClass;
 
     return (
         <div className={`${getInputSize()} relative`}>

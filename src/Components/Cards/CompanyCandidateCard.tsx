@@ -15,11 +15,7 @@ interface ComponentInterface {
 
 const CompanyCandidateCard: React.FC<ComponentInterface> = ({ card }) => {
     return (
-        <div
-            className={
-                'text-black bg-lilac rounded-md flex-col justify-between drop-shadow-lg'
-            }
-        >
+        <div className={'text-black bg-lilac rounded-md flex-col justify-between drop-shadow-lg'}>
             <div className="text-white break-all bg-bright-purple p-3 flex justify-between rounded-t-md">
                 <div className="font-medium">{card.name || card.role}</div>
                 <div className="font-medium">{card.institution || card.company}</div>

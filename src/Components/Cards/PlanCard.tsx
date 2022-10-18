@@ -34,10 +34,7 @@ const PlanCard: React.FC<ComponentInterface> = ({ card, selected }) => {
             <div className="px-5 py-5">
                 {card.features.map((feature, key) => (
                     <div key={key} className="flex items-center my-4">
-                        <FontAwesomeIcon
-                            icon={faCircleCheck}
-                            className="text-2xl xl:text-4xl mr-3 text-green"
-                        />
+                        <FontAwesomeIcon icon={faCircleCheck} className="text-2xl xl:text-4xl mr-3 text-green" />
                         <span className="xl:text-lg">{feature}</span>
                     </div>
                 ))}

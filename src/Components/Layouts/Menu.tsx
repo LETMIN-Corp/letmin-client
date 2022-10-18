@@ -41,11 +41,7 @@ const Header: React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                                 />
                             </div>
 
-                            <div
-                                className={`${[
-                                    menuIsOpen ? 'block' : 'hidden',
-                                ]} md:block`}
-                            >
+                            <div className={`${[menuIsOpen ? 'block' : 'hidden']} md:block`}>
                                 {
                                     <div className="w-screen min-h-screen bg-white fixed top-0 left-0 md:w-full md:min-h-0 md:sticky">
                                         <div className="w-full flex items-center justify-between px-4 py-4 md:hidden">
@@ -58,72 +54,64 @@ const Header: React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                                         </div>
 
                                         <div className="px-14 text-center mt-20 md:mt-0 md:flex md:p-1">
-                                            {menuButtons.map(
-                                                (button: ButtonsInterface) => {
-                                                    if (button.hasFunction) {
-                                                        if (button.isLink) {
-                                                            return (
-                                                                <button
-                                                                    className="block mx-auto rounded-md bg-white text-primary font-bold py-2 px-4 drop-shadow-lg border-2 border-primary md:text-lg hover:text-white hover:bg-primary ease-out duration-200"
-                                                                    key={button.path}
-                                                                    onClick={
-                                                                        button.handleClick
-                                                                    }
-                                                                >
-                                                                    {button.text}
-                                                                </button>
-                                                            );
-                                                        }
-
+                                            {menuButtons.map((button: ButtonsInterface) => {
+                                                if (button.hasFunction) {
+                                                    if (button.isLink) {
                                                         return (
                                                             <button
-                                                                className="block mb-10 md:mb-0 md:flex items-center text-black md:mr-5 hover:text-primary ease-out duration-200"
+                                                                className="block mx-auto rounded-md bg-white text-primary font-bold py-2 px-4 drop-shadow-lg border-2 border-primary md:text-lg hover:text-white hover:bg-primary ease-out duration-200"
                                                                 key={button.path}
-                                                                onClick={
-                                                                    button.handleClick
-                                                                }
+                                                                onClick={button.handleClick}
                                                             >
                                                                 {button.text}
                                                             </button>
                                                         );
                                                     }
 
-                                                    if (button.isLink) {
-                                                        if (showMenu) {
-                                                            return (
-                                                                <MenuLink
-                                                                    text={button.text}
-                                                                    path={button.path}
-                                                                    key={button.path}
-                                                                />
-                                                            );
-                                                        }
+                                                    return (
+                                                        <button
+                                                            className="block mb-10 md:mb-0 md:flex items-center text-black md:mr-5 hover:text-primary ease-out duration-200"
+                                                            key={button.path}
+                                                            onClick={button.handleClick}
+                                                        >
+                                                            {button.text}
+                                                        </button>
+                                                    );
+                                                }
 
+                                                if (button.isLink) {
+                                                    if (showMenu) {
                                                         return (
-                                                            <PrimaryLink
+                                                            <MenuLink
                                                                 text={button.text}
                                                                 path={button.path}
                                                                 key={button.path}
-                                                            >
-                                                                {button.text}
-                                                            </PrimaryLink>
+                                                            />
                                                         );
                                                     }
 
                                                     return (
-                                                        <a
-                                                            className="block mb-10 md:mb-0 md:flex items-center text-black md:mr-5 hover:text-primary ease-out duration-200"
-                                                            href={button.path}
+                                                        <PrimaryLink
+                                                            text={button.text}
+                                                            path={button.path}
                                                             key={button.path}
-                                                            onClick={() =>
-                                                                setMenuIsOpen(false)
-                                                            }
                                                         >
                                                             {button.text}
-                                                        </a>
+                                                        </PrimaryLink>
                                                     );
-                                                },
-                                            )}
+                                                }
+
+                                                return (
+                                                    <a
+                                                        className="block mb-10 md:mb-0 md:flex items-center text-black md:mr-5 hover:text-primary ease-out duration-200"
+                                                        href={button.path}
+                                                        key={button.path}
+                                                        onClick={() => setMenuIsOpen(false)}
+                                                    >
+                                                        {button.text}
+                                                    </a>
+                                                );
+                                            })}
                                             {auth.isAuthenticated && (
                                                 <button
                                                     className="block mx-auto rounded-md bg-white text-red font-bold py-2 px-4 drop-shadow-lg border-2 border-red md:text-lg"
@@ -150,13 +138,7 @@ const Header: React.FC<ComponentInterface> = ({ menuButtons, showMenu }) => {
                             {menuButtons &&
                                 menuButtons.map((button: ButtonsInterface) => {
                                     if (button.isLink) {
-                                        return (
-                                            <MenuLink
-                                                text={button.text}
-                                                path={button.path}
-                                                key={button.path}
-                                            />
-                                        );
+                                        return <MenuLink text={button.text} path={button.path} key={button.path} />;
                                     }
                                 })}
                         </div>

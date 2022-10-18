@@ -1,39 +1,39 @@
 // User profile edit
 class Iskill {
-    name: string = '';
-    level: string = '';
+    name = '';
+    level = '';
 }
 
 class Iformation {
-    name: string = '';
-    institution: string = '';
-    start: string = '';
-    finish: string = '';
-    description: string = '';
+    name = '';
+    institution = '';
+    start = '';
+    finish = '';
+    description = '';
 }
 
 class Iexperience {
-    role: string = '';
-    company: string = '';
-    start: string = '';
-    finish: string = '';
-    description: string = '';
+    role = '';
+    company = '';
+    start = '';
+    finish = '';
+    description = '';
 }
 
 class BasicUserData {
-    createdAt: string = '';
-    name: string = '';
-    role: string = '';
-    description: string = '';
-    email: string = '';
-    username: string = '';
-    picture: string = '';
+    createdAt = '';
+    name = '';
+    role = '';
+    description = '';
+    email = '';
+    username = '';
+    picture = '';
 }
 
 class IUserData extends BasicUserData {
-    skills: Array<Iskill> = [ new Iskill() ];
-    experiences: Array<Iexperience> = [ new Iexperience() ];
-    formations: Array<Iformation> = [ new Iformation() ];
+    skills: Array<Iskill> = [new Iskill()];
+    experiences: Array<Iexperience> = [new Iexperience()];
+    formations: Array<Iformation> = [new Iformation()];
     [key: string]: any;
 }
 
@@ -45,27 +45,18 @@ class UserTypedData extends BasicUserData {
 }
 
 class UserCanExclude {
-    experiences: boolean = false;
-    formations: boolean = false;
-    skills: boolean = false;
+    experiences = false;
+    formations = false;
+    skills = false;
 }
 
 class UserEditModals {
-    experience: boolean = false;
-    formation: boolean = false;
-    skill: boolean = false;
-    exit: boolean = false;
-    save: boolean = false;
-    delete: boolean = false; 
+    experience = false;
+    formation = false;
+    skill = false;
+    exit = false;
+    save = false;
+    delete = false;
 }
 
-export {
-    IUserData,
-    UserTypedData,
-    Iexperience,
-    Iformation,
-    Iskill,
-    BasicUserData,
-    UserCanExclude,
-    UserEditModals,
-};
+export { BasicUserData, Iexperience, Iformation, Iskill, IUserData, UserCanExclude, UserEditModals, UserTypedData };

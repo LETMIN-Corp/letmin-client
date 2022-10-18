@@ -1,10 +1,4 @@
-import {
-    faChartLine,
-    faCheck,
-    faDoorOpen,
-    faPencil,
-    faXmark,
-} from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faCheck, faDoorOpen, faPencil, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -74,9 +68,7 @@ const CompanyIndicators = () => {
             // if type is confirm, call confirmVacancy
             company.confirmVacancy(currentVacancyId).then((res: any) => {
                 // set changed vacancy closed boolean to true
-                const index = data.findIndex(
-                    (vacancy: Vacancy) => vacancy._id === currentVacancyId,
-                );
+                const index = data.findIndex((vacancy: Vacancy) => vacancy._id === currentVacancyId);
                 data[index].closed = true;
                 setData([...data]);
                 setModalIsOpen(false);
@@ -84,9 +76,7 @@ const CompanyIndicators = () => {
         } else if (currentType === 'OPEN') {
             company.confirmVacancy(currentVacancyId).then((res: any) => {
                 // set changed vacancy closed boolean to false
-                const index = data.findIndex(
-                    (vacancy: Vacancy) => vacancy._id === currentVacancyId,
-                );
+                const index = data.findIndex((vacancy: Vacancy) => vacancy._id === currentVacancyId);
                 data[index].closed = false;
                 setData([...data]);
                 setModalIsOpen(false);
@@ -95,9 +85,7 @@ const CompanyIndicators = () => {
             // if type is close
             company.closeVacancy(currentVacancyId).then((res: any) => {
                 if (res.data.success) {
-                    const newData = data.filter(
-                        (vacancy: Vacancy) => vacancy._id !== currentVacancyId,
-                    );
+                    const newData = data.filter((vacancy: Vacancy) => vacancy._id !== currentVacancyId);
                     setData(newData);
                 }
             });
@@ -141,12 +129,8 @@ const CompanyIndicators = () => {
                             <>
                                 <div className="flex md:text-lg font-medium">
                                     <div className="w-4/12 flex justify-center">Vaga</div>
-                                    <div className="w-4/12 flex justify-center">
-                                        Candidatos
-                                    </div>
-                                    <div className="w-4/12 flex justify-center">
-                                        Ações
-                                    </div>
+                                    <div className="w-4/12 flex justify-center">Candidatos</div>
+                                    <div className="w-4/12 flex justify-center">Ações</div>
                                 </div>
                                 <div>
                                     {data.map((row) => {
@@ -161,10 +145,7 @@ const CompanyIndicators = () => {
                                                     <FontAwesomeIcon
                                                         icon={faCheck}
                                                         className={`text-green mr-2 ${
-                                                            row.closed &&
-                                                            row.candidates.length
-                                                                ? ''
-                                                                : 'hidden'
+                                                            row.closed && row.candidates.length ? '' : 'hidden'
                                                         }`}
                                                     />
                                                     <Link
@@ -184,9 +165,7 @@ const CompanyIndicators = () => {
                                                 </div>
                                                 <div className="w-4/12 flex justify-center items-center text-center">
                                                     {row.candidates.length == 0 ? (
-                                                        <span className="text-slate-800 font-medium">
-                                                            0
-                                                        </span>
+                                                        <span className="text-slate-800 font-medium">0</span>
                                                     ) : (
                                                         <Link
                                                             to={`../company/vacancy/data/${row._id}`}
@@ -200,57 +179,27 @@ const CompanyIndicators = () => {
                                                     {row.closed && (
                                                         <button
                                                             className="py-2 px-3 flex items-center jusitfy-center bg-green text-white rounded-md mr-3"
-                                                            onClick={() =>
-                                                                openModalWithType(
-                                                                    row._id,
-                                                                    'OPEN',
-                                                                )
-                                                            }
+                                                            onClick={() => openModalWithType(row._id, 'OPEN')}
                                                         >
-                                                            <span className="mr-1 hidden lg:flex">
-                                                                Reabrir
-                                                            </span>
-                                                            <FontAwesomeIcon
-                                                                icon={faDoorOpen}
-                                                                className="text-xl"
-                                                            />
+                                                            <span className="mr-1 hidden lg:flex">Reabrir</span>
+                                                            <FontAwesomeIcon icon={faDoorOpen} className="text-xl" />
                                                         </button>
                                                     )}
                                                     {!row.closed && (
                                                         <button
                                                             className="py-2 px-2 flex items-center jusitfy-center bg-green text-white rounded-md mr-3"
-                                                            onClick={() =>
-                                                                openModalWithType(
-                                                                    row._id,
-                                                                    'CONFIRM',
-                                                                )
-                                                            }
+                                                            onClick={() => openModalWithType(row._id, 'CONFIRM')}
                                                         >
-                                                            <span className="mr-1 hidden lg:flex">
-                                                                Concluir
-                                                            </span>
-                                                            <FontAwesomeIcon
-                                                                icon={faCheck}
-                                                                className="text-xl"
-                                                            />
+                                                            <span className="mr-1 hidden lg:flex">Concluir</span>
+                                                            <FontAwesomeIcon icon={faCheck} className="text-xl" />
                                                         </button>
                                                     )}
                                                     <button
                                                         className="py-2 px-3 flex items-center jusitfy-center bg-red text-white rounded-md"
-                                                        onClick={() =>
-                                                            openModalWithType(
-                                                                row._id,
-                                                                'CLOSE',
-                                                            )
-                                                        }
+                                                        onClick={() => openModalWithType(row._id, 'CLOSE')}
                                                     >
-                                                        <span className="mr-1 hidden lg:flex">
-                                                            Encerrar
-                                                        </span>
-                                                        <FontAwesomeIcon
-                                                            icon={faXmark}
-                                                            className="text-xl"
-                                                        />
+                                                        <span className="mr-1 hidden lg:flex">Encerrar</span>
+                                                        <FontAwesomeIcon icon={faXmark} className="text-xl" />
                                                     </button>
                                                 </div>
                                             </div>

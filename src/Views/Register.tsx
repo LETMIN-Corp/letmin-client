@@ -43,13 +43,13 @@ const Register: React.FC = () => {
                 <div className="grid grid-cols-1 flex flex-col justify-center items-center md:grid-cols-2 gap-10 w-10/12 lg:w-8/12  my-6 md:my-10">
                     <RegisterCard>
                         <div className="w-48 h-48 border-4 rounded-full flex items-center justify-center">
-                            <FontAwesomeIcon icon={ faUser } className="text-9xl" />
+                            <FontAwesomeIcon icon={faUser} className="text-9xl" />
                         </div>
                         <div className="text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8">
                             Sou um candidato
                         </div>
 
-                        <GoogleOAuthProvider clientId={ CLIENT_ID }>
+                        <GoogleOAuthProvider clientId={CLIENT_ID}>
                             <GoogleLogin
                                 onSuccess={(credentialResponse) => {
                                     handleLogin(credentialResponse);
@@ -59,7 +59,7 @@ const Register: React.FC = () => {
                     </RegisterCard>
                     <RegisterCard>
                         <div className=" w-48 h-48 border-4 rounded-full flex items-center justify-center">
-                            <FontAwesomeIcon icon={ faBuilding } className="text-9xl" />
+                            <FontAwesomeIcon icon={faBuilding} className="text-9xl" />
                         </div>
                         <div className="text-dark-purple text-center mb-5 font-bold text-lg lg:text-xl mt-8 mb-8">
                             Sou uma empresa
@@ -70,10 +70,7 @@ const Register: React.FC = () => {
                                 <SecondaryLink text="Entrar" path="/company/login" />
                             </div>
                             <div className="mt-8 xl:mt-0">
-                                <SecondaryLink
-                                    text="Cadastrar"
-                                    path="/register/company"
-                                />
+                                <SecondaryLink text="Cadastrar" path="/register/company" />
                             </div>
                         </div>
                     </RegisterCard>

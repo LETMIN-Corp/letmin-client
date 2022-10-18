@@ -80,9 +80,7 @@ const CorpRegister: React.FC = () => {
         return registerData[type][data];
     }
 
-    function setInputValue(
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    ): void {
+    function setInputValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
 
@@ -139,11 +137,7 @@ const CorpRegister: React.FC = () => {
             <Menu menuButtons={pageButtons} />
             <StripTitle text="Cadastro de Empresa" />
             <div className="w-screen min-h-screen p-5 md:px-20 md:py-10">
-                <Pagination
-                    max={pageConstraints.max}
-                    current={currentPage}
-                    handleClick={setCurrentPage}
-                />
+                <Pagination max={pageConstraints.max} current={currentPage} handleClick={setCurrentPage} />
 
                 {currentPage === 0 && (
                     <>
@@ -299,8 +293,7 @@ const CorpRegister: React.FC = () => {
                                         'Envio de e-mails automatizados',
                                     ],
                                     type: PlanTypesEnum.semiannual,
-                                    handleClick: () =>
-                                        setSelectedPlan(PlanTypesEnum.semiannual),
+                                    handleClick: () => setSelectedPlan(PlanTypesEnum.semiannual),
                                 },
                                 {
                                     title: 'Plano anual',
@@ -314,15 +307,10 @@ const CorpRegister: React.FC = () => {
                                         'Envio de e-mails automatizados',
                                     ],
                                     type: PlanTypesEnum.annual,
-                                    handleClick: () =>
-                                        setSelectedPlan(PlanTypesEnum.annual),
+                                    handleClick: () => setSelectedPlan(PlanTypesEnum.annual),
                                 },
                             ].map((card, key) => (
-                                <PlanCard
-                                    key={key}
-                                    card={card}
-                                    selected={card.type === getSelectedPlan()}
-                                />
+                                <PlanCard key={key} card={card} selected={card.type === getSelectedPlan()} />
                             ))}
                         </div>
                     </>
@@ -586,19 +574,13 @@ const CorpRegister: React.FC = () => {
 
                 <div className="flex justify-between w-full my-10 lg:w-8/12 lg:mx-auto">
                     {currentPage > pageConstraints.min && (
-                        <FormButton
-                            text="Voltar"
-                            handleClick={() => setCurrentPage(currentPage - 1)}
-                        />
+                        <FormButton text="Voltar" handleClick={() => setCurrentPage(currentPage - 1)} />
                     )}
 
                     <div></div>
 
                     {currentPage < pageConstraints.max && (
-                        <FormButton
-                            text="Próximo"
-                            handleClick={() => setCurrentPage(currentPage + 1)}
-                        />
+                        <FormButton text="Próximo" handleClick={() => setCurrentPage(currentPage + 1)} />
                     )}
 
                     {currentPage === pageConstraints.max && (

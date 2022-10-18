@@ -60,32 +60,20 @@ const CompanyVacancyData = () => {
                                 Nenhum Candidato Encontrado
                             </h1>
                             <div>
-                                <SecondaryLink
-                                    path="/company/indicators"
-                                    text="Voltar aos indicadores"
-                                ></SecondaryLink>
+                                <SecondaryLink path="/company/indicators" text="Voltar aos indicadores"></SecondaryLink>
                             </div>
                         </div>
                     )}
                     {candidates.length > 0 && (
                         <div className="bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg">
                             <div className="flex text-xl font-medium">
-                                <div className="w-4/12 flex justify-center">
-                                    Candidatos
-                                </div>
-                                <div className="w-4/12 flex justify-center">
-                                    Compatibilidade
-                                </div>
+                                <div className="w-4/12 flex justify-center">Candidatos</div>
+                                <div className="w-4/12 flex justify-center">Compatibilidade</div>
                                 <div className="w-4/12 flex justify-center">Perfil</div>
                             </div>
                             <div>
                                 {candidates.map((row: any, key: number) => (
-                                    <CandidateData
-                                        key={key}
-                                        name={row.name}
-                                        compatibility={75}
-                                        curriculum={row._id}
-                                    />
+                                    <CandidateData key={key} name={row.name} compatibility={75} curriculum={row._id} />
                                 ))}
                             </div>
                         </div>

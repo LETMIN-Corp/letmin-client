@@ -1,10 +1,4 @@
-import {
-    faBan,
-    faBuilding,
-    faInfo,
-    faMagnifyingGlass,
-    faUnlock,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBan, faBuilding, faInfo, faMagnifyingGlass, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -111,9 +105,7 @@ const AdminCompany: React.FC = () => {
                                     key={key}
                                     companyData={company}
                                     handleOpen={() => handleOpen(key)}
-                                    handleCompanyBlock={() =>
-                                        handleCompanyBlock(company._id)
-                                    }
+                                    handleCompanyBlock={() => handleCompanyBlock(company._id)}
                                 />
                             ))}
                         </div>
@@ -158,11 +150,7 @@ interface TableCardInterface {
     handleCompanyBlock: () => void;
 }
 
-const TableCard: React.FC<TableCardInterface> = ({
-    companyData,
-    handleOpen,
-    handleCompanyBlock,
-}) => {
+const TableCard: React.FC<TableCardInterface> = ({ companyData, handleOpen, handleCompanyBlock }) => {
     const Admin = useAdmin();
 
     return (
@@ -175,16 +163,10 @@ const TableCard: React.FC<TableCardInterface> = ({
                     {companyData.company.name}
                 </Link>
             </span>
-            <span className="w-4/12 pr-1">
-                {companyData.status.blocked ? 'Bloqueado' : 'Ativo'}
-            </span>
+            <span className="w-4/12 pr-1">{companyData.status.blocked ? 'Bloqueado' : 'Ativo'}</span>
             <span className="w-3/12 md:w-12 md:text-lg pr-1 flex justify-between">
                 <div className="cursor-pointer">
-                    <FontAwesomeIcon
-                        icon={faInfo}
-                        onClick={handleOpen}
-                        className="text-dark-purple"
-                    />
+                    <FontAwesomeIcon icon={faInfo} onClick={handleOpen} className="text-dark-purple" />
                 </div>
                 <div className="cursor-pointer" onClick={() => handleCompanyBlock()}>
                     {!companyData.status.blocked ? (
@@ -205,12 +187,7 @@ interface CompanyFormInterface {
     handleClose: () => void;
 }
 
-const CompanyForm: React.FC<CompanyFormInterface> = ({
-    isDisabled,
-    companies,
-    selectedCompanyKey,
-    handleClose,
-}) => {
+const CompanyForm: React.FC<CompanyFormInterface> = ({ isDisabled, companies, selectedCompanyKey, handleClose }) => {
     const viewConsultPackage = {
         getValue: (name: string) => {
             const [type, data] = name.split('-');

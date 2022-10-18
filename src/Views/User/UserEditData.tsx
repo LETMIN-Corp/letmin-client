@@ -1,9 +1,4 @@
-import {
-    faPencil,
-    faPlus,
-    faTrash,
-    faTrashArrowUp,
-} from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faPlus, faTrash, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,27 +6,26 @@ import { useNavigate } from 'react-router-dom';
 import FormButton from '../../Components/Buttons/FormButton';
 import UserExperienceCard from '../../Components/Cards/UserExperienceCard';
 import UserSkillCard from '../../Components/Cards/UserSkillsCard';
+import RadioInput from '../../Components/Inputs/RadioInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
 import FormModal from '../../Components/Modals/FormModal';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
+import {
+    Iexperience,
+    Iformation,
+    Iskill,
+    IUserData,
+    UserCanExclude,
+    UserEditModals,
+    UserTypedData,
+} from '../../Interfaces/UserInterfaces';
 import { dispatchError, dispatchSuccess, formatErrors } from '../../Utils/ToastMessages';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
-
-import {
-    IUserData,
-    UserTypedData,
-    Iexperience,
-    Iformation,
-    Iskill,
-    UserCanExclude,
-    UserEditModals,
-} from '../../Interfaces/UserInterfaces';
-import RadioInput from '../../Components/Inputs/RadioInput';
 
 const UserEditData: React.FC = () => {
     const { loading } = useLoading();
@@ -78,14 +72,12 @@ const UserEditData: React.FC = () => {
         else return userTypedData[type][data];
     }
 
-    function setInputValue(
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
-    ): void {
+    function setInputValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-'); //experience-role -> experience role
         if (data == undefined) {
-            setUserData({ ...userData, [name]: value, });
-            setUserTypedData({ ...userTypedData, [name]: value, });
+            setUserData({ ...userData, [name]: value });
+            setUserTypedData({ ...userTypedData, [name]: value });
         } else {
             setUserTypedData({
                 ...userTypedData,
@@ -105,7 +97,7 @@ const UserEditData: React.FC = () => {
             } else dispatchError(formatErrors(res.data.message));
         });
     }
-    
+
     const checkSkillData = () => {
         user.checkNewSkill(userTypedData.skill).then((res: any) => {
             if (res.status !== 200) {
@@ -115,7 +107,7 @@ const UserEditData: React.FC = () => {
             setUserData({
                 ...userData,
                 skills: [...userData.skills, userTypedData.skill],
-            })
+            });
             setUserTypedData({
                 ...userTypedData,
                 skill: new Iskill(),
@@ -134,12 +126,12 @@ const UserEditData: React.FC = () => {
             setUserData({
                 ...userData,
                 experiences: [...userData.experiences, userTypedData.experience],
-            })
+            });
             setUserTypedData({
                 ...userTypedData,
                 experience: new Iexperience(),
             });
-            
+
             return flipModal('experience');
         });
     };
@@ -152,7 +144,7 @@ const UserEditData: React.FC = () => {
             setUserData({
                 ...userData,
                 formations: [...userData.formations, userTypedData.formation],
-            })
+            });
             setUserTypedData({
                 ...userTypedData,
                 formation: new Iformation(),
@@ -187,60 +179,50 @@ const UserEditData: React.FC = () => {
                             <div className="md:mt-5 text-lg flex items-center">
                                 <img
                                     src={
-                                        userData.picture.replace('s96-c', 's150-c') ||
-                                        'https://via.placeholder.com/150'
+                                        userData.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'
                                     }
                                     className="rounded-full border-4 border-lively-purple absolute left-0 -top-20 bg-white"
                                     referrerPolicy="no-referrer"
                                 />
                                 <div className="font-medium mt-24 text-lg">
                                     <div className="flex items-center text-dark-purple">
-                                        <FontAwesomeIcon
-                                            className="mr-2"
-                                            icon={ faPencil }
-                                        />
+                                        <FontAwesomeIcon className="mr-2" icon={faPencil} />
                                         <h1 className="text-xl font-medium">Editar</h1>
                                     </div>
                                     <div className="text-sm md:text-md text-dark-gray font-medium">
-                                        <span className='mr-1'>Usuário @{ userData.username }, desde</span>
-                                        {
-                                            new Date(userData.createdAt).toLocaleDateString(
-                                                'pt-BR',
-                                            )
-                                        }
+                                        <span className="mr-1">Usuário @{userData.username}, desde</span>
+                                        {new Date(userData.createdAt).toLocaleDateString('pt-BR')}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="mt-5 mx-5 font-medium">
-                            <div className="text-xl text-dark-purple">
-                                Informações do Usuário
-                            </div>
+                            <div className="text-xl text-dark-purple">Informações do Usuário</div>
                             <div>
                                 <div className="w-full md:flex justify-between">
                                     <TextInput
                                         size="large"
                                         placeholder="Nome"
-                                        type={ InputTypesEnum.text }
+                                        type={InputTypesEnum.text}
                                         name="name"
                                         id="userName"
-                                        consultPackage={ consultPackage }
+                                        consultPackage={consultPackage}
                                     />
                                     <TextInput
                                         size="medium"
                                         placeholder="Cargo"
-                                        type={ InputTypesEnum.text }
+                                        type={InputTypesEnum.text}
                                         name="role"
                                         id="userRole"
-                                        consultPackage={ consultPackage }
+                                        consultPackage={consultPackage}
                                     />
                                 </div>
                                 <div>
                                     <TextAreaInput
                                         name="description"
                                         id="description"
-                                        row={ 6 }
-                                        consultPackage={ consultPackage }
+                                        row={6}
+                                        consultPackage={consultPackage}
                                         placeholder="Descrição"
                                     />
                                 </div>
@@ -249,27 +231,19 @@ const UserEditData: React.FC = () => {
                     </main>
                     <section className="px-5 my-10">
                         <div className="mt-24 md:my-4 flex justify-between items-center w-full mb-2">
-                            <div className="font-medium md:text-xl text-dark-purple">
-                                Habilidades
-                            </div>
+                            <div className="font-medium md:text-xl text-dark-purple">Habilidades</div>
                             <div>
                                 <button
-                                    onClick={ () => flipExclude('skills') }
+                                    onClick={() => flipExclude('skills')}
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
-                                    <FontAwesomeIcon
-                                        icon={
-                                            canExclude.formations
-                                                ? faTrashArrowUp
-                                                : faTrash
-                                        }
-                                    />
+                                    <FontAwesomeIcon icon={canExclude.formations ? faTrashArrowUp : faTrash} />
                                 </button>
                                 <button
-                                    onClick={ () => flipModal('skill') }
+                                    onClick={() => flipModal('skill')}
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
-                                    <FontAwesomeIcon icon={ faPlus } />
+                                    <FontAwesomeIcon icon={faPlus} />
                                 </button>
                                 {modalIsOpen.skill && (
                                     <FormModal
@@ -279,34 +253,26 @@ const UserEditData: React.FC = () => {
                                     >
                                         <div className="my-2">
                                             <TextInput
-                                                type={ InputTypesEnum.text }
+                                                type={InputTypesEnum.text}
                                                 placeholder="Nome"
                                                 name="skill-name"
-                                                limit={ 30 }
+                                                limit={30}
                                                 id="name"
-                                                consultPackage={ consultPackage }
+                                                consultPackage={consultPackage}
                                             />
                                             <RadioInput
                                                 name="skill-level"
                                                 id="level"
                                                 labelClass="text-lg"
-                                                options={[
-                                                    'Iniciante',
-                                                    'Intermediário',
-                                                    'Avançado',
-                                                ]}
-                                                consultPackage={ consultPackage }
+                                                options={['Iniciante', 'Intermediário', 'Avançado']}
+                                                consultPackage={consultPackage}
                                             />
                                         </div>
                                     </FormModal>
                                 )}
                             </div>
                         </div>
-                        {
-                            !userData.skills.length && (
-                                <div>Você não tem Habilidades cadastradas</div>
-                            )
-                        }
+                        {!userData.skills.length && <div>Você não tem Habilidades cadastradas</div>}
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {userData.skills.map((card, key) => (
                                 <UserSkillCard
@@ -320,50 +286,42 @@ const UserEditData: React.FC = () => {
                     </section>
                     <section className="px-5 mt-10">
                         <div className="mt-24 md:my-4 flex justify-between items-center w-full mb-2">
-                            <div className="font-medium md:text-xl text-dark-purple">
-                                Experiência Profissional
-                            </div>
+                            <div className="font-medium md:text-xl text-dark-purple">Experiência Profissional</div>
                             <div>
                                 <button
-                                    onClick={ () => flipExclude('experiences') }
+                                    onClick={() => flipExclude('experiences')}
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
-                                    <FontAwesomeIcon
-                                        icon={
-                                            canExclude.experiences
-                                                ? faTrashArrowUp
-                                                : faTrash
-                                        }
-                                    />
+                                    <FontAwesomeIcon icon={canExclude.experiences ? faTrashArrowUp : faTrash} />
                                 </button>
                                 <button
-                                    onClick={ () => flipModal('experience') }
+                                    onClick={() => flipModal('experience')}
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={faPlus} />
                                 </button>
                                 {modalIsOpen.experience && (
                                     <FormModal
-                                        handleClose={ () => flipModal('experience') }
-                                        handleConfirm={ checkExperienceData }
+                                        handleClose={() => flipModal('experience')}
+                                        handleConfirm={checkExperienceData}
                                         title="Adicionar Experiência Prévia"
                                     >
                                         <div className="my-2">
                                             <TextInput
-                                                type={ InputTypesEnum.text }
+                                                type={InputTypesEnum.text}
                                                 placeholder="Nome"
                                                 name="experience-role"
-                                                limit={ 30 }
+                                                limit={30}
                                                 id="experience-role"
-                                                consultPackage={ consultPackage }
+                                                consultPackage={consultPackage}
                                             />
                                             <TextInput
-                                                type={ InputTypesEnum.text }
+                                                type={InputTypesEnum.text}
                                                 placeholder="Empresa"
                                                 name="experience-company"
-                                                limit={ 30 }
+                                                limit={30}
                                                 id="experience-company"
-                                                consultPackage={ consultPackage }
+                                                consultPackage={consultPackage}
                                             />
                                             <div className="block md:flex justify-between">
                                                 <TextInput
@@ -404,51 +362,37 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
-                        {
-                            !userData.experiences.length && (
-                                <div>Você não tem experiências cadastradas</div>
-                            )
-                        }
+                        {!userData.experiences.length && <div>Você não tem experiências cadastradas</div>}
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                            {
-                                userData.experiences.map((card, key) => (
-                                    <UserExperienceCard
-                                        key={ key }
-                                        card={ card }
-                                        canExclude= { canExclude.experiences }
-                                        exclude={ () => excludeFromUser('experiences', key) }
-                                    />
-                                ))
-                            }
+                            {userData.experiences.map((card, key) => (
+                                <UserExperienceCard
+                                    key={key}
+                                    card={card}
+                                    canExclude={canExclude.experiences}
+                                    exclude={() => excludeFromUser('experiences', key)}
+                                />
+                            ))}
                         </div>
                     </section>
                     <section className="px-5 my-10">
                         <div className="mt-24 md:my-4 flex justify-between items-center w-full mb-2">
-                            <div className="font-medium md:text-xl text-dark-purple">
-                                Formação Acadêmica
-                            </div>
+                            <div className="font-medium md:text-xl text-dark-purple">Formação Acadêmica</div>
                             <div>
                                 <button
                                     onClick={() => flipExclude('formations')}
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
-                                    <FontAwesomeIcon
-                                        icon={
-                                            canExclude.formations
-                                                ? faTrashArrowUp
-                                                : faTrash
-                                        }
-                                    />
+                                    <FontAwesomeIcon icon={canExclude.formations ? faTrashArrowUp : faTrash} />
                                 </button>
                                 <button
-                                    onClick={() => flipModal('formation') }
+                                    onClick={() => flipModal('formation')}
                                     className="bg-primary w-10 h-10 rounded-md text-white hover:bg-dark-purple ease-out duration-200"
                                 >
-                                    <FontAwesomeIcon icon={ faPlus } />
+                                    <FontAwesomeIcon icon={faPlus} />
                                 </button>
                                 {modalIsOpen.formation && (
                                     <FormModal
-                                        handleClose={() => flipModal('formation') }
+                                        handleClose={() => flipModal('formation')}
                                         handleConfirm={checkFormationData}
                                         title="Adicionar Formação Acadêmica"
                                     >
@@ -508,11 +452,7 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
-                        {
-                            !userData.formations.length && (
-                                <div>Você não nenhuma Formação cadastradas</div>
-                            )
-                        }
+                        {!userData.formations.length && <div>Você não nenhuma Formação cadastradas</div>}
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {userData.formations.map((card, key) => (
                                 <UserExperienceCard
@@ -524,27 +464,20 @@ const UserEditData: React.FC = () => {
                             ))}
                         </div>
                     </section>
-                    <div className='md:flex jusify-between items-center px-5'>
-                        <div className='md:w-4/12'>
+                    <div className="md:flex jusify-between items-center px-5">
+                        <div className="md:w-4/12">
                             <FormButton
-                                isDanger={ true }
+                                isDanger={true}
                                 text="Excluir Conta"
-                                isFullWidth={ true }
+                                isFullWidth={true}
                                 handleClick={() => flipModal('delete')}
                             />
                         </div>
                         <div className="md:ml-3 my-5 flex justify-between md:justify-end w-full">
                             <div className="mr-2">
-                                <FormButton
-                                    isDanger={ true }
-                                    text="Cancelar"
-                                    handleClick={() => flipModal('exit')}
-                                />
+                                <FormButton isDanger={true} text="Cancelar" handleClick={() => flipModal('exit')} />
                             </div>
-                            <FormButton
-                                text="Salvar"
-                                handleClick={() => flipModal('save')}
-                            />
+                            <FormButton text="Salvar" handleClick={() => flipModal('save')} />
                         </div>
                     </div>
                     {modalIsOpen.exit && (
@@ -563,16 +496,14 @@ const UserEditData: React.FC = () => {
                             handleConfirm={updateUserData}
                         />
                     )}
-                    {
-                        modalIsOpen.delete && (
-                            <ConfirmationModal
-                                title="Excluir conta"
-                                text="Você realmente deseja excluir sua conta? Esta ação não poderá ser desfeita."
-                                handleClose={() => flipModal('delete')}
-                                handleConfirm={user.deleteAccount}
-                            />
-                        )
-                    }
+                    {modalIsOpen.delete && (
+                        <ConfirmationModal
+                            title="Excluir conta"
+                            text="Você realmente deseja excluir sua conta? Esta ação não poderá ser desfeita."
+                            handleClose={() => flipModal('delete')}
+                            handleConfirm={user.deleteAccount}
+                        />
+                    )}
                 </div>
             )}
         </UserDefault>

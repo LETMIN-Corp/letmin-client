@@ -17,7 +17,7 @@ const UserVacancySearch = () => {
         _id: string;
         candidates: number;
         role: string;
-        company:{
+        company: {
             _id: string;
             name: string;
         };
@@ -45,9 +45,7 @@ const UserVacancySearch = () => {
     }, []);
 
     useEffect(() => {
-        const cards: any[] = vacancies.map((vacancy) => (
-            <UserVacancySearchCard vacancy={vacancy} key={vacancy._id} />
-        ));
+        const cards: any[] = vacancies.map((vacancy) => <UserVacancySearchCard vacancy={vacancy} key={vacancy._id} />);
         setVacancyCards(cards);
     }, [vacancies]);
 

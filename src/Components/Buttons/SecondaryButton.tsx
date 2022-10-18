@@ -4,11 +4,7 @@ interface ComponentInterface {
     isDisabled?: boolean;
 }
 
-const SecondaryButton: React.FC<ComponentInterface> = ({
-    text,
-    handleClick,
-    isDisabled,
-}) => {
+const SecondaryButton: React.FC<ComponentInterface> = ({ text, handleClick, isDisabled }) => {
     return (
         <button
             disabled={isDisabled}

@@ -90,9 +90,7 @@ const CompanyProfile = () => {
     function updateCompanyData() {
         company.updateCompanyData(companyData).then((res: any) => {
             if (res.data.success && res.status === 201) {
-                company.dispatchSuccess(
-                    'Os dados da empresa foram atualizados com sucesso!',
-                );
+                company.dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
             } else company.dispatchError(formatErrors(res.data.message));
         });
         getDBCompanyData();
@@ -102,9 +100,7 @@ const CompanyProfile = () => {
     function updateHolderData() {
         company.updateHolderData(companyData).then((res: any) => {
             if (res.data.success && res.status === 201) {
-                company.dispatchSuccess(
-                    'Os dados do titular foram atualizados com sucesso!',
-                );
+                company.dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
             } else company.dispatchError(formatErrors(res.data.message));
         });
         getDBCompanyData();
@@ -216,12 +212,7 @@ interface FormInterface {
     updateData?: () => void;
 }
 
-const CompanyForm: React.FC<FormInterface> = ({
-    canEdit,
-    consultPackage,
-    cancelUpdate,
-    updateData,
-}) => {
+const CompanyForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelUpdate, updateData }) => {
     return (
         <>
             <form className="mt-2">
@@ -274,10 +265,7 @@ const CompanyForm: React.FC<FormInterface> = ({
             {canEdit && (
                 <>
                     <div className="flex justify-end w-full">
-                        <button
-                            onClick={cancelUpdate}
-                            className="bg-gray text-black w-2/12 min-w-sm py-2 rounded-md"
-                        >
+                        <button onClick={cancelUpdate} className="bg-gray text-black w-2/12 min-w-sm py-2 rounded-md">
                             Cancelar
                         </button>
                         <button
@@ -293,12 +281,7 @@ const CompanyForm: React.FC<FormInterface> = ({
     );
 };
 
-const HolderForm: React.FC<FormInterface> = ({
-    canEdit,
-    consultPackage,
-    cancelUpdate,
-    updateData,
-}) => {
+const HolderForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelUpdate, updateData }) => {
     return (
         <>
             <form className="mt-2">
@@ -346,10 +329,7 @@ const HolderForm: React.FC<FormInterface> = ({
             {canEdit && (
                 <>
                     <div className="flex justify-end w-full">
-                        <button
-                            onClick={cancelUpdate}
-                            className="bg-gray text-black w-2/12 min-w-sm py-2 rounded-md"
-                        >
+                        <button onClick={cancelUpdate} className="bg-gray text-black w-2/12 min-w-sm py-2 rounded-md">
                             Cancelar
                         </button>
                         <button

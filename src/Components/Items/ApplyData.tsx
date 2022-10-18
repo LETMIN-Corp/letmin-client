@@ -8,10 +8,10 @@ interface ComponentInterface {
         _id: string;
         candidates: Array<any>;
         role: string;
-        company:{
+        company: {
             _id: string;
             name: string;
-        }
+        };
         sector: string;
         region: string;
         description: string;
@@ -24,12 +24,8 @@ const ApplyData: React.FC<ComponentInterface> = ({ vacancy, user_id }) => {
         <div>
             {
                 <div className="flex pt-2 text-sm md:text-md">
-                    <div className="w-4/12 flex justify-center items-center text-center">
-                        {vacancy.role}
-                    </div>
-                    <div className="w-4/12 flex justify-center items-center text-center">
-                        {vacancy.company.name}
-                    </div>
+                    <div className="w-4/12 flex justify-center items-center text-center">{vacancy.role}</div>
+                    <div className="w-4/12 flex justify-center items-center text-center">{vacancy.company.name}</div>
                     <div className="w-4/12 flex justify-center items-center text-center">
                         <Link
                             to={`/user/vacancy/detail/${vacancy._id}`}

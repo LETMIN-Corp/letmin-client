@@ -8,11 +8,7 @@ interface ListButtonInterface {
     handleClick: () => void;
 }
 
-const ListButton: React.FC<ListButtonInterface> = ({
-    children,
-    handleClick,
-    isCurrent,
-}) => {
+const ListButton: React.FC<ListButtonInterface> = ({ children, handleClick, isCurrent }) => {
     return (
         <button
             onClick={handleClick}
@@ -84,15 +80,12 @@ const List: React.FC<ListInterface> = ({ data, itemsPerPage, style }) => {
 
     return (
         <>
-            { !!style?.length && (
+            {!!style?.length && (
                 <>
-                <div className={ style }> { displayNodes} </div>
+                    <div className={style}> {displayNodes} </div>
                 </>
-            )
-            }
-            {
-                !!!style?.length && (displayNodes)
-            }
+            )}
+            {!style?.length && displayNodes}
             <div className="flex justify-center w-full my-10 mr-40">
                 {!!buttons.length && (
                     <>

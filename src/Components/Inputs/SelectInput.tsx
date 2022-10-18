@@ -47,7 +47,9 @@ const SelectInput: React.FC<ComponentInterface> = ({
                 disabled={disabled}
                 className="w-full mt-2 mb-5 md:mt-2 py-2 px-5 border-2 border-dark-purple rounded-md"
             >
-                <option value="" disabled>{placeholder}</option>
+                <option value="" disabled>
+                    {placeholder}
+                </option>
 
                 {options.map((option, key) => (
                     <option value={option} key={key}>
@@ -57,9 +59,7 @@ const SelectInput: React.FC<ComponentInterface> = ({
             </select>
 
             {inputValue && (
-                <div className="input-up-animation z-10 bg-white font-medium px-1 text-dark-purple">
-                    {placeholder}
-                </div>
+                <div className="input-up-animation z-10 bg-white font-medium px-1 text-dark-purple">{placeholder}</div>
             )}
         </div>
     );

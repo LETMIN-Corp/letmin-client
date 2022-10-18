@@ -60,9 +60,7 @@ const CompanyPasswordDefinition: React.FC = () => {
         return data[name];
     }
 
-    function setInputValue(
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    ): void {
+    function setInputValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         const { name, value } = e.target;
         setData({
             ...data,
@@ -81,18 +79,16 @@ const CompanyPasswordDefinition: React.FC = () => {
             auth.dispatchError('As senhas não conferem');
             return;
         }
-        return await auth
-            .setNewPassword(selector, token, data.password)
-            .then((res: any) => {
-                if (res.status !== 200) {
-                    auth.dispatchError('Erro ao definir nova senha');
-                    return;
-                }
-                auth.dispatchSuccess('Senha definida com sucesso');
-                setLoading(false);
+        return await auth.setNewPassword(selector, token, data.password).then((res: any) => {
+            if (res.status !== 200) {
+                auth.dispatchError('Erro ao definir nova senha');
+                return;
+            }
+            auth.dispatchSuccess('Senha definida com sucesso');
+            setLoading(false);
 
-                navigate('/company/login');
-            });
+            navigate('/company/login');
+        });
     };
 
     return (
@@ -102,10 +98,7 @@ const CompanyPasswordDefinition: React.FC = () => {
                 {loading ? (
                     <Loading />
                 ) : validToken ? (
-                    <form
-                        onSubmit={handleSubmit}
-                        className="w-full md:w-6/12 lg:w-3/12 p-5"
-                    >
+                    <form onSubmit={handleSubmit} className="w-full md:w-6/12 lg:w-3/12 p-5">
                         <h1 className="text-xl font-normal">Definir nova senha</h1>
                         <TextInput
                             type={InputTypesEnum.password}

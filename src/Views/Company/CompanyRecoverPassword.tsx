@@ -36,9 +36,7 @@ const CompanyRecoverPassword: React.FC = () => {
         return data[name];
     }
 
-    function setInputValue(
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    ): void {
+    function setInputValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void {
         const { name, value } = e.target;
         setData({
             ...data,

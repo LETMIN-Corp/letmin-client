@@ -24,8 +24,7 @@ export const AuthState = ({ children }: any) => {
 
     const setLoading = () => dispatch({ type: ReducerEnum.set_loading });
     const removeLoading = () => dispatch({ type: ReducerEnum.error });
-    const setUserData = (data: any) =>
-        dispatch({ type: ReducerEnum.set_user_data, payload: data });
+    const setUserData = (data: any) => dispatch({ type: ReducerEnum.set_user_data, payload: data });
     const getRole = () => {
         const token: string | undefined = Cookies.get('token');
 
@@ -94,11 +93,7 @@ export const AuthState = ({ children }: any) => {
     const registerCompany = async (userCredentials: any): Promise<any> => {
         if (!userCredentials) return;
 
-        return axiosRequest(
-            `${API_URL}/api/company/register`,
-            'POST',
-            userCredentials,
-        ).then((res: any) => {
+        return axiosRequest(`${API_URL}/api/company/register`, 'POST', userCredentials).then((res: any) => {
             if (res.data.success && res.status === 201) {
                 dispatchSuccess('Empresa cadastrada com sucesso!');
 
@@ -119,18 +114,18 @@ export const AuthState = ({ children }: any) => {
     }
 
     async function deleteAccount(): Promise<void> {
-        axiosRequest(`${API_URL}/api/user/delete-account`, 'DELETE').then(
-            (res: any) => {
+        axiosRequest(`${API_URL}/api/user/delete-account`, 'DELETE')
+            .then((res: any) => {
                 if (res.status === 200) {
                     signOut();
                     dispatchSuccess(res.data.message);
                     return;
                 }
                 return dispatchError(formatErrors(res.data.message));
-            },
-        ).catch((err: any) => {
-            dispatchError(`Erro ao excluir conta: ${err}`);
-        });
+            })
+            .catch((err: any) => {
+                dispatchError(`Erro ao excluir conta: ${err}`);
+            });
     }
     // End auth functions
 

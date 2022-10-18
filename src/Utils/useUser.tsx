@@ -15,27 +15,15 @@ const useUser = () => {
     }: any = useContext(AuthContext);
 
     const checkNewSkill = async (skill: any) => {
-        return await axiosRequest(
-            `${API_URL}/api/user/check-user-skills`,
-            'POST',
-            skill
-        )
-    }
+        return await axiosRequest(`${API_URL}/api/user/check-user-skills`, 'POST', skill);
+    };
 
     const checkNewFormation = async (formation: any) => {
-        return await axiosRequest(
-            `${API_URL}/api/user/check-user-formations`,
-            'POST',
-            formation,
-        );
+        return await axiosRequest(`${API_URL}/api/user/check-user-formations`, 'POST', formation);
     };
 
     const checkNewExperience = async (formation: any) => {
-        return await axiosRequest(
-            `${API_URL}/api/user/check-user-experiences`,
-            'POST',
-            formation,
-        );
+        return await axiosRequest(`${API_URL}/api/user/check-user-experiences`, 'POST', formation);
     };
 
     // User functions
@@ -47,8 +35,8 @@ const useUser = () => {
     };
     const getVacancies = async () => {
         return await axiosRequest(`${API_URL}/api/user/vacancy`, 'GET');
-    };    
-    const getCompany = async(id: string) => {
+    };
+    const getCompany = async (id: string) => {
         return axiosRequest(`${API_URL}/api/user/get-company/${id}`, 'GET');
     };
     const getCompanies = async () => {
@@ -74,8 +62,6 @@ const useUser = () => {
             vacancy_id,
         });
     };
-
-    
 
     return {
         userData,

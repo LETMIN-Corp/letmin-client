@@ -1,10 +1,4 @@
-import {
-    faCheck,
-    faMagnifyingGlass,
-    faTrash,
-    faTriangleExclamation,
-    faXmark,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faMagnifyingGlass, faTrash, faTriangleExclamation, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -62,9 +56,7 @@ const AdminComplaint: React.FC = () => {
     function handleRemoveComplaint(id: string) {
         admin.removeComplaint(id).then((res: any) => {
             if (res.data.success && res.status === 200) {
-                const newComplaints: any = complaints.filter(
-                    (complaint) => complaint._id !== id,
-                );
+                const newComplaints: any = complaints.filter((complaint) => complaint._id !== id);
                 setComplaints(newComplaints);
                 admin.dispatchSuccess(res.data.message);
                 setModalIsOpen(false);
@@ -149,9 +141,7 @@ const AdminComplaint: React.FC = () => {
                                 <TableCard
                                     key={key}
                                     complaint={complaint}
-                                    changeStatus={() =>
-                                        handleCheckComplaint(complaint._id)
-                                    }
+                                    changeStatus={() => handleCheckComplaint(complaint._id)}
                                     openModal={() => {
                                         setModalIsOpen(true);
                                         setCurrentComplaint(key);
@@ -167,9 +157,7 @@ const AdminComplaint: React.FC = () => {
                     title="Excluir Denúncia"
                     text="Tem certeza que deseja excluir essa denúncia?"
                     handleClose={() => setModalIsOpen(false)}
-                    handleConfirm={() =>
-                        handleRemoveComplaint(complaints[currentComplaint]._id)
-                    }
+                    handleConfirm={() => handleRemoveComplaint(complaints[currentComplaint]._id)}
                 />
             )}
         </AdminDefault>
@@ -182,11 +170,7 @@ interface TableCardInterface {
     changeStatus: () => void;
 }
 
-const TableCard: React.FC<TableCardInterface> = ({
-    complaint,
-    openModal,
-    changeStatus,
-}) => {
+const TableCard: React.FC<TableCardInterface> = ({ complaint, openModal, changeStatus }) => {
     return (
         <div className="text-sm bg-lilac py-2 px-1 rounded-sm flex items-center justify-between mt-2">
             <span className="w-4/12 pr-1">{complaint.envoy.name}</span>
@@ -200,16 +184,12 @@ const TableCard: React.FC<TableCardInterface> = ({
                 </Link>
             </span>
             <span className="w-8/12 pr-1">{complaint.description}</span>
-            <span className="w-4/12 pr-1">
-                {complaint.pending ? 'Pendente' : 'Resolvida'}
-            </span>
+            <span className="w-4/12 pr-1">{complaint.pending ? 'Pendente' : 'Resolvida'}</span>
             <span className="w-2/12 pr-1 flex justify-between">
                 <div className="cursor-pointer">
                     <FontAwesomeIcon
                         className={
-                            complaint.pending
-                                ? 'text-green text-center w-6 h-6'
-                                : 'text-red text-center w-6 h-6'
+                            complaint.pending ? 'text-green text-center w-6 h-6' : 'text-red text-center w-6 h-6'
                         }
                         icon={complaint.pending ? faCheck : faXmark}
                         onClick={changeStatus}

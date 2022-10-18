@@ -4,22 +4,17 @@ import { useEffect, useState } from 'react';
 
 import FormButton from '../../Components/Buttons/FormButton';
 import UserSkillCard from '../../Components/Cards/UserSkillsCard';
+import RadioInput from '../../Components/Inputs/RadioInput';
 import SelectInput from '../../Components/Inputs/SelectInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import FormModal from '../../Components/Modals/FormModal';
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import InputTypesEnum from '../../Enums/InputTypesEnum';
+import { VacancyData, wantedSkillsData } from '../../Interfaces/CompanyInterfaces';
+import { formatErrors } from '../../Utils/ToastMessages';
 import useCompany from '../../Utils/useCompany';
 import CompanyDefault from './CompanyDefault';
-
-import {
-    VacancyData,
-    wantedSkillsData
-} from '../../Interfaces/CompanyInterfaces';
-
-import { formatErrors } from '../../Utils/ToastMessages';
-import RadioInput from '../../Components/Inputs/RadioInput';
 
 const CompanyRegisterVacancy = () => {
     const company = useCompany();
@@ -52,7 +47,7 @@ const CompanyRegisterVacancy = () => {
 
             setVacancyData({
                 ...vacancyData,
-                wantedSkills: [...vacancyData.wantedSkills, skillData]
+                wantedSkills: [...vacancyData.wantedSkills, skillData],
             });
             setSkillModalIsOpen(false);
             setSkillData(new wantedSkillsData());
@@ -64,7 +59,7 @@ const CompanyRegisterVacancy = () => {
         const newSkills = vacancyData.wantedSkills.filter((skill, i) => i !== index);
         setVacancyData({
             ...vacancyData,
-            wantedSkills: newSkills
+            wantedSkills: newSkills,
         });
     };
 
@@ -75,9 +70,7 @@ const CompanyRegisterVacancy = () => {
         else return skillData[data as keyof wantedSkillsData];
     }
 
-    function setInputValue(
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
-    ): void {
+    function setInputValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-');
         if (data == undefined) {
@@ -106,27 +99,19 @@ const CompanyRegisterVacancy = () => {
                 </h1>
 
                 <div className="w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5">
-                    <h1 className="text-xl text-bold-purple font-medium">
-                        Dados da Vaga
-                    </h1>
+                    <h1 className="text-xl text-bold-purple font-medium">Dados da Vaga</h1>
                     <div className="md:flex md:justify-between">
                         <div className="md:w-6/12 w-full mr-5">
                             <TextInput
                                 placeholder="Cargo"
-                                type={ InputTypesEnum.text }
+                                type={InputTypesEnum.text}
                                 name="role"
                                 id="role"
                                 consultPackage={consultPackage}
                             />
                             <SelectInput
                                 placeholder="Região"
-                                options={[
-                                    'Sul',
-                                    'Sudeste',
-                                    'Centro-Oeste',
-                                    'Norte',
-                                    'Nordeste',
-                                ]}
+                                options={['Sul', 'Sudeste', 'Centro-Oeste', 'Norte', 'Nordeste']}
                                 name="region"
                                 id="region"
                                 consultPackage={consultPackage}
@@ -160,7 +145,7 @@ const CompanyRegisterVacancy = () => {
                                     placeholder="Salário"
                                     useMask={MaskTypesEnum.money}
                                     limit={12}
-                                    type={ InputTypesEnum.text }
+                                    type={InputTypesEnum.text}
                                     size="large"
                                     name="salary"
                                     id="salary"
@@ -194,18 +179,12 @@ const CompanyRegisterVacancy = () => {
                                 id="sector"
                             ></SelectInput>
                             <div className="pb-2">
-                                <div className="text-dark-purple font-medium text-md">
-                                    Tipo de Contratação
-                                </div>
+                                <div className="text-dark-purple font-medium text-md">Tipo de Contratação</div>
                                 <div>
                                     <RadioInput
                                         name="type"
                                         id="worktype"
-                                        options={[
-                                            'Estágio',
-                                            'Permanente',
-                                            'Temporário',
-                                        ]}
+                                        options={['Estágio', 'Permanente', 'Temporário']}
                                         labelClass="text-lg"
                                         consultPackage={consultPackage}
                                     />
@@ -215,58 +194,49 @@ const CompanyRegisterVacancy = () => {
                     </div>
                     <div className="pb-5">
                         <div className="text-dark-purple flex justify-between items-center font-medium text-md">
-                            <div className='mr-2 font-medium text-lg'>Habilidades Desejadas</div>
-                            <div className='flex'>
+                            <div className="mr-2 font-medium text-lg">Habilidades Desejadas</div>
+                            <div className="flex">
                                 <button
-                                    onClick={ () => setCanExcludeSkills(!canExcludeSkills) }
+                                    onClick={() => setCanExcludeSkills(!canExcludeSkills)}
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
                                 >
-                                    <FontAwesomeIcon
-                                        icon={
-                                            canExcludeSkills
-                                                ? faTrashArrowUp
-                                                : faTrash
-                                        }
-                                    />
+                                    <FontAwesomeIcon icon={canExcludeSkills ? faTrashArrowUp : faTrash} />
                                 </button>
-                                <button 
-                                    className='bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200'
+                                <button
+                                    className="bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200"
                                     onClick={() => setSkillModalIsOpen(true)}
                                 >
                                     <FontAwesomeIcon icon={faPlus} />
                                 </button>
                             </div>
                         </div>
-                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-                            {
-                                vacancyData.wantedSkills.map((card: wantedSkillsData, index) => 
-                                    <div className='mt-2' key={index} >
-                                        <UserSkillCard 
-                                            card={card} 
-                                            canExclude={canExcludeSkills}
-                                            exclude={() => excludeSkill(index)}
-                                        />
-                                    </div>
-                                )
-                            }
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            {vacancyData.wantedSkills.map((card: wantedSkillsData, index) => (
+                                <div className="mt-2" key={index}>
+                                    <UserSkillCard
+                                        card={card}
+                                        canExclude={canExcludeSkills}
+                                        exclude={() => excludeSkill(index)}
+                                    />
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
-                {
-                    skillModalIsOpen && (
+                {skillModalIsOpen && (
                     <FormModal
                         handleClose={() => setSkillModalIsOpen(!skillModalIsOpen)}
-                        handleConfirm={ checkSkillData }
+                        handleConfirm={checkSkillData}
                         title="Adicionar Habilidade"
                     >
                         <div className="my-2">
                             <TextInput
-                                type={ InputTypesEnum.text }
+                                type={InputTypesEnum.text}
                                 placeholder="Nome"
                                 name="wantedSkills-name"
-                                limit={ 30 }
+                                limit={30}
                                 id="name"
-                                consultPackage={ consultPackage }
+                                consultPackage={consultPackage}
                             />
                             <RadioInput
                                 name="wantedSkills-level"
@@ -279,7 +249,7 @@ const CompanyRegisterVacancy = () => {
                     </FormModal>
                 )}
                 <div className="flex w-full justify-end">
-                    <FormButton text="Cadastrar" handleClick={handleSubmit}/>
+                    <FormButton text="Cadastrar" handleClick={handleSubmit} />
                 </div>
             </div>
         </CompanyDefault>

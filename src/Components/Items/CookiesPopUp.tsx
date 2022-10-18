@@ -6,9 +6,7 @@ import { useEffect, useState } from 'react';
 import SecondaryButton from '../Buttons/SecondaryButton';
 
 const CookiesPopUp: React.FC = () => {
-    const [cookiesAccepted, setCookiesAccepted] = useState<boolean | string | undefined>(
-        true,
-    );
+    const [cookiesAccepted, setCookiesAccepted] = useState<boolean | string | undefined>(true);
 
     useEffect(() => {
         setCookiesAccepted(Cookies.get('cookiesAccepted'));
@@ -32,15 +30,11 @@ const CookiesPopUp: React.FC = () => {
                         <h3 className="font-medium text-lg">Aceitar cookies</h3>
                     </div>
                     <div className="text-sm md:text-md text-justify mb-4 text-lg">
-                        Ao clicar em "Aceitar todos os cookies", você concorda que a
-                        Letmin pode guardar cookies no seu dispositivo e utilizar essas
-                        informações de acordo com a nossa política de cookies.
+                        Ao clicar em "Aceitar todos os cookies", você concorda que a Letmin pode guardar cookies no seu
+                        dispositivo e utilizar essas informações de acordo com a nossa política de cookies.
                     </div>
                     <div className="w-full flex justify-center">
-                        <SecondaryButton
-                            text="Aceitar todos os cookies"
-                            handleClick={() => acceptCookie()}
-                        />
+                        <SecondaryButton text="Aceitar todos os cookies" handleClick={() => acceptCookie()} />
                     </div>
                 </div>
             )}

@@ -43,23 +43,13 @@ const UserApply = () => {
                         ) : (
                             <div className="bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg">
                                 <div className="flex text-xl font-medium">
-                                    <div className="w-4/12 flex justify-center text-center">
-                                        Vaga
-                                    </div>
-                                    <div className="w-4/12 flex justify-center">
-                                        Empresa
-                                    </div>
-                                    <div className="w-4/12 flex justify-center">
-                                        Detalhes
-                                    </div>
+                                    <div className="w-4/12 flex justify-center text-center">Vaga</div>
+                                    <div className="w-4/12 flex justify-center">Empresa</div>
+                                    <div className="w-4/12 flex justify-center">Detalhes</div>
                                 </div>
                                 <div>
                                     {vacancies.map((vacancy, key) => (
-                                        <ApplyData
-                                            user_id={auth.userData.user_id}
-                                            vacancy={vacancy}
-                                            key={key}
-                                        />
+                                        <ApplyData user_id={auth.userData.user_id} vacancy={vacancy} key={key} />
                                     ))}
                                 </div>
                             </div>

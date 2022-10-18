@@ -1,21 +1,22 @@
-import { useEffect, useState  } from 'react';
-import UserDefault from './UserDefault'
-import TextInput from '../../Components/Inputs/TextInput';
-import TextAreaInput from '../../Components/Inputs/TextAreaInput';
-import MaskTypesEnum from '../../Enums/MaskTypesEnum';
-import SecondaryButton from '../../Components/Buttons/SecondaryButton';
-import { useNavigate, useParams } from "react-router-dom";
-import useUser from '../../Utils/useUser';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
-import useLoading from '../../Utils/useLoading';
-import Loading from '../../Components/Items/Loading';
-import useAuth from '../../Utils/useAuth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import InputTypesEnum from '../../Enums/InputTypesEnum';
+
+import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 import UserCompanyVacancyCard from '../../Components/Cards/UserCompanyVacancyCard';
+import TextAreaInput from '../../Components/Inputs/TextAreaInput';
+import TextInput from '../../Components/Inputs/TextInput';
 import List from '../../Components/Items/List';
+import Loading from '../../Components/Items/Loading';
+import InputTypesEnum from '../../Enums/InputTypesEnum';
+import MaskTypesEnum from '../../Enums/MaskTypesEnum';
+import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
+import useAuth from '../../Utils/useAuth';
+import useLoading from '../../Utils/useLoading';
+import useUser from '../../Utils/useUser';
+import UserDefault from './UserDefault';
 
 const UserCompanyDetail = () => {
     const params = useParams();
@@ -27,7 +28,7 @@ const UserCompanyDetail = () => {
     const id = params.id;
 
     interface ICompanyData {
-        [key: string]: any
+        [key: string]: any;
     }
 
     const [companyData, setCompanyData] = useState<ICompanyData>({
@@ -53,9 +54,7 @@ const UserCompanyDetail = () => {
         },
     });
 
-    const [vacancyCards, setVacancyCards] = useState<ICompanyData>({
-
-    });
+    const [vacancyCards, setVacancyCards] = useState<ICompanyData>({});
 
     useEffect((): void => {
         window.document.title = 'Letmin - Empresa';
@@ -66,7 +65,7 @@ const UserCompanyDetail = () => {
         }
 
         user.getCompany(id).then((res: any) => {
-            if(!res.data.success) {
+            if (!res.data.success) {
                 navigate('/user/company/search');
             }
             setCompanyData(res.data.data);
@@ -74,8 +73,7 @@ const UserCompanyDetail = () => {
                 <UserCompanyVacancyCard vacancy={vacancy} key={vacancy._id} />
             ));
             setVacancyCards(cards);
-        })
-
+        });
     }, []);
 
     function setInputValue(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -96,63 +94,96 @@ const UserCompanyDetail = () => {
 
     const consultPackage = {
         getValue: getInputValue,
-        setValue: setInputValue, 
-    }
-
-    
+        setValue: setInputValue,
+    };
 
     return (
         <UserDefault>
-            <div className='p-5 min-h-screen'>
-                {
-                    loading ? <Loading />
-                    : (
-                        <div>
-                            <div className='flex items-center'>
-                                <FontAwesomeIcon icon={ faBuilding } className='text-8xl' />
-                                <div>
-                                    <h1 className='text-2xl ml-5 w-full font-bold text-primary'>{ companyData.company.name }</h1>
-                                    <div className='text-xl ml-5 w-full font-medium text-dark-purple'>{ companyData.holder.name }</div>
+            <div className="p-5 min-h-screen">
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <div>
+                        <div className="flex items-center">
+                            <FontAwesomeIcon icon={faBuilding} className="text-8xl" />
+                            <div>
+                                <h1 className="text-2xl ml-5 w-full font-bold text-primary">
+                                    {companyData.company.name}
+                                </h1>
+                                <div className="text-xl ml-5 w-full font-medium text-dark-purple">
+                                    {companyData.holder.name}
                                 </div>
                             </div>
-                            <h3 className='text-lg font-bold my-5 text-dark-purple lg:mx-auto'>Informações da Empresa</h3>
-                            <div>
-                                <div className='md:flex md:justify-between'>
-                                    <div className='md:w-6/12 w-full mr-5'>
-                                        <TextInput required={ true } placeholder='Razão Social' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-name' disabled={ true } />
-                                        <TextInput required={ true } placeholder='CNPJ' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-cnpj' disabled={ true } />
-                                    </div>
-                                    <div className='md:w-6/12 w-full mr-5'>
-                                        <TextInput required={ true } placeholder='E-mail' type={ InputTypesEnum.email } consultPackage={ consultPackage } name='company-email' disabled={ true }/>
-                                        <TextInput required={ true } placeholder='Telefone' type={ InputTypesEnum.tel } consultPackage={ consultPackage } name='company-phone' disabled={ true }/>
-                                    </div>
-                                </div>
-                                <TextInput placeholder='Endereço' type={ InputTypesEnum.text } consultPackage={ consultPackage } name='company-address' disabled={ true }/>
-                            </div>
-
-                            <h3 className='text-lg font-bold my-5 text-dark-purple lg:mx-auto'>Vagas Disponíveis</h3>
-                            <div>
-                                {
-                                    !!vacancyCards.length && (                                
-                                        <List data={ vacancyCards } itemsPerPage={ 6 } style='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5' ></List>
-                                    )
-                                }
-                                {
-                                    !vacancyCards.length && (
-                                        <div className='mt-5 text-center md:text-left text-dark-purple text-lg font-medium'>Não há vagas disponíveis</div>
-                                    )
-                                }
-                            </div>
-
-
                         </div>
-                    )
-                }
-                
+                        <h3 className="text-lg font-bold my-5 text-dark-purple lg:mx-auto">Informações da Empresa</h3>
+                        <div>
+                            <div className="md:flex md:justify-between">
+                                <div className="md:w-6/12 w-full mr-5">
+                                    <TextInput
+                                        required={true}
+                                        placeholder="Razão Social"
+                                        type={InputTypesEnum.text}
+                                        consultPackage={consultPackage}
+                                        name="company-name"
+                                        disabled={true}
+                                    />
+                                    <TextInput
+                                        required={true}
+                                        placeholder="CNPJ"
+                                        type={InputTypesEnum.text}
+                                        consultPackage={consultPackage}
+                                        name="company-cnpj"
+                                        disabled={true}
+                                    />
+                                </div>
+                                <div className="md:w-6/12 w-full mr-5">
+                                    <TextInput
+                                        required={true}
+                                        placeholder="E-mail"
+                                        type={InputTypesEnum.email}
+                                        consultPackage={consultPackage}
+                                        name="company-email"
+                                        disabled={true}
+                                    />
+                                    <TextInput
+                                        required={true}
+                                        placeholder="Telefone"
+                                        type={InputTypesEnum.tel}
+                                        consultPackage={consultPackage}
+                                        name="company-phone"
+                                        disabled={true}
+                                    />
+                                </div>
+                            </div>
+                            <TextInput
+                                placeholder="Endereço"
+                                type={InputTypesEnum.text}
+                                consultPackage={consultPackage}
+                                name="company-address"
+                                disabled={true}
+                            />
+                        </div>
+
+                        <h3 className="text-lg font-bold my-5 text-dark-purple lg:mx-auto">Vagas Disponíveis</h3>
+                        <div>
+                            {!!vacancyCards.length && (
+                                <List
+                                    data={vacancyCards}
+                                    itemsPerPage={6}
+                                    style="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                                ></List>
+                            )}
+                            {!vacancyCards.length && (
+                                <div className="mt-5 text-center md:text-left text-dark-purple text-lg font-medium">
+                                    Não há vagas disponíveis
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
-            
         </UserDefault>
     );
-}
+};
 
 export default UserCompanyDetail;

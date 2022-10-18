@@ -1,10 +1,4 @@
-import {
-    faBan,
-    faInfo,
-    faMagnifyingGlass,
-    faUnlock,
-    faUsers,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBan, faInfo, faMagnifyingGlass, faUnlock, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -114,9 +108,7 @@ const AdminCollaborator: React.FC = () => {
                                     key={key}
                                     collaborator={collaborator}
                                     handleOpen={() => handleOpen(key)}
-                                    handleUserBlock={() =>
-                                        handleUserBlock(collaborator._id)
-                                    }
+                                    handleUserBlock={() => handleUserBlock(collaborator._id)}
                                 />
                             ))}
                         </div>
@@ -141,11 +133,7 @@ interface TableCardInterface {
     handleUserBlock: () => void;
 }
 
-const TableCard: React.FC<TableCardInterface> = ({
-    collaborator,
-    handleOpen,
-    handleUserBlock,
-}) => {
+const TableCard: React.FC<TableCardInterface> = ({ collaborator, handleOpen, handleUserBlock }) => {
     return (
         <div className="text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2">
             <span className="w-5/12 md:w-7/12 pr-1">
@@ -156,16 +144,10 @@ const TableCard: React.FC<TableCardInterface> = ({
                     {collaborator.name}
                 </Link>
             </span>
-            <span className="w-4/12 pr-1">
-                {collaborator.blocked ? 'Bloqueado' : 'Ativo'}
-            </span>
+            <span className="w-4/12 pr-1">{collaborator.blocked ? 'Bloqueado' : 'Ativo'}</span>
             <span className="w-2/12 md:w-12 md:text-lg pr-1 flex justify-between">
                 <div className="cursor-pointer">
-                    <FontAwesomeIcon
-                        icon={faInfo}
-                        onClick={handleOpen}
-                        className="text-dark-purple"
-                    />
+                    <FontAwesomeIcon icon={faInfo} onClick={handleOpen} className="text-dark-purple" />
                 </div>
                 <div className="cursor-pointer" onClick={() => handleUserBlock()}>
                     {!collaborator.blocked ? (

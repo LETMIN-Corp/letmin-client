@@ -28,9 +28,7 @@ const CompanyTalentSearch = () => {
     const [userCards, setUserCards] = useState([]);
 
     useEffect(() => {
-        const cards = users.map((user) => (
-            <CompanyTalentSearchCard user={user} key={user._id} />
-        ));
+        const cards = users.map((user) => <CompanyTalentSearchCard user={user} key={user._id} />);
         // @ts-ignore:next-line
         setUserCards(cards);
     }, [users]);

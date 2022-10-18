@@ -1,18 +1,18 @@
 // Vacancy Interfaces
 class wantedSkillsData {
-    name: string = '';
-    level: string = '';
+    name = '';
+    level = '';
 }
 
 class VacancyData {
-    role: string = '';
-    sector: string = '';
-    description: string = '';
-    salary: string = '';
-    currency: string = '';
-    workload: string = '';
-    region: string = '';
-    type: string = '';
+    role = '';
+    sector = '';
+    description = '';
+    salary = '';
+    currency = '';
+    workload = '';
+    region = '';
+    type = '';
     wantedSkills: Array<wantedSkillsData> = [];
     yearsOfExperience: number | string = '';
     [key: string]: any;
@@ -32,11 +32,7 @@ class EditVacancyData extends VacancyData {
 
 // Users cards interfaces
 class UserCardData {
-    name: string = '';
+    name = '';
 }
 
-export {
-    VacancyData,
-    EditVacancyData,
-    wantedSkillsData,
-}
+export { EditVacancyData, VacancyData, wantedSkillsData };

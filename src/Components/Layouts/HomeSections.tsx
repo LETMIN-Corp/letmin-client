@@ -5,10 +5,7 @@ interface ComponentInterface {
 
 const HomeSection: React.FC<ComponentInterface> = ({ id, children }) => {
     return (
-        <section
-            id={id}
-            className="min-h-80 flex flex-col justify-center items-center py-10"
-        >
+        <section id={id} className="min-h-80 flex flex-col justify-center items-center py-10">
             {children}
         </section>
     );

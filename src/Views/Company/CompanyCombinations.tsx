@@ -1,9 +1,4 @@
-import {
-    faHeart,
-    faHeartBroken,
-    faTriangleExclamation,
-    faWarning,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faHeartBroken, faTriangleExclamation, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -132,141 +127,109 @@ const CompanyCombinations: React.FC = () => {
 
     return (
         <CompanyDefault>
-            {
-                loading ? (
-                    <Loading />
-                ) : (
-                    <div>
-                        <main className='min-w-screen'>
-                            <div className="h-32 bg-lively-purple"></div>
-                            <div className="relative flex md:justify-end mx-5">
-                                <img
-                                    src={
-                                        candidate.picture.replace('s96-c', 's150-c') ||
-                                        'https://via.placeholder.com/150'
-                                    }
-                                    className="rounded-full bg-white border-4 border-lively-purple absolute left-0 -top-20"
-                                    referrerPolicy="no-referrer"
+            {loading ? (
+                <Loading />
+            ) : (
+                <div>
+                    <main className="min-w-screen">
+                        <div className="h-32 bg-lively-purple"></div>
+                        <div className="relative flex md:justify-end mx-5">
+                            <img
+                                src={candidate.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'}
+                                className="rounded-full bg-white border-4 border-lively-purple absolute left-0 -top-20"
+                                referrerPolicy="no-referrer"
+                            />
+                            <div className="mt-5 text-lg justify-end flex items-center w-full">
+                                <FontAwesomeIcon
+                                    icon={faTriangleExclamation}
+                                    onClick={() => setModalIsOpen(true)}
+                                    className="border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-xl md:text-3xl transition ease-in-out delay-50"
                                 />
-                                <div className="mt-5 text-lg justify-end flex items-center w-full">
-                                    <FontAwesomeIcon
-                                        icon={faTriangleExclamation}
-                                        onClick={ () => setModalIsOpen(true) }
-                                        className="border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-xl md:text-3xl transition ease-in-out delay-50"
-                                    />
-                                    <FontAwesomeIcon
-                                        icon={ userInTalentBank ? faHeartBroken : faHeart }
-                                        onClick={ () => alterUserCondition() }
-                                        className={
-                                            userInTalentBank
-                                                ? 'ml-3 border-4 border-red rounded-full p-2 cursor-pointer text-red text-xl md:text-3xl'
-                                                : 'ml-3 border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-xl md:text-3xl transition ease-in-out delay-50'
-                                        }
-                                    />
-                                </div>
-                            </div>
-                            <div className="mt-10 mx-5">
-                                <div className="font-bold text-2xl text-dark-purple">
-                                    { candidate.name }
-                                </div>
-                                <div className="text-lg md:text-xl text-justify text-dark-gray">
-                                    { candidate.role }
-                                </div>
-                            </div>
-                        </main>
-                        <div className='min-h-80'>
-                            {
-                                !candidate.description && !candidate.experiences.length && !candidate.formations.length && (
-                                    <div className='px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl'>
-                                        <FontAwesomeIcon icon={ faWarning } className='mr-2 text-5xl' />
-                                        <span className='text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1'>O usuário ainda não tem dados cadastrados!</span>
-                                    </div>
-                                )
-                            }
-                            {
-                                candidate.description && (
-                                    <section className="px-5 mt-10">
-                                        <div className="font-medium text-xl text-dark-purple">
-                                            Descrição
-                                        </div>
-                                        <div className="text-lg md:text-xl text-justify">
-                                            { candidate.description }
-                                        </div>
-                                    </section>
-                                )
-                            }
-                            {
-                                !!candidate.experiences.length && (
-                                    <section className="px-5 mt-10">
-                                        <div className="font-medium text-xl text-dark-purple mb-2">
-                                            Experiências Profissionais
-                                        </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                            {
-                                                candidate.experiences.map((card, key) => (
-                                                    <CompanyCandidateCard key={ key } card={ card } />
-                                                ))
-                                            }
-                                        </div>
-                                    </section>
-                                )
-                            }
-                            {
-                                !!candidate.formations.length && (
-                                    <section className="px-5 my-10">
-                                        <div className="font-medium text-xl text-dark-purple mb-2">
-                                            Formação Acadêmica
-                                        </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                            {candidate.formations.map((card, key) => (
-                                                <CompanyCandidateCard key={ key } card={ card } />
-                                            ))}
-                                        </div>
-                                    </section>
-                                )
-                            }
-                            <div className="px-5 mt-2 text-sm md:text-md text-dark-gray font-medium">
-                                <span className='mr-1'>Usuário @{ candidate.username }, desde</span>
-                                {
-                                    new Date(candidate.createdAt).toLocaleDateString(
-                                        'pt-BR',
-                                    )
-                                }
+                                <FontAwesomeIcon
+                                    icon={userInTalentBank ? faHeartBroken : faHeart}
+                                    onClick={() => alterUserCondition()}
+                                    className={
+                                        userInTalentBank
+                                            ? 'ml-3 border-4 border-red rounded-full p-2 cursor-pointer text-red text-xl md:text-3xl'
+                                            : 'ml-3 border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-xl md:text-3xl transition ease-in-out delay-50'
+                                    }
+                                />
                             </div>
                         </div>
-                    </div>
-                )}
-                {
-                    modalIsOpen && (
-                        <FormModal
-                            handleClose={handleCloseModal}
-                            handleConfirm={handleConfirm}
-                            title={`Denunciar`}
-                        >
-                            <div>
-                                <div className="mt-2">
-                                    <RadioInput
-                                        name='reason'
-                                        id='reason'
-                                        options={options}
-                                        size='medium'
-                                        consultPackage={consultPackage}
-                                    />
-                                </div>
-                                <div className="mt-2">
-                                    <TextAreaInput
-                                        name="description"
-                                        resize={false}
-                                        row={5}
-                                        id="description"
-                                        consultPackage={consultPackage}
-                                        placeholder="Descrição"
-                                    />
-                                </div>
+                        <div className="mt-10 mx-5">
+                            <div className="font-bold text-2xl text-dark-purple">{candidate.name}</div>
+                            <div className="text-lg md:text-xl text-justify text-dark-gray">{candidate.role}</div>
+                        </div>
+                    </main>
+                    <div className="min-h-80">
+                        {!candidate.description && !candidate.experiences.length && !candidate.formations.length && (
+                            <div className="px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl">
+                                <FontAwesomeIcon icon={faWarning} className="mr-2 text-5xl" />
+                                <span className="text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1">
+                                    O usuário ainda não tem dados cadastrados!
+                                </span>
                             </div>
-                        </FormModal>
-                    )
-                }
+                        )}
+                        {candidate.description && (
+                            <section className="px-5 mt-10">
+                                <div className="font-medium text-xl text-dark-purple">Descrição</div>
+                                <div className="text-lg md:text-xl text-justify">{candidate.description}</div>
+                            </section>
+                        )}
+                        {!!candidate.experiences.length && (
+                            <section className="px-5 mt-10">
+                                <div className="font-medium text-xl text-dark-purple mb-2">
+                                    Experiências Profissionais
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {candidate.experiences.map((card, key) => (
+                                        <CompanyCandidateCard key={key} card={card} />
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+                        {!!candidate.formations.length && (
+                            <section className="px-5 my-10">
+                                <div className="font-medium text-xl text-dark-purple mb-2">Formação Acadêmica</div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {candidate.formations.map((card, key) => (
+                                        <CompanyCandidateCard key={key} card={card} />
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+                        <div className="px-5 mt-2 text-sm md:text-md text-dark-gray font-medium">
+                            <span className="mr-1">Usuário @{candidate.username}, desde</span>
+                            {new Date(candidate.createdAt).toLocaleDateString('pt-BR')}
+                        </div>
+                    </div>
+                </div>
+            )}
+            {modalIsOpen && (
+                <FormModal handleClose={handleCloseModal} handleConfirm={handleConfirm} title={`Denunciar`}>
+                    <div>
+                        <div className="mt-2">
+                            <RadioInput
+                                name="reason"
+                                id="reason"
+                                options={options}
+                                size="medium"
+                                consultPackage={consultPackage}
+                            />
+                        </div>
+                        <div className="mt-2">
+                            <TextAreaInput
+                                name="description"
+                                resize={false}
+                                row={5}
+                                id="description"
+                                consultPackage={consultPackage}
+                                placeholder="Descrição"
+                            />
+                        </div>
+                    </div>
+                </FormModal>
+            )}
         </CompanyDefault>
     );
 };

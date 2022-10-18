@@ -1,26 +1,22 @@
-import { faBuilding, faGear, faPlus, faTrash, faTrashArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import SelectInput from "../../Components/Inputs/SelectInput";
+import { faBuilding, faGear, faPlus, faTrash, faTrashArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
+import UserSkillCard from '../../Components/Cards/UserSkillsCard';
+import RadioInput from '../../Components/Inputs/RadioInput';
+import SelectInput from '../../Components/Inputs/SelectInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
+import FormModal from '../../Components/Modals/FormModal';
+import InputTypesEnum from '../../Enums/InputTypesEnum';
 import MaskTypesEnum from '../../Enums/MaskTypesEnum';
+import { EditVacancyData, wantedSkillsData } from '../../Interfaces/CompanyInterfaces';
 import { formatErrors } from '../../Utils/ToastMessages';
 import useAuth from '../../Utils/useAuth';
 import useCompany from '../../Utils/useCompany';
 import CompanyDefault from './CompanyDefault';
-
-import {
-    EditVacancyData,
-    wantedSkillsData
-} from '../../Interfaces/CompanyInterfaces';
-import UserSkillCard from "../../Components/Cards/UserSkillsCard";
-import FormModal from "../../Components/Modals/FormModal";
-import InputTypesEnum from "../../Enums/InputTypesEnum";
-import RadioInput from "../../Components/Inputs/RadioInput";
 
 const CompanyVacancyDetail: React.FC = () => {
     const params = useParams();
@@ -60,9 +56,7 @@ const CompanyVacancyDetail: React.FC = () => {
         getDBVacancyData();
     }, []);
 
-    function setInputValue(
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
-    ): void {
+    function setInputValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         const { name, value } = e.target;
         const [type, data] = name.split('-'); //experience-role -> experience role
         if (data == undefined) {
@@ -98,7 +92,7 @@ const CompanyVacancyDetail: React.FC = () => {
 
             setVacancyData({
                 ...vacancyData,
-                wantedSkills: [...vacancyData.wantedSkills, skillData]
+                wantedSkills: [...vacancyData.wantedSkills, skillData],
             });
         });
     };
@@ -108,7 +102,7 @@ const CompanyVacancyDetail: React.FC = () => {
         const newSkills = vacancyData.wantedSkills.filter((skill, i) => i !== index);
         setVacancyData({
             ...vacancyData,
-            wantedSkills: newSkills
+            wantedSkills: newSkills,
         });
     };
 
@@ -136,23 +130,19 @@ const CompanyVacancyDetail: React.FC = () => {
                                 <FontAwesomeIcon icon={faBuilding} className="text-8xl" />
                                 <div className="w-full">
                                     <span className="flex justify-between ml-5">
-                                            {
-                                                !canEdit ? (
-                                                    <h1 className="text-2xl font-bold text-primary">
-                                                    {vacancyData.role}
-                                                    </h1>
-                                                ) : (
-                                                    <TextInput
-                                                        placeholder="Cargo"
-                                                        type="text"
-                                                        size="extra-large"
-                                                        name="role"
-                                                        id="role"
-                                                        consultPackage={consultPackage}
-                                                        disabled={!canEdit}
-                                                    />
-                                                )
-                                            }
+                                        {!canEdit ? (
+                                            <h1 className="text-2xl font-bold text-primary">{vacancyData.role}</h1>
+                                        ) : (
+                                            <TextInput
+                                                placeholder="Cargo"
+                                                type="text"
+                                                size="extra-large"
+                                                name="role"
+                                                id="role"
+                                                consultPackage={consultPackage}
+                                                disabled={!canEdit}
+                                            />
+                                        )}
                                         <FontAwesomeIcon
                                             onClick={() => setCanEdit(!canEdit)}
                                             className="cursor-pointer h-8 text-primary mr-4"
@@ -165,12 +155,28 @@ const CompanyVacancyDetail: React.FC = () => {
                                 </div>
                             </div>
                             <div className="w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5">
-                                <h2 className="text-xl mb-5 font-medium text-dark-purple">
-                                    Informações sobre a Vaga
-                                </h2>
+                                <h2 className="text-xl mb-5 font-medium text-dark-purple">Informações sobre a Vaga</h2>
                                 <div className="md:flex md:justify-between">
                                     <div className="md:w-6/12 w-full mr-5">
-                                        <SelectInput placeholder='Setor' options={["Recursos Humanos", "Tecnologia", "Administrativo", "Financeiro", "Operacional", "Comércio", "Serviços", "Saúde", "Industrial", "Construção"]} consultPackage={ consultPackage } name="sector" id='sector' disabled={ !canEdit } />
+                                        <SelectInput
+                                            placeholder="Setor"
+                                            options={[
+                                                'Recursos Humanos',
+                                                'Tecnologia',
+                                                'Administrativo',
+                                                'Financeiro',
+                                                'Operacional',
+                                                'Comércio',
+                                                'Serviços',
+                                                'Saúde',
+                                                'Industrial',
+                                                'Construção',
+                                            ]}
+                                            consultPackage={consultPackage}
+                                            name="sector"
+                                            id="sector"
+                                            disabled={!canEdit}
+                                        />
                                         <TextAreaInput
                                             name="description"
                                             id="description"
@@ -191,9 +197,24 @@ const CompanyVacancyDetail: React.FC = () => {
                                         />
                                     </div>
                                     <div className="md:w-6/12 w-full">
-                                        <SelectInput placeholder='Região' options={["Sul", "Sudeste", "Centro-Oeste", "Norte", "Nordeste"]} name='region' id='region' consultPackage={ consultPackage } disabled={ !canEdit } /> 
+                                        <SelectInput
+                                            placeholder="Região"
+                                            options={['Sul', 'Sudeste', 'Centro-Oeste', 'Norte', 'Nordeste']}
+                                            name="region"
+                                            id="region"
+                                            consultPackage={consultPackage}
+                                            disabled={!canEdit}
+                                        />
                                         <div className="md:flex justify-between">
-                                            <SelectInput placeholder='Moeda' options={["Real", "Dolar", "Euro"]} size='medium' consultPackage={ consultPackage } name="currency" id="currency" disabled={ !canEdit } />
+                                            <SelectInput
+                                                placeholder="Moeda"
+                                                options={['Real', 'Dolar', 'Euro']}
+                                                size="medium"
+                                                consultPackage={consultPackage}
+                                                name="currency"
+                                                id="currency"
+                                                disabled={!canEdit}
+                                            />
                                             <TextInput
                                                 placeholder="Salário"
                                                 useMask={MaskTypesEnum.money}
@@ -206,54 +227,59 @@ const CompanyVacancyDetail: React.FC = () => {
                                                 disabled={!canEdit}
                                             />
                                         </div>
-                                        <SelectInput placeholder='Carga Horária' options={["Integral", "Meio Período", "Home Office"]} consultPackage={ consultPackage } name="workload" id='workload' disabled={ !canEdit } />
-                                        <SelectInput placeholder='Tipo de Contratação' options={["Estágio", "Permanente", "Temporário"]} consultPackage={ consultPackage } name="type" id='type' disabled={ !canEdit } />
+                                        <SelectInput
+                                            placeholder="Carga Horária"
+                                            options={['Integral', 'Meio Período', 'Home Office']}
+                                            consultPackage={consultPackage}
+                                            name="workload"
+                                            id="workload"
+                                            disabled={!canEdit}
+                                        />
+                                        <SelectInput
+                                            placeholder="Tipo de Contratação"
+                                            options={['Estágio', 'Permanente', 'Temporário']}
+                                            consultPackage={consultPackage}
+                                            name="type"
+                                            id="type"
+                                            disabled={!canEdit}
+                                        />
                                     </div>
                                 </div>
                                 <div className="pb-5">
                                     <div className="text-dark-purple flex justify-between items-center font-medium text-md">
-                                        <div className='mr-2 font-medium text-lg'>Habilidades Desejadas</div>
-                                        {
-                                            canEdit && (
-                                                <div className='flex'>
-                                                    <button
-                                                        onClick={ () => setCanExcludeSkills(!canExcludeSkills) }
-                                                        className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            icon={
-                                                                canExcludeSkills
-                                                                    ? faTrashArrowUp
-                                                                    : faTrash
-                                                            }
-                                                        />
-                                                    </button>
-                                                    <button 
-                                                        className='bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200'
-                                                        onClick={() => setSkillModalIsOpen(true)}
-                                                    >
-                                                        <FontAwesomeIcon icon={faPlus} />
-                                                    </button>
-                                                </div>
-                                            )
-                                        }
-                                    </div>
-                                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
-                                        {
-                                            vacancyData.wantedSkills.map((card: wantedSkillsData, index) => 
-                                                <div className='mt-2' key={index} >
-                                                    <UserSkillCard 
-                                                        card={card} 
-                                                        canExclude={canExcludeSkills}
-                                                        exclude={() => excludeSkill(index)}
+                                        <div className="mr-2 font-medium text-lg">Habilidades Desejadas</div>
+                                        {canEdit && (
+                                            <div className="flex">
+                                                <button
+                                                    onClick={() => setCanExcludeSkills(!canExcludeSkills)}
+                                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={canExcludeSkills ? faTrashArrowUp : faTrash}
                                                     />
-                                                </div>
-                                            )
-                                        }
+                                                </button>
+                                                <button
+                                                    className="bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200"
+                                                    onClick={() => setSkillModalIsOpen(true)}
+                                                >
+                                                    <FontAwesomeIcon icon={faPlus} />
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                        {vacancyData.wantedSkills.map((card: wantedSkillsData, index) => (
+                                            <div className="mt-2" key={index}>
+                                                <UserSkillCard
+                                                    card={card}
+                                                    canExclude={canExcludeSkills}
+                                                    exclude={() => excludeSkill(index)}
+                                                />
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-                                {
-                                    skillModalIsOpen && (
+                                {skillModalIsOpen && (
                                     <FormModal
                                         handleClose={() => setSkillModalIsOpen(!skillModalIsOpen)}
                                         handleConfirm={checkSkillData}
@@ -261,12 +287,12 @@ const CompanyVacancyDetail: React.FC = () => {
                                     >
                                         <div className="my-2">
                                             <TextInput
-                                                type={ InputTypesEnum.text }
+                                                type={InputTypesEnum.text}
                                                 placeholder="Nome"
                                                 name="wantedSkills-name"
-                                                limit={ 30 }
+                                                limit={30}
                                                 id="name"
-                                                consultPackage={ consultPackage }
+                                                consultPackage={consultPackage}
                                             />
                                             <RadioInput
                                                 name="wantedSkills-level"

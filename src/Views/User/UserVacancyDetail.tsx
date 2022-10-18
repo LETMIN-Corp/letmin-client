@@ -2,6 +2,7 @@ import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
@@ -13,7 +14,6 @@ import useAuth from '../../Utils/useAuth';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
-import { Link } from 'react-router-dom';
 
 const UserVacancyDetail = () => {
     const params = useParams();
@@ -26,7 +26,7 @@ const UserVacancyDetail = () => {
     const [applied, setApplied] = useState(false);
 
     if (id?.length !== 24) {
-        alert('oiii')
+        dispatchError('Vaga não encontrada.');
         navigate('/user/vacancy/search');
     }
 
@@ -38,9 +38,8 @@ const UserVacancyDetail = () => {
                 navigate('/user/vacancy/search');
             }
             setApplied(
-                res.data.vacancy.candidates.filter(
-                    (candidate: any) => candidate._id == auth.userData.user_id,
-                ).length > 0,
+                res.data.vacancy.candidates.filter((candidate: any) => candidate._id == auth.userData.user_id).length >
+                    0,
             );
             setVacancyData(res.data.vacancy);
         });
@@ -67,9 +66,7 @@ const UserVacancyDetail = () => {
         vacancyType: '',
     });
 
-    function setInputValue(
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
-    ): void {
+    function setInputValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         setVacancyData({
             ...vacancyData,
             [e.target.name]: e.target.value,
@@ -114,18 +111,17 @@ const UserVacancyDetail = () => {
                             <div className="flex items-center">
                                 <FontAwesomeIcon icon={faBuilding} className="text-8xl" />
                                 <div>
-                                    <h1 className="text-2xl ml-5 w-full font-bold text-primary">
-                                        {vacancyData.role}
-                                    </h1>
-                                    <Link to={`/user/company/detail/${ vacancyData.company._id }`} className="text-xl ml-5 w-full font-medium hover:text-bold text-dark-purple">
+                                    <h1 className="text-2xl ml-5 w-full font-bold text-primary">{vacancyData.role}</h1>
+                                    <Link
+                                        to={`/user/company/detail/${vacancyData.company._id}`}
+                                        className="text-xl ml-5 w-full font-medium hover:text-bold text-dark-purple"
+                                    >
                                         {vacancyData.company.company.name}
                                     </Link>
                                 </div>
                             </div>
                             <div className="w-full rounded-md mx-auto text-justify mt-4 pt-2 text-8x1 md:mr-5">
-                                <h2 className="text-xl mb-5 font-medium text-dark-purple">
-                                    Informações sobre a Vaga
-                                </h2>
+                                <h2 className="text-xl mb-5 font-medium text-dark-purple">Informações sobre a Vaga</h2>
                                 <div className="md:flex md:justify-between">
                                     <div className="md:w-6/12 w-full mr-5">
                                         <TextInput

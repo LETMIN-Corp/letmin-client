@@ -24,13 +24,7 @@ const Pagination: React.FC<ComponentInterface> = ({ max, current, handleClick })
     const pages = [];
 
     for (let i = 0; i <= max; i++) {
-        pages.push(
-            <PageItem
-                key={i}
-                isActivated={i === current}
-                handleClick={() => handleClick(i)}
-            />,
-        );
+        pages.push(<PageItem key={i} isActivated={i === current} handleClick={() => handleClick(i)} />);
     }
 
     return <div className="flex justify-center">{pages}</div>;
