@@ -114,7 +114,7 @@ const UserVacancyDetail = () => {
                                     <h1 className="text-2xl ml-5 w-full font-bold text-primary">{vacancyData.role}</h1>
                                     <Link
                                         to={`/user/company/detail/${vacancyData.company._id}`}
-                                        className="text-xl ml-5 w-full font-medium hover:text-bold text-dark-purple"
+                                        className="text-xl ml-5 w-full font-medium hover:text-bright-purple text-dark-purple"
                                     >
                                         {vacancyData.company.company.name}
                                     </Link>

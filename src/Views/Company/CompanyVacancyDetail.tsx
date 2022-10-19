@@ -189,6 +189,7 @@ const CompanyVacancyDetail: React.FC = () => {
                                         <TextInput
                                             placeholder="Anos de experiência"
                                             limit={2}
+                                            min={0}
                                             type={InputTypesEnum.number}
                                             name="yearsOfExperience"
                                             id="yearsOfExperience"
