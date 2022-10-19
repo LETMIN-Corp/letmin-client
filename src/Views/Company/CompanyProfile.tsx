@@ -13,32 +13,7 @@ import useCompany from '../../Utils/useCompany';
 import useLoading from '../../Utils/useLoading';
 import CompanyDefault from './CompanyDefault';
 
-class Company {
-    company: object = {
-        name: '',
-        cnpj: '',
-        email: '',
-        phone: '',
-        address: '',
-    };
-    holder: object = {
-        name: '',
-        cpf: '',
-        email: '',
-        phone: '',
-    };
-    plan: object = {
-        selected: '',
-    };
-    card: object = {
-        type: '',
-        number: '',
-        code: '',
-        expiration: '',
-        owner: '',
-    };
-    [key: string]: any;
-}
+import { CompanyProfileI } from '../../Interfaces/CompanyInterfaces';
 
 interface CanEdit {
     [key: string]: boolean;
@@ -48,13 +23,15 @@ const CompanyProfile = () => {
     const company = useCompany();
     const { loading } = useLoading();
 
-    const [companyData, setCompanyData] = useState<Company>(new Company());
-    const [canEdit, setCanEdit] = useState<CanEdit>({
-        company: false,
-        holder: false,
-        plan: false,
-        card: false,
-    });
+    class canEditCompany {
+        company: boolean = false;
+        holder: boolean = false;
+        plan: boolean = false;
+        card: boolean = false;
+    }
+
+    const [companyData, setCompanyData] = useState<CompanyProfileI>(new CompanyProfileI());
+    const [canEdit, setCanEdit] = useState<canEditCompany>(new canEditCompany());
 
     function getDBCompanyData() {
         company.getCompanyData().then((res: any) => {
@@ -89,8 +66,8 @@ const CompanyProfile = () => {
 
     function updateCompanyData() {
         company.updateCompanyData(companyData).then((res: any) => {
-            if (res.data.success && res.status === 201) {
-                company.dispatchSuccess('Os dados da empresa foram atualizados com sucesso!');
+            if (res.status === 200) {
+                company.dispatchSuccess(res.data.message);
             } else company.dispatchError(formatErrors(res.data.message));
         });
         getDBCompanyData();
@@ -99,7 +76,7 @@ const CompanyProfile = () => {
 
     function updateHolderData() {
         company.updateHolderData(companyData).then((res: any) => {
-            if (res.data.success && res.status === 201) {
+            if (res.status === 200) {
                 company.dispatchSuccess('Os dados do titular foram atualizados com sucesso!');
             } else company.dispatchError(formatErrors(res.data.message));
         });
@@ -120,10 +97,10 @@ const CompanyProfile = () => {
     function flipEdit(property: string) {
         setCanEdit({
             ...canEdit,
-            [property]: !canEdit[property],
+            [property]: !canEdit[property as keyof canEditCompany],
         });
 
-        if (canEdit[property]) {
+        if (canEdit[property as keyof canEditCompany]) {
             getDBCompanyData();
         }
     }
@@ -259,6 +236,13 @@ const CompanyForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelU
                     type={InputTypesEnum.text}
                     consultPackage={consultPackage}
                     name="company-address"
+                    disabled={!canEdit}
+                />
+                <TextInput
+                    placeholder="Descrição"
+                    type={InputTypesEnum.text}
+                    consultPackage={consultPackage}
+                    name="company-description"
                     disabled={!canEdit}
                 />
             </form>

@@ -126,6 +126,7 @@ const CompanyRegisterVacancy = () => {
                             <TextInput
                                 placeholder="Anos de experiência"
                                 limit={2}
+                                useMask={MaskTypesEnum.integer}
                                 type={InputTypesEnum.number}
                                 name="yearsOfExperience"
                                 id="yearsOfExperience"
@@ -141,6 +142,14 @@ const CompanyRegisterVacancy = () => {
                                 id="workload"
                             ></SelectInput>
                             <div className="md:flex justify-between">
+                                <SelectInput
+                                    placeholder="Moeda"
+                                    options={['Real', 'Dolar', 'Euro']}
+                                    size="medium"
+                                    consultPackage={consultPackage}
+                                    name="currency"
+                                    id="currency"
+                                ></SelectInput>
                                 <TextInput
                                     placeholder="Salário"
                                     useMask={MaskTypesEnum.money}
@@ -151,14 +160,6 @@ const CompanyRegisterVacancy = () => {
                                     id="salary"
                                     consultPackage={consultPackage}
                                 />
-                                <SelectInput
-                                    placeholder="Moeda"
-                                    options={['Real', 'Dolar', 'Euro']}
-                                    size="medium"
-                                    consultPackage={consultPackage}
-                                    name="currency"
-                                    id="currency"
-                                ></SelectInput>
                             </div>
                             <SelectInput
                                 placeholder="Setor"

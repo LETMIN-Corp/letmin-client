@@ -34,8 +34,33 @@ class ICompanie {
     _id: string = '';
 }
 // Users cards interfaces
-class UserCardData {
-    name = '';
+
+class CompanyProfileI {
+    company: object = {
+        name: '',
+        cnpj: '',
+        email: '',
+        phone: '',
+        address: '',
+        description: '',
+    };
+    holder: object = {
+        name: '',
+        cpf: '',
+        email: '',
+        phone: '',
+    };
+    plan: object = {
+        selected: '',
+    };
+    card: object = {
+        type: '',
+        number: '',
+        code: '',
+        expiration: '',
+        owner: '',
+    };
+    [key: string]: any;
 }
 
-export { Company, ICompanie, EditVacancyData, VacancyData, wantedSkillsData };
+export { Company, ICompanie, EditVacancyData, VacancyData, wantedSkillsData, CompanyProfileI };

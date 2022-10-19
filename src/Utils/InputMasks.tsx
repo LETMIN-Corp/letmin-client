@@ -85,6 +85,10 @@ function moneyMask(value: string) {
     return value;
 }
 
+function integerMask(value: string) {
+    return value.replace(/\D+/g, '');
+}
+
 export {
     cardNumbermask,
     cardValidDateMask,
@@ -97,4 +101,5 @@ export {
     moneyMask,
     phoneDDI,
     phoneMask,
+    integerMask,
 };

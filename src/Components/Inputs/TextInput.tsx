@@ -11,6 +11,7 @@ import {
     cpfMask,
     cvvMask,
     holderMask,
+    integerMask,
     moneyMask,
     phoneMask,
 } from '../../Utils/InputMasks';
@@ -84,6 +85,8 @@ const TextInput: React.FC<ComponentInterface> = ({
                 return cardNumbermask(value);
             case MaskTypesEnum.money:
                 return moneyMask(value);
+            case MaskTypesEnum.integer:
+                return integerMask(value);
         }
 
         return value;

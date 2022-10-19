@@ -69,7 +69,7 @@ export const AuthState = ({ children }: any) => {
             })
             .catch((err) => {
                 removeLoading();
-                return err;
+                return err.response;
             });
     };
 
