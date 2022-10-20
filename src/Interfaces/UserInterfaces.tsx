@@ -59,4 +59,23 @@ class UserEditModals {
     delete = false;
 }
 
-export { BasicUserData, Iexperience, Iformation, Iskill, IUserData, UserCanExclude, UserEditModals, UserTypedData };
+class ICompany {
+    name: string = '';
+    _id: string = '';
+}
+
+class VacancyData {
+    _id: string = '';
+    role: string = '';
+    sector: string = '';
+    description: string = '';
+    company: ICompany = new ICompany();
+    salary: string = '';
+    currency: string = '';
+    workload: string = '';
+    type: string = '';
+    region: string = '';
+    user_applied: boolean = false;
+}
+
+export { BasicUserData, Iexperience, Iformation, Iskill, IUserData, UserCanExclude, UserEditModals, UserTypedData, VacancyData };

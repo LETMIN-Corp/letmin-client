@@ -18,6 +18,8 @@ import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
 
+import { CompanyProfileI } from '../../Interfaces/CompanyInterfaces';
+
 const UserCompanyDetail = () => {
     const params = useParams();
     const user = useUser();
@@ -38,6 +40,7 @@ const UserCompanyDetail = () => {
             email: '',
             phone: '',
             address: '',
+            description: ''
         },
         holder: {
             name: '',

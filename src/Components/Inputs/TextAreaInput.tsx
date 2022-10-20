@@ -6,7 +6,7 @@ interface ComponentInterface {
     consultPackage: {
         getValue: (name: string) => string;
         setValue: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-    };
+    } | any;
     name: string;
     id?: string;
     disabled?: boolean;

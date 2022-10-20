@@ -25,7 +25,7 @@ interface ComponentInterface {
     consultPackage: {
         getValue: (name: string) => string;
         setValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    };
+    } | any;
     name: string;
     value?: string;
     id?: string;

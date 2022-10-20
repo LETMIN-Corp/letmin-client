@@ -10,20 +10,19 @@ import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
 import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
-import useAuth from '../../Utils/useAuth';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
-
+import { VacancyData } from '../../Interfaces/UserInterfaces';
 const UserVacancyDetail = () => {
     const params = useParams();
     const user = useUser();
-    const auth = useAuth();
     const navigate = useNavigate();
 
     const { loading } = useLoading();
     const id = params.id;
-    const [applied, setApplied] = useState(false);
+
+    const [vacancyData, setVacancyData] = useState<VacancyData>(new VacancyData());
 
     if (id?.length !== 24) {
         dispatchError('Vaga não encontrada.');
@@ -34,37 +33,12 @@ const UserVacancyDetail = () => {
         window.document.title = 'Letmin - Vaga';
 
         user.getVacancy(id!).then((res: any) => {
-            if (!res.data.success || res.data.vacancy.closed) {
+            if (!res.data.success) {
                 navigate('/user/vacancy/search');
             }
-            setApplied(
-                res.data.vacancy.candidates.filter((candidate: any) => candidate._id == auth.userData.user_id).length >
-                    0,
-            );
             setVacancyData(res.data.vacancy);
         });
     }, []);
-
-    interface IVacancyData {
-        [key: string]: any;
-    }
-
-    const [vacancyData, setVacancyData] = useState<IVacancyData>({
-        _id: '',
-        role: '',
-        sector: '',
-        description: '',
-        company: {
-            company: {
-                name: '',
-            },
-        },
-        salary: '',
-        currency: '',
-        workload: '',
-        region: '',
-        vacancyType: '',
-    });
 
     function setInputValue(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
         setVacancyData({
@@ -75,7 +49,7 @@ const UserVacancyDetail = () => {
 
     const consultPackage = {
         getValue: (key: string) => {
-            return vacancyData[key];
+            return vacancyData[key as keyof VacancyData];
         },
         setValue: setInputValue,
     };
@@ -116,7 +90,7 @@ const UserVacancyDetail = () => {
                                         to={`/user/company/detail/${vacancyData.company._id}`}
                                         className="text-xl ml-5 w-full font-medium hover:text-bright-purple text-dark-purple"
                                     >
-                                        {vacancyData.company.company.name}
+                                        {vacancyData.company.name}
                                     </Link>
                                 </div>
                             </div>
@@ -191,7 +165,7 @@ const UserVacancyDetail = () => {
                                         />
                                     </div>
                                 </div>
-                                {(applied && (
+                                {(vacancyData.user_applied && (
                                     <div className="w-full text-center mt-5 flex justify-between">
                                         <p className="text-2xl font-bold text-primary">
                                             Você já se candidatou a essa vaga
