@@ -9,11 +9,11 @@ import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
 import MaskTypesEnum from '../../Enums//MaskTypesEnum';
+import { VacancyData } from '../../Interfaces/UserInterfaces';
 import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
-import { VacancyData } from '../../Interfaces/UserInterfaces';
 const UserVacancyDetail = () => {
     const params = useParams();
     const user = useUser();

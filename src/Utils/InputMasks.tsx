@@ -98,8 +98,8 @@ export {
     cvvMask,
     dateWithDashesMask,
     holderMask,
+    integerMask,
     moneyMask,
     phoneDDI,
     phoneMask,
-    integerMask,
 };

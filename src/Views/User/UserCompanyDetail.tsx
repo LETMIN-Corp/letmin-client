@@ -12,13 +12,12 @@ import List from '../../Components/Items/List';
 import Loading from '../../Components/Items/Loading';
 import InputTypesEnum from '../../Enums/InputTypesEnum';
 import MaskTypesEnum from '../../Enums/MaskTypesEnum';
+import { CompanyProfileI } from '../../Interfaces/CompanyInterfaces';
 import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
 import useAuth from '../../Utils/useAuth';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
-
-import { CompanyProfileI } from '../../Interfaces/CompanyInterfaces';
 
 const UserCompanyDetail = () => {
     const params = useParams();
@@ -40,7 +39,7 @@ const UserCompanyDetail = () => {
             email: '',
             phone: '',
             address: '',
-            description: ''
+            description: '',
         },
         holder: {
             name: '',

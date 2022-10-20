@@ -1,24 +1,21 @@
-import {
-    faBuildingUser,
-    faMagnifyingGlass,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBuildingUser, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 
 import UserCompanySearchCard from '../../Components/Cards/UserCompanySearchCard';
 import List from '../../Components/Items/List';
 import Loading from '../../Components/Items/Loading';
+import { ICompanie } from '../../Interfaces/CompanyInterfaces';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
-import { ICompanie } from '../../Interfaces/CompanyInterfaces'
 
 const UserCompanySearch = () => {
     const user = useUser();
     const { loading } = useLoading();
 
-    const [allCompanies, setAllCompanies] = useState<ICompanie[]>([ new ICompanie() ]);
-    const [companies, setCompanies] = useState<ICompanie[]>([ new ICompanie() ]);
+    const [allCompanies, setAllCompanies] = useState<ICompanie[]>([new ICompanie()]);
+    const [companies, setCompanies] = useState<ICompanie[]>([new ICompanie()]);
     const [searchCompanies, setSearchCompanies] = useState<string>('');
     const [companyCards, setCompanyCards] = useState([]);
 
