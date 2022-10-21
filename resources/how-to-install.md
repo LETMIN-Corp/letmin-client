@@ -77,7 +77,7 @@ Com o projeto em mãos, é necessário ajustar suas variáveis de ambiente, expl
 
 ## Variáveis de Ambiente e conexão com a API
 
-Após realizar a instalação da [API](https://github.com/LETMIN-Corp/letmin-api) é necessário configurar os arquivos `.env` com suas devidas variáveis de ambiente de ambos os projetos e servir as duas aplicações.
+Após realizar a instalação da [API](https://github.com/LETMIN-Corp/letmin-api) é necessário configurar os arquivos `.env` com suas devidas variáveis de ambiente de ambos os projetos e servir as duas aplicações, tendo como base o arquivo `.env.example` disponibilizado no projeto.
 Para garantir o bom funcionamento da comunicação da API com o Client da aplicação, é importante seguir o seguinte exemplo:
 
 ```
@@ -85,10 +85,35 @@ VITE_APP_API_URL=<APP_API_URL>
 VITE_APP_GOOGLE_CLIENT_ID=<GOOGLE_CLIENT_ID>
 ```  
 
+Já na API, para seu funcionamento são necessárias as variáveis como no exemplo:
+```
+MONGO_URI=mongodb+srv://user:password@cluster/?retryWrites=true&w=majority
+#MONGO_URI=mongodb://localhost:27017/letmin
+DB_RECONNECT_DELAY=5000
+
+PORT=3000
+ENV=development
+TZ=America/Sao Paulo
+
+JWT_SECRET=secret
+JWT_EXPIRES_IN=1d
+JWT_REFRESH_EXPIRES_IN=7d
+
+APP_CLIENT_URL=http://localhost:3000
+
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=465
+EMAIL_USERNAME=your_username
+EMAIL_PASSWORD=your_app_password
+
+GOOGLE_CLIENT_ID=<CLIENT_ID>
+GOOGLE_CLIENT_SECRET=<CLIENT_SECRET>
+GOOGLE_CALLBACK_URL=/api/users/google/callback
+```
 
 
 ## Inicialização do Node
-Além de rodar sobre o runtime para Javascript [Node](https://nodejs.org/pt-br/), tanto o Cliente como a API precisam do instalador de pacotes NPM embutido nele durante a instalação, que pode ser visualizado [aqui](resources/how-to-install.md). Com isso, após ter o Node devidamente instalado e configurado, para iniciar o desenvolvimento do projeto em sua máquina é necessário rodar os seguintes comandos:
+Além de rodar sobre o runtime para Javascript [Node](https://nodejs.org/pt-br/), tanto o Cliente como a API precisam do instalador de pacotes NPM embutido nele durante a instalação, que pode ser visualizado [aqui](resources/how-to-install.md). Com isso, após ter o Node devidamente instalado e configurado, para iniciar o desenvolvimento do projeto em sua máquina é necessário rodar os seguintes comandos em __ambos os projetos simultaneamente__:
 
 ```
     npm install
@@ -107,6 +132,6 @@ Além de rodar sobre o runtime para Javascript [Node](https://nodejs.org/pt-br/)
 
 ## Autenticação
 
-Após a Autenticação ser feita, o token JWT de autenticação será armazenado no localStorage do navegador com o nome `token`, para que o usuário possa ser autenticado em todas as requisições.
-Alguns dados basicos do usuário serão armazenados na aplicação como um contexto global do react.
-Para a revogação do token, basta acessar o endpoint `API_URL/api/users/logout` e remover o token do localStorage.
+Após a Autenticação ser feita, o token JWT de autenticação será armazenado como __Cookie__ do navegador com o nome `token`, para que o usuário possa ser autenticado em todas as requisições.
+Alguns dados basicos do usuário serão armazenados na aplicação como um contexto global do react.  
+Para que o usuário seja deslogado, basta que o Cookie em questão seja excluido.
