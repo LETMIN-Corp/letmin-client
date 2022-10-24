@@ -37,6 +37,7 @@ import UserError from './Views/User/UserError';
 import UserProfile from './Views/User/UserProfle';
 import UserVacancyDetail from './Views/User/UserVacancyDetail';
 import UserVacancySearch from './Views/User/UserVacancySearch';
+import CompanyEmployees from './Views/Company/CompanyEmployees';
 
 function App() {
     return (
@@ -56,6 +57,7 @@ function App() {
                     <Route path="/company/*" element={<CompanyError />} />
                     <Route path="/company/" element={<CompanyIndicators />} />
                     <Route path="/company/indicators" element={<CompanyIndicators />} />
+                    <Route path="/company/employees" element={<CompanyEmployees />} />
                     <Route path="/company/talents" element={<CompanyTalentBank />} />
                     <Route path="/company/talents/search" element={<CompanyTalentSearch />} />
                     <Route path="/company/vacancy/:id" element={<CompanyVacancyDetail />} />

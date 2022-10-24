@@ -76,15 +76,11 @@ const CompanyCombinations: React.FC = () => {
         },
     };
 
-    function setCheckboxValue(e: React.ChangeEvent<HTMLInputElement>): void {
-        setComplaint({
-            ...complaint,
-            [e.target.name]: e.target.value,
-        });
-    }
-
     function handleConfirm() {
         setModalIsOpen(true);
+        company.addCompanyEmployee(id).then((res: any) => {
+            console.log(res);
+        });
         return company.createComplaint(complaint).then((res: any) => {
             if (res.data.success) {
                 setModalIsOpen(false);

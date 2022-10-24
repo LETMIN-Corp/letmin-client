@@ -28,6 +28,11 @@ const CompanyMenu: React.FC = () => {
             isLink: true,
         },
         {
+            text: 'Funcionários',
+            path: '/company/employees',
+            isLink: true,
+        },
+        {
             text: 'Meus Dados',
             path: '/company/profile',
             isLink: true,
