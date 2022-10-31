@@ -199,7 +199,7 @@ const CompanyRegisterVacancy = () => {
                             <div className="flex">
                                 <button
                                     onClick={() => setCanExcludeSkills(!canExcludeSkills)}
-                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-red-dark ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={canExcludeSkills ? faTrashArrowUp : faTrash} />
                                 </button>

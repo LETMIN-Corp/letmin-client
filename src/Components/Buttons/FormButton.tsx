@@ -14,7 +14,7 @@ const FormButton: React.FC<ComponentInterface> = ({ text, handleClick, isDisable
             className={`${[isDisabled ? 'bg-bold-purple' : '']} bg-bright-purple text-white text-center ${[
                 isFullWidth ? 'w-full' : 'w-32',
             ]} py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ${[
-                isDanger ? 'bg-red hover:bg-dark-red' : '',
+                isDanger ? 'bg-red hover:bg-red-dark' : '',
             ]} ease-out duration-200`}
         >
             {text}

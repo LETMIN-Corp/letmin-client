@@ -236,7 +236,7 @@ const UserEditData: React.FC = () => {
                             <div>
                                 <button
                                     onClick={() => flipExclude('skills')}
-                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-red-dark ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={canExclude.formations ? faTrashArrowUp : faTrash} />
                                 </button>
@@ -291,7 +291,7 @@ const UserEditData: React.FC = () => {
                             <div>
                                 <button
                                     onClick={() => flipExclude('experiences')}
-                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-red-dark ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={canExclude.experiences ? faTrashArrowUp : faTrash} />
                                 </button>
@@ -381,7 +381,7 @@ const UserEditData: React.FC = () => {
                             <div>
                                 <button
                                     onClick={() => flipExclude('formations')}
-                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-dark-red ease-out duration-200"
+                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-red-dark ease-out duration-200"
                                 >
                                     <FontAwesomeIcon icon={canExclude.formations ? faTrashArrowUp : faTrash} />
                                 </button>
