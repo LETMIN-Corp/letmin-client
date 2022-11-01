@@ -17,6 +17,7 @@ const CompanyTalentSearch = () => {
         window.document.title = 'Letmin - Buscar Talentos';
 
         company.getUsers().then((res: any) => {
+            console.log(res.data.users[0])
             setAllUsers(res.data.users);
             setUsers(res.data.users);
         });

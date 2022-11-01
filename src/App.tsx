@@ -17,7 +17,6 @@ import CompanyCombinations from './Views/Company/CompanyCombinations';
 import CompanyError from './Views/Company/CompanyError';
 import CompanyIndicators from './Views/Company/CompanyIndicators';
 import CompanyLogin from './Views/Company/CompanyLogin';
-import CompanyMatch from './Views/Company/CompanyMatch';
 import CompanyPasswordDefinition from './Views/Company/CompanyPasswordDefinition';
 import CompanyProfile from './Views/Company/CompanyProfile';
 import CompanyRecoverPassword from './Views/Company/CompanyRecoverPassword';
@@ -60,7 +59,6 @@ function App() {
                     <Route path="/company/talents/search" element={<CompanyTalentSearch />} />
                     <Route path="/company/vacancy/:id" element={<CompanyVacancyDetail />} />
                     <Route path="/company/vacancy/data/:id" element={<CompanyVacancyData />} />
-                    <Route path="/company/combinations" element={<CompanyMatch />} />
                     <Route path="/company/combinations/:id" element={<CompanyCombinations />} />
                     <Route path="/company/register/vacancy" element={<CompanyRegisterVacancy />} />
                     <Route path="/company/profile" element={<CompanyProfile />} />
