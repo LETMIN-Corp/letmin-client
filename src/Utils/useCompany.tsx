@@ -80,26 +80,6 @@ const useCompany = () => {
         return await axiosRequest(`${API_URL}/api/company/check-vacancy-skills`, 'POST', skill);
     };
 
-    const getCompanyEmployees = async () => {
-        return await axiosRequest(`${API_URL}/api/company/get-company-employees`, 'GET');
-    };
-
-    const getCompanyEmployee = async (id: string) => {
-        return await axiosRequest(`${API_URL}/api/company/get-company-employee/${id}`, 'GET');
-    };
-
-    const updateCompanyEmployee = async (employee: any) => {
-        return axiosRequest(`${API_URL}/api/company/update-company-employee`, 'PATCH', employee);
-    };
-
-    const addCompanyEmployee = async (employee_id: any) => {
-        return axiosRequest(`${API_URL}/api/company/add-company-employee/${employee_id}`, 'GET');
-    };
-
-    const deleteCompanyEmployee = async (id: string) => {
-        return axiosRequest(`${API_URL}/api/company/delete-company-employee/${id}`, 'DELETE');
-    };
-
     return {
         userData,
         getCompanyData,
@@ -123,11 +103,6 @@ const useCompany = () => {
         getCompanyVacancy,
         updateVacancy,
         checkNewSkill,
-        getCompanyEmployees,
-        getCompanyEmployee,
-        updateCompanyEmployee,
-        addCompanyEmployee,
-        deleteCompanyEmployee,
     };
 };
 
