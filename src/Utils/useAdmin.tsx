@@ -10,6 +10,9 @@ const useAdmin = () => {
     const getAllCompanies = async () => {
         return axiosRequest(`${API_URL}/api/admin/get-all-companies`, 'GET');
     };
+    const getCompany = async (company_id: string) => {
+        return await axiosRequest(`${API_URL}/api/admin/get-company/`, 'POST', { company_id });
+    };
     const blockCompany = async (company_id: string) => {
         return axiosRequest(`${API_URL}/api/admin/company-block`, 'PATCH', {
             company_id,
@@ -48,6 +51,7 @@ const useAdmin = () => {
         changeComplaintStatus,
         removeComplaint,
         getUser,
+        getCompany,
         // General functions
         createComplaint,
         dispatchError,

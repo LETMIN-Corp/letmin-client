@@ -157,7 +157,7 @@ const TableCard: React.FC<TableCardInterface> = ({ companyData, handleOpen, hand
         <div className="text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2">
             <span className="w-5/12 md:w-7/12 pr-1">
                 <Link
-                    to={`/admin/empresa/${companyData._id}`}
+                    to={`/admin/company/${companyData._id}`}
                     className="text-dark-purple font-medium hover:text-purple-600"
                 >
                     {companyData.company.name}
@@ -260,7 +260,7 @@ const CompanyForm: React.FC<CompanyFormInterface> = ({ isDisabled, companies, se
                         size="extra-large"
                         type={InputTypesEnum.email}
                         consultPackage={viewConsultPackage}
-                        name="holder-email"
+                        name="company-email"
                         disabled={isDisabled}
                     />
                     <TextInput

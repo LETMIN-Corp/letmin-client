@@ -10,6 +10,7 @@ import { ToastLayout } from './Utils/ToastMessages';
 import AdminCollaborator from './Views/Admin/AdminCollaborator';
 import AdminCombinations from './Views/Admin/AdminCombinations';
 import AdminCompany from './Views/Admin/AdminCompany';
+import AdminCompanyData from './Views/Admin/AdminCompanyData';
 import AdminComplaint from './Views/Admin/AdminComplaint';
 import AdminError from './Views/Admin/AdminError';
 import AdminLogin from './Views/Admin/AdminLogin';
@@ -83,6 +84,7 @@ function App() {
                     <Route path="/admin/collaborators" element={<AdminCollaborator />} />
                     <Route path="/admin/complaints" element={<AdminComplaint />} />
                     <Route path="/admin/combinations/:id" element={<AdminCombinations />} />
+                    <Route path="/admin/company/:id" element={<AdminCompanyData />} />
                 </Route>
             </Routes>
             <CookiesPopUp />

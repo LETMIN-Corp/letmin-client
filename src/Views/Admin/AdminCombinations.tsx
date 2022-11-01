@@ -1,7 +1,9 @@
+import { faWarning } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import AdminCandidateCard from '../../Components/Cards/AdminCandidateCard';
 
-import HighLight from '../../Components/Items/HighLight';
 import Loading from '../../Components/Items/Loading';
 import useAdmin from '../../Utils/useAdmin';
 import useLoading from '../../Utils/useLoading';
@@ -18,9 +20,13 @@ const AdminCombinations: React.FC = () => {
     const [candidate, setCandidate] = useState({
         _id: '',
         name: '',
+        role: '',
         picture: '',
         email: '',
         phone: '',
+        username: '',
+        createdAt: '',
+        description: '',
         experiences: [],
         formations: [],
     });
@@ -42,62 +48,63 @@ const AdminCombinations: React.FC = () => {
             {loading ? (
                 <Loading />
             ) : (
-                <div className="p-5">
-                    <section className="flex flex-col justify-center items-center py-10">
-                        <div className="w-full flex items-center justify-between lg:w-8/12">
-                            <div>
-                                <img
-                                    src={
-                                        candidate.picture.replace('s96-c', 's150-c') ||
-                                        'https://via.placeholder.com/150'
-                                    }
-                                    className="rounded-md"
-                                    alt="User Profile Pic"
-                                    referrerPolicy="no-referrer"
-                                />
-                            </div>
+                <div>
+                    <main className="min-w-screen">
+                        <div className="h-32 bg-lively-purple"></div>
+                        <div className="relative flex md:justify-end mx-5">
+                            <img
+                                src={candidate.picture.replace('s96-c', 's150-c') || 'https://via.placeholder.com/150'}
+                                className="rounded-full bg-white border-4 border-lively-purple absolute left-0 -top-20"
+                                referrerPolicy="no-referrer"
+                            />
                         </div>
-                    </section>
-                    <section className="flex w-full lg:w-8/12 mx-auto flex-wrap md:text-left">
-                        <h2 className="w-full text-dark-purple font-bold text-3xl mb-5">{candidate.name}</h2>
-                        <div className="md:w-6/12">
-                            <div className="md:pr-4">
-                                <h4 className="text-xl font-bold text-dark-purple">Habilidades extras:</h4>
-                                <p>
-                                    {candidate.experiences.map((experience: any, index: number) => (
-                                        <span key={index} className="text-dark-purple">
-                                            {experience.title} - {experience.company}
-                                        </span>
+                        <div className="mt-24 mx-5">
+                            <div className="font-bold text-2xl text-dark-purple">{candidate.name}</div>
+                            <div className="text-lg md:text-xl text-justify text-dark-gray">{candidate.role}</div>
+                        </div>
+                    </main>
+                    <div className="min-h-80">
+                        {!candidate.description && !candidate.experiences.length && !candidate.formations.length && (
+                            <div className="px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl">
+                                <FontAwesomeIcon icon={faWarning} className="mr-2 text-5xl" />
+                                <span className="text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1">
+                                    O usuário ainda não tem dados cadastrados!
+                                </span>
+                            </div>
+                        )}
+                        {candidate.description && (
+                            <section className="px-5 mt-10">
+                                <div className="font-medium text-xl text-dark-purple">Descrição</div>
+                                <div className="text-lg md:text-xl text-justify">{candidate.description}</div>
+                            </section>
+                        )}
+                        {!!candidate.experiences.length && (
+                            <section className="px-5 mt-10">
+                                <div className="font-medium text-xl text-dark-purple mb-2">
+                                    Experiências Profissionais
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {candidate.experiences.map((card, key) => (
+                                        <AdminCandidateCard key={key} card={card} />
                                     ))}
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                            </div>
-                            <div className="md:pr-4">
-                                <h4 className="text-xl font-bold text-dark-purple">Observações:</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
+                                </div>
+                            </section>
+                        )}
+                        {!!candidate.formations.length && (
+                            <section className="px-5 my-10">
+                                <div className="font-medium text-xl text-dark-purple mb-2">Formação Acadêmica</div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {candidate.formations.map((card, key) => (
+                                        <AdminCandidateCard key={key} card={card} />
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+                        <div className="px-5 mt-2 text-sm md:text-md text-dark-gray font-medium">
+                            <span className="mr-1">Usuário @{candidate.username}, desde</span>
+                            {new Date(candidate.createdAt).toLocaleDateString('pt-BR')}
                         </div>
-                        <div className="md:w-6/12">
-                            <div className="md:pr-4">
-                                <h4 className="text-xl font-bold text-dark-purple">Pontos de atenção:</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <div className="md:pr-4">
-                                <h4 className="text-xl font-bold text-dark-purple">Média empregado:</h4>
-                                <p>
-                                    Há mais de <HighLight>2 anos</HighLight>
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-                    <section className="w-full lg:w-8/12 mx-auto py-10">
-                        <h2 className="text-3xl text-dark-purple md:text-left font-bold mb-4">Portfólio</h2>
-                        <p className="text-lg text-justify md:w-10/12 lg:w-8/12 my-6">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat
-                        </p>
-                    </section>
+                    </div>
                 </div>
             )}
         </AdminDefault>
