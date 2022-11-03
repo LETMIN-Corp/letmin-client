@@ -1,4 +1,4 @@
-import { faHeart, faHeartBroken, faTriangleExclamation, faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faHeart, faHeartBroken, faTriangleExclamation, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import CompanyCandidateCard from '../../Components/Cards/CompanyCandidateCard';
 import RadioInput from '../../Components/Inputs/RadioInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
+import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
 import FormModal from '../../Components/Modals/FormModal';
 import { dispatchError, dispatchSuccess, formatErrors } from '../../Utils/ToastMessages';
@@ -22,6 +23,10 @@ const CompanyCombinations: React.FC = () => {
     const id = params.id;
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalMessageIsOpen, setModalMessageIsOpen] = useState(false);
+
+    const [companyData, setCompanyData] = useState({});
+
     const [candidate, setCandidate] = useState({
         _id: '',
         name: '',
@@ -60,10 +65,35 @@ const CompanyCombinations: React.FC = () => {
         target: id || '',
     };
 
+    const MessageInitialState = {
+        subject: '',
+        text: '',
+    };
+
+    function setMessageInitialSate() {
+        setMessage({
+            subject: 'Venha para a ' + companyData.name + '!',
+            text: `Olá, estávamos buscando por funcionários para nossa empresa e encontramos você, um potencial talento para integrar nosso time!
+
+Caso tenha interesse entre em contato conosco pelo telefone: ${ companyData.phone } ou pelo e-mail: ${ companyData.email }`,
+        });
+    }
+
+    useEffect(() => {
+        if (modalMessageIsOpen) {
+            setMessageInitialSate();
+        }
+    }, [modalMessageIsOpen]);
+
     const [complaint, setComplaint] = useState(InitialState);
+    const [message, setMessage] = useState(MessageInitialState);
 
     function getComplaintValue(name: string): string {
         return complaint[name as keyof typeof complaint];
+    }
+
+    function getMessageValue(name: string): string {
+        return message[name as keyof typeof message];
     }
 
     const consultPackage = {
@@ -76,15 +106,21 @@ const CompanyCombinations: React.FC = () => {
         },
     };
 
-    function setCheckboxValue(e: React.ChangeEvent<HTMLInputElement>): void {
-        setComplaint({
-            ...complaint,
-            [e.target.name]: e.target.value,
-        });
-    }
+    const messageConsultPackage = {
+        getValue: getMessageValue,
+        setValue: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+            setMessage({
+                ...message,
+                [e.target.name]: e.target.value,
+            });
+        },
+    };
 
     function handleConfirm() {
         setModalIsOpen(true);
+        company.addCompanyEmployee(id).then((res: any) => {
+            console.log(res);
+        });
         return company.createComplaint(complaint).then((res: any) => {
             if (res.data.success) {
                 setModalIsOpen(false);
@@ -95,14 +131,23 @@ const CompanyCombinations: React.FC = () => {
         });
     }
 
+    function handleConfirmMessage() {
+
+    }
+
     const handleCloseModal = () => {
         setModalIsOpen(false);
+    };
+
+    const handleCloseModalMessage = () => {
+        setModalMessageIsOpen(false);
     };
 
     const [userInTalentBank, setUserInTalentBank] = useState(false);
 
     useEffect((): void => {
         company.getCompanyData().then((company: any) => {
+            setCompanyData(company.data.data.company);
             setUserInTalentBank(company.data.data.talentBank.includes(params.id));
         });
     }, []);
@@ -127,7 +172,7 @@ const CompanyCombinations: React.FC = () => {
 
     return (
         <CompanyDefault>
-            {loading ? (
+            { loading ? (
                 <Loading />
             ) : (
                 <div>
@@ -141,13 +186,18 @@ const CompanyCombinations: React.FC = () => {
                             />
                             <div className="mt-5 text-lg justify-end flex items-center w-full">
                                 <FontAwesomeIcon
-                                    icon={faTriangleExclamation}
-                                    onClick={() => setModalIsOpen(true)}
+                                    icon={ faEnvelope }
+                                    onClick={ () => setModalMessageIsOpen(true) }
                                     className="border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-xl md:text-3xl transition ease-in-out delay-50"
                                 />
                                 <FontAwesomeIcon
-                                    icon={userInTalentBank ? faHeartBroken : faHeart}
-                                    onClick={() => alterUserCondition()}
+                                    icon={ faTriangleExclamation }
+                                    onClick={ () => setModalIsOpen(true) }
+                                    className="ml-3 border-4 border-bright-gray hover:border-primary rounded-full p-2 cursor-pointer text-bright-gray hover:text-primary text-xl md:text-3xl transition ease-in-out delay-50"
+                                />
+                                <FontAwesomeIcon
+                                    icon={ userInTalentBank ? faHeartBroken : faHeart }
+                                    onClick={ () => alterUserCondition() }
                                     className={
                                         userInTalentBank
                                             ? 'ml-3 border-4 border-red rounded-full p-2 cursor-pointer text-red text-xl md:text-3xl'
@@ -205,31 +255,54 @@ const CompanyCombinations: React.FC = () => {
                     </div>
                 </div>
             )}
-            {modalIsOpen && (
-                <FormModal handleClose={handleCloseModal} handleConfirm={handleConfirm} title={`Denunciar`}>
-                    <div>
-                        <div className="mt-2">
-                            <RadioInput
-                                name="reason"
-                                id="reason"
-                                options={options}
-                                size="medium"
-                                consultPackage={consultPackage}
-                            />
+            {
+                modalIsOpen && (
+                    <FormModal handleClose={handleCloseModal} handleConfirm={handleConfirm} title={`Denunciar`}>
+                        <div>
+                            <div className="mt-2">
+                                <RadioInput
+                                    name="reason"
+                                    id="reason"
+                                    options={options}
+                                    size="medium"
+                                    consultPackage={consultPackage}
+                                />
+                            </div>
+                            <div className="mt-2">
+                                <TextAreaInput
+                                    name="description"
+                                    resize={false}
+                                    row={5}
+                                    id="description"
+                                    consultPackage={consultPackage}
+                                    placeholder="Descrição"
+                                />
+                            </div>
                         </div>
-                        <div className="mt-2">
-                            <TextAreaInput
-                                name="description"
-                                resize={false}
-                                row={5}
-                                id="description"
-                                consultPackage={consultPackage}
-                                placeholder="Descrição"
-                            />
+                    </FormModal>
+                )
+            }
+            {
+                modalMessageIsOpen && (
+                    <FormModal handleClose={ handleCloseModalMessage } handleConfirm={ handleConfirmMessage } title={`Enviar email`}>
+                        <div>
+                            <div className="mt-2">
+                                <TextInput type='text' placeholder='Assunto' name='subject' id='subject' consultPackage={ messageConsultPackage } />
+                            </div>
+                            <div>
+                                <TextAreaInput
+                                    name="text"
+                                    resize={false}
+                                    row={5}
+                                    id="text"
+                                    consultPackage={ messageConsultPackage }
+                                    placeholder="Mensagem"
+                                />
+                            </div>
                         </div>
-                    </div>
-                </FormModal>
-            )}
+                    </FormModal>
+                )
+            }
         </CompanyDefault>
     );
 };

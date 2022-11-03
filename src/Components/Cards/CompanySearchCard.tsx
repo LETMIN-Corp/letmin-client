@@ -7,6 +7,7 @@ interface ComponentInterface {
         _id: number | string;
         name: string;
         picture: string;
+        role: string;
     };
 }
 
@@ -22,7 +23,8 @@ const CompanyTalentSearchCard: React.FC<ComponentInterface> = ({ user }) => {
                 />
             </div>
             <div className="xl:w-8/12 md:w-7/12 w-full text-black pl-5 md:my-8 my-3 mr-4">
-                <h1 className="text-md lg:text-2xl font-bold">{user.name}</h1>
+                <h1 className="text-md lg:text-2xl font-bold">{ user.name }</h1>
+                <div className='text-sm text-dark-gray'>{ user.role || '' }</div>
             </div>
 
             <div className="flex xl:w-2/12 md:w-3/12 w-9/12 lg:h-48 h-16 pb-5 items-center justify-center">
