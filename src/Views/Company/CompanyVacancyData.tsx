@@ -73,7 +73,7 @@ const CompanyVacancyData = () => {
                             </div>
                             <div>
                                 {candidates.map((row: any, key: number) => (
-                                    <CandidateData key={key} name={row.name} compatibility={75} curriculum={row._id} />
+                                    <CandidateData key={key} name={row.name} compatibility={row.compatibility} curriculum={row._id} />
                                 ))}
                             </div>
                         </div>
