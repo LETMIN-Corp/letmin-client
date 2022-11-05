@@ -80,6 +80,10 @@ const useCompany = () => {
         return await axiosRequest(`${API_URL}/api/company/check-vacancy-skills`, 'POST', skill);
     };
 
+    const sendCandidateEmail = async(message: any, user_id: string) => {
+        return await axiosRequest(`${API_URL}/api/company/send-candidate-email`, 'POST', {message, user_id});
+    }
+
     return {
         userData,
         getCompanyData,
@@ -103,6 +107,7 @@ const useCompany = () => {
         getCompanyVacancy,
         updateVacancy,
         checkNewSkill,
+        sendCandidateEmail,
     };
 };
 

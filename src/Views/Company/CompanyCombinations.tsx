@@ -25,7 +25,7 @@ const CompanyCombinations: React.FC = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalMessageIsOpen, setModalMessageIsOpen] = useState(false);
 
-    const [companyData, setCompanyData] = useState({});
+    const [companyData, setCompanyData] = useState<any>({});
 
     const [candidate, setCandidate] = useState({
         _id: '',
@@ -118,9 +118,7 @@ Caso tenha interesse entre em contato conosco pelo telefone: ${ companyData.phon
 
     function handleConfirm() {
         setModalIsOpen(true);
-        company.addCompanyEmployee(id).then((res: any) => {
-            console.log(res);
-        });
+
         return company.createComplaint(complaint).then((res: any) => {
             if (res.data.success) {
                 setModalIsOpen(false);
@@ -132,7 +130,13 @@ Caso tenha interesse entre em contato conosco pelo telefone: ${ companyData.phon
     }
 
     function handleConfirmMessage() {
-
+        return company.sendCandidateEmail(message, id!).then((res: any) => {
+            if (res.data.success) {
+                setModalMessageIsOpen(false);
+                return dispatchSuccess(res.data.message);
+            }
+            dispatchError(formatErrors(res.data.message));
+        });
     }
 
     const handleCloseModal = () => {
