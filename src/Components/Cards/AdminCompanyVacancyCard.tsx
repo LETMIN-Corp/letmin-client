@@ -37,7 +37,7 @@ const AdminCompanyVacancyCard: React.FC<ComponentInterface> = ({ vacancy }) => {
 
     return (
         <Link
-            to={`/user/vacancy/detail/${vacancy._id}`}
+            to={`/admin/vacancy/${vacancy._id}`}
             className="text-black text-sm bg-lilac rounded-md flex-col justify-between drop-shadow-lg"
         >
             <div className="text-white break-all bg-bright-purple p-3 flex justify-between rounded-t-md">

@@ -4,19 +4,19 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
-import MaskTypesEnum from '../../Enums//MaskTypesEnum';
+import MaskTypesEnum from '../../Enums/MaskTypesEnum';
 import { VacancyData } from '../../Interfaces/UserInterfaces';
 import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
 import useLoading from '../../Utils/useLoading';
-import useUser from '../../Utils/useUser';
-import UserDefault from './UserDefault';
-const UserVacancyDetail = () => {
+import useAdmin from '../../Utils/useAdmin';
+import AdminDefault from './AdminDefault';
+
+const AdminVacancyDetail = () => {
     const params = useParams();
-    const user = useUser();
+    const admin = useAdmin();
     const navigate = useNavigate();
 
     const { loading } = useLoading();
@@ -26,15 +26,16 @@ const UserVacancyDetail = () => {
 
     if (id?.length !== 24) {
         dispatchError('Vaga não encontrada.');
-        navigate('/user/vacancy/search');
+        navigate('/admin/companies');
     }
 
     useEffect((): void => {
         window.document.title = 'Letmin - Vaga';
 
-        user.getVacancy(id!).then((res: any) => {
+        admin.getVacancy(id!).then((res: any) => {
             if (!res.data.success) {
-                navigate('/user/vacancy/search');
+                dispatchError(res.message);
+                navigate(`/admin/company/${res.data.vacancy.company._id}`);
             }
             setVacancyData(res.data.vacancy);
         });
@@ -54,28 +55,8 @@ const UserVacancyDetail = () => {
         setValue: setInputValue,
     };
 
-    const handleApplyVacancy = () => {
-        user.applyVacancy(id!).then((res: any) => {
-            if (res.data.success) {
-                dispatchSuccess(res.data.message);
-                return navigate('/user/vacancy/search');
-            }
-            dispatchError(res.data.message);
-        });
-    };
-
-    const handleCancelApplyVacancy = () => {
-        user.cancelApplyVacancy(id!).then((res: any) => {
-            if (res.data.success) {
-                dispatchSuccess(res.data.message);
-                return navigate('/user/vacancy/search');
-            }
-            dispatchError(res.data.message);
-        });
-    };
-
     return (
-        <UserDefault>
+        <AdminDefault>
             <div className="p-5 min-h-screen">
                 {loading ? (
                     <Loading />
@@ -87,7 +68,7 @@ const UserVacancyDetail = () => {
                                 <div>
                                     <h1 className="text-2xl ml-5 w-full font-bold text-primary">{vacancyData.role}</h1>
                                     <Link
-                                        to={`/user/company/detail/${vacancyData.company._id}`}
+                                        to={`/admin/company/${vacancyData.company._id}`}
                                         className="text-xl ml-5 w-full font-medium hover:text-bright-purple text-dark-purple"
                                     >
                                         {vacancyData.company.name}
@@ -165,31 +146,13 @@ const UserVacancyDetail = () => {
                                         />
                                     </div>
                                 </div>
-                                {(vacancyData.user_applied && (
-                                    <div className="w-full text-center md:mt-5 md:flex md:justify-between">
-                                        <p className="md:text-2xl text-md font-bold text-primary">
-                                            Você já se candidatou a essa vaga
-                                        </p>
-                                        <SecondaryButton
-                                            handleClick={handleCancelApplyVacancy}
-                                            text="Descandidatar-se"
-                                        ></SecondaryButton>
-                                    </div>
-                                )) || (
-                                    <div className="w-full flex justify-end">
-                                        <SecondaryButton
-                                            handleClick={handleApplyVacancy}
-                                            text="Candidatar-se"
-                                        ></SecondaryButton>
-                                    </div>
-                                )}
                             </div>
                         </div>
                     </div>
                 )}
             </div>
-        </UserDefault>
+        </AdminDefault>
     );
 };
 
-export default UserVacancyDetail;
+export default AdminVacancyDetail;

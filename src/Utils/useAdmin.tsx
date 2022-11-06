@@ -40,6 +40,10 @@ const useAdmin = () => {
             complaint_id,
         });
     };
+
+    const getVacancy = async (id: string) => {
+        return axiosRequest(`${API_URL}/api/admin/get-vacancy/${id}`, 'GET');
+    };
     // End Admin functions
 
     return {
@@ -52,6 +56,8 @@ const useAdmin = () => {
         removeComplaint,
         getUser,
         getCompany,
+        getVacancy,
+
         // General functions
         createComplaint,
         dispatchError,
