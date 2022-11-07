@@ -261,14 +261,14 @@ Caso tenha interesse entre em contato conosco pelo telefone: ${ companyData.phon
             )}
             {
                 modalIsOpen && (
-                    <FormModal handleClose={handleCloseModal} handleConfirm={handleConfirm} title={`Denunciar`}>
+                    <FormModal handleClose={handleCloseModal} handleConfirm={handleConfirm} title={`Denunciar usuário`}>
                         <div>
                             <div className="mt-2">
                                 <RadioInput
                                     name="reason"
                                     id="reason"
                                     options={options}
-                                    size="medium"
+                                    size="full"
                                     consultPackage={consultPackage}
                                 />
                             </div>

@@ -68,6 +68,10 @@ export const AuthState = ({ children }: any) => {
                 return res;
             })
             .catch((err) => {
+                if (err.code == 'ERR_NETWORK') {
+                    dispatchError('Error de rede, cheque sua conexão');
+                    signOut();
+                }
                 removeLoading();
                 return err.response;
             });
