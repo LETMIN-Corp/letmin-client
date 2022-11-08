@@ -2,6 +2,7 @@ import { faBan, faBuilding, faInfo, faMagnifyingGlass } from '@fortawesome/free-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
+import TextInput from '../../Components/Inputs/TextInput';
 
 import Loading from '../../Components/Items/Loading';
 import InfoModal from '../../Components/Modals/InfoModal';
@@ -29,6 +30,7 @@ const AdminLogs: React.FC = () => {
 
             setAllLogs(res.data.logs);
             setLogs(res.data.logs);
+            console.log(res.data.logs)
         });
     }, []);
 
@@ -159,7 +161,7 @@ const TableCard: React.FC<TableCardInterface> = ({ log, handleOpen }) => {
                 {new Date(log.createdAt).toLocaleDateString('pt-BR')}
             </span>
             <span className="w-1/12 md:text-lg pr-1 flex justify-center">
-                <FontAwesomeIcon icon={faInfo} onClick={handleOpen} className="text-dark-purple cursor-pointer" />
+                <FontAwesomeIcon icon={ faInfo } onClick={ handleOpen } className="text-dark-purple cursor-pointer" />
             </span>
         </div>
     );
@@ -176,22 +178,31 @@ const LogForm: React.FC<LogFormInterface> = ({ isDisabled, logs, selectedLogKey,
     const viewConsultPackage = {
         getValue: (name: string) => {
             const [type, data] = name.split('-');
-            return logs[selectedLogKey][type][data];
+
+            if(name == 'createdAt') {
+                return new Date(logs[selectedLogKey][type]).toLocaleDateString('pt-BR')
+            }
+
+            return logs[selectedLogKey][type];
         },
         setValue: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {},
     };
 
     return (
-        <InfoModal title="Informações do Log" handleClose={handleClose} showIcon={false}>
+        <InfoModal title='Informações do Log' handleClose={handleClose} showIcon={false}>
+            <TextInput placeholder='Ação' type='text' consultPackage={ viewConsultPackage } name='action' id='action' />
+            <TextInput placeholder='Data de criação' type='text' consultPackage={ viewConsultPackage } name='createdAt' id='createdAt' />
+            <TextInput placeholder='Ip de criação' type='text' consultPackage={ viewConsultPackage } name='ip' id='ip' />
+            <TextInput placeholder='Usuário' type='text' consultPackage={ viewConsultPackage } name='userAgent' id='userAgent' />
             <TextAreaInput
-                name="description"
-                disabled={isDisabled}
-                row={5}
-                id="description"
-                value={logs[selectedLogKey].description}
-                consultPackage={viewConsultPackage}
+                name='description'
+                disabled={ isDisabled }
+                row={ 5 }
+                id='description'
+                placeholder='Descrição'
+                value={ logs[selectedLogKey].description }
+                consultPackage={ viewConsultPackage }
             />
-            {/* @todo: rest of log data */}
         </InfoModal>
     );
 };
