@@ -2,6 +2,7 @@ import { faBan, faBuilding, faInfo, faMagnifyingGlass, faUnlock } from '@fortawe
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 
 import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
@@ -41,13 +42,6 @@ const AdminLogs: React.FC = () => {
         setOpenModal(true);
     }
 
-    function handleLogBlock(id: string): void {
-        // admin.blockCompany(id).then((res: any) => {
-        //     setLogs(res.data.companies);
-        //     setAllLogs(res.data.companies);
-        // });
-    }
-
     const filterLogs = (search: string) => {
         if (search == '') {
             return setLogs(allLogs);
@@ -71,19 +65,38 @@ const AdminLogs: React.FC = () => {
                     <FontAwesomeIcon icon={faBuilding} className="mr-2" />
                     Logs do Sistema
                 </h1>
-                <div className="max-w-sm w-full relative mt-5">
-                    <input
-                        type="text"
-                        placeholder="Buscar"
-                        className="w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md"
-                        name="search"
-                        onChange={(e) => setSearchLog(e.target.value)}
-                        id="search"
-                    />
-                    <FontAwesomeIcon
-                        icon={faMagnifyingGlass}
-                        className="absolute right-2 top-2 text-xl text-dark-purple"
-                    />
+                <div className='flex'>
+                    <div className="max-w-sm w-full relative mt-5">
+                        <input
+                            type="text"
+                            placeholder="Buscar"
+                            className="w-full pl-2 pr-8 py-1 border-2 border-dark-purple rounded-md"
+                            name="search"
+                            onChange={(e) => setSearchLog(e.target.value)}
+                            id="search"
+                        />
+                        <FontAwesomeIcon
+                            icon={faMagnifyingGlass}
+                            className="absolute right-2 top-2 text-xl text-dark-purple"
+                        />
+                    </div>
+                    <button
+                        disabled={!logs.length}
+                        className={!logs.length ? 'hidden' : 'ml-5 bg-gray-400 text-white px-5 py-1 rounded-md'}
+                        onClick={() => {
+                            admin.deleteAllLogs().then((res: any) => {
+                                if (res.status !== 200) {
+                                    return;
+                                }
+                                setAllLogs([]);
+                                setLogs([]);
+                            });
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faBan} className="mr-2" />
+                        Deletar todos os logs
+                    </button>
+
                 </div>
                 {loading ? (
                     <Loading />
@@ -94,11 +107,10 @@ const AdminLogs: React.FC = () => {
                 ) : (
                     <div className="mt-5 break-all">
                         <div className="text-sm md:text-md font-medium flex justify-between w-full px-1">
-                            {/* <span className="w-5/12 md:w-7/12 pr-1">Ação</span> */}
-                            <span className="w-5/12 md:w-7/12 pr-1">Descrição</span>
-                            <span className="w-4/12 pr-1">Data</span>
-                            {/* <span className="w-4/12 pr-1">IP</span> */}
-                            <span className="w-3/12 md:w-12 pr-1">Ações</span>
+                            <span className="w-2/12 pr-1">Ação</span>
+                            <span className="w-5/12 pr-1">Descrição</span>
+                            <span className="w-3/12 pr-1">Data</span>
+                            <span className="w-2/12 pr-1">Ações</span>
                         </div>
                         <div>
                             {logs.map((log, key) => (
@@ -106,7 +118,6 @@ const AdminLogs: React.FC = () => {
                                     key={key}
                                     log={log}
                                     handleOpen={() => handleOpen(key)}
-                                    handleLogBlock={() => handleLogBlock(log._id)}
                                 />
                             ))}
                         </div>
@@ -138,27 +149,20 @@ interface TableCardInterface {
         createdAt: string;
     };
     handleOpen: () => void;
-    handleLogBlock: () => void;
 }
 
-const TableCard: React.FC<TableCardInterface> = ({ log, handleOpen, handleLogBlock }) => {
+const TableCard: React.FC<TableCardInterface> = ({ log, handleOpen }) => {
     return (
         <div className="text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2">
-            <span className="w-5/12 md:w-7/12 pr-1">
-                Log {log.description}
+            <span className="w-2/12 md:w-2/12 pr-1">{log.action}</span>
+            <span className="w-7/12 md:w-7/12 pr-1">
+                {log.description}
             </span>
-            <span className="w-4/12 pr-1">{new Date(log.createdAt).toLocaleDateString('pt-BR')}</span>
-            <span className="w-3/12 md:w-12 md:text-lg pr-1 flex justify-between">
-                <div className="cursor-pointer">
-                    <FontAwesomeIcon icon={faInfo} onClick={handleOpen} className="text-dark-purple" />
-                </div>
-                <div className="cursor-pointer" onClick={() => handleLogBlock()}>
-                    {!false ? (
-                        <FontAwesomeIcon icon={faBan} className="text-red" />
-                    ) : (
-                        <FontAwesomeIcon icon={faUnlock} className="text-primary" />
-                    )}
-                </div>
+            <span className="w-3/12 pr-1">
+                {new Date(log.createdAt).toLocaleDateString('pt-BR')}
+            </span>
+            <span className="w-2/12 md:w-12 md:text-lg pr-1 flex justify-center">
+                <FontAwesomeIcon icon={faInfo} onClick={handleOpen} className="text-dark-purple cursor-pointer" />
             </span>
         </div>
     );
@@ -181,8 +185,17 @@ const LogForm: React.FC<LogFormInterface> = ({ isDisabled, logs, selectedLogKey,
     };
 
     return (
-        <InfoModal title="Informações" handleClose={handleClose} showIcon={false}>
-            descrição: {logs[selectedLogKey].description}
+        <InfoModal title="Informações do Log" handleClose={handleClose} showIcon={false}>
+            <h3 className="text-xl font-medium text-dark-purple">Descrição</h3>
+            <TextAreaInput
+                name="description"
+                disabled={isDisabled}
+                row={5}
+                id="description"
+                value={logs[selectedLogKey].description}
+                consultPackage={viewConsultPackage}
+            />
+            {/* @todo: rest of log data */}
         </InfoModal>
     );
 };

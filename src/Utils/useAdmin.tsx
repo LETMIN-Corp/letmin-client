@@ -44,6 +44,9 @@ const useAdmin = () => {
     const getAllLogs = async () => {
         return axiosRequest(`${API_URL}/api/admin/get-all-logs`, 'GET');
     };
+    const deleteAllLogs = async () => {
+        return axiosRequest(`${API_URL}/api/admin/delete-all-logs`, 'DELETE');
+    };
 
     // End Admin functions
 
@@ -58,6 +61,7 @@ const useAdmin = () => {
         getUser,
         getCompany,
         getAllLogs,
+        deleteAllLogs,
         // General functions
         dispatchError,
         dispatchSuccess,
