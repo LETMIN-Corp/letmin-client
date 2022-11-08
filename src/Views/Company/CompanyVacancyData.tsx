@@ -1,3 +1,5 @@
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -21,6 +23,7 @@ const CompanyVacancyData = () => {
     }
 
     const [candidates, setCandidates] = useState<ICandidates>([]);
+    const [matches, setMatches] = useState<ICandidates>([]);
     const [vacancyData, setVacancyData] = useState('');
 
     useEffect((): void => {
@@ -35,8 +38,8 @@ const CompanyVacancyData = () => {
                 company.dispatchError(res.data.message);
                 return navigate('/company/indicators');
             }
-
             setCandidates(res.data.data.candidates);
+            setMatches(res.data.data.matches);
             setVacancyData(res.data.data.role);
         });
     }, []);
@@ -47,37 +50,42 @@ const CompanyVacancyData = () => {
                 <Loading />
             ) : (
                 <div className="p-5 min-h-90">
-                    <h1 className="text-2xl">
-                        <i className="fa-solid fa-briefcase mr-2"></i>
+                    <h1 className="text-2xl text-dark-purple font-medium">
+                        <FontAwesomeIcon icon={ faBriefcase } className='mr-2' />
                         <span>Vaga: {vacancyData}</span>
                     </h1>
-                    {candidates.length === 0 && (
-                        <div className="h-96 w-full flex flex-col items-center justify-center">
-                            <div>
-                                <i className="fa-solid fa-user-slash text-8xl"></i>
+                    {
+                        candidates.length > 0 && (
+                            <div className="bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg">
+                                <div className="flex text-xl font-medium">
+                                    <div className="w-4/12 flex justify-center">Candidatos</div>
+                                    <div className="w-4/12 flex justify-center">Compatibilidade</div>
+                                    <div className="w-4/12 flex justify-center">Perfil</div>
+                                </div>
+                                <div>
+                                    {candidates.map((row: any, key: number) => (
+                                        <CandidateData key={key} name={row.name} compatibility={row.compatibility} curriculum={row._id} />
+                                    ))}
+                                </div>
                             </div>
-                            <h1 className="text-xl font-bold text-center px-10 my-10 text-bright-purple">
-                                Nenhum Candidato Encontrado
-                            </h1>
-                            <div>
-                                <SecondaryLink path="/company/indicators" text="Voltar aos indicadores"></SecondaryLink>
+                        )
+                    }
+                    {
+                        matches.length > 0 && (
+                            <div className="bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg">
+                                <div className="flex text-xl font-medium">
+                                    <div className="w-4/12 flex justify-center">Sugestões</div>
+                                    <div className="w-4/12 flex justify-center">Compatibilidade</div>
+                                    <div className="w-4/12 flex justify-center">Perfil</div>
+                                </div>
+                                <div>
+                                    {matches.map((row: any, key: number) => (
+                                        <CandidateData key={key} name={row.name} compatibility={row.compatibility} curriculum={row._id} />
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    )}
-                    {candidates.length > 0 && (
-                        <div className="bg-lilac w-full py-5 mt-5 rounded-sm drop-shadow-lg">
-                            <div className="flex text-xl font-medium">
-                                <div className="w-4/12 flex justify-center">Candidatos</div>
-                                <div className="w-4/12 flex justify-center">Compatibilidade</div>
-                                <div className="w-4/12 flex justify-center">Perfil</div>
-                            </div>
-                            <div>
-                                {candidates.map((row: any, key: number) => (
-                                    <CandidateData key={key} name={row.name} compatibility={75} curriculum={row._id} />
-                                ))}
-                            </div>
-                        </div>
-                    )}
+                        )
+                    }
                 </div>
             )}
         </CompanyDefault>

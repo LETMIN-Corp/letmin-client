@@ -28,7 +28,7 @@ const InfoModal: React.FC<ComponentInterface> = ({ title, children, handleClose,
                                     </div>
                                 )}
                                 <div className="mt-3 text-justify sm:mt-0 sm:text-left">
-                                    <h3 className="text-lg leading-6 font-medium" id="modal-title">
+                                    <h3 className="text-lg leading-6 font-medium text-dark-purple" id="modal-title">
                                         {title}
                                     </h3>
                                     <div className="mt-2">{children}</div>

@@ -21,7 +21,6 @@ const UserApply = () => {
         window.document.title = 'Letmin - Candidaturas';
         user.getCandidateVacancies().then((res: any) => {
             if (res.data.success) setVacancies(res.data.vacancies);
-            console.log(res.data)
         });
     }, []);
 

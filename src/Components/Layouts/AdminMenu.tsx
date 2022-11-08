@@ -17,6 +17,11 @@ const AdminMenu: React.FC = () => {
             path: '/admin/complaints',
             isLink: true,
         },
+        {
+            text: 'Logs',
+            path: '/admin/logs',
+            isLink: true,
+        },
     ];
 
     return <Menu menuButtons={menuButtons} showMenu={true} />;
