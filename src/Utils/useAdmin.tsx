@@ -48,6 +48,9 @@ const useAdmin = () => {
         return axiosRequest(`${API_URL}/api/admin/delete-all-logs`, 'DELETE');
     };
 
+    const getVacancy = async (id: string) => {
+        return axiosRequest(`${API_URL}/api/admin/get-vacancy/${id}`, 'GET');
+    };
     // End Admin functions
 
     return {
@@ -62,6 +65,7 @@ const useAdmin = () => {
         getCompany,
         getAllLogs,
         deleteAllLogs,
+        getVacancy,
         // General functions
         dispatchError,
         dispatchSuccess,
