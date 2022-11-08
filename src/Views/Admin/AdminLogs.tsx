@@ -1,13 +1,10 @@
-import { faBan, faBuilding, faInfo, faMagnifyingGlass, faUnlock } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faBuilding, faInfo, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 
-import TextInput from '../../Components/Inputs/TextInput';
 import Loading from '../../Components/Items/Loading';
 import InfoModal from '../../Components/Modals/InfoModal';
-import InputTypesEnum from '../../Enums/InputTypesEnum';
 import useAdmin from '../../Utils/useAdmin';
 import useLoading from '../../Utils/useLoading';
 import AdminDefault from './AdminDefault';
@@ -29,7 +26,7 @@ const AdminLogs: React.FC = () => {
             if (res.status !== 200) {
                 return;
             }
-            console.log(res.data.logs);
+
             setAllLogs(res.data.logs);
             setLogs(res.data.logs);
         });
@@ -108,9 +105,9 @@ const AdminLogs: React.FC = () => {
                     <div className="mt-5 break-all">
                         <div className="text-sm md:text-md font-medium flex justify-between w-full px-1">
                             <span className="w-2/12 pr-1">Ação</span>
-                            <span className="w-5/12 pr-1">Descrição</span>
-                            <span className="w-3/12 pr-1">Data</span>
-                            <span className="w-2/12 pr-1">Ações</span>
+                            <span className="w-7/12 pr-1">Descrição</span>
+                            <span className="w-2/12 pr-1">Data</span>
+                            <span className="w-1/12 pr-1">Ações</span>
                         </div>
                         <div>
                             {logs.map((log, key) => (
@@ -154,14 +151,14 @@ interface TableCardInterface {
 const TableCard: React.FC<TableCardInterface> = ({ log, handleOpen }) => {
     return (
         <div className="text-sm bg-lilac py-2 px-1 md:px-2 rounded-sm flex items-center justify-between mt-2">
-            <span className="w-2/12 md:w-2/12 pr-1">{log.action}</span>
-            <span className="w-7/12 md:w-7/12 pr-1">
+            <span className="w-2/12 pr-1">{log.action}</span>
+            <span className="w-7/12 pr-1 text-sm">
                 {log.description}
             </span>
-            <span className="w-3/12 pr-1">
+            <span className="w-2/12 pr-1">
                 {new Date(log.createdAt).toLocaleDateString('pt-BR')}
             </span>
-            <span className="w-2/12 md:w-12 md:text-lg pr-1 flex justify-center">
+            <span className="w-1/12 md:text-lg pr-1 flex justify-center">
                 <FontAwesomeIcon icon={faInfo} onClick={handleOpen} className="text-dark-purple cursor-pointer" />
             </span>
         </div>
@@ -186,7 +183,6 @@ const LogForm: React.FC<LogFormInterface> = ({ isDisabled, logs, selectedLogKey,
 
     return (
         <InfoModal title="Informações do Log" handleClose={handleClose} showIcon={false}>
-            <h3 className="text-xl font-medium text-dark-purple">Descrição</h3>
             <TextAreaInput
                 name="description"
                 disabled={isDisabled}
