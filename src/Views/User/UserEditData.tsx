@@ -238,7 +238,7 @@ const UserEditData: React.FC = () => {
                                     onClick={() => flipExclude('skills')}
                                     className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-red-dark ease-out duration-200"
                                 >
-                                    <FontAwesomeIcon icon={canExclude.formations ? faTrashArrowUp : faTrash} />
+                                    <FontAwesomeIcon icon={canExclude.skills ? faTrashArrowUp : faTrash} />
                                 </button>
                                 <button
                                     onClick={() => flipModal('skill')}
@@ -410,7 +410,7 @@ const UserEditData: React.FC = () => {
                                                 type={InputTypesEnum.text}
                                                 placeholder="Instituição"
                                                 name="formation-institution"
-                                                limit={30}
+                                                limit={65}
                                                 id="formation-institution"
                                                 consultPackage={consultPackage}
                                             />
