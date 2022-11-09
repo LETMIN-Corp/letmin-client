@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../Contexts/AuthContextProvider';
 
 const useAdmin = () => {
-    const { axiosRequest, API_URL, createComplaint, dispatchError, dispatchSuccess, loading }: any =
+    const { axiosRequest, API_URL, dispatchError, dispatchSuccess, loading }: any =
         useContext(AuthContext);
 
     // Admin functions
@@ -41,6 +41,13 @@ const useAdmin = () => {
         });
     };
 
+    const getAllLogs = async () => {
+        return axiosRequest(`${API_URL}/api/admin/get-all-logs`, 'GET');
+    };
+    const deleteAllLogs = async () => {
+        return axiosRequest(`${API_URL}/api/admin/delete-all-logs`, 'DELETE');
+    };
+
     const getVacancy = async (id: string) => {
         return axiosRequest(`${API_URL}/api/admin/get-vacancy/${id}`, 'GET');
     };
@@ -56,10 +63,10 @@ const useAdmin = () => {
         removeComplaint,
         getUser,
         getCompany,
+        getAllLogs,
+        deleteAllLogs,
         getVacancy,
-
         // General functions
-        createComplaint,
         dispatchError,
         dispatchSuccess,
         loading,

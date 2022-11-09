@@ -24,21 +24,21 @@ const InfoModal: React.FC<ComponentInterface> = ({ title, children, handleClose,
                             <div className="sm:items-start block">
                                 {showIcon && (
                                     <div className="mx-auto flex-shrink-0 md:mr-4 flex items-center justify-center h-12 sm:mx-0 sm:h-10 sm:w-10">
-                                        <FontAwesomeIcon icon={faInfo} className="text-4xl" />
+                                        <FontAwesomeIcon icon={ faInfo } className="text-4xl" />
                                     </div>
                                 )}
                                 <div className="mt-3 text-justify sm:mt-0 sm:text-left">
-                                    <h3 className="text-lg leading-6 font-medium" id="modal-title">
-                                        {title}
+                                    <h3 className="text-lg leading-6 font-medium text-dark-purple" id="modal-title">
+                                        { title }
                                     </h3>
-                                    <div className="mt-2">{children}</div>
+                                    <div className="mt-2">{ children }</div>
                                 </div>
                             </div>
                         </div>
                         <div className="px-4 pb-3 sm:px-6 sm:flex sm:flex-row-reverse">
                             <button
                                 type="button"
-                                onClick={handleClose}
+                                onClick={ handleClose }
                                 className="mt-3 w-full inline-flex justify-center rounded-md border shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                             >
                                 Fechar

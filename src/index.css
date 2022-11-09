@@ -33,7 +33,6 @@ a.active span {
 
 @media only screen and (max-width: 770px) {
     a.active {
-        color: #47196b !important;
         font-weight: bold;
     }
 

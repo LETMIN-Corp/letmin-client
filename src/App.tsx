@@ -37,6 +37,7 @@ import UserError from './Views/User/UserError';
 import UserProfile from './Views/User/UserProfle';
 import UserVacancyDetail from './Views/User/UserVacancyDetail';
 import UserVacancySearch from './Views/User/UserVacancySearch';
+import AdminLogs from './Views/Admin/AdminLogs';
 import AdminVacancyDetail from './Views/Admin/AdminVacancyDetail';
 
 function App() {
@@ -84,8 +85,8 @@ function App() {
                     <Route path="/admin/complaints" element={<AdminComplaint />} />
                     <Route path="/admin/combinations/:id" element={<AdminCombinations />} />
                     <Route path="/admin/company/:id" element={<AdminCompanyData />} />
+                    <Route path="/admin/logs" element={<AdminLogs />} />
                     <Route path="/admin/vacancy/:id" element={<AdminVacancyDetail />} />
-                    
                 </Route>
             </Routes>
             <CookiesPopUp />
