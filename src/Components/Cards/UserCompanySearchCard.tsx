@@ -1,15 +1,10 @@
 import { faAddressBook, faBuilding, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import { Company } from '../../Interfaces/CompanyInterfaces';
 
 interface ComponentInterface {
-    company: {
-        company: {
-            name: string;
-            address: string;
-        };
-        _id: string;
-    };
+    company: Company
 }
 
 const UserCompanySearchCard: React.FC<ComponentInterface> = ({ company }) => {
@@ -19,11 +14,11 @@ const UserCompanySearchCard: React.FC<ComponentInterface> = ({ company }) => {
                 <FontAwesomeIcon icon={faBuilding} className="xl:text-7x1 lg:text-6x1 text-5xl" />
             </div>
             <div className="xl:w-8/12 md:w-7/12 w-full text-black pl-5 md:my-5 my-3 mr-4">
-                <h1 className="text-md lg:text-xl font-bold">{company.company.name}</h1>
+                <h1 className="text-md lg:text-xl font-bold">{company.name}</h1>
                 <div className="xl:flex font-medium">
                     <p className="text-md">
                         <FontAwesomeIcon className="mr-1" icon={faLocationDot} />
-                        <span>{company.company.address}</span>
+                        <span>{company.address}</span>
                     </p>
                 </div>
             </div>

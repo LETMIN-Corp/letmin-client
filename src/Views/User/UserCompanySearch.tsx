@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import UserCompanySearchCard from '../../Components/Cards/UserCompanySearchCard';
 import List from '../../Components/Items/List';
 import Loading from '../../Components/Items/Loading';
-import { ICompanie } from '../../Interfaces/CompanyInterfaces';
+import { Company, ICompanie } from '../../Interfaces/CompanyInterfaces';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
 import UserDefault from './UserDefault';
@@ -14,8 +14,8 @@ const UserCompanySearch = () => {
     const user = useUser();
     const { loading } = useLoading();
 
-    const [allCompanies, setAllCompanies] = useState<ICompanie[]>([new ICompanie()]);
-    const [companies, setCompanies] = useState<ICompanie[]>([new ICompanie()]);
+    const [allCompanies, setAllCompanies] = useState<Company[]>([new Company()]);
+    const [companies, setCompanies] = useState<Company[]>([new Company()]);
     const [searchCompanies, setSearchCompanies] = useState<string>('');
     const [companyCards, setCompanyCards] = useState([]);
 
@@ -29,7 +29,7 @@ const UserCompanySearch = () => {
     }, []);
 
     useEffect(() => {
-        const cards: any = companies.map((company) => <UserCompanySearchCard company={company} key={company._id} />);
+        const cards: any = companies.map((company: Company) => <UserCompanySearchCard company={company} key={company._id} />);
         setCompanyCards(cards);
     }, [companies]);
 
@@ -39,10 +39,10 @@ const UserCompanySearch = () => {
             return;
         }
 
-        const filteredCompanies = allCompanies.filter((company: { company: { name: string; address: string } }) => {
+        const filteredCompanies = allCompanies.filter((company: Company) => {
             return (
-                company.company.name.toLowerCase().includes(value.toLowerCase()) ||
-                company.company.address.toLowerCase().includes(value.toLowerCase())
+                company.name.toLowerCase().includes(value.toLowerCase()) ||
+                company.address.toLowerCase().includes(value.toLowerCase())
             );
         });
         setCompanies(filteredCompanies);
