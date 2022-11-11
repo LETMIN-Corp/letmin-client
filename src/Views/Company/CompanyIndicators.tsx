@@ -164,16 +164,12 @@ const CompanyIndicators = () => {
                                                     </Link>
                                                 </div>
                                                 <div className="w-4/12 flex justify-center items-center text-center">
-                                                    {row.candidates.length == 0 ? (
-                                                        <span className="text-slate-800 font-medium">0</span>
-                                                    ) : (
-                                                        <Link
-                                                            to={`../company/vacancy/data/${row._id}`}
-                                                            className="text-primary font-medium hover:text-bright-purple"
-                                                        >
-                                                            {row.candidates.length}
-                                                        </Link>
-                                                    )}
+                                                    <Link
+                                                        to={`../company/vacancy/data/${row._id}`}
+                                                        className="text-primary font-medium hover:text-bright-purple"
+                                                    >
+                                                        {row.candidates.length}
+                                                    </Link>
                                                 </div>
                                                 <div className="w-4/12 flex justify-center items-center text-center">
                                                     {row.closed && (
