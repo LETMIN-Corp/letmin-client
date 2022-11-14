@@ -2,18 +2,12 @@ import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
-import SecondaryButton from '../../Components/Buttons/SecondaryButton';
 import UserCompanyVacancyCard from '../../Components/Cards/UserCompanyVacancyCard';
-import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
 import List from '../../Components/Items/List';
 import Loading from '../../Components/Items/Loading';
 import InputTypesEnum from '../../Enums/InputTypesEnum';
-import MaskTypesEnum from '../../Enums/MaskTypesEnum';
-import { CompanyProfileI } from '../../Interfaces/CompanyInterfaces';
-import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
 import useAuth from '../../Utils/useAuth';
 import useLoading from '../../Utils/useLoading';
 import useUser from '../../Utils/useUser';
@@ -75,6 +69,7 @@ const UserCompanyDetail = () => {
                 <UserCompanyVacancyCard vacancy={vacancy} key={vacancy._id} />
             ));
             setVacancyCards(cards);
+            console.log(res.data.data)
         });
     }, []);
 

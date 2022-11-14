@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import CompanyCandidateCard from '../../Components/Cards/CompanyCandidateCard';
+import CompanySkillCard from '../../Components/Cards/CompanySkillsCard';
 import RadioInput from '../../Components/Inputs/RadioInput';
 import TextAreaInput from '../../Components/Inputs/TextAreaInput';
 import TextInput from '../../Components/Inputs/TextInput';
@@ -39,6 +40,7 @@ const CompanyCombinations: React.FC = () => {
         createdAt: '',
         experiences: [],
         formations: [],
+        skills: [],
     });
 
     const options = ['Conteúdo Inapropriado', 'Spam', 'Outro'];
@@ -216,7 +218,7 @@ Caso tenha interesse entre em contato conosco pelo telefone: ${ companyData.phon
                         </div>
                     </main>
                     <div className="min-h-80">
-                        {!candidate.description && !candidate.experiences.length && !candidate.formations.length && (
+                        {!candidate.description && !candidate.experiences.length && !candidate.formations.length && !candidate.skills.length && (
                             <div className="px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl">
                                 <FontAwesomeIcon icon={faWarning} className="mr-2 text-5xl" />
                                 <span className="text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1">
@@ -230,6 +232,18 @@ Caso tenha interesse entre em contato conosco pelo telefone: ${ companyData.phon
                                 <div className="text-lg md:text-xl text-justify">{candidate.description}</div>
                             </section>
                         )}
+                                         
+                        {!!candidate.skills.length && (
+                            <section className="px-5 my-10">
+                                <div className="font-medium text-xl text-dark-purple mb-2">Habilidades</div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {candidate.skills.map((card, index) => (
+                                        <CompanySkillCard key={index} card={card} />
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+                        
                         {!!candidate.experiences.length && (
                             <section className="px-5 mt-10">
                                 <div className="font-medium text-xl text-dark-purple mb-2">
@@ -251,7 +265,7 @@ Caso tenha interesse entre em contato conosco pelo telefone: ${ companyData.phon
                                     ))}
                                 </div>
                             </section>
-                        )}
+                        )}       
                         <div className="px-5 mt-2 text-sm md:text-md text-dark-gray font-medium">
                             <span className="mr-1">Usuário @{candidate.username}, desde</span>
                             {new Date(candidate.createdAt).toLocaleDateString('pt-BR')}
