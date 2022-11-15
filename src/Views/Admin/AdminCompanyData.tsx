@@ -2,9 +2,9 @@ import { faBuilding, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import AdminCompanyVacancyCard from '../../Components/Cards/AdminCompanyVacancyCard';
 import TextInput from '../../Components/Inputs/TextInput';
-
 import List from '../../Components/Items/List';
 import Loading from '../../Components/Items/Loading';
 import InputTypesEnum from '../../Enums/InputTypesEnum';
@@ -70,7 +70,7 @@ const AdminCompanyData: React.FC = () => {
         getValue: getInputValue,
         setValue: setInputValue,
     };
-    
+
     useEffect((): void => {
         window.document.title = 'Letmin - Empresa';
 

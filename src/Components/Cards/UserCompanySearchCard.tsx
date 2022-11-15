@@ -1,10 +1,11 @@
 import { faAddressBook, faBuilding, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+
 import { Company } from '../../Interfaces/CompanyInterfaces';
 
 interface ComponentInterface {
-    company: Company
+    company: Company;
 }
 
 const UserCompanySearchCard: React.FC<ComponentInterface> = ({ company }) => {

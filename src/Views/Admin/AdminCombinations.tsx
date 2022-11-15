@@ -2,8 +2,8 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import AdminCandidateCard from '../../Components/Cards/AdminCandidateCard';
 
+import AdminCandidateCard from '../../Components/Cards/AdminCandidateCard';
 import Loading from '../../Components/Items/Loading';
 import useAdmin from '../../Utils/useAdmin';
 import useLoading from '../../Utils/useLoading';

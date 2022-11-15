@@ -3,8 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../Contexts/AuthContextProvider';
 
 const useAdmin = () => {
-    const { axiosRequest, API_URL, dispatchError, dispatchSuccess, loading }: any =
-        useContext(AuthContext);
+    const { axiosRequest, API_URL, dispatchError, dispatchSuccess, loading }: any = useContext(AuthContext);
 
     // Admin functions
     const getAllCompanies = async () => {

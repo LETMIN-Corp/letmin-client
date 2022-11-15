@@ -63,4 +63,4 @@ class CompanyProfileI {
     [key: string]: any;
 }
 
-export { Company, ICompanie, EditVacancyData, VacancyData, wantedSkillsData, CompanyProfileI };
+export { Company, CompanyProfileI, EditVacancyData, ICompanie, VacancyData, wantedSkillsData };

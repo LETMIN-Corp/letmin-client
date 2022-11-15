@@ -29,7 +29,9 @@ const UserCompanySearch = () => {
     }, []);
 
     useEffect(() => {
-        const cards: any = companies.map((company: Company) => <UserCompanySearchCard company={company} key={company._id} />);
+        const cards: any = companies.map((company: Company) => (
+            <UserCompanySearchCard company={company} key={company._id} />
+        ));
         setCompanyCards(cards);
     }, [companies]);
 

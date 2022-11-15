@@ -14,6 +14,8 @@ import AdminCompanyData from './Views/Admin/AdminCompanyData';
 import AdminComplaint from './Views/Admin/AdminComplaint';
 import AdminError from './Views/Admin/AdminError';
 import AdminLogin from './Views/Admin/AdminLogin';
+import AdminLogs from './Views/Admin/AdminLogs';
+import AdminVacancyDetail from './Views/Admin/AdminVacancyDetail';
 import CompanyCombinations from './Views/Company/CompanyCombinations';
 import CompanyError from './Views/Company/CompanyError';
 import CompanyIndicators from './Views/Company/CompanyIndicators';
@@ -37,8 +39,6 @@ import UserError from './Views/User/UserError';
 import UserProfile from './Views/User/UserProfle';
 import UserVacancyDetail from './Views/User/UserVacancyDetail';
 import UserVacancySearch from './Views/User/UserVacancySearch';
-import AdminLogs from './Views/Admin/AdminLogs';
-import AdminVacancyDetail from './Views/Admin/AdminVacancyDetail';
 
 function App() {
     return (

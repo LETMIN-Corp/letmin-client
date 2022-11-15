@@ -69,7 +69,6 @@ const UserCompanyDetail = () => {
                 <UserCompanyVacancyCard vacancy={vacancy} key={vacancy._id} />
             ));
             setVacancyCards(cards);
-            console.log(res.data.data)
         });
     }, []);
 

@@ -10,8 +10,8 @@ import Loading from '../../Components/Items/Loading';
 import MaskTypesEnum from '../../Enums/MaskTypesEnum';
 import { VacancyData } from '../../Interfaces/UserInterfaces';
 import { dispatchError, dispatchSuccess } from '../../Utils/ToastMessages';
-import useLoading from '../../Utils/useLoading';
 import useAdmin from '../../Utils/useAdmin';
+import useLoading from '../../Utils/useLoading';
 import AdminDefault from './AdminDefault';
 
 const AdminVacancyDetail = () => {
