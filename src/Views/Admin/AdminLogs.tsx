@@ -30,7 +30,6 @@ const AdminLogs: React.FC = () => {
 
             setAllLogs(res.data.logs);
             setLogs(res.data.logs);
-            console.log(res.data.logs)
         });
     }, []);
 
@@ -64,7 +63,7 @@ const AdminLogs: React.FC = () => {
                     <FontAwesomeIcon icon={faBuilding} className="mr-2" />
                     Logs do Sistema
                 </h1>
-                <div className='flex'>
+                <div className="flex">
                     <div className="max-w-sm w-full relative mt-5">
                         <input
                             type="text"
@@ -95,7 +94,6 @@ const AdminLogs: React.FC = () => {
                         <FontAwesomeIcon icon={faBan} className="mr-2" />
                         Deletar todos os logs
                     </button>
-
                 </div>
                 {loading ? (
                     <Loading />
@@ -142,7 +140,7 @@ interface TableCardInterface {
         target: {
             role: string;
             foreignKey: string;
-        }
+        };
         ip: string;
         userAgent: string;
         createdAt: string;
@@ -179,8 +177,8 @@ const LogForm: React.FC<LogFormInterface> = ({ isDisabled, logs, selectedLogKey,
         getValue: (name: string) => {
             const [type, data] = name.split('-');
 
-            if(name == 'createdAt') {
-                return new Date(logs[selectedLogKey][type]).toLocaleDateString('pt-BR')
+            if (name == 'createdAt') {
+                return new Date(logs[selectedLogKey][type]).toLocaleDateString('pt-BR');
             }
 
             return logs[selectedLogKey][type];
@@ -189,19 +187,31 @@ const LogForm: React.FC<LogFormInterface> = ({ isDisabled, logs, selectedLogKey,
     };
 
     return (
-        <InfoModal title='Informações do Log' handleClose={handleClose} showIcon={false}>
-            <TextInput placeholder='Ação' type='text' consultPackage={ viewConsultPackage } name='action' id='action' />
-            <TextInput placeholder='Data de criação' type='text' consultPackage={ viewConsultPackage } name='createdAt' id='createdAt' />
-            <TextInput placeholder='Ip de criação' type='text' consultPackage={ viewConsultPackage } name='ip' id='ip' />
-            <TextInput placeholder='Usuário' type='text' consultPackage={ viewConsultPackage } name='userAgent' id='userAgent' />
+        <InfoModal title="Informações do Log" handleClose={handleClose} showIcon={false}>
+            <TextInput placeholder="Ação" type="text" consultPackage={viewConsultPackage} name="action" id="action" />
+            <TextInput
+                placeholder="Data de criação"
+                type="text"
+                consultPackage={viewConsultPackage}
+                name="createdAt"
+                id="createdAt"
+            />
+            <TextInput placeholder="Ip de criação" type="text" consultPackage={viewConsultPackage} name="ip" id="ip" />
+            <TextInput
+                placeholder="Usuário"
+                type="text"
+                consultPackage={viewConsultPackage}
+                name="userAgent"
+                id="userAgent"
+            />
             <TextAreaInput
-                name='description'
-                disabled={ isDisabled }
-                row={ 5 }
-                id='description'
-                placeholder='Descrição'
-                value={ logs[selectedLogKey].description }
-                consultPackage={ viewConsultPackage }
+                name="description"
+                disabled={isDisabled}
+                row={5}
+                id="description"
+                placeholder="Descrição"
+                value={logs[selectedLogKey].description}
+                consultPackage={viewConsultPackage}
             />
         </InfoModal>
     );
