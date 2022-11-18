@@ -9,6 +9,7 @@ interface ComponentInterface {
     name: string;
     id?: string;
     disabled?: boolean;
+    required?: boolean;
 }
 
 const SelectInput: React.FC<ComponentInterface> = ({
@@ -19,6 +20,7 @@ const SelectInput: React.FC<ComponentInterface> = ({
     name,
     id,
     disabled,
+    required,
 }) => {
     const getInputSize = () => {
         switch (size) {
@@ -48,7 +50,7 @@ const SelectInput: React.FC<ComponentInterface> = ({
                 className="w-full mt-2 mb-5 md:mt-2 py-2 px-5 border-2 border-dark-purple rounded-md"
             >
                 <option value="" disabled>
-                    {placeholder}
+                    {placeholder + (required ? ' *' : '')}
                 </option>
 
                 {options.map((option, key) => (
@@ -59,7 +61,7 @@ const SelectInput: React.FC<ComponentInterface> = ({
             </select>
 
             {inputValue && (
-                <div className="input-up-animation z-10 bg-white font-medium px-1 text-dark-purple">{placeholder}</div>
+                <div className="input-up-animation z-10 bg-white font-medium px-1 text-dark-purple">{placeholder + (required ? ' *' : '')}</div>
             )}
         </div>
     );

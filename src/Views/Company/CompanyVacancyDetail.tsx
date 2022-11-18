@@ -161,7 +161,7 @@ const CompanyVacancyDetail: React.FC = () => {
                                 <div className="md:flex md:justify-between">
                                     <div className="md:w-6/12 w-full mr-5">
                                         <SelectInput
-                                            placeholder="Setor *"
+                                            placeholder="Setor"
                                             options={[
                                                 'Recursos Humanos',
                                                 'Tecnologia',
@@ -178,15 +178,17 @@ const CompanyVacancyDetail: React.FC = () => {
                                             name="sector"
                                             id="sector"
                                             disabled={!canEdit}
+                                            required={true}
                                         />
                                         <TextAreaInput
                                             name="description"
                                             id="description"
                                             row={7}
                                             consultPackage={consultPackage}
-                                            placeholder="Descrição *"
+                                            placeholder="Descrição"
                                             value={vacancyData.description}
                                             disabled={!canEdit}
+                                            required={true}
                                         />
                                         <TextInput
                                             placeholder="Anos de experiência"
@@ -202,22 +204,24 @@ const CompanyVacancyDetail: React.FC = () => {
                                     </div>
                                     <div className="md:w-6/12 w-full">
                                         <SelectInput
-                                            placeholder="Região *"
+                                            placeholder="Região"
                                             options={['Sul', 'Sudeste', 'Centro-Oeste', 'Norte', 'Nordeste']}
                                             name="region"
                                             id="region"
                                             consultPackage={consultPackage}
                                             disabled={!canEdit}
+                                            required={true}
                                         />
                                         <div className="md:flex justify-between">
                                             <SelectInput
-                                                placeholder="Moeda *"
+                                                placeholder="Moeda"
                                                 options={['Real', 'Dolar', 'Euro']}
                                                 size="medium"
                                                 consultPackage={consultPackage}
                                                 name="currency"
                                                 id="currency"
                                                 disabled={!canEdit}
+                                                required={true}
                                             />
                                             <TextInput
                                                 placeholder="Salário"
@@ -233,20 +237,22 @@ const CompanyVacancyDetail: React.FC = () => {
                                             />
                                         </div>
                                         <SelectInput
-                                            placeholder="Carga Horária *"
+                                            placeholder="Carga Horária"
                                             options={['Integral', 'Meio Período', 'Home Office']}
                                             consultPackage={consultPackage}
                                             name="workload"
                                             id="workload"
                                             disabled={!canEdit}
+                                            required={true}
                                         />
                                         <SelectInput
-                                            placeholder="Tipo de Contratação *"
+                                            placeholder="Tipo de Contratação"
                                             options={['Estágio', 'Permanente', 'Temporário']}
                                             consultPackage={consultPackage}
                                             name="type"
                                             id="type"
                                             disabled={!canEdit}
+                                            required={true}
                                         />
                                     </div>
                                 </div>

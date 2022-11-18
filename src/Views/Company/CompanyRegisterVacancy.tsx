@@ -111,19 +111,20 @@ const CompanyRegisterVacancy = () => {
                                 required={true}
                             />
                             <SelectInput
-                                placeholder="Região *"
+                                placeholder="Região"
                                 options={['Sul', 'Sudeste', 'Centro-Oeste', 'Norte', 'Nordeste']}
                                 name="region"
                                 id="region"
                                 consultPackage={consultPackage}
+                                required={true}
                             />
                             <TextAreaInput
                                 name="description"
                                 id="description"
                                 row={6}
                                 consultPackage={consultPackage}
-                                placeholder="Descrição *"
-                                
+                                placeholder="Descrição"
+                                required={true}                                
                             />
                             <TextInput
                                 placeholder="Anos de experiência"
@@ -138,7 +139,8 @@ const CompanyRegisterVacancy = () => {
                         </div>
                         <div className="md:w-6/12 w-full md:mt-1">
                             <SelectInput
-                                placeholder="Carga Horária *"
+                                placeholder="Carga Horária"
+                                required={true}
                                 options={['Integral', 'Meio Período', 'Home Office']}
                                 consultPackage={consultPackage}
                                 name="workload"
@@ -146,7 +148,8 @@ const CompanyRegisterVacancy = () => {
                             ></SelectInput>
                             <div className="md:flex justify-between">
                                 <SelectInput
-                                    placeholder="Moeda *"
+                                    placeholder="Moeda"
+                                    required={true}
                                     options={['Real', 'Dolar', 'Euro']}
                                     size="medium"
                                     consultPackage={consultPackage}
@@ -166,7 +169,8 @@ const CompanyRegisterVacancy = () => {
                                 />
                             </div>
                             <SelectInput
-                                placeholder="Setor *"
+                                placeholder="Setor"
+                                required={true}
                                 options={[
                                     'Recursos Humanos',
                                     'Tecnologia',

@@ -11,6 +11,7 @@ interface ComponentInterface {
     id?: string;
     disabled?: boolean;
     resize?: boolean;
+    required?: boolean
 }
 
 const TextAreaInput: React.FC<ComponentInterface> = ({
@@ -23,6 +24,7 @@ const TextAreaInput: React.FC<ComponentInterface> = ({
     name,
     id,
     disabled,
+    required,
 }) => {
     function setValue(e: React.ChangeEvent<HTMLTextAreaElement>) {
         if (e.target.value.length <= limit) {
@@ -35,7 +37,7 @@ const TextAreaInput: React.FC<ComponentInterface> = ({
     return (
         <div className={`relative`}>
             <textarea
-                placeholder={placeholder}
+                placeholder={placeholder + (required ? ' *' : '')}
                 name={name}
                 onInput={setValue}
                 rows={row}
@@ -45,9 +47,10 @@ const TextAreaInput: React.FC<ComponentInterface> = ({
                     disabled || !resize ? 'resize-none' : ''
                 }`}
                 disabled={disabled}
+                required={required}
             ></textarea>
             {(inputValue || value) && (
-                <div className="input-up-animation z-10 bg-white font-medium px-1 text-dark-purple">{placeholder}</div>
+                <div className="input-up-animation z-10 bg-white font-medium px-1 text-dark-purple">{placeholder + (required ? ' *' : '')}</div>
             )}
         </div>
     );

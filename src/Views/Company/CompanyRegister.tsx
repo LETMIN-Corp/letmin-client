@@ -365,13 +365,14 @@ const CorpRegister: React.FC = () => {
                                     id="card-code"
                                 />
                                 <SelectInput
-                                    placeholder="Bandeira *"
+                                    placeholder="Bandeira"
                                     options={cardTypes}
                                     size="small"
                                     consultPackage={consultPackage}
                                     name="card-type"
                                     id="card-type"
                                     disabled={false}
+                                    required={true}
                                 />
                             </div>
                         </form>
@@ -538,12 +539,13 @@ const CorpRegister: React.FC = () => {
                                         disabled={true}
                                     />
                                     <SelectInput
-                                        placeholder="Bandeira *"
+                                        placeholder="Bandeira"
                                         options={cardTypes}
                                         size="small"
                                         consultPackage={viewConsultPackage}
                                         name="card-type"
                                         disabled={true}
+                                        required={true}
                                     />
                                 </div>
                             </form>
