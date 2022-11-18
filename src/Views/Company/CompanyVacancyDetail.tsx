@@ -93,7 +93,8 @@ const CompanyVacancyDetail: React.FC = () => {
             setVacancyData({
                 ...vacancyData,
                 wantedSkills: [...vacancyData.wantedSkills, skillData],
-            });
+            });            
+            setSkillModalIsOpen(false);
         });
     };
 
@@ -141,6 +142,7 @@ const CompanyVacancyDetail: React.FC = () => {
                                                 id="role"
                                                 consultPackage={consultPackage}
                                                 disabled={!canEdit}
+                                                required={true}
                                             />
                                         )}
                                         <FontAwesomeIcon
@@ -159,7 +161,7 @@ const CompanyVacancyDetail: React.FC = () => {
                                 <div className="md:flex md:justify-between">
                                     <div className="md:w-6/12 w-full mr-5">
                                         <SelectInput
-                                            placeholder="Setor"
+                                            placeholder="Setor *"
                                             options={[
                                                 'Recursos Humanos',
                                                 'Tecnologia',
@@ -182,7 +184,7 @@ const CompanyVacancyDetail: React.FC = () => {
                                             id="description"
                                             row={7}
                                             consultPackage={consultPackage}
-                                            placeholder="Descrição"
+                                            placeholder="Descrição *"
                                             value={vacancyData.description}
                                             disabled={!canEdit}
                                         />
@@ -195,11 +197,12 @@ const CompanyVacancyDetail: React.FC = () => {
                                             id="yearsOfExperience"
                                             disabled={!canEdit}
                                             consultPackage={consultPackage}
+                                            required={true}
                                         />
                                     </div>
                                     <div className="md:w-6/12 w-full">
                                         <SelectInput
-                                            placeholder="Região"
+                                            placeholder="Região *"
                                             options={['Sul', 'Sudeste', 'Centro-Oeste', 'Norte', 'Nordeste']}
                                             name="region"
                                             id="region"
@@ -208,7 +211,7 @@ const CompanyVacancyDetail: React.FC = () => {
                                         />
                                         <div className="md:flex justify-between">
                                             <SelectInput
-                                                placeholder="Moeda"
+                                                placeholder="Moeda *"
                                                 options={['Real', 'Dolar', 'Euro']}
                                                 size="medium"
                                                 consultPackage={consultPackage}
@@ -226,10 +229,11 @@ const CompanyVacancyDetail: React.FC = () => {
                                                 id="salary"
                                                 consultPackage={consultPackage}
                                                 disabled={!canEdit}
+                                                required={true}
                                             />
                                         </div>
                                         <SelectInput
-                                            placeholder="Carga Horária"
+                                            placeholder="Carga Horária *"
                                             options={['Integral', 'Meio Período', 'Home Office']}
                                             consultPackage={consultPackage}
                                             name="workload"
@@ -237,7 +241,7 @@ const CompanyVacancyDetail: React.FC = () => {
                                             disabled={!canEdit}
                                         />
                                         <SelectInput
-                                            placeholder="Tipo de Contratação"
+                                            placeholder="Tipo de Contratação *"
                                             options={['Estágio', 'Permanente', 'Temporário']}
                                             consultPackage={consultPackage}
                                             name="type"
@@ -294,7 +298,9 @@ const CompanyVacancyDetail: React.FC = () => {
                                                 limit={30}
                                                 id="name"
                                                 consultPackage={consultPackage}
+                                                required={true}
                                             />
+                                            <div className='text-lg'>Nível da Habilidade *</div>
                                             <RadioInput
                                                 name="wantedSkills-level"
                                                 id="wantedSkills"

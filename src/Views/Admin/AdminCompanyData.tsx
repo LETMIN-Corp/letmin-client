@@ -113,7 +113,6 @@ const AdminCompanyData: React.FC = () => {
                             <div className="md:flex md:justify-between">
                                 <div className="md:w-6/12 w-full mr-5">
                                     <TextInput
-                                        required={true}
                                         placeholder="Razão Social"
                                         type={InputTypesEnum.text}
                                         consultPackage={consultPackage}
@@ -121,7 +120,6 @@ const AdminCompanyData: React.FC = () => {
                                         disabled={true}
                                     />
                                     <TextInput
-                                        required={true}
                                         placeholder="CNPJ"
                                         type={InputTypesEnum.text}
                                         consultPackage={consultPackage}
@@ -131,7 +129,6 @@ const AdminCompanyData: React.FC = () => {
                                 </div>
                                 <div className="md:w-6/12 w-full mr-5">
                                     <TextInput
-                                        required={true}
                                         placeholder="E-mail"
                                         type={InputTypesEnum.email}
                                         consultPackage={consultPackage}
@@ -139,7 +136,6 @@ const AdminCompanyData: React.FC = () => {
                                         disabled={true}
                                     />
                                     <TextInput
-                                        required={true}
                                         placeholder="Telefone"
                                         type={InputTypesEnum.tel}
                                         consultPackage={consultPackage}

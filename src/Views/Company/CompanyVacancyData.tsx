@@ -1,4 +1,4 @@
-import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -83,6 +83,16 @@ const CompanyVacancyData = () => {
                                         <CandidateData key={key} name={row.name} compatibility={row.compatibility} curriculum={row._id} />
                                     ))}
                                 </div>
+                            </div>
+                        )
+                    }
+                    {
+                        candidates.length <= 0 &&  matches.length <= 0 && (
+                            <div className="px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl">
+                                <FontAwesomeIcon icon={faWarning} className="mr-2 text-5xl" />
+                                <span className="text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1">
+                                    Não há candidatos ou sugestões para essa vaga
+                                </span>
                             </div>
                         )
                     }

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import AdminCandidateCard from '../../Components/Cards/AdminCandidateCard';
+import AdminSkillCard from '../../Components/Cards/AdminSkillsCard';
 import Loading from '../../Components/Items/Loading';
 import useAdmin from '../../Utils/useAdmin';
 import useLoading from '../../Utils/useLoading';
@@ -29,6 +30,7 @@ const AdminCombinations: React.FC = () => {
         description: '',
         experiences: [],
         formations: [],
+        skills: [],
     });
 
     useEffect((): void => {
@@ -64,7 +66,7 @@ const AdminCombinations: React.FC = () => {
                         </div>
                     </main>
                     <div className="min-h-80">
-                        {!candidate.description && !candidate.experiences.length && !candidate.formations.length && (
+                        {!candidate.description && !candidate.experiences.length && !candidate.formations.length &&  !candidate.skills.length && (
                             <div className="px-5 h-80 flex flex-col items-center drop-shadow-md justify-center text-primary font-bold text-2xl">
                                 <FontAwesomeIcon icon={faWarning} className="mr-2 text-5xl" />
                                 <span className="text-center w-10/12 md:w-6/12 lg:w-4/12 mt-1">
@@ -73,9 +75,20 @@ const AdminCombinations: React.FC = () => {
                             </div>
                         )}
                         {candidate.description && (
-                            <section className="px-5 mt-10">
+                            <section className="px-5 my-5">
                                 <div className="font-medium text-xl text-dark-purple">Descrição</div>
                                 <div className="text-lg md:text-xl text-justify">{candidate.description}</div>
+                            </section>
+                        )}
+                        
+                        {!!candidate.skills.length && (
+                            <section className="px-5 my-5">
+                                <div className="font-medium text-xl text-dark-purple">Habilidades</div>
+                                <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {candidate.skills.map((card, index) => (
+                                        <AdminSkillCard key={index} card={card} />
+                                    ))}
+                                </div>
                             </section>
                         )}
                         {!!candidate.experiences.length && (

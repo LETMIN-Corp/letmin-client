@@ -363,7 +363,7 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
-                        {!userData.experiences.length && <div>Você não tem experiências cadastradas</div>}
+                        {!userData.experiences.length && <div>Você não tem Experiências cadastradas</div>}
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {userData.experiences.map((card, key) => (
                                 <UserExperienceCard
@@ -423,8 +423,8 @@ const UserEditData: React.FC = () => {
                                                     size="medium"
                                                     name="formation-start"
                                                     id="formation-start"
-                                                    min={4}
-                                                    max={4}
+                                                    min={1900}
+                                                    max={new Date().getFullYear()}
                                                     consultPackage={consultPackage}
                                                 />
                                                 <TextInput
@@ -435,8 +435,8 @@ const UserEditData: React.FC = () => {
                                                     size="medium"
                                                     name="formation-finish"
                                                     id="formation-finish"
-                                                    min={4}
-                                                    max={4}
+                                                    min={1900}
+                                                    max={new Date().getFullYear()}
                                                     consultPackage={consultPackage}
                                                 />
                                             </div>
@@ -453,7 +453,7 @@ const UserEditData: React.FC = () => {
                                 )}
                             </div>
                         </div>
-                        {!userData.formations.length && <div>Você não nenhuma Formação cadastradas</div>}
+                        {!userData.formations.length && <div>Você não tem Formações cadastradas</div>}
                         <div className="text-sm md:text-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {userData.formations.map((card, key) => (
                                 <UserExperienceCard

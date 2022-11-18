@@ -108,9 +108,10 @@ const CompanyRegisterVacancy = () => {
                                 name="role"
                                 id="role"
                                 consultPackage={consultPackage}
+                                required={true}
                             />
                             <SelectInput
-                                placeholder="Região"
+                                placeholder="Região *"
                                 options={['Sul', 'Sudeste', 'Centro-Oeste', 'Norte', 'Nordeste']}
                                 name="region"
                                 id="region"
@@ -121,7 +122,8 @@ const CompanyRegisterVacancy = () => {
                                 id="description"
                                 row={6}
                                 consultPackage={consultPackage}
-                                placeholder="Descrição"
+                                placeholder="Descrição *"
+                                
                             />
                             <TextInput
                                 placeholder="Anos de experiência"
@@ -131,11 +133,12 @@ const CompanyRegisterVacancy = () => {
                                 name="yearsOfExperience"
                                 id="yearsOfExperience"
                                 consultPackage={consultPackage}
+                                required={true}
                             />
                         </div>
                         <div className="md:w-6/12 w-full md:mt-1">
                             <SelectInput
-                                placeholder="Carga Horária"
+                                placeholder="Carga Horária *"
                                 options={['Integral', 'Meio Período', 'Home Office']}
                                 consultPackage={consultPackage}
                                 name="workload"
@@ -143,7 +146,7 @@ const CompanyRegisterVacancy = () => {
                             ></SelectInput>
                             <div className="md:flex justify-between">
                                 <SelectInput
-                                    placeholder="Moeda"
+                                    placeholder="Moeda *"
                                     options={['Real', 'Dolar', 'Euro']}
                                     size="medium"
                                     consultPackage={consultPackage}
@@ -159,10 +162,11 @@ const CompanyRegisterVacancy = () => {
                                     name="salary"
                                     id="salary"
                                     consultPackage={consultPackage}
+                                    required={true}
                                 />
                             </div>
                             <SelectInput
-                                placeholder="Setor"
+                                placeholder="Setor *"
                                 options={[
                                     'Recursos Humanos',
                                     'Tecnologia',
@@ -180,7 +184,7 @@ const CompanyRegisterVacancy = () => {
                                 id="sector"
                             ></SelectInput>
                             <div className="pb-2">
-                                <div className="text-dark-purple font-medium text-md">Tipo de Contratação</div>
+                                <div className="text-dark-purple font-medium text-md">Tipo de Contratação *</div>
                                 <div>
                                     <RadioInput
                                         name="type"
@@ -238,7 +242,9 @@ const CompanyRegisterVacancy = () => {
                                 limit={30}
                                 id="name"
                                 consultPackage={consultPackage}
+                                required={true}
                             />
+                            <div className='text-lg'>Nível da Habilidade *</div>
                             <RadioInput
                                 name="wantedSkills-level"
                                 id="wantedSkills"

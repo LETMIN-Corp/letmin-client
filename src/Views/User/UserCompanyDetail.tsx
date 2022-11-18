@@ -116,7 +116,6 @@ const UserCompanyDetail = () => {
                             <div className="md:flex md:justify-between">
                                 <div className="md:w-6/12 w-full mr-5">
                                     <TextInput
-                                        required={true}
                                         placeholder="Razão Social"
                                         type={InputTypesEnum.text}
                                         consultPackage={consultPackage}
@@ -124,7 +123,6 @@ const UserCompanyDetail = () => {
                                         disabled={true}
                                     />
                                     <TextInput
-                                        required={true}
                                         placeholder="CNPJ"
                                         type={InputTypesEnum.text}
                                         consultPackage={consultPackage}
@@ -134,7 +132,6 @@ const UserCompanyDetail = () => {
                                 </div>
                                 <div className="md:w-6/12 w-full mr-5">
                                     <TextInput
-                                        required={true}
                                         placeholder="E-mail"
                                         type={InputTypesEnum.email}
                                         consultPackage={consultPackage}
@@ -142,7 +139,6 @@ const UserCompanyDetail = () => {
                                         disabled={true}
                                     />
                                     <TextInput
-                                        required={true}
                                         placeholder="Telefone"
                                         type={InputTypesEnum.tel}
                                         consultPackage={consultPackage}

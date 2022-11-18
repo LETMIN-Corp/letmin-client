@@ -201,6 +201,7 @@ const CompanyForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelU
                         consultPackage={consultPackage}
                         name="company-name"
                         disabled={!canEdit}
+                        required={true}
                     />
                     <TextInput
                         placeholder="CNPJ"
@@ -210,6 +211,7 @@ const CompanyForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelU
                         consultPackage={consultPackage}
                         name="company-cnpj"
                         disabled={!canEdit}
+                        required={true}
                     />
                 </div>
                 <div className="md:flex justify-between w-full">
@@ -220,6 +222,7 @@ const CompanyForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelU
                         consultPackage={consultPackage}
                         name="company-email"
                         disabled={!canEdit}
+                        required={true}
                     />
                     <TextInput
                         placeholder="Telefone"
@@ -229,6 +232,7 @@ const CompanyForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelU
                         consultPackage={consultPackage}
                         name="company-phone"
                         disabled={!canEdit}
+                        required={true}
                     />
                 </div>
                 <TextInput
@@ -237,6 +241,7 @@ const CompanyForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelU
                     consultPackage={consultPackage}
                     name="company-address"
                     disabled={!canEdit}
+                    required={true}
                 />
                 <TextInput
                     placeholder="Descrição"
@@ -278,6 +283,7 @@ const HolderForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelUp
                         consultPackage={consultPackage}
                         name="holder-name"
                         disabled={!canEdit}
+                        required={true}
                     />
                     <TextInput
                         placeholder="CPF"
@@ -287,6 +293,7 @@ const HolderForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelUp
                         consultPackage={consultPackage}
                         name="holder-cpf"
                         disabled={!canEdit}
+                        required={true}
                     />
                 </div>
                 <div className="md:flex justify-between w-full">
@@ -297,6 +304,7 @@ const HolderForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelUp
                         consultPackage={consultPackage}
                         name="holder-email"
                         disabled={!canEdit}
+                        required={true}
                     />
                     <TextInput
                         placeholder="Telefone"
@@ -306,6 +314,7 @@ const HolderForm: React.FC<FormInterface> = ({ canEdit, consultPackage, cancelUp
                         consultPackage={consultPackage}
                         name="holder-phone"
                         disabled={!canEdit}
+                        required={true}
                     />
                 </div>
             </form>

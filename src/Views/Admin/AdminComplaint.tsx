@@ -91,6 +91,7 @@ const AdminComplaint: React.FC = () => {
 
             setAllComplaints(res.data.complaints);
             setComplaints(res.data.complaints);
+            console.log(res.data.complaints)
             return;
         });
     }, []);

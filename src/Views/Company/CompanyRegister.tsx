@@ -365,7 +365,7 @@ const CorpRegister: React.FC = () => {
                                     id="card-code"
                                 />
                                 <SelectInput
-                                    placeholder="Bandeira"
+                                    placeholder="Bandeira *"
                                     options={cardTypes}
                                     size="small"
                                     consultPackage={consultPackage}
@@ -538,7 +538,7 @@ const CorpRegister: React.FC = () => {
                                         disabled={true}
                                     />
                                     <SelectInput
-                                        placeholder="Bandeira"
+                                        placeholder="Bandeira *"
                                         options={cardTypes}
                                         size="small"
                                         consultPackage={viewConsultPackage}
