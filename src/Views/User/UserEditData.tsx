@@ -13,6 +13,7 @@ import Loading from '../../Components/Items/Loading';
 import ConfirmationModal from '../../Components/Modals/ConfirmationModal';
 import FormModal from '../../Components/Modals/FormModal';
 import InputTypesEnum from '../../Enums//InputTypesEnum';
+import MaskTypesEnum from '../../Enums/MaskTypesEnum';
 import {
     Iexperience,
     Iformation,
@@ -228,6 +229,15 @@ const UserEditData: React.FC = () => {
                                     />
                                 </div>
                             </div>
+                            <TextInput
+                                size="medium"
+                                placeholder="Telefone (não público)"
+                                type={InputTypesEnum.tel}
+                                useMask={MaskTypesEnum.phone}
+                                name="phone"
+                                id="phone"
+                                consultPackage={consultPackage}
+                            />
                         </div>
                     </main>
                     <section className="px-5 my-10">

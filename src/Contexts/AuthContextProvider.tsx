@@ -73,7 +73,7 @@ export const AuthState = ({ children }: any) => {
                     signOut();
                 }
 
-                if (err.response || err.response.data.message == "Token inválido.") {
+                if (err.response && err.response.data.message == "Token inválido.") {
                     dispatchError('Sessão expirada, faça login novamente');
                     signOut();
                 }

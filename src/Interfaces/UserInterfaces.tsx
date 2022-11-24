@@ -34,6 +34,7 @@ class IUserData extends BasicUserData {
     skills: Array<Iskill> = [new Iskill()];
     experiences: Array<Iexperience> = [new Iexperience()];
     formations: Array<Iformation> = [new Iformation()];
+    phone: string = '';
     [key: string]: any;
 }
 
