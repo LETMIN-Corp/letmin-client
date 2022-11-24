@@ -72,6 +72,12 @@ export const AuthState = ({ children }: any) => {
                     dispatchError('Error de rede, cheque sua conexão');
                     signOut();
                 }
+
+                if (err.response || err.response.data.message == "Token inválido.") {
+                    dispatchError('Sessão expirada, faça login novamente');
+                    signOut();
+                }
+
                 removeLoading();
                 return err.response;
             });
