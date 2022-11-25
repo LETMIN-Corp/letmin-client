@@ -95,6 +95,7 @@ const CompanyVacancyDetail: React.FC = () => {
                 wantedSkills: [...vacancyData.wantedSkills, skillData],
             });            
             setSkillModalIsOpen(false);
+            setSkillData(new wantedSkillsData());
         });
     };
 
@@ -257,18 +258,23 @@ const CompanyVacancyDetail: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="pb-5">
-                                    <div className="text-dark-purple flex justify-between items-center font-medium text-md">
+                                    <div className="text-dark-purple flex items-center font-medium text-md">
                                         <div className="mr-2 font-medium text-lg">Habilidades Desejadas</div>
                                         {canEdit && (
                                             <div className="flex">
-                                                <button
-                                                    onClick={() => setCanExcludeSkills(!canExcludeSkills)}
-                                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-red-dark ease-out duration-200"
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={canExcludeSkills ? faTrashArrowUp : faTrash}
-                                                    />
-                                                </button>
+                                                {
+                                                    vacancyData.wantedSkills.length !== 0 && (
+                                                        <button
+                                                            onClick={() => setCanExcludeSkills(!canExcludeSkills)}
+                                                            className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-red-dark ease-out duration-200"
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={canExcludeSkills ? faTrashArrowUp : faTrash}
+                                                            />
+                                                        </button>
+                                                    )
+                                                }
+                                                
                                                 <button
                                                     className="bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200"
                                                     onClick={() => setSkillModalIsOpen(true)}
@@ -279,6 +285,13 @@ const CompanyVacancyDetail: React.FC = () => {
                                         )}
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                                        {
+                                            (vacancyData.wantedSkills.length == 0 && !canEdit) && (
+                                                <div className="text-dark-purple font-medium text-md">
+                                                    - Nenhuma habilidade adicionada
+                                                </div>
+                                            )
+                                        }
                                         {vacancyData.wantedSkills.map((card: wantedSkillsData, index) => (
                                             <div className="mt-2" key={index}>
                                                 <UserSkillCard

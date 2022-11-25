@@ -130,7 +130,7 @@ const UserCompanyDetail = () => {
                                         disabled={true}
                                     />
                                 </div>
-                                <div className="md:w-6/12 w-full mr-5">
+                                <div className="md:w-6/12 w-full">
                                     <TextInput
                                         placeholder="E-mail"
                                         type={InputTypesEnum.email}
@@ -154,9 +154,20 @@ const UserCompanyDetail = () => {
                                 name="company-address"
                                 disabled={true}
                             />
+                            {
+                                companyData.company.description && (
+                                    <TextInput
+                                        placeholder="Descrição"
+                                        type={InputTypesEnum.text}
+                                        consultPackage={consultPackage}
+                                        name="company-description"
+                                        disabled={true}
+                                    />
+                                )
+                            }
                         </div>
 
-                        <h3 className="text-lg font-bold my-5 text-dark-purple lg:mx-auto">Vagas Disponíveis</h3>
+                        <h3 className="text-lg font-bold my-5 text-dark-purple lg:mx-auto">Vagas Disponíveis {vacancyCards.length > 0 && `(${vacancyCards.length})`}</h3>
                         <div>
                             {!!vacancyCards.length && (
                                 <List

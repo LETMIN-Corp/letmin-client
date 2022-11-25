@@ -151,9 +151,56 @@ const AdminCompanyData: React.FC = () => {
                                 name="company-address"
                                 disabled={true}
                             />
+                            {
+                                companyData.company.description && (
+                                    <TextInput
+                                        placeholder="Descrição"
+                                        type={InputTypesEnum.text}
+                                        consultPackage={consultPackage}
+                                        name="company-description"
+                                        disabled={true}
+                                    />
+                                )
+                            }
+                            <h3 className="text-lg font-bold my-5 text-dark-purple lg:mx-auto">Informações do Responsável</h3>
+                            <div className="md:flex md:justify-between">
+                                <div className="md:w-6/12 w-full mr-5">
+                                    <TextInput
+                                        placeholder="Nome"
+                                        type={InputTypesEnum.text}
+                                        consultPackage={consultPackage}
+                                        name="holder-name"
+                                        disabled={true}
+                                    />
+                                    <TextInput
+
+                                        placeholder="CPF"
+                                        type={InputTypesEnum.text}
+                                        consultPackage={consultPackage}
+                                        name="holder-cpf"
+                                        disabled={true}
+                                    />
+                                </div>
+                                <div className="md:w-6/12 w-full mr-5">
+                                    <TextInput
+                                        placeholder="E-mail"
+                                        type={InputTypesEnum.email}
+                                        consultPackage={consultPackage}
+                                        name="holder-email"
+                                        disabled={true}
+                                    />
+                                    <TextInput
+                                        placeholder="Telefone"
+                                        type={InputTypesEnum.tel}
+                                        consultPackage={consultPackage}
+                                        name="holder-phone"
+                                        disabled={true}
+                                    />
+                                </div>
+                            </div>
                         </div>
 
-                        <h3 className="text-lg font-bold my-5 text-dark-purple lg:mx-auto">Vagas Disponíveis</h3>
+                        <h3 className="text-lg font-bold my-5 text-dark-purple lg:mx-auto">Vagas Disponíveis {vacancyCards.length > 0 && `(${vacancyCards.length})`}</h3>
                         <div>
                             {!!vacancyCards.length && (
                                 <List

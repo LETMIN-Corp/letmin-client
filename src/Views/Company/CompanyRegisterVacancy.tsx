@@ -202,15 +202,19 @@ const CompanyRegisterVacancy = () => {
                         </div>
                     </div>
                     <div className="pb-5">
-                        <div className="text-dark-purple flex justify-between items-center font-medium text-md">
+                        <div className="text-dark-purple flex items-center font-medium text-md">
                             <div className="mr-2 font-medium text-lg">Habilidades Desejadas</div>
                             <div className="flex">
-                                <button
-                                    onClick={() => setCanExcludeSkills(!canExcludeSkills)}
-                                    className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-red-dark ease-out duration-200"
-                                >
-                                    <FontAwesomeIcon icon={canExcludeSkills ? faTrashArrowUp : faTrash} />
-                                </button>
+                                {
+                                    vacancyData.wantedSkills.length != 0 && (
+                                        <button
+                                            onClick={() => setCanExcludeSkills(!canExcludeSkills)}
+                                            className="bg-red w-10 h-10 mr-2 rounded-md text-white hover:bg-red-dark ease-out duration-200"
+                                        >
+                                            <FontAwesomeIcon icon={canExcludeSkills ? faTrashArrowUp : faTrash} />
+                                        </button>
+                                    )
+                                }
                                 <button
                                     className="bg-primary h-10 w-10 text-white text-center w-10 py-2 rounded-md drop-shadow-lg md:text-lg hover:bg-bold-purple ease-out duration-200"
                                     onClick={() => setSkillModalIsOpen(true)}

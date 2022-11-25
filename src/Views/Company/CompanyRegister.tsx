@@ -33,42 +33,38 @@ const CorpRegister: React.FC = () => {
         },
     ];
 
-    const [currentPage, setCurrentPage] = useState(0);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [termIsAccepted, setTermIsAccepted] = useState(false);
-    const [registerData, setRegisterData] = useState<IRegisterData>({
-        company: {
+    class RegisterData {
+        company = {
             name: '',
             cnpj: '',
             address: '',
             phone: '',
             email: '',
-        },
-        holder: {
+        };
+        holder = {
             name: '',
             cpf: '',
             phone: '',
             email: '',
             password: '',
             confirmPassword: '',
-        },
-        plan: {
+        };
+        plan = {
             selected: '',
-        },
-        card: {
+        };
+        card = {
             type: '',
             number: '',
             owner: '',
             expiration: '',
             code: '',
-        },
-    });
-
-    interface IRegisterData {
-        [key: string]: {
-            [key: string]: string;
         };
+        [key: string]: any;
     }
+    const [currentPage, setCurrentPage] = useState(0);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [termIsAccepted, setTermIsAccepted] = useState(false);
+    const [registerData, setRegisterData] = useState<RegisterData>(new RegisterData());
 
     function returnToRegisterPage() {
         navigate('/register');
@@ -555,18 +551,18 @@ const CorpRegister: React.FC = () => {
                                     onClick={() => setTermIsAccepted(!termIsAccepted)}
                                     defaultChecked={termIsAccepted}
                                     type="checkbox"
-                                    className="mr-3 h-5 w-5 cursor-pointer"
+                                    className="mr-3 h-12 w-12 sm:h-6 sm:w-6 cursor-pointer"
                                     name="accept"
                                     id="accept"
                                 />
                                 <label htmlFor="accept">
-                                    <span>Aceitar os </span>
+                                    <span>Eu aceito e concordo com os </span>
                                     <a
                                         className="text-primary hover:text-bright-purple font-medium"
                                         target="_blank"
                                         href="../../../resources/term-of-commitment.pdf"
                                     >
-                                        termos de compromisso
+                                        Termos e condições gerais de uso
                                     </a>
                                 </label>
                             </div>
