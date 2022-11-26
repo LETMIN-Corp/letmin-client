@@ -1,4 +1,4 @@
-import { faPencil, faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faAt, faPencil, faPhone, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -58,7 +58,14 @@ const UserProfile: React.FC = () => {
                             <div className="font-bold text-2xl text-dark-purple">
                                 {userData.name || 'Nome do Usuário'}
                             </div>
-                            <div className="text-sm text-dark-purple">@{userData.username}</div>
+                            <div className="text-sm text-dark-purple w-72 flex justify-between">
+                                <div><FontAwesomeIcon icon={ faAt } className='mr-2'></FontAwesomeIcon>{userData.username}</div>
+                                {
+                                    userData.phone && (
+                                        <div><FontAwesomeIcon icon={ faPhone } className='mr-2'></FontAwesomeIcon>{ userData.phone }</div>                                      
+                                    )
+                                }                            
+                            </div> 
                             <div className="text-lg text-justify text-dark-gray">{userData.role}</div>
                         </div>
                     </main>
